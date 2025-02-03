@@ -1,4 +1,4 @@
-name: Build and deploy .NET Core application to Web App dyvenix-app1
+name: Original workflow
 on:
   workflow_dispatch:    
 

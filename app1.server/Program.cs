@@ -39,19 +39,34 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
+app.UseCors("CORSPolicy");
+app.MapControllers();
+app.UseDefaultFiles(); // Allows serving index.html as default
+app.UseStaticFiles(); // Enables serving files from wwwroot
+app.UseRouting();
+
 if (!appConfig.AuthConfig.Disabled)
 {
-	app.UseCors("CORSPolicy");
 	app.UseAuthentication(); // resposible for constructing AuthenticationTicket objects representing the user's identity
 	app.UseAuthorization();
-	app.MapControllers();
 }
 else
 {
 	app.MapControllers().AllowAnonymous();
 }
 
-Serilog.Debugging.SelfLog.Enable(msg => Debug.WriteLine(msg));
+// Redirect non-API requests to Angular app
+app.Use(async (context, next) =>
+{
+    if (!context.Request.Path.Value.StartsWith("/api") && 
+        !System.IO.Path.HasExtension(context.Request.Path.Value))
+    {
+        context.Request.Path = "/index.html";
+    }
+    await next();
+});
+
+//Serilog.Debugging.SelfLog.Enable(msg => Debug.WriteLine(msg));
 
 logger.Debug("Starting application");
 app.Run();

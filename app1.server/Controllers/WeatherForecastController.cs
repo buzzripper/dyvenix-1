@@ -7,7 +7,7 @@ using System.Linq;
 namespace Dyvenix.App1.Server.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	[Route("api/[controller]")]
 	public class WeatherForecastController : ApiControllerBase
 	{
 		private static readonly string[] Summaries = new[]

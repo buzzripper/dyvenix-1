@@ -67,7 +67,7 @@ jobs:
 
     - name: Build Angular App
       working-directory: ${{ env.ANG_ROOT_DIR }}
-      run: npm run build -- --configuration production --output-path "../${{ env.API_ROOT_DIR }}"
+      run: npm run build -- --configuration production --output-path "../${{ env.API_ROOT_DIR }}/wwwroot"
 
     # .Net
     - name: Setup .NET SDK

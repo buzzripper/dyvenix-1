@@ -36,7 +36,7 @@ jobs:
 
     - name: Build Angular App
       working-directory: app1.client
-      run: npm run build -- --configuration production --output-path ../app1.server
+      run: npm run build -- --configuration production --output-path "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot"
 
     - name: Build
       run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore

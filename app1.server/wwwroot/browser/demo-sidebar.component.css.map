@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["demo-sidebar.component.ts"],
-  "sourcesContent": ["\n            demo-sidebar\n                fuse-vertical-navigation\n                .fuse-vertical-navigation-wrapper {\n                box-shadow: none !important;\n            }\n        "],
-  "mappings": ";AACY,aAAA,yBAAA,CAAA;AAGI,cAAA;;",
-  "names": []
-}

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/modules/admin/apps/mailbox/sidebar/sidebar.component.scss"],
-  "sourcesContent": ["mailbox-sidebar {\n    fuse-vertical-navigation {\n        .fuse-vertical-navigation-wrapper {\n            box-shadow: none !important;\n        }\n    }\n}\n"],
-  "mappings": ";AAEQ,gBAAA,yBAAA,CAAA;AACI,cAAA;;",
-  "names": []
-}

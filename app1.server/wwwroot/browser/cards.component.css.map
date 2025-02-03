@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["cards.component.ts"],
-  "sourcesContent": ["\n            cards fuse-card {\n                margin: 16px;\n            }\n        "],
-  "mappings": ";AACY,MAAA;AACI,UAAA;;",
-  "names": []
-}

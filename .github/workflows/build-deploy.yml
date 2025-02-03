@@ -36,7 +36,7 @@ jobs:
 
     - name: Build Angular App
       working-directory: app1.client
-      run: npm run build -- --configuration production --output-path ../app1.server/wwwroot
+      run: npm run build -- --configuration production --output-path ../app1.server
 
     - name: Build
       run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore

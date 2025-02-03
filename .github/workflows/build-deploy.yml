@@ -1,5 +1,8 @@
 name: Build and deploy .NET Core application to Web App dyvenix-app1
 on:
+  push:
+    branches:
+    - main
   workflow_dispatch:    
 
 env:
@@ -8,6 +11,7 @@ env:
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 9.0.x
   WORKING_DIRECTORY: app1.server
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,19 +21,38 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+
     - name: Restore
       run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22.x' # Adjust if needed
+
+    - name: Install Angular Dependencies
+      working-directory: app1.client
+      run: npm install
+
+    - name: Build Angular App
+      working-directory: app1.client
+      run: npm run build -- --configuration production --output-path ../app1.server/wwwroot
+
     - name: Build
       run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
+
     - name: Test
       run: dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
+
     - name: Publish
       run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+
     - name: Publish Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: webapp
         path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
   deploy:
     runs-on: ubuntu-latest
     needs: build

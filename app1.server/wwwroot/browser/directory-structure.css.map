@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["directory-structure.ts"],
+  "sourcesContent": ["\n            directory-structure .mat-tree {\n                font-family: 'IBM Plex Mono', Menlo, Monaco, Consolas,\n                    'Liberation Mono', 'Courier New', monospace;\n            }\n\n            directory-structure .mat-tree-node {\n                min-height: 32px;\n            }\n\n            directory-structure .mat-tree .mat-icon-button {\n                width: 32px;\n                height: 32px;\n                min-height: 32px;\n                line-height: 32px;\n                margin-right: 8px;\n            }\n        "],
+  "mappings": ";AACY,oBAAA,CAAA;AACI;IAAA,eAAA;IAAA,KAAA;IAAA,MAAA;IAAA,QAAA;IAAA,iBAAA;IAAA,aAAA;IAAA;;AAIJ,oBAAA,CAAA;AACI,cAAA;;AAGJ,oBAAA,CATA,SASA,CAAA;AACI,SAAA;AACA,UAAA;AACA,cAAA;AACA,eAAA;AACA,gBAAA;;",
+  "names": []
+}

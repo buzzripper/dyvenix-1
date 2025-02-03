@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/admin/ui/other-components/other-components.component.scss"],
+  "sourcesContent": ["other-components {\n    fuse-vertical-navigation {\n        .fuse-vertical-navigation-wrapper {\n            box-shadow: none !important;\n        }\n    }\n}\n"],
+  "mappings": ";AAEQ,iBAAA,yBAAA,CAAA;AACI,cAAA;;",
+  "names": []
+}

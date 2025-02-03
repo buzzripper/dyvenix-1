@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["layout-overview.component.ts"],
+  "sourcesContent": ["\n            layout-overview #component-container > *:first-child {\n                position: relative;\n                display: flex;\n                flex-direction: column;\n                flex: 1 1 auto;\n            }\n        "],
+  "mappings": ";AACY,gBAAA,CAAA,oBAAA,EAAA,CAAA;AACI,YAAA;AACA,WAAA;AACA,kBAAA;AACA,QAAA,EAAA,EAAA;;",
+  "names": []
+}

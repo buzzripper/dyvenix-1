@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/@fuse/pipes/find-by-key/find-by-key.pipe.ts"],
+  "sourcesContent": ["import { Pipe, PipeTransform } from '@angular/core';\n\n/**\n * Finds an object from given source using the given key - value pairs\n */\n@Pipe({\n    name: 'fuseFindByKey',\n    pure: false,\n    standalone: true,\n})\nexport class FuseFindByKeyPipe implements PipeTransform {\n    /**\n     * Transform\n     *\n     * @param value A string or an array of strings to find from source\n     * @param key Key of the object property to look for\n     * @param source Array of objects to find from\n     */\n    transform(value: string | string[], key: string, source: any[]): any {\n        // If the given value is an array of strings...\n        if (Array.isArray(value)) {\n            return value.map((item) =>\n                source.find((sourceItem) => sourceItem[key] === item)\n            );\n        }\n\n        // If the value is a string...\n        return source.find((sourceItem) => sourceItem[key] === value);\n    }\n}\n"],
+  "mappings": ";;;;;AAUM,IAAO,oBAAP,MAAO,mBAAiB;;;;;;;;EAQ1B,UAAU,OAA0B,KAAa,QAAa;AAE1D,QAAI,MAAM,QAAQ,KAAK,GAAG;AACtB,aAAO,MAAM,IAAI,CAAC,SACd,OAAO,KAAK,CAAC,eAAe,WAAW,GAAG,MAAM,IAAI,CAAC;IAE7D;AAGA,WAAO,OAAO,KAAK,CAAC,eAAe,WAAW,GAAG,MAAM,KAAK;EAChE;;;uCAlBS,oBAAiB;IAAA;EAAA;;4FAAjB,oBAAiB,MAAA,MAAA,CAAA;EAAA;;",
+  "names": []
+}

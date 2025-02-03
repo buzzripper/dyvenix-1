@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/admin/docs/guides/guides.component.scss"],
+  "sourcesContent": ["guides {\n    fuse-vertical-navigation {\n        .fuse-vertical-navigation-wrapper {\n            box-shadow: none !important;\n        }\n    }\n}\n"],
+  "mappings": ";AAEQ,OAAA,yBAAA,CAAA;AACI,cAAA;;",
+  "names": []
+}

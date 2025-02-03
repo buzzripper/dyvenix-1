@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["inventory.component.ts"],
+  "sourcesContent": ["\n            .inventory-grid {\n                grid-template-columns: 48px auto 40px;\n\n                @screen sm {\n                    grid-template-columns: 48px auto 112px 72px;\n                }\n\n                @screen md {\n                    grid-template-columns: 48px 112px auto 112px 72px;\n                }\n\n                @screen lg {\n                    grid-template-columns: 48px 112px auto 112px 96px 96px 72px;\n                }\n            }\n        "],
+  "mappings": ";AACY,CAAA;AACI,yBAAA,KAAA,KAAA;AAAhB;AAEgB,OAAA,CAAA,SAAA,EAAA;AAHJ,GAAA;AAIQ,2BAAA,KAAA,KAAA,MAAA;AAClB;AACF;AACgB,OAAA,CAAA,SAAA,EAAA;AAPJ,GAAA;AAQQ,2BAAA,KAAA,MAAA,KAAA,MAAA;AAElB;AACF;AAAgB,OAAA,CAAA,SAAA,EAAA;AAXJ,GAAA;AAYQ,2BAAA,KAAA,MAAA,KAAA,MAAA,KAAA,KAAA;AAGlB;AACF;",
+  "names": []
+}

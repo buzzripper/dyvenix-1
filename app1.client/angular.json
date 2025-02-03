@@ -18,7 +18,6 @@
                     "builder": "@angular-devkit/build-angular:application",
                     "options": {
                         //"outputPath": "dist/fuse",
-                        "outputPath": "../app1.server/wwwroot",
                         "index": "src/index.html",
                         "browser": "src/main.ts",
                         "polyfills": [ "zone.js" ],
@@ -71,12 +70,14 @@
                                     "maximumError": "90kb"
                                 }
                             ],
-                            "outputHashing": "all"
+                            "outputHashing": "all",
+                            "outputPath": "../app1.server"
                         },
                         "development": {
                             "optimization": false,
                             "extractLicenses": false,
-                            "sourceMap": true
+                            "sourceMap": true,
+                            "outputPath": "../app1.server/wwwroot"
                         }
                     },
                     "defaultConfiguration": "production"

@@ -12,6 +12,7 @@ env:
   DOTNET_CORE_VERSION: 9.0.x
   WORKING_DIRECTORY: app1.server
   CLIENT_WORKING_DIRECTORY: app1.client
+  CLIENT_OUTPUT_PATH: dist
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -47,14 +48,14 @@ jobs:
 
     - name: Build Angular app
       working-directory: ${{ env.CLIENT_WORKING_DIRECTORY }}
-      run: npm run build -- --configuration=production --output-path=${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+      run: npm run build -- --configuration=production --output-path=${{ env.CLIENT_OUTPUT_PATH }}
       # run: ng build --configuration=production --output-path=${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
     - name: Publish Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: webapp
-        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        path: ${{ env.CLIENT_OUTPUT_PATH }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -65,7 +66,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: webapp
-        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        path: ${{ env.CLIENT_OUTPUT_PATH }}
 
     - name: Azure Login
       uses: azure/login@v2
@@ -76,4 +77,4 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        package: ${{ env.CLIENT_OUTPUT_PATH }}

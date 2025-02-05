@@ -16,14 +16,13 @@ env:
   ANG_ROOT_DIR: app1.client
   ANG_OUTPUT_PATH: dist
   VER_MAJOR: "1" 
-  VER_MINOR: "1" 
+  VER_MINOR: "0" 
   VER_PATCH: "0"
 
 jobs:
   calc_version:
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout
         uses: actions/checkout@v4
         with:

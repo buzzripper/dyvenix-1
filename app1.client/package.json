@@ -7,7 +7,7 @@
     "private": true,
     "scripts": {
         "ng": "ng",
-        "start": "ng serve --ssl --ssl-key C:\\ProgramData\\certs\\localhost-key.pem --ssl-cert C:\\ProgramData\\certs\\localhost.pem",
+        "start": "ng serve",
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
         "test": "ng test"

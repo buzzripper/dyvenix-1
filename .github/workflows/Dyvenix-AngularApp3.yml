@@ -63,7 +63,7 @@ jobs:
       working-directory: ${{ env.CLIENT_WORKING_DIRECTORY }}
       run: | 
         mkdir ../${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
-        mv ${{ env.CLIENT_OUTPUT_PATH }}/* ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
+        mv ${{ env.CLIENT_OUTPUT_PATH }}/* ../${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
 
     - name: Publish Artifacts
       uses: actions/upload-artifact@v4

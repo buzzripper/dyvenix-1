@@ -1,28 +1,60 @@
-name: Build and deploy Angular
+name: Build and Deploy
 on:
   workflow_dispatch:
   push:
     branches:
     - main
 
+run-name: "Build and Deploy  (${{github.ref_name}}) 1.1.0.${{github.run_number}}"
+
 env:
   AZURE_WEBAPP_NAME: dyvenix-app1
   AZURE_WEBAPP_PACKAGE_PATH: app1.server/publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 9.0.x
-  WORKING_DIRECTORY: app1.server
-  CLIENT_WORKING_DIRECTORY: app1.client
-  CLIENT_OUTPUT_PATH: dist
-  # CLIENT_DEPLOYPKG_PATH: app1.client.zip
+  API_ROOT_DIR: app1.server
+  ANG_ROOT_DIR: app1.client
+  ANG_OUTPUT_PATH: dist
+  VER_MAJOR: "1" 
+  VER_MINOR: "1" 
+  VER_PATCH: "0"
 
 jobs:
+  calc_version:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build version number
+        run: |
+          echo "VERSION=${{env.VER_MAJOR}}.${{env.VER_MINOR}}.${{env.VER_PATCH}}.${{github.run_number}}" >> $GITHUB_ENV  
+
+      - name: Calculate short SHA (branch build only)
+        run: |
+          shortSha=$(git rev-parse --short ${{ github.sha }})
+          echo "SHORT_SHA=$shortSha" >> $GITHUB_ENV
+
+      - name: Display outputs
+        run: |
+          echo "VERSION = ${{env.VERSION}}"
+          echo "SHORT_SHA = ${{env.SHORT_SHA}}"
+        
+    outputs:
+      version: "${{env.VERSION}}"
+      short_sha: "${{env.SHORT_SHA}}"
+  
   build:
     runs-on: ubuntu-latest
+    needs: calc_version
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
   
-    # Dotnet
+    ### Dotnet
 
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
@@ -30,40 +62,41 @@ jobs:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
 
     - name: Restore
-      run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
+      run: dotnet restore "${{ env.API_ROOT_DIR }}"
 
     - name: Build
-      run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
+      run: dotnet build "${{ env.API_ROOT_DIR }}" --configuration ${{ env.CONFIGURATION }} --no-restore
 
     - name: Test
-      run: dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
+      run: dotnet test "${{ env.API_ROOT_DIR }}" --no-build
 
     - name: Publish
-      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+      run: dotnet publish "${{ env.API_ROOT_DIR }}" --configuration ${{ env.CONFIGURATION }} /p:Version=${{env.VERSION}} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
 
-    # Angular
+    ### Angular
+
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
         node-version: 18  # Ensure it matches your Angular project's Node version
 
     - name: Install dependencies
-      working-directory: ${{ env.CLIENT_WORKING_DIRECTORY }}
+      working-directory: ${{ env.ANG_ROOT_DIR }}
       run: npm ci
 
     - name: Build Angular app
-      working-directory: ${{ env.CLIENT_WORKING_DIRECTORY }}
-      run: npm run build -- --configuration=production --output-path=${{ env.CLIENT_OUTPUT_PATH }}
+      working-directory: ${{ env.ANG_ROOT_DIR }}
+      run: npm run build -- --configuration=production --output-path=${{ env.ANG_OUTPUT_PATH }}
 
     - name: Move browser folder contents up
-      working-directory: ${{ env.CLIENT_WORKING_DIRECTORY }}
-      run: mv ${{ env.CLIENT_OUTPUT_PATH }}/browser/* ${{ env.CLIENT_OUTPUT_PATH }}/
+      working-directory: ${{ env.ANG_ROOT_DIR }}
+      run: mv ${{ env.ANG_OUTPUT_PATH }}/browser/* ${{ env.ANG_OUTPUT_PATH }}/
 
     - name: Move angular output to wwwroot
-      working-directory: ${{ env.CLIENT_WORKING_DIRECTORY }}
+      working-directory: ${{ env.ANG_ROOT_DIR }}
       run: | 
         mkdir ../${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
-        mv ${{ env.CLIENT_OUTPUT_PATH }}/* ../${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
+        mv ${{ env.ANG_OUTPUT_PATH }}/* ../${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
 
     - name: Publish Artifacts
       uses: actions/upload-artifact@v4
@@ -80,7 +113,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: webapp
-        path: ${{ env.CLIENT_OUTPUT_PATH }}
+        path: ${{ env.ANG_OUTPUT_PATH }}
 
     - name: Azure Login
       uses: azure/login@v2
@@ -91,4 +124,4 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        package: ${{ env.CLIENT_OUTPUT_PATH }}
+        package: ${{ env.ANG_OUTPUT_PATH }}

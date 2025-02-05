@@ -1,0 +1,1 @@
+import{zb as f}from"./chunk-Q34RPHHW.js";var a=(()=>{class i{transform(r,t,n){return Array.isArray(r)?r.map(e=>n.find(p=>p[t]===e)):n.find(e=>e[t]===r)}static{this.\u0275fac=function(t){return new(t||i)}}static{this.\u0275pipe=f({name:"fuseFindByKey",type:i,pure:!1})}}return i})();export{a};

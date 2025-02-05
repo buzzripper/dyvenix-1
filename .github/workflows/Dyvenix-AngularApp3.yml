@@ -1,9 +1,9 @@
 name: Build and deploy Angular
 on:
   workflow_dispatch:
-  # push:
-  #   branches:
-  #   - main
+  push:
+    branches:
+    - main
 
 env:
   AZURE_WEBAPP_NAME: dyvenix-app1
@@ -13,7 +13,7 @@ env:
   WORKING_DIRECTORY: app1.server
   CLIENT_WORKING_DIRECTORY: app1.client
   CLIENT_OUTPUT_PATH: dist
-  CLIENT_DEPLOYPKG_PATH: app1.client.zip
+  # CLIENT_DEPLOYPKG_PATH: app1.client.zip
 
 jobs:
   build:

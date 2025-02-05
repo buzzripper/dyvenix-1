@@ -13,7 +13,7 @@ env:
   WORKING_DIRECTORY: app1.server
   CLIENT_WORKING_DIRECTORY: app1.client
   CLIENT_OUTPUT_PATH: dist
-  CLIENT_DEPLOYPKG_PATH: azure/app1.client.zip
+  CLIENT_DEPLOYPKG_PATH: app1.client.zip
 
 jobs:
   build:
@@ -58,9 +58,7 @@ jobs:
 
     - name: Zip up output files
       working-directory: ${{ env.CLIENT_WORKING_DIRECTORY }}
-      run: |
-        mkdir azure
-        zip -r ${{ env.CLIENT_DEPLOYPKG_PATH }} ${{ env.CLIENT_OUTPUT_PATH }}/*
+      run: zip -r ../${{ env.CLIENT_DEPLOYPKG_PATH }} ${{ env.CLIENT_OUTPUT_PATH }}/*
 
   #   - name: Publish Artifacts
   #     uses: actions/upload-artifact@v4

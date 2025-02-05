@@ -56,26 +56,26 @@ jobs:
       working-directory: ${{ env.CLIENT_WORKING_DIRECTORY }}
       run: mv ${{ env.CLIENT_OUTPUT_PATH }}/browser/* ${{ env.CLIENT_OUTPUT_PATH }}/
 
-    - name: Zip up output files
-      working-directory: ${{ env.CLIENT_WORKING_DIRECTORY }}
-      run: zip -r ../${{ env.CLIENT_DEPLOYPKG_PATH }} ${{ env.CLIENT_OUTPUT_PATH }}/*
+    # - name: Zip up output files
+    #   working-directory: ${{ env.CLIENT_WORKING_DIRECTORY }}
+    #   run: zip -r ../${{ env.CLIENT_DEPLOYPKG_PATH }} ${{ env.CLIENT_OUTPUT_PATH }}/*
 
-  #   - name: Publish Artifacts
-  #     uses: actions/upload-artifact@v4
-  #     with:
-  #       name: webapp
-  #       path: ${{ env.CLIENT_OUTPUT_PATH }}
+    - name: Publish Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: webapp
+        path: ${{ env.CLIENT_OUTPUT_PATH }}
 
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
 
-  #   - name: Download artifact from build job
-  #     uses: actions/download-artifact@v4
-  #     with:
-  #       name: webapp
-  #       path: ${{ env.CLIENT_OUTPUT_PATH }}
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v4
+      with:
+        name: webapp
+        path: ${{ env.CLIENT_OUTPUT_PATH }}
 
     - name: Azure Login
       uses: azure/login@v2

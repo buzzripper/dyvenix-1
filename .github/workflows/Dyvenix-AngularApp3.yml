@@ -58,7 +58,9 @@ jobs:
 
     - name: Zip up output files
       working-directory: ${{ env.CLIENT_WORKING_DIRECTORY }}
-      run: zip -r ${{ env.CLIENT_DEPLOYPKG_PATH }} ${{ env.CLIENT_OUTPUT_PATH }}/*
+      run: |
+        mkdir azure
+        zip -r ${{ env.CLIENT_DEPLOYPKG_PATH }} ${{ env.CLIENT_OUTPUT_PATH }}/*
 
   #   - name: Publish Artifacts
   #     uses: actions/upload-artifact@v4

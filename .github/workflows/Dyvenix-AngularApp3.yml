@@ -28,9 +28,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Build version number
+      - name: Build version numbers
         run: |
           echo "VERSION=${{env.VER_MAJOR}}.${{env.VER_MINOR}}.${{env.VER_PATCH}}.${{github.run_number}}" >> $GITHUB_ENV  
+          echo "SHORT_VERSION=${{env.VER_MAJOR}}.${{env.VER_MINOR}}.${{env.VER_PATCH}}" >> $GITHUB_ENV  
 
       - name: Calculate short SHA (branch build only)
         run: |
@@ -40,10 +41,12 @@ jobs:
       - name: Display outputs
         run: |
           echo "VERSION = ${{env.VERSION}}"
+          echo "SHORT_VERSION = ${{env.SHORT_VERSION}}"
           echo "SHORT_SHA = ${{env.SHORT_SHA}}"
         
     outputs:
       version: "${{env.VERSION}}"
+      short_version: "${{env.SHORT_VERSION}}"
       short_sha: "${{env.SHORT_SHA}}"
   
   build:
@@ -85,17 +88,19 @@ jobs:
 
     - name: Build Angular app
       working-directory: ${{ env.ANG_ROOT_DIR }}
-      run: npm run build -- --configuration=production --output-path=${{ env.ANG_OUTPUT_PATH }}
+      run: |
+        npm version ${{ needs.calc_version.outputs.short_version }} --no-git-tag-version
+        npm run build -- --configuration=production --output-path=${{ env.ANG_OUTPUT_PATH }}
 
     - name: Move browser folder contents up
       working-directory: ${{ env.ANG_ROOT_DIR }}
       run: mv ${{ env.ANG_OUTPUT_PATH }}/browser/* ${{ env.ANG_OUTPUT_PATH }}/
 
     - name: Move angular output to wwwroot
-      working-directory: ${{ env.ANG_ROOT_DIR }}
+      # working-directory: ${{ env.ANG_ROOT_DIR }}
       run: | 
-        mkdir ../${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
-        mv ${{ env.ANG_OUTPUT_PATH }}/* ../${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
+        mkdir ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
+        mv ${{ env.ANG_ROOT_DIR }}/${{ env.ANG_OUTPUT_PATH }}/* ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
 
     - name: Publish Artifacts
       uses: actions/upload-artifact@v4

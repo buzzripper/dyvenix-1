@@ -9,11 +9,11 @@ run-name: "Build and Deploy  (${{github.ref_name}}) 1.1.0.${{github.run_number}}
 
 env:
   AZURE_WEBAPP_NAME: dyvenix-app1
-  AZURE_WEBAPP_PACKAGE_PATH: app1.server/publish
+  AZURE_WEBAPP_PACKAGE_PATH: src/app1.server/publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 9.0.x
-  API_ROOT_DIR: app1.server
-  ANG_ROOT_DIR: app1.client
+  API_ROOT_DIR: src/app1.server
+  ANG_ROOT_DIR: src/app1.client
   ANG_OUTPUT_PATH: dist
   VER_MAJOR: "1" 
   VER_MINOR: "0" 

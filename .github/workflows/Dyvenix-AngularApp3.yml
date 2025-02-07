@@ -38,15 +38,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      ### Calc Version Number
+
       - name: Build version numbers
         run: |
           echo "VERSION=${{env.VER_MAJOR}}.${{env.VER_MINOR}}.${{env.VER_PATCH}}.${{github.run_number}}" >> $GITHUB_ENV  
           echo "SHORT_VERSION=${{env.VER_MAJOR}}.${{env.VER_MINOR}}.${{env.VER_PATCH}}" >> $GITHUB_ENV  
 
-      - name: Display outputs
-        run: |
-          echo "VERSION = ${{env.VERSION}}"
-          echo "SHORT_VERSION = ${{env.SHORT_VERSION}}"
+      ### Build Web API
 
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
@@ -72,12 +71,12 @@ jobs:
           echo "EV_AUTHCONFIG_ALLOWEDORIGINS=${{ vars.EV_AUTHCONFIG_ALLOWEDORIGINS }}" >> .env
           cp .env ./${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/
 
-          ### Angular
+      ### Build Angular
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18  # Ensure it matches your Angular project's Node version
+          node-version: 18
 
       - name: Install dependencies
         working-directory: ${{ env.ANG_ROOT_DIR }}
@@ -94,7 +93,6 @@ jobs:
         run: mv ${{ env.ANG_OUTPUT_PATH }}/browser/* ${{ env.ANG_OUTPUT_PATH }}/
 
       - name: Move angular output to wwwroot
-        # working-directory: ${{ env.ANG_ROOT_DIR }}
         run: | 
           mkdir ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
           mv ${{ env.ANG_ROOT_DIR }}/${{ env.ANG_OUTPUT_PATH }}/* ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/

@@ -56,7 +56,7 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v4
   
-    ### Dotnet
+    ### Dotnet API
 
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
@@ -67,7 +67,7 @@ jobs:
       run: dotnet restore "${{ env.API_ROOT_DIR }}"
 
     - name: Build
-      run: dotnet build "${{ env.API_ROOT_DIR }}" --configuration ${{ env.CONFIGURATION }} -r linux-x64 --no-restore -p:Version=${{ needs.calc_version.outputs.version }}
+      run: dotnet build "${{ env.API_ROOT_DIR }}" --configuration ${{ env.CONFIGURATION }} --no-restore -p:Version=${{ needs.calc_version.outputs.version }}
 
     - name: Test
       run: dotnet test "${{ env.API_ROOT_DIR }}" --no-build

@@ -13,7 +13,7 @@
 		// Environment variable names
 		public const string EV_ENVNAME = "APP_ENV";
 		public const string EV_AUTHCONFIG_DISABLED = "EV_AUTHCONFIG_DISABLED";
-		public const string EV_AUTHCONFIG_ALLOWEDORIGINS = "EV_AUTHCONFIG_DISABLED";
+		public const string EV_AUTHCONFIG_ALLOWEDORIGINS = "EV_AUTHCONFIG_ALLOWEDORIGINS";
 
 		// Auth
 		public const string Scope_Api1_Read = "api.read";

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using System;
@@ -8,6 +9,7 @@ namespace Dyvenix.App1.Server.Controllers
 {
 	[ApiController]
 	[Route("api/[controller]")]
+	[Authorize]
 	public class WeatherForecastController : ApiControllerBase
 	{
 		private static readonly string[] Summaries = new[]

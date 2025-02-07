@@ -15,18 +15,14 @@ namespace Dyvenix.App1.Server.Config
 			var sb = new StringBuilder();
 
 			sb.AppendLine($"------------ AppConfig Settings ---------------");
-			sb.AppendLine($"Starting service {Constants.AppDisplayName}  [{DateTime.Now}]");
+			sb.AppendLine($"Starting service {ConfigConst.AppDisplayName}  [{DateTime.Now}]");
 			sb.AppendLine("Application Configuration:");
 			sb.AppendLine($"\tMinLogLevel: {MinLogLevel}");
 
 			// AuthConfig
 			sb.AppendLine("AuthConfig:");
 			sb.AppendLine($"\tDisabled: {AuthConfig.Disabled}");
-			sb.AppendLine($"\tUserPoolId: {AuthConfig.UserPoolId}");
-			sb.AppendLine($"\tAWSRegion: {AuthConfig.AWSRegion}");
 			sb.AppendLine($"\tAllowedOrigins: {AuthConfig.AllowedOrigins}");
-			sb.AppendLine($"\tTokenIssuer: {AuthConfig.TokenIssuer}");
-			sb.AppendLine($"\tResourceServerId: {AuthConfig.ResourceServerId}");
 
 			logger.Information(sb.ToString());
 		}
@@ -35,10 +31,6 @@ namespace Dyvenix.App1.Server.Config
 	public class AuthConfig
 	{
 		public bool Disabled { get; set; }
-		public string UserPoolId { get; set; }
-		public string AWSRegion { get; set; }
 		public string AllowedOrigins { get; set; }
-		public string TokenIssuer { get; set; }
-		public string ResourceServerId { get; set; }
 	}
 }

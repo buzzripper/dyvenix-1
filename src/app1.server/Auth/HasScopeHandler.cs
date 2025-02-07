@@ -32,11 +32,11 @@ public class HasScopeHandler : AuthorizationHandler<HasScopeRequirement>
 			return Task.CompletedTask;
 		}
 
-		if (string.Compare(scopeClaim.Issuer, _appConfig.AuthConfig.TokenIssuer, true) != 0)
-		{
-			_logger.Warning($"Scope claim received from wrong issuer [{scopeClaim.Issuer}]. Should be {_appConfig.AuthConfig.TokenIssuer}. User: {context.User.Identity.Name}");
-			return Task.CompletedTask;
-		}
+		//if (string.Compare(scopeClaim.Issuer, _appConfig.AuthConfig.TokenIssuer, true) != 0)
+		//{
+		//	_logger.Warning($"Scope claim received from wrong issuer [{scopeClaim.Issuer}]. Should be {_appConfig.AuthConfig.TokenIssuer}. User: {context.User.Identity.Name}");
+		//	return Task.CompletedTask;
+		//}
 
 		if (string.IsNullOrWhiteSpace(scopeClaim.Value))
 		{

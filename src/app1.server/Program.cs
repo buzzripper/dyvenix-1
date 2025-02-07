@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Identity.Web;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -59,12 +60,12 @@ else
 // Redirect non-API requests to Angular app
 app.Use(async (context, next) =>
 {
-    if (!context.Request.Path.Value.StartsWith("/api") && 
-        !System.IO.Path.HasExtension(context.Request.Path.Value))
-    {
-        context.Request.Path = "/index.html";
-    }
-    await next();
+	if (!context.Request.Path.Value.StartsWith("/api") &&
+		!System.IO.Path.HasExtension(context.Request.Path.Value))
+	{
+		context.Request.Path = "/index.html";
+	}
+	await next();
 });
 
 //Serilog.Debugging.SelfLog.Enable(msg => Debug.WriteLine(msg));
@@ -75,12 +76,12 @@ app.Run();
 
 static string GetAppEnv()
 {
-	var appEnv = Environment.GetEnvironmentVariable(Constants.Env_VarName);
+	var appEnv = Environment.GetEnvironmentVariable(ConfigConst.Env_VarName);
 
 	if (!string.IsNullOrWhiteSpace(appEnv))
 		return appEnv.ToLower();
 	else
-		return Constants.Env_Local;
+		return ConfigConst.Env_Local;
 }
 
 static IConfiguration BuildConfiguration(string appEnv)
@@ -104,9 +105,9 @@ static void ConfigureServices(IServiceCollection services, ILogger logger, AppCo
 	{
 		opt.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
 		{
-			Title = Constants.AppDisplayName,
+			Title = ConfigConst.AppDisplayName,
 			Version = version.ToString(),
-			Description = Constants.AppDisplayName
+			Description = ConfigConst.AppDisplayName
 		});
 
 		if (!appConfig.AuthConfig.Disabled)
@@ -133,7 +134,7 @@ static void ConfigureServices(IServiceCollection services, ILogger logger, AppCo
 
 	// Set up auth if enabled
 	if (!appConfig.AuthConfig.Disabled)
-		ConfigureAuth(services, appConfig.AuthConfig);
+		ConfigureAuth(services, configuration, appConfig.AuthConfig);
 
 	// Engagement API services
 	services.AddSingleton<ILogger>(provider =>
@@ -179,38 +180,44 @@ static ILogger CreateLogger(AppConfig appConfig)
 	return loggerConfiguration.CreateLogger();
 }
 
-static void ConfigureAuth(IServiceCollection services, AuthConfig authConfig)
+static void ConfigureAuth(IServiceCollection services, IConfiguration configuration, AuthConfig authConfig)
 {
-	// Register authentication schemes, and specify the default authentication scheme
-	services
-		.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-		.AddJwtBearer(options =>
+	//Adds Microsoft Identity platform(AAD v2.0) support to protect this Api
+	services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+		.AddMicrosoftIdentityWebApi(options =>
 		{
-			var issuer = $"https://cognito-idp.{authConfig.AWSRegion}.amazonaws.com/{authConfig.UserPoolId}";
-			options.Authority = issuer;
-			options.TokenValidationParameters = new TokenValidationParameters
-			{
-				ValidateIssuer = true,
-				ValidIssuer = issuer,
-				ValidateAudience = false,
-				ValidateLifetime = true,
-				IssuerSigningKeyResolver = (s, securityToken, identifier, parameters) =>
-				{
-					var httpClient = new HttpClient();
-					var jwtKeySetUrl = issuer;
-					var response = httpClient.GetAsync(jwtKeySetUrl).Result;
-					var json = response.Content.ReadAsStringAsync().Result;
-					var keys = new JsonWebKeySet(json).GetSigningKeys();
-					return keys;
-				}
-			};
-		});
+			configuration.Bind("AzureAdB2C", options);
+			options.Events = new JwtBearerEvents();
 
+			/// <summary>
+			/// Below you can do extended token validation and check for additional claims, such as:
+			///
+			/// - check if the caller's account is homed or guest via the 'acct' optional claim
+			/// - check if the caller belongs to right roles or groups via the 'roles' or 'groups' claim, respectively
+			///
+			/// Bear in mind that you can do any of the above checks within the individual routes and/or controllers as well.
+			/// For more information, visit: https://docs.microsoft.com/azure/active-directory/develop/access-tokens#validate-the-user-has-permission-to-access-this-data
+			/// </summary>
+
+			//options.Events.OnTokenValidated = async context =>
+			//{
+			//    string[] allowedClientApps = { /* list of client ids to allow */ };
+
+			//    string clientAppId = context?.Principal?.Claims
+			//        .FirstOrDefault(x => x.Type == "azp" || x.Type == "appid")?.Value;
+
+			//    if (!allowedClientApps.Contains(clientAppId))
+			//    {
+			//        throw new System.Exception("This client is not authorized");
+			//    }
+			//};
+		}, options => { configuration.Bind("AzureAdB2C", options); }
+	);
 	services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
 	services.AddAuthorization(options =>
 	{
-		var scopeName = $"{authConfig.ResourceServerId}/{Constants.Scope_Foo}";
+		var scopeName = $"{ConfigConst.Scope_Api1_Read}";
 		options.AddPolicy("MainPolicy", policy =>
 			policy.Requirements.Add(new HasScopeRequirement(scopeName)));
 	});

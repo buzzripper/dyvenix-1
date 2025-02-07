@@ -1,6 +1,6 @@
 ﻿namespace Dyvenix.App1.Server.Config
 {
-	public static class Constants
+	public static class ConfigConst
 	{
 		// Application
 		public const string AppName = "app1.server";
@@ -17,7 +17,8 @@
 		public const string Env_Prod = "prod";
 
 		// Auth
-		public const string Scope_Foo = "foo";
+		public const string Scope_Api1_Read = "api.read";
+		public const string Scope_Api1_Write = "api.write";
 
 		// Status response
 		public const string Status_Ok = "ok";

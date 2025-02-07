@@ -7,7 +7,6 @@ namespace Dyvenix.App1.Server.Controllers
 {
 	[ApiController]
 	[Route("api/[controller]")]
-	[AllowAnonymous]
 	public class SystemController : ApiControllerBase
 	{
 		private readonly AppConfig _appConfig;

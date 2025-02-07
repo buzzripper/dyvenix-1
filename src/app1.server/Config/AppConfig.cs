@@ -16,7 +16,7 @@ namespace Dyvenix.App1.Server.Config
 			this.AuthConfig.ProcessEnvironmentVars();
 		}
 
-		public void LogSettings(ILogger logger)
+		public void WriteSettingsToLog(ILogger logger)
 		{
 			var sb = new StringBuilder();
 

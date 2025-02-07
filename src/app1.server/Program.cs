@@ -16,6 +16,7 @@ using Serilog.Templates;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Net.Http;
 using System.Reflection;
 
@@ -23,115 +24,23 @@ using System.Reflection;
 // Load environment variables from .env file
 Env.Load();
 
-// Read appsettings.json and build the AppConfig from it
+// Build AppConfig from appsettings.json
 var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false).Build();
 var appConfig = AppConfigBuilder.Build(configuration);
 
+// Initialize logging
 var logger = CreateLogger(appConfig);
+appConfig.WriteSettingsToLog(logger);
 
-appConfig.LogSettings(logger);
-
-logger.Debug("Creating web application builder");
 var builder = WebApplication.CreateBuilder(args);
 
-logger.Debug("Configuring services");
 ConfigureServices(builder.Services, logger, appConfig, configuration);
 
-logger.Debug("Building web application");
 var app = builder.Build();
 
-logger.Debug("Configuring application");
-app.UseSwagger();
-app.UseSwaggerUI();
-app.UseHttpsRedirection();
+Configure(app, logger, appConfig, configuration);
 
-app.UseCors("CORSPolicy");
-app.MapControllers();
-app.UseDefaultFiles(); // Allows serving index.html as default
-app.UseStaticFiles(); // Enables serving files from wwwroot
-app.UseRouting();
-
-if (!appConfig.AuthConfig.Disabled)
-{
-	app.UseAuthentication(); // resposible for constructing AuthenticationTicket objects representing the user's identity
-	app.UseAuthorization();
-}
-else
-{
-	app.MapControllers().AllowAnonymous();
-}
-
-// Redirect non-API requests to Angular app
-app.Use(async (context, next) =>
-{
-	if (!context.Request.Path.Value.StartsWith("/api") &&
-		!System.IO.Path.HasExtension(context.Request.Path.Value))
-	{
-		context.Request.Path = "/index.html";
-	}
-	await next();
-});
-
-//Serilog.Debugging.SelfLog.Enable(msg => Debug.WriteLine(msg));
-logger.Debug($"Application URLs: {Environment.GetEnvironmentVariable("ASPNETCORE_URLS")}");
-
-logger.Debug("Starting application");
-app.Run();
-
-
-static void ConfigureServices(IServiceCollection services, ILogger logger, AppConfig appConfig, IConfiguration configuration)
-{
-	// Web API services
-	services.AddControllers();
-	services.AddEndpointsApiExplorer();
-	services.AddHttpClient();
-
-	// Swagger
-	var version = Assembly.GetExecutingAssembly().GetName().Version;
-	services.AddSwaggerGen(opt =>
-	{
-		opt.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-		{
-			Title = ConfigConst.AppDisplayName,
-			Version = version.ToString(),
-			Description = ConfigConst.AppDisplayName
-		});
-
-		if (!appConfig.AuthConfig.Disabled)
-		{
-			opt.AddSecurityDefinition("Bearer", //Name the security scheme
-				new OpenApiSecurityScheme
-				{
-					Description = "JWT Authorization header using the Bearer scheme.",
-					Type = SecuritySchemeType.Http, //We set the scheme type to http since we're using bearer authentication
-					Scheme = "bearer" //The name of the HTTP Authorization scheme to be used in the Authorization header. In this case "bearer".
-				});
-			opt.AddSecurityRequirement(new OpenApiSecurityRequirement{
-				{
-					new OpenApiSecurityScheme{
-						Reference = new OpenApiReference{
-							Id = "Bearer", //The name of the previously defined security scheme.
-							Type = ReferenceType.SecurityScheme
-						}
-					},new List<string>()
-				}
-			});
-		}
-	});
-
-	// Set up auth if enabled
-	//if (!appConfig.AuthConfig.Disabled)
-		ConfigureAuth(services, configuration, appConfig.AuthConfig);
-
-	// Engagement API services
-	services.AddSingleton<ILogger>(provider =>
-	{
-		return logger;
-	});
-	services.AddSerilog();
-
-	services.AddSingleton(appConfig);
-}
+#region Startup Methods
 
 static ILogger CreateLogger(AppConfig appConfig)
 {
@@ -167,7 +76,69 @@ static ILogger CreateLogger(AppConfig appConfig)
 	return loggerConfiguration.CreateLogger();
 }
 
-static void ConfigureAuth(IServiceCollection services, IConfiguration configuration, AuthConfig authConfig)
+#endregion
+
+#region ConfigureServices
+
+static void ConfigureServices(IServiceCollection services, ILogger logger, AppConfig appConfig, IConfiguration configuration)
+{
+	logger.Debug("Configuring services");
+
+	// Web API services
+	services.AddControllers();
+	services.AddHttpClient();
+
+	// Swagger
+	var version = Assembly.GetExecutingAssembly().GetName().Version;
+	services.AddSwaggerGen(opt =>
+	{
+		opt.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+		{
+			Title = ConfigConst.AppDisplayName,
+			Version = version.ToString(),
+			Description = ConfigConst.AppDisplayName
+		});
+
+		if (!appConfig.AuthConfig.Disabled)
+		{
+			opt.AddSecurityDefinition("Bearer", //Name the security scheme
+				new OpenApiSecurityScheme
+				{
+					Description = "JWT Authorization header using the Bearer scheme.",
+					Type = SecuritySchemeType.Http, //We set the scheme type to http since we're using bearer authentication
+					Scheme = "bearer" //The name of the HTTP Authorization scheme to be used in the Authorization header. In this case "bearer".
+				});
+			opt.AddSecurityRequirement(new OpenApiSecurityRequirement{
+				{
+					new OpenApiSecurityScheme{
+						Reference = new OpenApiReference{
+							Id = "Bearer", //The name of the previously defined security scheme.
+							Type = ReferenceType.SecurityScheme
+						}
+					},new List<string>()
+				}
+			});
+		}
+	});
+	
+	//{
+	//	services.AddAuthorizationBuilder()
+	//		.SetFallbackPolicy(new AuthorizationPolicyBuilder()
+	//		.RequireAssertion(_ => true) // Always allow
+	//		.Build());
+	//}
+	//else
+
+	if (!appConfig.AuthConfig.Disabled)
+		ConfigureAuth(services, configuration, appConfig);
+
+	// Register application services
+	services.AddSingleton<ILogger>(provider => { return logger; });
+	services.AddSerilog();
+	services.AddSingleton(appConfig);
+}
+
+static void ConfigureAuth(IServiceCollection services, IConfiguration configuration, AppConfig appConfig)
 {
 	//Adds Microsoft Identity platform(AAD v2.0) support to protect this Api
 	services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -209,16 +180,101 @@ static void ConfigureAuth(IServiceCollection services, IConfiguration configurat
 			policy.Requirements.Add(new HasScopeRequirement(scopeName)));
 	});
 
-	// Configure CORS
+	//services.AddAuthorization(options =>
+	//{
+	//	if (appConfig.AuthConfig.Disabled)
+	//	{
+	//		// Allow all requests without authentication in Development
+	//		options.FallbackPolicy = new AuthorizationPolicyBuilder()
+	//			.RequireAssertion(_ => true) // Always allow access
+	//			.Build();
+	//	}
+	//});
+
+	//services.AddAuthorization(options =>
+	//{
+	//	if (appConfig.AuthConfig.Disabled)
+	//	{
+	//		options.DefaultPolicy = new AuthorizationPolicyBuilder()
+	//			.RequireAssertion(_ => true) // Allow all requests
+	//			.Build();
+	//	}
+	//});
+
+	//services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+	//	.AddJwtBearer(options =>
+	//	{
+	//		options.Authority = "https://your-auth-provider.com";
+	//		options.Audience = "your-api-audience";
+	//	});
+	//services.AddAuthentication();
+	//services.AddAuthorization();
+	//services.AddAuthorization(options =>
+	//{
+	//	if (appConfig.AuthConfig.Disabled)
+	//	{
+	//		options.FallbackPolicy = new AuthorizationPolicyBuilder()
+	//			.RequireAssertion(_ => true) // Always allow
+	//			.Build();
+	//	}
+	//});
+
+	//Configure CORS
 	services.AddCors(item =>
 	{
 		item.AddPolicy("CORSPolicy", builder =>
 		{
-			builder.WithOrigins(authConfig.AllowedOrigins)
+			builder.WithOrigins(appConfig.AuthConfig.AllowedOrigins)
 			.AllowAnyMethod()
 			.AllowAnyHeader();
 		});
 	});
 }
 
+#endregion
 
+#region Configure
+
+static void Configure(WebApplication app, ILogger logger, AppConfig appConfig, IConfiguration configuration)
+{
+	logger.Debug("Building web application");
+
+	logger.Debug("Configuring application");
+	app.UseSwagger();
+	app.UseSwaggerUI();
+	app.UseHttpsRedirection();
+
+	app.UseCors("CORSPolicy");
+	app.UseDefaultFiles(); // Allows serving index.html as default
+	app.UseStaticFiles(); // Enables serving files from wwwroot
+	app.UseRouting();
+
+	if (appConfig.AuthConfig.Disabled)
+	{
+		app.MapControllers().AllowAnonymous();
+		app.MapControllers().WithMetadata(new AllowAnonymousAttribute());
+	}
+	else
+	{
+		app.UseAuthentication(); // resposible for constructing AuthenticationTicket objects representing the user's identity
+		app.UseAuthorization();
+		app.MapControllers();
+	}
+
+	//Redirect non-API requests to Angular app
+	app.Use(async (context, next) =>
+	{
+		if (!context.Request.Path.Value.StartsWith("/api") && !Path.HasExtension(context.Request.Path.Value))
+			context.Request.Path = "/index.html";
+
+		await next();
+	});
+
+	//Serilog.Debugging.SelfLog.Enable(msg => Debug.WriteLine(msg));
+	logger.Debug($"Application URLs: {Environment.GetEnvironmentVariable("ASPNETCORE_URLS")}");
+
+	logger.Debug("Starting application");
+	app.Run();
+}
+
+#endregion

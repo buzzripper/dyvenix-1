@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
+using System.Security;
 
 namespace Dyvenix.App1.Server.Config
 {
@@ -7,13 +8,16 @@ namespace Dyvenix.App1.Server.Config
 	{
 		private const string cDbConnStringKey = "DbConnectionString";
 
-		public static AppConfig Build(IConfiguration configuration, string appEnv)
+		public static AppConfig Build(IConfiguration configuration)
 		{
+			var x = configuration.GetSection("ApplicationConfig");
 			var appConfig = configuration.GetSection("ApplicationConfig").Get<AppConfig>();
 			if (appConfig == null)
 				throw new ApplicationException("Unable to retrieve ApplicationConfig section from appsettings.json file.");
 
-			appConfig.Environment = appEnv;
+			// Replace config values with env variables if running on a server
+			if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(ConfigConst.EV_ENVNAME)))
+				appConfig.ProcessEnvironmentVars();
 
 			return appConfig;
 		}

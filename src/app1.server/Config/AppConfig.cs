@@ -6,9 +6,15 @@ namespace Dyvenix.App1.Server.Config
 {
 	public partial class AppConfig
 	{
-		public string Environment { get; set; }
+		public string EnvName { get; set; }
 		public string MinLogLevel { get; set; }
 		public AuthConfig AuthConfig { get; set; }
+
+		public void ProcessEnvironmentVars()
+		{
+			this.EnvName = ConfigUtils.Replace(ConfigConst.EV_ENVNAME, this.EnvName);
+			this.AuthConfig.ProcessEnvironmentVars();
+		}
 
 		public void LogSettings(ILogger logger)
 		{
@@ -26,11 +32,5 @@ namespace Dyvenix.App1.Server.Config
 
 			logger.Information(sb.ToString());
 		}
-	}
-
-	public class AuthConfig
-	{
-		public bool Disabled { get; set; }
-		public string AllowedOrigins { get; set; }
 	}
 }

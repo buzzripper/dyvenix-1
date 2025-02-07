@@ -10,11 +10,10 @@
 		public const string LogsFolder = "Logs";
 		public const string LogFilename = "app1.server.log";
 
-		// Environment variables
-		public const string Env_VarName = "APP_ENV";
-		public const string Env_Local = "local";
-		public const string Env_QA = "qa";
-		public const string Env_Prod = "prod";
+		// Environment variable names
+		public const string EV_ENVNAME = "APP_ENV";
+		public const string EV_AUTHCONFIG_DISABLED = "EV_AUTHCONFIG_DISABLED";
+		public const string EV_AUTHCONFIG_ALLOWEDORIGINS = "EV_AUTHCONFIG_DISABLED";
 
 		// Auth
 		public const string Scope_Api1_Read = "api.read";

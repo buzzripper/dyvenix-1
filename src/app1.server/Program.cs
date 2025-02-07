@@ -1,3 +1,4 @@
+using DotNetEnv;
 using Dyvenix.App1.Server.Auth;
 using Dyvenix.App1.Server.Config;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,9 +20,12 @@ using System.Net.Http;
 using System.Reflection;
 
 
-var appEnv = GetAppEnv();
-var configuration = BuildConfiguration(appEnv);
-var appConfig = AppConfigBuilder.Build(configuration, appEnv);
+// Load environment variables from .env file
+Env.Load();
+
+// Read appsettings.json and build the AppConfig from it
+var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false).Build();
+var appConfig = AppConfigBuilder.Build(configuration);
 
 var logger = CreateLogger(appConfig);
 
@@ -76,19 +80,18 @@ app.Run();
 
 static string GetAppEnv()
 {
-	var appEnv = Environment.GetEnvironmentVariable(ConfigConst.Env_VarName);
+	var appEnv = Environment.GetEnvironmentVariable(ConfigConst.EV_ENVNAME);
 
 	if (!string.IsNullOrWhiteSpace(appEnv))
 		return appEnv.ToLower();
 	else
-		return ConfigConst.Env_Local;
+		return "local";
 }
 
 static IConfiguration BuildConfiguration(string appEnv)
 {
 	return new ConfigurationBuilder()
 		.AddJsonFile("appsettings.json", optional: false)
-		.AddJsonFile($"appsettings.{appEnv}.json", optional: false)
 		.Build();
 }
 

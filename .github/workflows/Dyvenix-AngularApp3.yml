@@ -38,25 +38,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      ### Calc Version Number
+        ### Calc Version Number
 
       - name: Build version numbers
         run: |
           echo "VERSION=${{env.VER_MAJOR}}.${{env.VER_MINOR}}.${{env.VER_PATCH}}.${{github.run_number}}" >> $GITHUB_ENV  
           echo "SHORT_VERSION=${{env.VER_MAJOR}}.${{env.VER_MINOR}}.${{env.VER_PATCH}}" >> $GITHUB_ENV  
 
-      ### Build Web API
+        ### Build Web API
 
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+          dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
 
       - name: Restore
         run: dotnet restore "${{ env.API_ROOT_DIR }}"
 
       - name: Build
-        run: dotnet build "${{ env.API_ROOT_DIR }}" --configuration ${{ env.CONFIGURATION }} --no-restore -p:Version=${{  }}
+        run: dotnet build "${{ env.API_ROOT_DIR }}" --configuration ${{ env.CONFIGURATION }} --no-restore -p:Version=${{ ${{ env.VERSION }} }}
 
       - name: Test
         run: dotnet test "${{ env.API_ROOT_DIR }}" --no-build

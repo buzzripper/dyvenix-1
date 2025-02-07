@@ -78,22 +78,6 @@ logger.Debug($"Application URLs: {Environment.GetEnvironmentVariable("ASPNETCORE
 logger.Debug("Starting application");
 app.Run();
 
-static string GetAppEnv()
-{
-	var appEnv = Environment.GetEnvironmentVariable(ConfigConst.EV_ENVNAME);
-
-	if (!string.IsNullOrWhiteSpace(appEnv))
-		return appEnv.ToLower();
-	else
-		return "local";
-}
-
-static IConfiguration BuildConfiguration(string appEnv)
-{
-	return new ConfigurationBuilder()
-		.AddJsonFile("appsettings.json", optional: false)
-		.Build();
-}
 
 static void ConfigureServices(IServiceCollection services, ILogger logger, AppConfig appConfig, IConfiguration configuration)
 {
@@ -136,7 +120,7 @@ static void ConfigureServices(IServiceCollection services, ILogger logger, AppCo
 	});
 
 	// Set up auth if enabled
-	if (!appConfig.AuthConfig.Disabled)
+	//if (!appConfig.AuthConfig.Disabled)
 		ConfigureAuth(services, configuration, appConfig.AuthConfig);
 
 	// Engagement API services

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -67,6 +68,7 @@ app.Use(async (context, next) =>
 });
 
 //Serilog.Debugging.SelfLog.Enable(msg => Debug.WriteLine(msg));
+logger.Debug($"Application URLs: {Environment.GetEnvironmentVariable("ASPNETCORE_URLS")}");
 
 logger.Debug("Starting application");
 app.Run();
@@ -74,6 +76,7 @@ app.Run();
 static string GetAppEnv()
 {
 	var appEnv = Environment.GetEnvironmentVariable(Constants.Env_VarName);
+
 	if (!string.IsNullOrWhiteSpace(appEnv))
 		return appEnv.ToLower();
 	else
@@ -105,6 +108,7 @@ static void ConfigureServices(IServiceCollection services, ILogger logger, AppCo
 			Version = version.ToString(),
 			Description = Constants.AppDisplayName
 		});
+
 		if (!appConfig.AuthConfig.Disabled)
 		{
 			opt.AddSecurityDefinition("Bearer", //Name the security scheme
@@ -207,7 +211,7 @@ static void ConfigureAuth(IServiceCollection services, AuthConfig authConfig)
 	services.AddAuthorization(options =>
 	{
 		var scopeName = $"{authConfig.ResourceServerId}/{Constants.Scope_Foo}";
-		options.AddPolicy("BridgeForms", policy =>
+		options.AddPolicy("MainPolicy", policy =>
 			policy.Requirements.Add(new HasScopeRequirement(scopeName)));
 	});
 

@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app1.server", "src\app1.ser
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "app1.client", "src\app1.client\app1.client.esproj", "{8038CD7E-89FA-4F43-9704-ED7EAD042C77}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{069FCB1A-8D69-4C1F-A8ED-27F9C8BD5392}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\RunNodeSvr.bat = scripts\RunNodeSvr.bat
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

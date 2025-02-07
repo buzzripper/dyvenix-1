@@ -31,120 +31,98 @@ env:
   VER_PATCH: "0"
 
 jobs:
-  calc_version:
+  build:
     runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'Dev' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Build version numbers
         run: |
           echo "VERSION=${{env.VER_MAJOR}}.${{env.VER_MINOR}}.${{env.VER_PATCH}}.${{github.run_number}}" >> $GITHUB_ENV  
           echo "SHORT_VERSION=${{env.VER_MAJOR}}.${{env.VER_MINOR}}.${{env.VER_PATCH}}" >> $GITHUB_ENV  
 
-      - name: Calculate short SHA (branch build only)
-        run: |
-          shortSha=$(git rev-parse --short ${{ github.sha }})
-          echo "SHORT_SHA=$shortSha" >> $GITHUB_ENV
-
       - name: Display outputs
         run: |
           echo "VERSION = ${{env.VERSION}}"
           echo "SHORT_VERSION = ${{env.SHORT_VERSION}}"
-          echo "SHORT_SHA = ${{env.SHORT_SHA}}"
-        
-    outputs:
-      version: "${{env.VERSION}}"
-      short_version: "${{env.SHORT_VERSION}}"
-      short_sha: "${{env.SHORT_SHA}}"
-  
-  build:
-    runs-on: ubuntu-latest
-    needs: calc_version
-    environment: ${{ github.event.inputs.environment || 'Dev' }}
-    steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
-  
-    ### Dotnet API
 
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
 
-    - name: Restore
-      run: dotnet restore "${{ env.API_ROOT_DIR }}"
+      - name: Restore
+        run: dotnet restore "${{ env.API_ROOT_DIR }}"
 
-    - name: Build
-      run: dotnet build "${{ env.API_ROOT_DIR }}" --configuration ${{ env.CONFIGURATION }} --no-restore -p:Version=${{ needs.calc_version.outputs.version }}
+      - name: Build
+        run: dotnet build "${{ env.API_ROOT_DIR }}" --configuration ${{ env.CONFIGURATION }} --no-restore -p:Version=${{  }}
 
-    - name: Test
-      run: dotnet test "${{ env.API_ROOT_DIR }}" --no-build
+      - name: Test
+        run: dotnet test "${{ env.API_ROOT_DIR }}" --no-build
 
-    - name: Publish
-      run: dotnet publish "${{ env.API_ROOT_DIR }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+      - name: Publish
+        run: dotnet publish "${{ env.API_ROOT_DIR }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
 
-    - name: Generate .env file
-      run: |
-        echo "APP_ENV=${{ inputs.environment }}" > .env
-        echo "EV_AUTHCONFIG_DISABLED=${{ vars.EV_AUTHCONFIG_DISABLED }}" >> .env
-        echo "EV_AUTHCONFIG_ALLOWEDORIGINS=${{ vars.EV_AUTHCONFIG_ALLOWEDORIGINS }}" >> .env
-        cp .env ./${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/
+      - name: Generate .env file
+        run: |
+          echo "APP_ENV=${{ inputs.environment }}" > .env
+          echo "EV_AUTHCONFIG_DISABLED=${{ vars.EV_AUTHCONFIG_DISABLED }}" >> .env
+          echo "EV_AUTHCONFIG_ALLOWEDORIGINS=${{ vars.EV_AUTHCONFIG_ALLOWEDORIGINS }}" >> .env
+          cp .env ./${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/
 
-    ### Angular
+          ### Angular
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18  # Ensure it matches your Angular project's Node version
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18  # Ensure it matches your Angular project's Node version
 
-    - name: Install dependencies
-      working-directory: ${{ env.ANG_ROOT_DIR }}
-      run: npm ci
+      - name: Install dependencies
+        working-directory: ${{ env.ANG_ROOT_DIR }}
+        run: npm ci
 
-    - name: Build Angular app
-      working-directory: ${{ env.ANG_ROOT_DIR }}
-      run: |
-        npm version ${{ needs.calc_version.outputs.short_version }} --no-git-tag-version
-        npm run build -- --configuration=production --output-path=${{ env.ANG_OUTPUT_PATH }}
+      - name: Build Angular app
+        working-directory: ${{ env.ANG_ROOT_DIR }}
+        run: |
+          npm version ${{ env.SHORT_VERSION }} --no-git-tag-version
+          npm run build -- --configuration=production --output-path=${{ env.ANG_OUTPUT_PATH }}
 
-    - name: Move browser folder contents up
-      working-directory: ${{ env.ANG_ROOT_DIR }}
-      run: mv ${{ env.ANG_OUTPUT_PATH }}/browser/* ${{ env.ANG_OUTPUT_PATH }}/
+      - name: Move browser folder contents up
+        working-directory: ${{ env.ANG_ROOT_DIR }}
+        run: mv ${{ env.ANG_OUTPUT_PATH }}/browser/* ${{ env.ANG_OUTPUT_PATH }}/
 
-    - name: Move angular output to wwwroot
-      # working-directory: ${{ env.ANG_ROOT_DIR }}
-      run: | 
-        mkdir ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
-        mv ${{ env.ANG_ROOT_DIR }}/${{ env.ANG_OUTPUT_PATH }}/* ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
+      - name: Move angular output to wwwroot
+        # working-directory: ${{ env.ANG_ROOT_DIR }}
+        run: | 
+          mkdir ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
+          mv ${{ env.ANG_ROOT_DIR }}/${{ env.ANG_OUTPUT_PATH }}/* ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
 
-    - name: Publish Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: webapp
-        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+      - name: Publish Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: webapp
+          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     steps:
 
-    - name: Download artifact from build job
-      uses: actions/download-artifact@v4
-      with:
-        name: webapp
-        path: ${{ env.ANG_OUTPUT_PATH }}
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: webapp
+          path: ${{ env.ANG_OUTPUT_PATH }}
 
-    - name: Azure Login
-      uses: azure/login@v2
-      with:
-        creds: ${{ secrets.dyvenix_app1_SPN }}
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.dyvenix_app1_SPN }}
 
-    - name: Deploy to Azure WebApp
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        package: ${{ env.ANG_OUTPUT_PATH }}
+      - name: Deploy to Azure WebApp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          package: ${{ env.ANG_OUTPUT_PATH }}

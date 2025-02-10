@@ -1,4 +1,5 @@
 ﻿using Dyvenix.Logging.Config;
+using Dyvenix.Logging.Enrichers;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
@@ -16,6 +17,7 @@ namespace Dyvenix.Logging
 
 			var loggerConfiguration = new LoggerConfiguration().Enrich.FromLogContext();
 			loggerConfiguration.Enrich.FromLogContext();
+			loggerConfiguration.Enrich.With(new LogLevelEnricher());
 
 			if (logConfig.EnableConsoleLogging)
 			{
@@ -29,8 +31,8 @@ namespace Dyvenix.Logging
 
 			if (logConfig.EnableDbLogging)
 			{
-				loggerConfiguration
-					.WriteTo.MSSqlServer(
+				loggerConfiguration.WriteTo.MSSqlServer
+				(
 					logConfig.DbConnectionString,
 					new MSSqlServerSinkOptions
 					{
@@ -45,7 +47,8 @@ namespace Dyvenix.Logging
 					formatProvider: null,
 					columnOptions: BuildColumnOptions(),
 					columnOptionsSection: null,
-					logEventFormatter: null);
+					logEventFormatter: null
+				);
 			}
 
 			return loggerConfiguration;
@@ -103,11 +106,13 @@ namespace Dyvenix.Logging
 				},
 				AdditionalColumns = new Collection<SqlColumn>
 				{
+					new SqlColumn { ColumnName = "LogLevel", DataType = SqlDbType.Int },
 					new SqlColumn { ColumnName = "MachineName", DataType = SqlDbType.NVarChar, DataLength=100 },
 					new SqlColumn { ColumnName = "Source", DataType = SqlDbType.NVarChar, DataLength=200 },
 				}
 			};
 			columnOptions.Store.Remove(StandardColumn.Id);
+			columnOptions.Store.Remove(StandardColumn.Level);
 			columnOptions.Store.Remove(StandardColumn.Properties);
 			columnOptions.Store.Remove(StandardColumn.MessageTemplate);
 

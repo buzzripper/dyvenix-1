@@ -18,6 +18,7 @@ using Serilog.Templates;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Net.Http;
 using System.Reflection;
 
@@ -32,6 +33,10 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnC
 var appConfig = AppConfigBuilder.Build(builder.Configuration);
 
 Log.Logger = new LogConfigBuilder().Build(appConfig.LogConfig).CreateLogger();
+
+var file = File.CreateText(@"c:\Work\SerilogErrors.txt");
+Serilog.Debugging.SelfLog.Enable(TextWriter.Synchronized(file));
+//Serilog.Debugging.SelfLog.Enable(msg => Debug.WriteLine(msg));
 
 Log.Logger.Debug("Configuring services");
 ConfigureServices(builder.Services, Log.Logger, appConfig, builder.Configuration);
@@ -71,7 +76,6 @@ app.Use(async (context, next) =>
 	await next();
 });
 
-//Serilog.Debugging.SelfLog.Enable(msg => Debug.WriteLine(msg));
 Log.Logger.Debug($"Application URLs: {Environment.GetEnvironmentVariable("ASPNETCORE_URLS")}");
 
 Log.Logger.Debug("Starting application");

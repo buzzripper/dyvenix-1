@@ -1,22 +1,24 @@
--- IF NOT EXISTS (SELECT name FROM sys.schemas WHERE name = N'dyvenix_logs')
--- BEGIN
-    
--- END
+/*
+    DROP TABLE IF EXISTS [Logs].[LogEvents];
+    DROP USER IF EXISTS [dyvenix_app];
+    DROP LOGIN [dyvenix_app];
+    DROP SCHEMA IF EXISTS [Logs];
+*/
 
-CREATE SCHEMA [dyvenix_logs];
+CREATE SCHEMA [Logs];
 GO
 
 PRINT 'Created the DB schema'
 
 CREATE LOGIN [dyvenix_app] WITH PASSWORD = 'pwd';
-CREATE USER [dyvenix_app] FOR LOGIN [dyvenix_app] WITH DEFAULT_SCHEMA = dyvenix_logs;
+CREATE USER [dyvenix_app] FOR LOGIN [dyvenix_app] WITH DEFAULT_SCHEMA = Logs;
 
-IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dyvenix_logs].[LogEvents2]') AND type in (N'U'))
+IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Logs].[LogEvents]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE [dyvenix_logs].[LogEvents2]
+    CREATE TABLE [Logs].[LogEvents]
     (
         [Message] [nvarchar](max) NULL,
-        [Level] [nvarchar](12) NULL,
+        [LogLevel] [int] NULL,
         [TimeStampUTC] [datetime] NULL,
         [MachineName] [nvarchar](100) NULL,
         [Source] [nvarchar](200) NULL,
@@ -24,21 +26,21 @@ BEGIN
     )
 END
 
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'IX_LogEvents2_TimeStamp' AND object_id = OBJECT_ID('dyvenix_logs.LogEvents2'))
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'IX_LogEvents_TimeStampUTC' AND object_id = OBJECT_ID('Logs.LogEvents'))
 BEGIN
-    CREATE NONCLUSTERED INDEX IX_LogEvents2_TimeStamp ON dyvenix_logs.LogEvents2 (TimeStamp);
+    CREATE NONCLUSTERED INDEX IX_LogEvents_TimeStampUTC ON Logs.LogEvents (TimeStampUTC);
 END
 
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'IX_LogEvents2_MachineName' AND object_id = OBJECT_ID('dyvenix_logs.LogEvents2'))
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'IX_LogEvents_MachineName' AND object_id = OBJECT_ID('Logs.LogEvents'))
 BEGIN
-    CREATE NONCLUSTERED INDEX IX_LogEvents2_MachineName ON dyvenix_logs.LogEvents2 (MachineName);
+    CREATE NONCLUSTERED INDEX IX_LogEvents_MachineName ON Logs.LogEvents (MachineName);
 END
 
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'IX_LogEvents2_Source' AND object_id = OBJECT_ID('dyvenix_logs.LogEvents2'))
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'IX_LogEvents_Source' AND object_id = OBJECT_ID('Logs.LogEvents'))
 BEGIN
-    CREATE NONCLUSTERED INDEX IX_LogEvents2_Source ON dyvenix_logs.LogEvents2 (Source);
+    CREATE NONCLUSTERED INDEX IX_LogEvents_Source ON Logs.LogEvents (Source);
 END
 
-GRANT SELECT ON dyvenix_logs.LogEvents2 TO dyvenix_app;
-GRANT INSERT ON dyvenix_logs.LogEvents2 TO dyvenix_app;
+GRANT SELECT ON Logs.LogEvents TO dyvenix_app;
+GRANT INSERT ON Logs.LogEvents TO dyvenix_app;
 

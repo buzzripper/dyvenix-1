@@ -13,3 +13,10 @@
 2025-02-09 23:20:50.324 -05:00 [INF] Executed action Dyvenix.App1.Server.Controllers.SystemController.Healthz (app1.server) in 7.227ms
 2025-02-09 23:20:50.325 -05:00 [INF] Executed endpoint 'Dyvenix.App1.Server.Controllers.SystemController.Healthz (app1.server)'
 2025-02-09 23:20:50.327 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/api/System/Healthz - 200 null text/plain; charset=utf-8 153.791ms
+2025-02-10 08:37:12.894 -05:00 [INF] User profile is available. Using 'C:\Users\Andy\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-10 08:37:13.007 -05:00 [WRN] The WebRootPath was not found: D:\Code\buzzripper\dyvenix-1\src\app1.server\wwwroot. Static files may be unavailable.
+2025-02-10 08:37:13.162 -05:00 [INF] Now listening on: https://localhost:7112
+2025-02-10 08:37:13.162 -05:00 [INF] Now listening on: http://localhost:5204
+2025-02-10 08:37:13.193 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-10 08:37:13.194 -05:00 [INF] Hosting environment: Development
+2025-02-10 08:37:13.194 -05:00 [INF] Content root path: D:\Code\buzzripper\dyvenix-1\src\app1.server

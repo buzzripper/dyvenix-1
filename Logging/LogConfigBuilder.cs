@@ -29,7 +29,8 @@ namespace Dyvenix.Logging
 
 			if (logConfig.EnableDbLogging)
 			{
-				loggerConfiguration.WriteTo.MSSqlServer(
+				loggerConfiguration
+					.WriteTo.MSSqlServer(
 					logConfig.DbConnectionString,
 					new MSSqlServerSinkOptions
 					{
@@ -96,19 +97,19 @@ namespace Dyvenix.Logging
 					ColumnName = "TimeStampUTC",
 					ConvertToUtc = true,
 				},
+				Level =
+				{
+					DataLength = 12
+				},
 				AdditionalColumns = new Collection<SqlColumn>
 				{
-					new SqlColumn { DataType = SqlDbType.NVarChar, ColumnName = "MachineName" },
-					new SqlColumn { DataType = SqlDbType.NVarChar, ColumnName = "ProcessName" },
-					new SqlColumn { DataType = SqlDbType.NVarChar, ColumnName = "ThreadId" },
-					new SqlColumn { DataType = SqlDbType.NVarChar, ColumnName = "CallerName" },
-					new SqlColumn { DataType = SqlDbType.NVarChar, ColumnName = "SourceFile" },
-					new SqlColumn { DataType = SqlDbType.NVarChar, ColumnName = "LineNumber" }
+					new SqlColumn { ColumnName = "MachineName", DataType = SqlDbType.NVarChar, DataLength=100 },
+					new SqlColumn { ColumnName = "Source", DataType = SqlDbType.NVarChar, DataLength=200 },
 				}
 			};
-
-			//columnOptions.Store.Remove(StandardColumn.Id);
+			columnOptions.Store.Remove(StandardColumn.Id);
 			columnOptions.Store.Remove(StandardColumn.Properties);
+			columnOptions.Store.Remove(StandardColumn.MessageTemplate);
 
 			return columnOptions;
 		}

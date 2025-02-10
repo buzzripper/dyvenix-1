@@ -2,6 +2,7 @@ using DotNetEnv;
 using Dyvenix.App1.Server;
 using Dyvenix.App1.Server.Auth;
 using Dyvenix.App1.Server.Config;
+using Dyvenix.App1.Server.Services;
 using Dyvenix.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -132,6 +133,7 @@ static void ConfigureServices(IServiceCollection services, ILogger logger, AppCo
 	services.AddSerilog();
 
 	services.AddSingleton(appConfig);
+	services.AddScoped<ITestService, TestService>();
 }
 
 static void ConfigureAuth(IServiceCollection services, IConfiguration configuration, AuthConfig authConfig)

@@ -122,3 +122,29 @@
 2025-02-10 13:50:38.012 -05:00 [INF] Executed action Dyvenix.App1.Server.Controllers.SystemController.Healthz (app1.server) in 1.0965ms
 2025-02-10 13:50:38.013 -05:00 [INF] Executed endpoint 'Dyvenix.App1.Server.Controllers.SystemController.Healthz (app1.server)'
 2025-02-10 13:50:38.014 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/api/System/Healthz - 200 null text/plain; charset=utf-8 9.0891ms
+2025-02-10 18:27:33.276 -05:00 [INF] User profile is available. Using 'C:\Users\Andy\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-10 18:27:33.340 -05:00 [WRN] The WebRootPath was not found: D:\Code\buzzripper\dyvenix-1\src\app1.server\wwwroot. Static files may be unavailable.
+2025-02-10 18:27:33.469 -05:00 [INF] Now listening on: https://localhost:7112
+2025-02-10 18:27:33.469 -05:00 [INF] Now listening on: http://localhost:5204
+2025-02-10 18:27:33.499 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-10 18:27:33.500 -05:00 [INF] Hosting environment: Development
+2025-02-10 18:27:33.500 -05:00 [INF] Content root path: D:\Code\buzzripper\dyvenix-1\src\app1.server
+2025-02-10 18:27:42.216 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/swagger/index.html - null null
+2025-02-10 18:27:42.300 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/swagger/index.html - 200 null text/html;charset=utf-8 87.4048ms
+2025-02-10 18:27:42.315 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/_vs/browserLink - null null
+2025-02-10 18:27:42.315 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/_framework/aspnetcore-browser-refresh.js - null null
+2025-02-10 18:27:42.315 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/swagger/index.js - null null
+2025-02-10 18:27:42.347 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/swagger/index.js - 200 null application/javascript;charset=utf-8 6.656ms
+2025-02-10 18:27:42.379 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/_framework/aspnetcore-browser-refresh.js - 200 13774 application/javascript; charset=utf-8 64.2516ms
+2025-02-10 18:27:42.390 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/_vs/browserLink - 200 null text/javascript; charset=UTF-8 75.2053ms
+2025-02-10 18:27:42.413 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/swagger/v1/swagger.json - null null
+2025-02-10 18:27:42.421 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 8.2631ms
+2025-02-10 18:27:46.379 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/api/System/Test - null null
+2025-02-10 18:27:46.500 -05:00 [INF] Executing endpoint 'Dyvenix.App1.Server.Controllers.SystemController.Test (app1.server)'
+2025-02-10 18:27:46.507 -05:00 [INF] Route matched with {action = "Test", controller = "System"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Test() on controller Dyvenix.App1.Server.Controllers.SystemController (app1.server).
+2025-02-10 18:27:46.510 -05:00 [INF] TestService.Test()
+2025-02-10 18:27:46.514 -05:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2025-02-10 18:27:46.517 -05:00 [INF] Executed action Dyvenix.App1.Server.Controllers.SystemController.Test (app1.server) in 6.0526ms
+2025-02-10 18:27:46.518 -05:00 [INF] Executed endpoint 'Dyvenix.App1.Server.Controllers.SystemController.Test (app1.server)'
+2025-02-10 18:27:46.519 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/api/System/Test - 200 0 null 140.1673ms
+2025-02-10 18:28:29.451 -05:00 [INF] Application is shutting down...

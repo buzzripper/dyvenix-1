@@ -20,7 +20,7 @@ BEGIN
         [Message] [nvarchar](max) NULL,
         [LogLevel] [int] NULL,
         [TimeStampUTC] [datetime] NULL,
-        [MachineName] [nvarchar](100) NULL,
+        [CorrelationId] [nvarchar](50) NULL,
         [Source] [nvarchar](200) NULL,
         [Exception] [nvarchar](max) NULL
     )
@@ -31,9 +31,9 @@ BEGIN
     CREATE NONCLUSTERED INDEX IX_LogEvents_TimeStampUTC ON Logs.LogEvents (TimeStampUTC);
 END
 
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'IX_LogEvents_MachineName' AND object_id = OBJECT_ID('Logs.LogEvents'))
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'IX_LogEvents_CorrelationId' AND object_id = OBJECT_ID('Logs.LogEvents'))
 BEGIN
-    CREATE NONCLUSTERED INDEX IX_LogEvents_MachineName ON Logs.LogEvents (MachineName);
+    CREATE NONCLUSTERED INDEX IX_LogEvents_CorrelationId ON Logs.LogEvents (CorrelationId);
 END
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'IX_LogEvents_Source' AND object_id = OBJECT_ID('Logs.LogEvents'))

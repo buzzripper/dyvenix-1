@@ -58,3 +58,67 @@
 2025-02-10 09:00:41.924 -05:00 [INF] Hosting environment: Development
 2025-02-10 09:00:41.925 -05:00 [INF] Content root path: D:\Code\buzzripper\dyvenix-1\src\app1.server
 2025-02-10 09:00:51.530 -05:00 [INF] Application is shutting down...
+2025-02-10 13:24:48.245 -05:00 [INF] User profile is available. Using 'C:\Users\Andy\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-10 13:24:48.313 -05:00 [WRN] The WebRootPath was not found: D:\Code\buzzripper\dyvenix-1\src\app1.server\wwwroot. Static files may be unavailable.
+2025-02-10 13:24:48.433 -05:00 [INF] Now listening on: https://localhost:7112
+2025-02-10 13:24:48.436 -05:00 [INF] Now listening on: http://localhost:5204
+2025-02-10 13:24:48.467 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-10 13:24:48.467 -05:00 [INF] Hosting environment: Development
+2025-02-10 13:24:48.468 -05:00 [INF] Content root path: D:\Code\buzzripper\dyvenix-1\src\app1.server
+2025-02-10 13:24:51.705 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/swagger/index.html - null null
+2025-02-10 13:24:51.816 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/swagger/index.html - 200 null text/html;charset=utf-8 113.3058ms
+2025-02-10 13:24:51.831 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/_framework/aspnetcore-browser-refresh.js - null null
+2025-02-10 13:24:51.831 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/swagger/index.js - null null
+2025-02-10 13:24:51.831 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/_vs/browserLink - null null
+2025-02-10 13:24:51.836 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/swagger/index.js - 200 null application/javascript;charset=utf-8 4.697ms
+2025-02-10 13:24:51.897 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/_framework/aspnetcore-browser-refresh.js - 200 13774 application/javascript; charset=utf-8 66.5442ms
+2025-02-10 13:24:51.922 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/_vs/browserLink - 200 null text/javascript; charset=UTF-8 91.2931ms
+2025-02-10 13:24:51.947 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/swagger/v1/swagger.json - null null
+2025-02-10 13:24:51.956 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 9.0304ms
+2025-02-10 13:25:01.233 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/api/System/Healthz - null null
+2025-02-10 13:25:01.329 -05:00 [INF] Executing endpoint 'Dyvenix.App1.Server.Controllers.SystemController.Healthz (app1.server)'
+2025-02-10 13:25:01.339 -05:00 [INF] Route matched with {action = "Healthz", controller = "System"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Healthz() on controller Dyvenix.App1.Server.Controllers.SystemController (app1.server).
+2025-02-10 13:25:01.341 -05:00 [INF] -------------------------->>> Health check
+2025-02-10 13:25:01.345 -05:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2025-02-10 13:25:01.348 -05:00 [INF] Executed action Dyvenix.App1.Server.Controllers.SystemController.Healthz (app1.server) in 6.1364ms
+2025-02-10 13:25:01.349 -05:00 [INF] Executed endpoint 'Dyvenix.App1.Server.Controllers.SystemController.Healthz (app1.server)'
+2025-02-10 13:25:01.351 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/api/System/Healthz - 200 null text/plain; charset=utf-8 117.748ms
+2025-02-10 13:31:10.147 -05:00 [INF] User profile is available. Using 'C:\Users\Andy\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-10 13:31:10.209 -05:00 [WRN] The WebRootPath was not found: D:\Code\buzzripper\dyvenix-1\src\app1.server\wwwroot. Static files may be unavailable.
+2025-02-10 13:31:10.361 -05:00 [INF] Now listening on: https://localhost:7112
+2025-02-10 13:31:10.362 -05:00 [INF] Now listening on: http://localhost:5204
+2025-02-10 13:31:10.393 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-10 13:31:10.393 -05:00 [INF] Hosting environment: Development
+2025-02-10 13:31:10.393 -05:00 [INF] Content root path: D:\Code\buzzripper\dyvenix-1\src\app1.server
+2025-02-10 13:49:43.160 -05:00 [INF] User profile is available. Using 'C:\Users\Andy\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-10 13:49:43.252 -05:00 [WRN] The WebRootPath was not found: D:\Code\buzzripper\dyvenix-1\src\app1.server\wwwroot. Static files may be unavailable.
+2025-02-10 13:49:43.439 -05:00 [INF] Now listening on: https://localhost:7112
+2025-02-10 13:49:43.445 -05:00 [INF] Now listening on: http://localhost:5204
+2025-02-10 13:49:43.478 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-10 13:49:43.478 -05:00 [INF] Hosting environment: Development
+2025-02-10 13:49:43.479 -05:00 [INF] Content root path: D:\Code\buzzripper\dyvenix-1\src\app1.server
+2025-02-10 13:49:47.556 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/api/System/Healthz - null null
+2025-02-10 13:49:47.734 -05:00 [INF] Executing endpoint 'Dyvenix.App1.Server.Controllers.SystemController.Healthz (app1.server)'
+2025-02-10 13:49:47.743 -05:00 [INF] Route matched with {action = "Healthz", controller = "System"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Healthz() on controller Dyvenix.App1.Server.Controllers.SystemController (app1.server).
+2025-02-10 13:49:47.745 -05:00 [INF] -------------------------->>> Health check
+2025-02-10 13:49:47.748 -05:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2025-02-10 13:49:47.752 -05:00 [INF] Executed action Dyvenix.App1.Server.Controllers.SystemController.Healthz (app1.server) in 5.7759ms
+2025-02-10 13:49:47.753 -05:00 [INF] Executed endpoint 'Dyvenix.App1.Server.Controllers.SystemController.Healthz (app1.server)'
+2025-02-10 13:49:47.755 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/api/System/Healthz - 200 null text/plain; charset=utf-8 202.1598ms
+2025-02-10 13:50:32.346 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/swagger/index.html - null null
+2025-02-10 13:50:32.422 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/swagger/index.html - 200 null text/html;charset=utf-8 76.5271ms
+2025-02-10 13:50:32.427 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/_framework/aspnetcore-browser-refresh.js - null null
+2025-02-10 13:50:32.427 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/_vs/browserLink - null null
+2025-02-10 13:50:32.427 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/swagger/index.js - null null
+2025-02-10 13:50:32.435 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/swagger/index.js - 200 null application/javascript;charset=utf-8 7.7148ms
+2025-02-10 13:50:32.499 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/_framework/aspnetcore-browser-refresh.js - 200 13774 application/javascript; charset=utf-8 72.0621ms
+2025-02-10 13:50:32.507 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/_vs/browserLink - 200 null text/javascript; charset=UTF-8 80.079ms
+2025-02-10 13:50:32.526 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/swagger/v1/swagger.json - null null
+2025-02-10 13:50:32.535 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 8.5704ms
+2025-02-10 13:50:38.005 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/api/System/Healthz - null null
+2025-02-10 13:50:38.008 -05:00 [INF] Executing endpoint 'Dyvenix.App1.Server.Controllers.SystemController.Healthz (app1.server)'
+2025-02-10 13:50:38.011 -05:00 [INF] Route matched with {action = "Healthz", controller = "System"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Healthz() on controller Dyvenix.App1.Server.Controllers.SystemController (app1.server).
+2025-02-10 13:50:38.012 -05:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2025-02-10 13:50:38.012 -05:00 [INF] Executed action Dyvenix.App1.Server.Controllers.SystemController.Healthz (app1.server) in 1.0965ms
+2025-02-10 13:50:38.013 -05:00 [INF] Executed endpoint 'Dyvenix.App1.Server.Controllers.SystemController.Healthz (app1.server)'
+2025-02-10 13:50:38.014 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/api/System/Healthz - 200 null text/plain; charset=utf-8 9.0891ms

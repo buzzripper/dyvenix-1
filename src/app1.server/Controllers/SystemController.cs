@@ -18,7 +18,7 @@ namespace Dyvenix.App1.Server.Controllers
 		[HttpGet, Route("[action]")]
 		public IActionResult Healthz()
 		{
-			_logger.Information("-------------------------->>> Health check");
+			_logger.Debug("-------------------------->>> Health check");
 			return Ok("Healthy");
 		}
 

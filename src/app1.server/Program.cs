@@ -13,13 +13,9 @@ using Microsoft.Identity.Web;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using Serilog.Events;
-using Serilog.Templates;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Net.Http;
 using System.Reflection;
 
 
@@ -48,12 +44,14 @@ Log.Logger.Debug("Configuring application");
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
-
 app.UseCors("CORSPolicy");
 app.MapControllers();
 app.UseDefaultFiles(); // Allows serving index.html as default
 app.UseStaticFiles(); // Enables serving files from wwwroot
 app.UseRouting();
+
+app.UseMiddleware<CorrelationIdMiddleware>();
+
 
 if (!appConfig.AuthConfig.Disabled)
 {

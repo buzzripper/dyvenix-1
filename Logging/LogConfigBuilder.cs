@@ -107,7 +107,7 @@ namespace Dyvenix.Logging
 				AdditionalColumns = new Collection<SqlColumn>
 				{
 					new SqlColumn { ColumnName = "LogLevel", DataType = SqlDbType.Int },
-					new SqlColumn { ColumnName = "MachineName", DataType = SqlDbType.NVarChar, DataLength=100 },
+					new SqlColumn { ColumnName = "CorrelationId", DataType = SqlDbType.NVarChar, DataLength=50 },
 					new SqlColumn { ColumnName = "Source", DataType = SqlDbType.NVarChar, DataLength=200 },
 				}
 			};

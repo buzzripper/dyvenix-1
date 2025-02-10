@@ -1,6 +1,8 @@
 using DotNetEnv;
+using Dyvenix.App1.Server;
 using Dyvenix.App1.Server.Auth;
 using Dyvenix.App1.Server.Config;
+using Dyvenix.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -16,7 +18,6 @@ using Serilog.Templates;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Net.Http;
 using System.Reflection;
 
@@ -24,68 +25,64 @@ using System.Reflection;
 // Load environment variables from .env file
 Env.Load();
 
-// Build AppConfig from appsettings.json
-var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false).Build();
-var appConfig = AppConfigBuilder.Build(configuration);
-
-// Initialize logging
-var logger = CreateLogger(appConfig);
-appConfig.WriteSettingsToLog(logger);
-
 var builder = WebApplication.CreateBuilder(args);
 
-ConfigureServices(builder.Services, logger, appConfig, configuration);
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
+var appConfig = AppConfigBuilder.Build(builder.Configuration);
+
+Log.Logger = new LogConfigBuilder().Build(appConfig.LogConfig).CreateLogger();
+
+Log.Logger.Debug("Configuring services");
+ConfigureServices(builder.Services, Log.Logger, appConfig, builder.Configuration);
+
+Log.Logger.Debug("Building web application");
 var app = builder.Build();
 
-Configure(app, logger, appConfig, configuration);
+Log.Logger.Debug("Configuring application");
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseHttpsRedirection();
 
-#region Startup Methods
+app.UseCors("CORSPolicy");
+app.MapControllers();
+app.UseDefaultFiles(); // Allows serving index.html as default
+app.UseStaticFiles(); // Enables serving files from wwwroot
+app.UseRouting();
 
-static ILogger CreateLogger(AppConfig appConfig)
+if (!appConfig.AuthConfig.Disabled)
 {
-	var minLogLevel = Enum.TryParse<LogEventLevel>(appConfig.MinLogLevel, out var level) ? level : LogEventLevel.Debug;
-	var fileLogFormatter = new ExpressionTemplate("[{@t:yyyy-MM-dd HH:mm:ss}] {@l:u3} {SourceContext} {@m}\n{@x}");
-	var awsLogFormatter = new ExpressionTemplate("{@l:u3} {SourceContext} {@m}\n{@x}");
-
-	var loggerConfiguration = new LoggerConfiguration();
-
-	// Minimum log level
-	switch (minLogLevel)
-	{
-		case LogEventLevel.Verbose:
-			loggerConfiguration.MinimumLevel.Verbose();
-			break;
-		case LogEventLevel.Debug:
-			loggerConfiguration.MinimumLevel.Debug();
-			break;
-		case LogEventLevel.Information:
-			loggerConfiguration.MinimumLevel.Information();
-			break;
-		case LogEventLevel.Warning:
-			loggerConfiguration.MinimumLevel.Warning();
-			break;
-		default:
-			loggerConfiguration.MinimumLevel.Error();
-			break;
-	};
-
-	// Console
-	loggerConfiguration.WriteTo.Console(fileLogFormatter);
-
-	return loggerConfiguration.CreateLogger();
+	app.UseAuthentication(); // resposible for constructing AuthenticationTicket objects representing the user's identity
+	app.UseAuthorization();
+}
+else
+{
+	app.MapControllers().AllowAnonymous();
 }
 
-#endregion
+// Redirect non-API requests to Angular app
+app.Use(async (context, next) =>
+{
+	if (!context.Request.Path.Value.StartsWith("/api") &&
+		!System.IO.Path.HasExtension(context.Request.Path.Value))
+	{
+		context.Request.Path = "/index.html";
+	}
+	await next();
+});
 
-#region ConfigureServices
+//Serilog.Debugging.SelfLog.Enable(msg => Debug.WriteLine(msg));
+Log.Logger.Debug($"Application URLs: {Environment.GetEnvironmentVariable("ASPNETCORE_URLS")}");
+
+Log.Logger.Debug("Starting application");
+app.Run();
+
 
 static void ConfigureServices(IServiceCollection services, ILogger logger, AppConfig appConfig, IConfiguration configuration)
 {
-	logger.Debug("Configuring services");
-
 	// Web API services
 	services.AddControllers();
+	services.AddEndpointsApiExplorer();
 	services.AddHttpClient();
 
 	// Swagger
@@ -120,25 +117,22 @@ static void ConfigureServices(IServiceCollection services, ILogger logger, AppCo
 			});
 		}
 	});
-	
-	//{
-	//	services.AddAuthorizationBuilder()
-	//		.SetFallbackPolicy(new AuthorizationPolicyBuilder()
-	//		.RequireAssertion(_ => true) // Always allow
-	//		.Build());
-	//}
-	//else
 
-	if (!appConfig.AuthConfig.Disabled)
-		ConfigureAuth(services, configuration, appConfig);
+	// Set up auth if enabled
+	//if (!appConfig.AuthConfig.Disabled)
+	ConfigureAuth(services, configuration, appConfig.AuthConfig);
 
-	// Register application services
-	services.AddSingleton<ILogger>(provider => { return logger; });
+	// Engagement API services
+	services.AddSingleton<ILogger>(provider =>
+	{
+		return logger;
+	});
 	services.AddSerilog();
+
 	services.AddSingleton(appConfig);
 }
 
-static void ConfigureAuth(IServiceCollection services, IConfiguration configuration, AppConfig appConfig)
+static void ConfigureAuth(IServiceCollection services, IConfiguration configuration, AuthConfig authConfig)
 {
 	//Adds Microsoft Identity platform(AAD v2.0) support to protect this Api
 	services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -180,101 +174,16 @@ static void ConfigureAuth(IServiceCollection services, IConfiguration configurat
 			policy.Requirements.Add(new HasScopeRequirement(scopeName)));
 	});
 
-	//services.AddAuthorization(options =>
-	//{
-	//	if (appConfig.AuthConfig.Disabled)
-	//	{
-	//		// Allow all requests without authentication in Development
-	//		options.FallbackPolicy = new AuthorizationPolicyBuilder()
-	//			.RequireAssertion(_ => true) // Always allow access
-	//			.Build();
-	//	}
-	//});
-
-	//services.AddAuthorization(options =>
-	//{
-	//	if (appConfig.AuthConfig.Disabled)
-	//	{
-	//		options.DefaultPolicy = new AuthorizationPolicyBuilder()
-	//			.RequireAssertion(_ => true) // Allow all requests
-	//			.Build();
-	//	}
-	//});
-
-	//services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-	//	.AddJwtBearer(options =>
-	//	{
-	//		options.Authority = "https://your-auth-provider.com";
-	//		options.Audience = "your-api-audience";
-	//	});
-	//services.AddAuthentication();
-	//services.AddAuthorization();
-	//services.AddAuthorization(options =>
-	//{
-	//	if (appConfig.AuthConfig.Disabled)
-	//	{
-	//		options.FallbackPolicy = new AuthorizationPolicyBuilder()
-	//			.RequireAssertion(_ => true) // Always allow
-	//			.Build();
-	//	}
-	//});
-
-	//Configure CORS
+	// Configure CORS
 	services.AddCors(item =>
 	{
 		item.AddPolicy("CORSPolicy", builder =>
 		{
-			builder.WithOrigins(appConfig.AuthConfig.AllowedOrigins)
+			builder.WithOrigins(authConfig.AllowedOrigins)
 			.AllowAnyMethod()
 			.AllowAnyHeader();
 		});
 	});
 }
 
-#endregion
 
-#region Configure
-
-static void Configure(WebApplication app, ILogger logger, AppConfig appConfig, IConfiguration configuration)
-{
-	logger.Debug("Building web application");
-
-	logger.Debug("Configuring application");
-	app.UseSwagger();
-	app.UseSwaggerUI();
-	app.UseHttpsRedirection();
-
-	app.UseCors("CORSPolicy");
-	app.UseDefaultFiles(); // Allows serving index.html as default
-	app.UseStaticFiles(); // Enables serving files from wwwroot
-	app.UseRouting();
-
-	if (appConfig.AuthConfig.Disabled)
-	{
-		app.MapControllers().AllowAnonymous();
-		app.MapControllers().WithMetadata(new AllowAnonymousAttribute());
-	}
-	else
-	{
-		app.UseAuthentication(); // resposible for constructing AuthenticationTicket objects representing the user's identity
-		app.UseAuthorization();
-		app.MapControllers();
-	}
-
-	//Redirect non-API requests to Angular app
-	app.Use(async (context, next) =>
-	{
-		if (!context.Request.Path.Value.StartsWith("/api") && !Path.HasExtension(context.Request.Path.Value))
-			context.Request.Path = "/index.html";
-
-		await next();
-	});
-
-	//Serilog.Debugging.SelfLog.Enable(msg => Debug.WriteLine(msg));
-	logger.Debug($"Application URLs: {Environment.GetEnvironmentVariable("ASPNETCORE_URLS")}");
-
-	logger.Debug("Starting application");
-	app.Run();
-}
-
-#endregion

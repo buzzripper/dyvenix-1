@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using Dyvenix.Logging.Config;
+using Serilog;
 using System;
 using System.Text;
 
@@ -9,6 +10,7 @@ namespace Dyvenix.App1.Server.Config
 		public string EnvName { get; set; }
 		public string MinLogLevel { get; set; }
 		public AuthConfig AuthConfig { get; set; }
+		public LogConfig LogConfig { get; set; }
 
 		public void ProcessEnvironmentVars()
 		{

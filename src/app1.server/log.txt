@@ -1,0 +1,15 @@
+2025-02-09 23:20:46.974 -05:00 [INF] User profile is available. Using 'C:\Users\Andy\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-09 23:20:47.041 -05:00 [WRN] The WebRootPath was not found: D:\Code\buzzripper\dyvenix-1\src\app1.server\wwwroot. Static files may be unavailable.
+2025-02-09 23:20:47.140 -05:00 [INF] Now listening on: https://localhost:7112
+2025-02-09 23:20:47.141 -05:00 [INF] Now listening on: http://localhost:5204
+2025-02-09 23:20:47.171 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-09 23:20:47.172 -05:00 [INF] Hosting environment: Development
+2025-02-09 23:20:47.173 -05:00 [INF] Content root path: D:\Code\buzzripper\dyvenix-1\src\app1.server
+2025-02-09 23:20:50.177 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/api/System/Healthz - null null
+2025-02-09 23:20:50.307 -05:00 [INF] Executing endpoint 'Dyvenix.App1.Server.Controllers.SystemController.Healthz (app1.server)'
+2025-02-09 23:20:50.314 -05:00 [INF] Route matched with {action = "Healthz", controller = "System"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Healthz() on controller Dyvenix.App1.Server.Controllers.SystemController (app1.server).
+2025-02-09 23:20:50.316 -05:00 [INF] -------------------------->>> Health check
+2025-02-09 23:20:50.320 -05:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2025-02-09 23:20:50.324 -05:00 [INF] Executed action Dyvenix.App1.Server.Controllers.SystemController.Healthz (app1.server) in 7.227ms
+2025-02-09 23:20:50.325 -05:00 [INF] Executed endpoint 'Dyvenix.App1.Server.Controllers.SystemController.Healthz (app1.server)'
+2025-02-09 23:20:50.327 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/api/System/Healthz - 200 null text/plain; charset=utf-8 153.791ms

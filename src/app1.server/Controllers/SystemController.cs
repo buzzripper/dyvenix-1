@@ -1,5 +1,4 @@
 using Dyvenix.App1.Server.Config;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -10,7 +9,7 @@ namespace Dyvenix.App1.Server.Controllers
 	public class SystemController : ApiControllerBase
 	{
 		private readonly AppConfig _appConfig;
-
+		
 		public SystemController(AppConfig appConfig, ILogger logger) : base(logger)
 		{
 			_appConfig = appConfig;
@@ -19,6 +18,7 @@ namespace Dyvenix.App1.Server.Controllers
 		[HttpGet, Route("[action]")]
 		public IActionResult Healthz()
 		{
+			_logger.Information("-------------------------->>> Health check");
 			return Ok("Healthy");
 		}
 

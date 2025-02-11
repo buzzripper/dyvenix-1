@@ -1,4 +1,6 @@
 ﻿using Serilog;
+using System;
+using System.Security.Cryptography;
 
 namespace Dyvenix.Logging;
 
@@ -9,6 +11,7 @@ public interface IDyvenixLogger<T>
 	void Info(string message);
 	void Warn(string message);
 	void Error(string message);
+	void Error(Exception ex, string message);
 	void Fatal(string message);
 }
 
@@ -44,6 +47,11 @@ public class DyvenixLogger<T> : IDyvenixLogger<T>
 	public void Error(string message)
 	{
 		_logger.Error(message);
+	}
+
+	public void Error(Exception ex, string message)
+	{
+		_logger.Error(ex, message);
 	}
 
 	public void Fatal(string message)

@@ -236,3 +236,40 @@
 2025-02-10 22:00:44.220 -05:00 [DBG] Application URLs: https://localhost:7112;http://localhost:5204
 2025-02-10 22:00:44.221 -05:00 [DBG] Starting application
 2025-02-10 22:00:55.253 -05:00 [INF] TestService.Test()
+2025-02-10 22:07:29.914 -05:00 [DBG] Configuring services
+2025-02-10 22:07:30.003 -05:00 [DBG] Building web application
+2025-02-10 22:07:30.137 -05:00 [DBG] Configuring application
+2025-02-10 22:07:30.220 -05:00 [DBG] Application URLs: https://localhost:7112;http://localhost:5204
+2025-02-10 22:07:30.221 -05:00 [DBG] Starting application
+2025-02-10 22:07:34.440 -05:00 [INF] TestService.Test()
+2025-02-10 22:07:45.289 -05:00 [DBG] Configuring services
+2025-02-10 22:07:45.423 -05:00 [DBG] Building web application
+2025-02-10 22:07:45.490 -05:00 [DBG] Configuring application
+2025-02-10 22:07:45.572 -05:00 [DBG] Application URLs: https://localhost:7112;http://localhost:5204
+2025-02-10 22:07:45.572 -05:00 [DBG] Starting application
+2025-02-10 22:07:57.430 -05:00 [DBG] Configuring services
+2025-02-10 22:07:57.561 -05:00 [DBG] Building web application
+2025-02-10 22:07:57.607 -05:00 [DBG] Configuring application
+2025-02-10 22:07:57.715 -05:00 [DBG] Application URLs: https://localhost:7112;http://localhost:5204
+2025-02-10 22:07:57.715 -05:00 [DBG] Starting application
+2025-02-10 22:08:14.573 -05:00 [INF] TestService.Test()
+[2025-02-10 22:11:26.211][1] Configuring services[]
+[2025-02-10 22:11:26.323][1] Building web application[]
+[2025-02-10 22:11:26.369][1] Configuring application[]
+[2025-02-10 22:11:26.488][1] Application URLs: https://localhost:7112;http://localhost:5204[]
+[2025-02-10 22:11:26.488][1] Starting application[]
+[2025-02-10 22:11:31.326][2] TestService.Test()[TestService]
+[2025-02-10 22:20:15.563][1] Configuring services[]
+[2025-02-10 22:20:15.656][1] Building web application[]
+[2025-02-10 22:20:15.733][1] Configuring application[]
+[2025-02-10 22:20:15.852][1] Application URLs: https://localhost:7112;http://localhost:5204[]
+[2025-02-10 22:20:15.853][1] Starting application[]
+[2025-02-10 22:20:31.274][2] TestService.Test()[TestService]
+[2025-02-10 22:22:18.232][1] Configuring services[]
+[2025-02-10 22:22:18.403][1] Building web application[]
+[2025-02-10 22:22:18.452][1] Configuring application[]
+[2025-02-10 22:22:18.539][1] Application URLs: https://localhost:7112;http://localhost:5204[]
+[2025-02-10 22:22:18.540][1] Starting application[]
+[2025-02-10 22:22:32.682][4] YES!! App exception!!![TestService]
+System.ApplicationException: YES!! App exception!!!
+   at Dyvenix.App1.Server.Services.TestService.Test() in D:\Code\buzzripper\dyvenix-1\src\app1.server\Services\TestService.cs:line 24

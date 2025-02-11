@@ -1,18 +1,18 @@
 using Dyvenix.App1.Server.Config;
 using Dyvenix.App1.Server.Services;
+using Dyvenix.Logging;
 using Microsoft.AspNetCore.Mvc;
-using Serilog;
 
 namespace Dyvenix.App1.Server.Controllers
 {
 	[ApiController]
 	[Route("api/[controller]")]
-	public class SystemController : ApiControllerBase
+	public class SystemController : ApiControllerBase<SystemController>
 	{
 		private readonly AppConfig _appConfig;
 		private readonly ITestService _testService;
 
-		public SystemController(AppConfig appConfig, ILogger logger, ITestService testService) : base(logger)
+		public SystemController(AppConfig appConfig, IDyvenixLogger<SystemController> logger, ITestService testService) : base(logger)
 		{
 			_appConfig = appConfig;
 			_testService = testService;

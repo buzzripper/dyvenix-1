@@ -1,15 +1,16 @@
 ﻿using Dyvenix.App1.Server.Models.Exceptions;
+using Dyvenix.Logging;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using System;
 
 namespace Dyvenix.App1.Server.Controllers
 {
-	public class ApiControllerBase : ControllerBase
+	public class ApiControllerBase<T> : ControllerBase where T : ApiControllerBase<T>
 	{
-		protected readonly ILogger _logger;
+		protected readonly IDyvenixLogger<T> _logger;
 
-		public ApiControllerBase(ILogger logger)
+		public ApiControllerBase(IDyvenixLogger<T> logger)
 		{
 			_logger = logger;
 		}

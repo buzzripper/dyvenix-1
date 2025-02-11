@@ -1,6 +1,6 @@
+using Dyvenix.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +10,14 @@ namespace Dyvenix.App1.Server.Controllers
 	[ApiController]
 	[Route("api/[controller]")]
 	[Authorize]
-	public class WeatherForecastController : ApiControllerBase
+	public class WeatherForecastController : ApiControllerBase<WeatherForecastController>
 	{
 		private static readonly string[] Summaries = new[]
 		{
 			"Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 		};
 
-		public WeatherForecastController(ILogger logger) : base(logger)
+		public WeatherForecastController(IDyvenixLogger<WeatherForecastController> logger) : base(logger)
 		{
 		}
 

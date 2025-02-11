@@ -1,5 +1,5 @@
 ﻿using Dyvenix.Logging;
-using Serilog;
+using System;
 
 namespace Dyvenix.App1.Server.Services;
 
@@ -19,6 +19,13 @@ public class TestService : ITestService
 
 	public void Test()
 	{
-		_logger.Info("TestService.Test()");
+		try
+		{
+			throw new ApplicationException("YES!! App exception!!!");
+		}
+		catch (Exception ex)
+		{
+			_logger.Error(ex, ex.Message);
+		}
 	}
 }

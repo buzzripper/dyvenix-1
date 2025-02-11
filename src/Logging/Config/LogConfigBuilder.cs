@@ -10,6 +10,8 @@ namespace Dyvenix.Logging.Config
 {
 	public class LogConfigBuilder
 	{
+		private const string cOutputTemplate = "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff}][{LogLevel}] {Message:lj}[{Source}]{NewLine}{Exception}";
+
 		public LoggerConfiguration Build(LogConfig logConfig)
 		{
 			ValidateConfig(logConfig);
@@ -23,12 +25,21 @@ namespace Dyvenix.Logging.Config
 
 			if (logConfig.EnableConsoleLogging)
 			{
-				loggerConfiguration.WriteTo.Console(GetLogEventLevel(logConfig.ConsoleLogLevel));
+				loggerConfiguration.WriteTo.Console
+				(
+					restrictedToMinimumLevel: GetLogEventLevel(logConfig.ConsoleLogLevel),
+					outputTemplate: cOutputTemplate
+				);
 			}
 
 			if (logConfig.EnableFileLogging)
 			{
-				loggerConfiguration.WriteTo.File(logConfig.FilePath, GetLogEventLevel(logConfig.FileLogLevel));
+				loggerConfiguration.WriteTo.File
+				(
+					path: logConfig.FilePath, 
+					restrictedToMinimumLevel: GetLogEventLevel(logConfig.FileLogLevel),
+					outputTemplate: cOutputTemplate
+				);
 			}
 
 			if (logConfig.EnableDbLogging)

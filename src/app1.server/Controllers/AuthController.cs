@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 using System;
 using Dyvenix.App1.Server.Models.Auth;
 using Microsoft.Extensions.Configuration;
+using Dyvenix.Logging;
 
 namespace Dyvenix.App1.Server.Controllers
 {
 	[ApiController]
 	[Route("api/[controller]")]
-	public class AuthController : ApiControllerBase
+	public class AuthController : ApiControllerBase<AuthController>
 	{
-		public AuthController(ILogger logger) : base(logger)
+		public AuthController(IDyvenixLogger<AuthController> logger) : base(logger)
 		{
 		}
 
@@ -25,7 +26,7 @@ namespace Dyvenix.App1.Server.Controllers
 			// Check HTTP basic authorization
 			if (!IsAuthorized(Request))
 			{
-				_logger.Warning("HTTP basic authentication validation failed.");
+				_logger.Warn("HTTP basic authentication validation failed.");
 				return Unauthorized();
 			}
 
@@ -41,7 +42,7 @@ namespace Dyvenix.App1.Server.Controllers
 			string clientId = "f23aee71-9ccb-49ef-9d7d-f3c4f12c7177";
 			if (!clientId.Equals(requestConnector.ClientId))
 			{
-				_logger.Warning("HTTP clientId is not authorized.");
+				_logger.Warn("HTTP clientId is not authorized.");
 				return Unauthorized();
 			}
 
@@ -69,7 +70,7 @@ namespace Dyvenix.App1.Server.Controllers
 			// Check if the HTTP Authorization header exist
 			if (!req.Headers.ContainsKey("Authorization"))
 			{
-				_logger.Warning("Missing HTTP basic authentication header.");
+				_logger.Warn("Missing HTTP basic authentication header.");
 				return false;
 			}
 
@@ -79,7 +80,7 @@ namespace Dyvenix.App1.Server.Controllers
 			// Ensure the type of the authorization header id `Basic`
 			if (!auth.StartsWith("Basic "))
 			{
-				_logger.Warning("HTTP basic authentication header must start with 'Basic '.");
+				_logger.Warn("HTTP basic authentication header must start with 'Basic '.");
 				return false;
 			}
 

@@ -15,12 +15,8 @@ namespace Dyvenix.App1.Server.Controllers
 	[Route("api/[controller]")]
 	public class AuthController : ApiControllerBase
 	{
-		private readonly AppConfig _appConfig;
-		private readonly IConfiguration _configuration;
-
-		public AuthController(AppConfig appConfig, ILogger logger) : base(logger)
+		public AuthController(ILogger logger) : base(logger)
 		{
-			_appConfig = appConfig;
 		}
 
 		[HttpPost, Route("[action]")]

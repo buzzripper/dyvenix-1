@@ -19,7 +19,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Logging\Dyvenix.Logging.csproj" />
+	  <ProjectReference Include="..\Logging\Logging.csproj" />
 	</ItemGroup>
 
 </Project>

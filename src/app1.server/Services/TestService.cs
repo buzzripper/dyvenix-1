@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using Dyvenix.Logging;
+using Serilog;
 
 namespace Dyvenix.App1.Server.Services;
 
@@ -9,15 +10,15 @@ public interface ITestService
 
 public class TestService : ITestService
 {
-	private readonly ILogger _logger;
+	private readonly IDyvenixLogger<TestService> _logger;
 
-	public TestService(ILogger logger)
+	public TestService(IDyvenixLogger<TestService> logger)
 	{
 		_logger = logger;
 	}
 
 	public void Test()
 	{
-		_logger.Information("TestService.Test()");
+		_logger.Info("TestService.Test()");
 	}
 }

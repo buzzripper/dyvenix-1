@@ -17,11 +17,13 @@ IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Logs].[
 BEGIN
     CREATE TABLE [Logs].[LogEvents]
     (
-        [Message] [nvarchar](max) NULL,
-        [LogLevel] [int] NULL,
+        [Id] [int] IDENTITY(1,1) PRIMARY KEY NONCLUSTERED,
         [TimeStampUTC] [datetime] NULL,
-        [CorrelationId] [nvarchar](50) NULL,
+        [LogLevel] [int] NULL,
+        [Application] [nvarchar](200) NULL,
         [Source] [nvarchar](200) NULL,
+        [Message] [nvarchar](max) NULL,
+        [CorrelationId] [nvarchar](50) NULL,
         [Exception] [nvarchar](max) NULL
     )
 END

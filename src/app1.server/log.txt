@@ -148,3 +148,91 @@
 2025-02-10 18:27:46.518 -05:00 [INF] Executed endpoint 'Dyvenix.App1.Server.Controllers.SystemController.Test (app1.server)'
 2025-02-10 18:27:46.519 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/api/System/Test - 200 0 null 140.1673ms
 2025-02-10 18:28:29.451 -05:00 [INF] Application is shutting down...
+2025-02-10 20:44:32.798 -05:00 [INF] User profile is available. Using 'C:\Users\Andy\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-10 20:44:32.862 -05:00 [WRN] The WebRootPath was not found: D:\Code\buzzripper\dyvenix-1\src\app1.server\wwwroot. Static files may be unavailable.
+2025-02-10 20:44:32.998 -05:00 [INF] Now listening on: https://localhost:7112
+2025-02-10 20:44:33.000 -05:00 [INF] Now listening on: http://localhost:5204
+2025-02-10 20:44:33.049 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-10 20:44:33.051 -05:00 [INF] Hosting environment: Development
+2025-02-10 20:44:33.052 -05:00 [INF] Content root path: D:\Code\buzzripper\dyvenix-1\src\app1.server
+2025-02-10 20:45:06.320 -05:00 [INF] User profile is available. Using 'C:\Users\Andy\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-10 20:45:33.511 -05:00 [WRN] The WebRootPath was not found: D:\Code\buzzripper\dyvenix-1\src\app1.server\wwwroot. Static files may be unavailable.
+2025-02-10 21:16:38.154 -05:00 [INF] User profile is available. Using 'C:\Users\Andy\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-10 21:16:42.169 -05:00 [WRN] The WebRootPath was not found: D:\Code\buzzripper\dyvenix-1\src\app1.server\wwwroot. Static files may be unavailable.
+2025-02-10 21:16:42.263 -05:00 [INF] Now listening on: https://localhost:7112
+2025-02-10 21:16:42.264 -05:00 [INF] Now listening on: http://localhost:5204
+2025-02-10 21:16:42.292 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-10 21:16:42.293 -05:00 [INF] Hosting environment: Development
+2025-02-10 21:16:42.294 -05:00 [INF] Content root path: D:\Code\buzzripper\dyvenix-1\src\app1.server
+2025-02-10 21:17:06.341 -05:00 [INF] User profile is available. Using 'C:\Users\Andy\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-10 21:17:06.407 -05:00 [WRN] The WebRootPath was not found: D:\Code\buzzripper\dyvenix-1\src\app1.server\wwwroot. Static files may be unavailable.
+2025-02-10 21:17:06.589 -05:00 [INF] Now listening on: https://localhost:7112
+2025-02-10 21:17:06.590 -05:00 [INF] Now listening on: http://localhost:5204
+2025-02-10 21:17:06.623 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-10 21:17:06.623 -05:00 [INF] Hosting environment: Development
+2025-02-10 21:17:06.624 -05:00 [INF] Content root path: D:\Code\buzzripper\dyvenix-1\src\app1.server
+2025-02-10 21:17:08.673 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/swagger/index.html - null null
+2025-02-10 21:17:08.783 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/swagger/index.html - null null
+2025-02-10 21:17:08.785 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/swagger/index.html - 200 null text/html;charset=utf-8 114.5418ms
+2025-02-10 21:17:08.787 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/swagger/index.html - 200 null text/html;charset=utf-8 4.0452ms
+2025-02-10 21:17:08.801 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/_framework/aspnetcore-browser-refresh.js - null null
+2025-02-10 21:17:08.801 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/swagger/index.js - null null
+2025-02-10 21:17:08.801 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/_vs/browserLink - null null
+2025-02-10 21:17:08.805 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/swagger/index.js - 200 null application/javascript;charset=utf-8 4.1133ms
+2025-02-10 21:17:08.813 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/_framework/aspnetcore-browser-refresh.js - 200 13774 application/javascript; charset=utf-8 11.7381ms
+2025-02-10 21:17:08.836 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/_vs/browserLink - 200 null text/javascript; charset=UTF-8 34.3133ms
+2025-02-10 21:17:08.860 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/swagger/v1/swagger.json - null null
+2025-02-10 21:17:08.870 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 9.8243ms
+2025-02-10 21:17:13.223 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7112/api/System/Test - null null
+2025-02-10 21:17:13.334 -05:00 [INF] Executing endpoint 'Dyvenix.App1.Server.Controllers.SystemController.Test (app1.server)'
+2025-02-10 21:17:13.342 -05:00 [INF] Route matched with {action = "Test", controller = "System"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Test() on controller Dyvenix.App1.Server.Controllers.SystemController (app1.server).
+2025-02-10 21:17:13.344 -05:00 [INF] TestService.Test()
+2025-02-10 21:17:13.347 -05:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2025-02-10 21:17:13.351 -05:00 [INF] Executed action Dyvenix.App1.Server.Controllers.SystemController.Test (app1.server) in 6.0532ms
+2025-02-10 21:17:13.351 -05:00 [INF] Executed endpoint 'Dyvenix.App1.Server.Controllers.SystemController.Test (app1.server)'
+2025-02-10 21:17:13.352 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7112/api/System/Test - 200 0 null 129.2551ms
+2025-02-10 21:19:44.922 -05:00 [WRN] The WebRootPath was not found: D:\Code\buzzripper\dyvenix-1\src\app1.server\wwwroot. Static files may be unavailable.
+2025-02-10 21:24:08.034 -05:00 [DBG] Configuring services
+2025-02-10 21:24:08.162 -05:00 [DBG] Building web application
+2025-02-10 21:24:08.272 -05:00 [DBG] Configuring application
+2025-02-10 21:24:08.380 -05:00 [DBG] Application URLs: https://localhost:7112;http://localhost:5204
+2025-02-10 21:24:08.381 -05:00 [DBG] Starting application
+2025-02-10 21:24:27.991 -05:00 [DBG] Configuring services
+2025-02-10 21:24:28.088 -05:00 [DBG] Building web application
+2025-02-10 21:24:28.136 -05:00 [DBG] Configuring application
+2025-02-10 21:24:28.316 -05:00 [DBG] Application URLs: https://localhost:7112;http://localhost:5204
+2025-02-10 21:24:28.316 -05:00 [DBG] Starting application
+2025-02-10 21:25:01.022 -05:00 [INF] TestService.Test()
+2025-02-10 21:47:41.645 -05:00 [DBG] Configuring services
+2025-02-10 21:47:41.740 -05:00 [DBG] Building web application
+2025-02-10 21:47:41.847 -05:00 [DBG] Configuring application
+2025-02-10 21:47:41.947 -05:00 [DBG] Application URLs: https://localhost:7112;http://localhost:5204
+2025-02-10 21:47:41.948 -05:00 [DBG] Starting application
+2025-02-10 21:53:07.430 -05:00 [DBG] Configuring services
+2025-02-10 21:53:07.583 -05:00 [DBG] Building web application
+2025-02-10 21:53:07.630 -05:00 [DBG] Configuring application
+2025-02-10 21:53:07.710 -05:00 [DBG] Application URLs: https://localhost:7112;http://localhost:5204
+2025-02-10 21:53:07.711 -05:00 [DBG] Starting application
+2025-02-10 21:53:35.508 -05:00 [DBG] Configuring services
+2025-02-10 21:53:35.633 -05:00 [DBG] Building web application
+2025-02-10 21:53:35.679 -05:00 [DBG] Configuring application
+2025-02-10 21:53:35.760 -05:00 [DBG] Application URLs: https://localhost:7112;http://localhost:5204
+2025-02-10 21:53:35.760 -05:00 [DBG] Starting application
+2025-02-10 21:54:10.996 -05:00 [DBG] Configuring services
+2025-02-10 21:54:11.090 -05:00 [DBG] Building web application
+2025-02-10 21:54:11.168 -05:00 [DBG] Configuring application
+2025-02-10 21:54:11.252 -05:00 [DBG] Application URLs: https://localhost:7112;http://localhost:5204
+2025-02-10 21:54:11.252 -05:00 [DBG] Starting application
+2025-02-10 21:54:24.837 -05:00 [INF] TestService.Test()
+2025-02-10 21:57:53.579 -05:00 [DBG] Configuring services
+2025-02-10 21:57:53.697 -05:00 [DBG] Building web application
+2025-02-10 21:57:53.744 -05:00 [DBG] Configuring application
+2025-02-10 21:57:53.831 -05:00 [DBG] Application URLs: https://localhost:7112;http://localhost:5204
+2025-02-10 21:57:53.832 -05:00 [DBG] Starting application
+2025-02-10 21:58:00.495 -05:00 [INF] TestService.Test()
+2025-02-10 22:00:43.914 -05:00 [DBG] Configuring services
+2025-02-10 22:00:44.031 -05:00 [DBG] Building web application
+2025-02-10 22:00:44.138 -05:00 [DBG] Configuring application
+2025-02-10 22:00:44.220 -05:00 [DBG] Application URLs: https://localhost:7112;http://localhost:5204
+2025-02-10 22:00:44.221 -05:00 [DBG] Starting application
+2025-02-10 22:00:55.253 -05:00 [INF] TestService.Test()

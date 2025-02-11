@@ -1,5 +1,4 @@
-﻿using Dyvenix.Logging.Config;
-using Dyvenix.Logging.Enrichers;
+﻿using Dyvenix.Logging.Enrichers;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
@@ -7,7 +6,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Data;
 
-namespace Dyvenix.Logging
+namespace Dyvenix.Logging.Config
 {
 	public class LogConfigBuilder
 	{
@@ -17,7 +16,10 @@ namespace Dyvenix.Logging
 
 			var loggerConfiguration = new LoggerConfiguration().Enrich.FromLogContext();
 			loggerConfiguration.Enrich.FromLogContext();
-			loggerConfiguration.Enrich.With(new LogLevelEnricher());
+			loggerConfiguration.Enrich.With(new DyvenixLogEnricher(logConfig.ApplicationName));
+			loggerConfiguration.MinimumLevel.Verbose();
+			loggerConfiguration.MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning);
+			loggerConfiguration.MinimumLevel.Override("Microsoft.AspNetCore", Serilog.Events.LogEventLevel.Error);
 
 			if (logConfig.EnableConsoleLogging)
 			{
@@ -107,11 +109,11 @@ namespace Dyvenix.Logging
 				AdditionalColumns = new Collection<SqlColumn>
 				{
 					new SqlColumn { ColumnName = "LogLevel", DataType = SqlDbType.Int },
-					new SqlColumn { ColumnName = "CorrelationId", DataType = SqlDbType.NVarChar, DataLength=50 },
+					new SqlColumn { ColumnName = "Application", DataType = SqlDbType.NVarChar, DataLength=100 },
 					new SqlColumn { ColumnName = "Source", DataType = SqlDbType.NVarChar, DataLength=200 },
+					new SqlColumn { ColumnName = "CorrelationId", DataType = SqlDbType.NVarChar, DataLength=50 },
 				}
 			};
-			columnOptions.Store.Remove(StandardColumn.Id);
 			columnOptions.Store.Remove(StandardColumn.Level);
 			columnOptions.Store.Remove(StandardColumn.Properties);
 			columnOptions.Store.Remove(StandardColumn.MessageTemplate);

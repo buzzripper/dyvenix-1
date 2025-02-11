@@ -30,10 +30,10 @@ namespace Dyvenix.App1.Server.Models.Auth
 		public string Action { get; set; }
 
 		[JsonPropertyName("userMessage")]
-		public string? UserMessage { get; set; }
+		public string UserMessage { get; set; }
 
 		[JsonPropertyName("status")]
-		public string? Status { get; set; }
+		public string Status { get; set; }
 
 		[JsonPropertyName("extension_MyCustomClaim")]
 		public string MyCustomClaim { get; set; } = string.Empty;

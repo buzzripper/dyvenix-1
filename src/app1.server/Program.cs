@@ -4,6 +4,8 @@ using Dyvenix.App1.Server.Auth;
 using Dyvenix.App1.Server.Config;
 using Dyvenix.App1.Server.Services;
 using Dyvenix.Logging;
+using Dyvenix.Logging.Config;
+using Dyvenix.Logging.Correlation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -125,15 +127,17 @@ static void ConfigureServices(IServiceCollection services, ILogger logger, AppCo
 	//if (!appConfig.AuthConfig.Disabled)
 	ConfigureAuth(services, configuration, appConfig.AuthConfig);
 
-	// Engagement API services
+	// Serilog stuff
 	services.AddSingleton<ILogger>(provider =>
 	{
 		return logger;
 	});
 	services.AddSerilog();
 
+	// API services
 	services.AddSingleton(appConfig);
 	services.AddScoped<ITestService, TestService>();
+	services.AddScoped(typeof(IDyvenixLogger<>), typeof(DyvenixLogger<>));
 }
 
 static void ConfigureAuth(IServiceCollection services, IConfiguration configuration, AuthConfig authConfig)

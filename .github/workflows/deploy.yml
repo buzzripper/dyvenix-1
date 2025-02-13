@@ -25,12 +25,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment || 'Dev' }}
     steps:
-      # - name: Download artifact from build job
-      #   uses: actions/download-artifact@v4
-      #   with:
-      #     name: ${{ env.ARTIFACT_NAME }}
-      #     path: ./
-
       - name: Download Artifact
         id: download-artifact
         uses: dawidd6/action-download-artifact@v4
@@ -40,6 +34,12 @@ jobs:
             name: ${{env.ARTIFACT_NAME}}
             search_artifacts: true
             skip_unpack: false
+
+      - name: Update JSON Values with Secrets
+        run: |
+          jq '.logConfig.dbConnectionString = "${{ secrets.LOG_DB_CONN_STR }} appsettings.json > temp.json && mv temp.json appsettings.json"
+              # |  = "${{ secrets.DB_PASSWORD }}"
+              # | .appSecret = "${{ secrets.APP_SECRET }}"' config.json > temp.json && mv temp.json config.json
 
       - name: Azure Login
         uses: azure/login@v2

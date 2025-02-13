@@ -11,7 +11,7 @@ on:
     #     - QA
     #     - Prod
 
-  # push:
+  push:
   #   branches:
   #   - main
 

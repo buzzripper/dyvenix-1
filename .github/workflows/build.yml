@@ -11,9 +11,9 @@ on:
     #     - QA
     #     - Prod
 
-#   # push:
-#   #   branches:
-#   #   - main
+  push:
+    branches:
+    - main
 
 run-name: "Build (${{github.ref_name}}) 1.1.0.${{github.run_number}}"
 
@@ -44,7 +44,7 @@ jobs:
         run: |
           echo "VERSION=${{env.VER_MAJOR}}.${{env.VER_MINOR}}.${{env.VER_PATCH}}.${{github.run_number}}" >> $GITHUB_ENV  
           echo "SHORT_VERSION=${{env.VER_MAJOR}}.${{env.VER_MINOR}}.${{env.VER_PATCH}}" >> $GITHUB_ENV  
-          echo "ARTIFACT_NAME=Dyvenix_AppServer_${{env.VER_MAJOR}}.${{env.VER_MINOR}}.${{env.VER_PATCH}}" >> $GITHUB_ENV  
+          echo "ARTIFACT_NAME=Dyvenix_AppServer_${{env.VER_MAJOR}}.${{env.VER_MINOR}}.${{env.VER_PATCH}}.${{github.run_number}}" >> $GITHUB_ENV  
 
         ### Build Web API
 

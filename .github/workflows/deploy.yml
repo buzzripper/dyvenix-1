@@ -12,7 +12,7 @@ on:
         options:
           - Dev
 
-run-name: "Deploy (${{github.ref_name}}) 1.1.0.${{github.run_number}}"
+run-name: "Deploy (${{github.ref_name}}) ${{github.event.inputs.version}}"
 
 env:
   APP_ENV: ${{ github.event.inputs.environment || 'Dev' }}
@@ -25,15 +25,21 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment || 'Dev' }}
     steps:
-      - name: Download Artifact
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v4
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
         with:
-            github_token: ${{secrets.GITHUB_TOKEN}}
-            workflow: ${{env.BUILD_WORKFLOW_NAME}}
-            name: ${{env.ARTIFACT_NAME}}
-            search_artifacts: true
-            skip_unpack: false
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ./
+
+      # - name: Download Artifact
+      #   id: download-artifact
+      #   uses: dawidd6/action-download-artifact@v4
+      #   with:
+      #       github_token: ${{secrets.GITHUB_TOKEN}}
+      #       workflow: ${{env.BUILD_WORKFLOW_NAME}}
+      #       name: ${{env.ARTIFACT_NAME}}
+      #       search_artifacts: true
+      #       skip_unpack: false
 
       - name: Azure Login
         uses: azure/login@v2

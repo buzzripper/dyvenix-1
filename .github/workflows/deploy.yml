@@ -38,8 +38,6 @@ jobs:
       - name: Update JSON Values with Secrets
         run: |
           jq '.logConfig.dbConnectionString = "${{ secrets.LOG_DB_CONN_STR }} appsettings.json > temp.json && mv temp.json appsettings.json"
-              # |  = "${{ secrets.DB_PASSWORD }}"
-              # | .appSecret = "${{ secrets.APP_SECRET }}"' config.json > temp.json && mv temp.json config.json
 
       - name: Azure Login
         uses: azure/login@v2

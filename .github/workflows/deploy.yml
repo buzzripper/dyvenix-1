@@ -17,27 +17,23 @@ run-name: "Deploy (${{github.ref_name}}) 1.1.0.${{github.run_number}}"
 env:
   APP_ENV: ${{ github.event.inputs.environment || 'Dev' }}
   ARTIFACT_NAME: Dyvenix_AppServer_${{github.event.inputs.version}}
+  BUILD_WORKFLOW_NAME: build.yml
   AZURE_WEBAPP_NAME: dyvenix-app1
-  AZURE_WEBAPP_PACKAGE_PATH: src/app1.server/publish
-  CONFIGURATION: Release
-  DOTNET_CORE_VERSION: 9.0.x
-  API_ROOT_DIR: src/app1.server
-  ANG_ROOT_DIR: src/app1.client
-  ANG_OUTPUT_PATH: dist
-  VER_MAJOR: "1" 
-  VER_MINOR: "0" 
-  VER_PATCH: "0"
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment || 'Dev' }}
     steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
+      - name: Download Artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v4
         with:
-          name: ${{ env.ARTIFACT_NAME }}
-          path: ./
+            github_token: ${{secrets.GITHUB_TOKEN}}
+            workflow: ${{env.BUILD_WORKFLOW_NAME}}
+            name: ${{env.ARTIFACT_NAME}}
+            search_artifacts: true
+            skip_unpack: false
 
       - name: Azure Login
         uses: azure/login@v2

@@ -36,8 +36,10 @@ jobs:
             skip_unpack: false
 
       - name: Update JSON Values with Secrets
+        env:
+          CONN_STR: ${{ secrets.LOG_DB_CONN_STR }}
         run: |
-          jq '.logConfig.dbConnectionString = "${{ secrets.LOG_DB_CONN_STR }}"' appsettings.json > temp.json && mv temp.json appsettings.json
+          jq --arg connStr "$CONN_STR" '.logConfig.dbConnectionString = $connStr' appsettings.json > temp.json && mv temp.json appsettings.json
 
       - name: Azure Login
         uses: azure/login@v2

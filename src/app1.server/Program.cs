@@ -33,7 +33,7 @@ var appConfig = AppConfigBuilder.Build(builder.Configuration);
 
 Log.Logger = new LogConfigBuilder().Build(appConfig.LogConfig).CreateLogger();
 
-var file = File.CreateText(@"c:\Work\SerilogErrors.txt");
+var file = File.CreateText(@"Logs/SerilogErrors.txt");
 Serilog.Debugging.SelfLog.Enable(TextWriter.Synchronized(file));
 //Serilog.Debugging.SelfLog.Enable(msg => Debug.WriteLine(msg));
 

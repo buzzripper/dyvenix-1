@@ -19,6 +19,11 @@ public class TestService : ITestService
 
 	public void Test()
 	{
+		_logger.Verbose("TestService.Test() Verbose");
+		_logger.Debug("TestService.Test() Debug");
+		_logger.Info("TestService.Test() Info");
+		_logger.Warn("TestService.Test() Warn");
+		_logger.Fatal("TestService.Test() Fatal");
 		try
 		{
 			throw new ApplicationException("YES!! App exception!!!");

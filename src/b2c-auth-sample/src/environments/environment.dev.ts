@@ -3,6 +3,7 @@ export const environment = {
   msalConfig: {
     auth: {
       clientId: 'f23aee71-9ccb-49ef-9d7d-f3c4f12c7177',
+      responseType: 'code'
     }
   },
   apiConfig: {

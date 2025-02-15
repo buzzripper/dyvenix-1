@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{069F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "src\Logging\Logging.csproj", "{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ref", "ref", "{BB28E274-5BC9-4265-B8F0-886091D00A08}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "b2c-auth-sample", "src\b2c-auth-sample\b2c-auth-sample.esproj", "{3B42448E-5FE8-41CE-8F63-0B954CE871F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,8 +34,17 @@ Global
 		{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3B42448E-5FE8-41CE-8F63-0B954CE871F6} = {BB28E274-5BC9-4265-B8F0-886091D00A08}
 	EndGlobalSection
 EndGlobal

@@ -19,7 +19,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Logging\Logging.csproj" />
+	  <ProjectReference Include="..\auth.common\auth.common.csproj" />
+	  <ProjectReference Include="..\auth.server\auth.server.csproj" />
+	  <ProjectReference Include="..\dyvenix.logging\dyvenix.logging.csproj" />
 	</ItemGroup>
 
 </Project>

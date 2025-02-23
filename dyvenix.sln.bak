@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{069F
 		scripts\RunNodeSvr.bat = scripts\RunNodeSvr.bat
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dyvenix.logging", "src\dyvenix.logging\dyvenix.logging.csproj", "{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dyvenix.logging", "src\Logging\dyvenix.logging.csproj", "{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ref", "ref", "{BB28E274-5BC9-4265-B8F0-886091D00A08}"
 EndProject

@@ -1,5 +1,6 @@
 using Dyvenix.App1.Server.Config;
 using Dyvenix.App1.Server.Services;
+using Dyvenix.Core.Controllers;
 using Dyvenix.Logging;
 using Microsoft.AspNetCore.Mvc;
 

@@ -118,23 +118,25 @@ export class AppComponent implements OnInit, OnDestroy {
                 return result;
             });
 
-        this.msalBroadcastService.msalSubject$
-            .pipe(
-                filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_FAILURE || msg.eventType === EventType.ACQUIRE_TOKEN_FAILURE),
-                takeUntil(this._destroying$)
-            )
-            .subscribe((result: EventMessage) => {
-                // Check for forgot password error
-                // Learn more about AAD error codes at https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-aadsts-error-codes
-                if (result.error && result.error.message.indexOf('AADB2C90118') > -1) {
-                    let resetPasswordFlowRequest: RedirectRequest | PopupRequest  = {
-                        authority: environment.b2cPolicies.authorities.resetPassword.authority,
-                        scopes: [],
-                    };
-            
-                    this.login(resetPasswordFlowRequest);
-                };
-            });
+        // this.msalBroadcastService.msalSubject$
+        //     .pipe(
+        //         filter((msg: EventMessage) => 
+        //             msg.eventType === EventType.LOGIN_FAILURE || 
+        //             msg.eventType === EventType.ACQUIRE_TOKEN_FAILURE,
+        //         takeUntil(this._destroying$)
+        //     )
+        //     .subscribe((result: EventMessage) => {
+        //             // Check for forgot password error
+        //             // Learn more about AAD error codes at https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-aadsts-error-codes
+        //             if (result.error && result.error.message.indexOf('AADB2C90118') > -1) {
+        //                 let resetPasswordFlowRequest: RedirectRequest | PopupRequest  = {
+        //                     authority: environment.b2cPolicies.authorities.resetPassword.authority,
+        //                     scopes: [],
+        //                 };
+                
+        //                 this.login(resetPasswordFlowRequest);
+        //             };
+        //     });
     }
 
     setLoginDisplay() {

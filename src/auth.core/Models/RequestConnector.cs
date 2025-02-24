@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Dyvenix.App1.Server.Models.Auth
+namespace Dyvenix.Auth.Core.Models
 {
 	public class RequestConnector
 	{

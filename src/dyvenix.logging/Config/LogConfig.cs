@@ -21,4 +21,11 @@ public class LogConfig
 	public string Schema { get; set; }
 	public string TableName { get; set; }
 	public int BatchPostingLimit { get; set; }
+
+	public string SelfLogPath { get; set; }
+
+	//public void ProcessEnvironmentVars()
+	//{
+	//	//this.EnvName = ConfigUtils.Replace(ConfigConst.EV_ENVNAME, this.EnvName);
+	//}
 }

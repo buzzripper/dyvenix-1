@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Dyvenix.App1.Server.Config
+namespace Dyvenix.App1.Server.Models
 {
 	public class HealthStatus
 	{

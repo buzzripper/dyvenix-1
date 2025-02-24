@@ -12,15 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{069F
 		scripts\RunNodeSvr.bat = scripts\RunNodeSvr.bat
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dyvenix.logging", "src\Logging\dyvenix.logging.csproj", "{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dyvenix.logging", "src\dyvenix.logging\dyvenix.logging.csproj", "{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ref", "ref", "{BB28E274-5BC9-4265-B8F0-886091D00A08}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "b2c-auth-sample", "src\b2c-auth-sample\b2c-auth-sample.esproj", "{3B42448E-5FE8-41CE-8F63-0B954CE871F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "auth.server", "src\auth.server\auth.server.csproj", "{F2FCADA5-A069-493F-991B-5CBB6A58DB04}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "auth.common", "src\auth.common\auth.common.csproj", "{FE885341-5D56-4985-A488-DD693111EC01}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "auth.core", "src\auth.server\auth.core.csproj", "{F2FCADA5-A069-493F-991B-5CBB6A58DB04}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dyvenix.core", "src\dyvenix.core\dyvenix.core.csproj", "{531C104A-5592-43BB-9054-286E4A7C28BA}"
 EndProject
@@ -50,10 +48,6 @@ Global
 		{F2FCADA5-A069-493F-991B-5CBB6A58DB04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2FCADA5-A069-493F-991B-5CBB6A58DB04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2FCADA5-A069-493F-991B-5CBB6A58DB04}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FE885341-5D56-4985-A488-DD693111EC01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE885341-5D56-4985-A488-DD693111EC01}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE885341-5D56-4985-A488-DD693111EC01}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE885341-5D56-4985-A488-DD693111EC01}.Release|Any CPU.Build.0 = Release|Any CPU
 		{531C104A-5592-43BB-9054-286E4A7C28BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{531C104A-5592-43BB-9054-286E4A7C28BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{531C104A-5592-43BB-9054-286E4A7C28BA}.Release|Any CPU.ActiveCfg = Release|Any CPU

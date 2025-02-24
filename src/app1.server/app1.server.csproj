@@ -5,22 +5,22 @@
 		<Nullable>disable</Nullable>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<RootNamespace>Dyvenix.App1.Server</RootNamespace>
-		<!--<RuntimeIdentifiers>linux-x64;win-x64</RuntimeIdentifiers>-->
+		<AssemblyName>Dyvenix.App1.Server</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="DotNetEnv" Version="3.1.1" />
-		<PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.1" />
-		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.1" />
-		<PackageReference Include="Microsoft.Identity.Web" Version="3.6.2" />
+		<PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.23.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.2" />
+		<PackageReference Include="Microsoft.Identity.Web" Version="3.7.1" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\auth.common\auth.common.csproj" />
-	  <ProjectReference Include="..\auth.server\auth.server.csproj" />
+	  <ProjectReference Include="..\auth.core\auth.core.csproj" />
+	  <ProjectReference Include="..\dyvenix.core\dyvenix.core.csproj" />
 	  <ProjectReference Include="..\dyvenix.logging\dyvenix.logging.csproj" />
 	</ItemGroup>
 

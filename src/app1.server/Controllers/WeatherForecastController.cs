@@ -1,3 +1,4 @@
+using Dyvenix.Core.Controllers;
 using Dyvenix.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

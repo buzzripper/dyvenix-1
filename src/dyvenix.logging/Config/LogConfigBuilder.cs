@@ -1,10 +1,13 @@
 ﻿using Dyvenix.Logging.Enrichers;
+using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Diagnostics;
+using System.IO;
 
 namespace Dyvenix.Logging.Config
 {
@@ -14,6 +17,9 @@ namespace Dyvenix.Logging.Config
 
 		public LoggerConfiguration Build(LogConfig logConfig)
 		{
+			// Replace config values with env variables if running on a server
+			//logConfig.ProcessEnvironmentVars();
+
 			ValidateConfig(logConfig);
 
 			var loggerConfiguration = new LoggerConfiguration().Enrich.FromLogContext();
@@ -23,8 +29,7 @@ namespace Dyvenix.Logging.Config
 			loggerConfiguration.MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning);
 			loggerConfiguration.MinimumLevel.Override("Microsoft.AspNetCore", Serilog.Events.LogEventLevel.Error);
 
-			if (logConfig.EnableConsoleLogging)
-			{
+			if (logConfig.EnableConsoleLogging) {
 				loggerConfiguration.WriteTo.Console
 				(
 					restrictedToMinimumLevel: GetLogEventLevel(logConfig.ConsoleLogLevel),
@@ -32,23 +37,20 @@ namespace Dyvenix.Logging.Config
 				);
 			}
 
-			if (logConfig.EnableFileLogging)
-			{
+			if (logConfig.EnableFileLogging) {
 				loggerConfiguration.WriteTo.File
 				(
-					path: logConfig.FilePath, 
+					path: logConfig.FilePath,
 					restrictedToMinimumLevel: GetLogEventLevel(logConfig.FileLogLevel),
 					outputTemplate: cOutputTemplate
 				);
 			}
 
-			if (logConfig.EnableDbLogging)
-			{
+			if (logConfig.EnableDbLogging) {
 				loggerConfiguration.WriteTo.MSSqlServer
 				(
 					logConfig.DbConnectionString,
-					new MSSqlServerSinkOptions
-					{
+					new MSSqlServerSinkOptions {
 						TableName = logConfig.TableName,
 						SchemaName = logConfig.Schema,
 						AutoCreateSqlTable = false,
@@ -64,19 +66,27 @@ namespace Dyvenix.Logging.Config
 				);
 			}
 
+			if (!string.IsNullOrWhiteSpace(logConfig.SelfLogPath)) {
+				try {
+					var file = File.CreateText(logConfig.SelfLogPath);
+					Serilog.Debugging.SelfLog.Enable(TextWriter.Synchronized(file));
+
+				} catch (Exception ex) {
+					Debug.Print($"{ex.GetType().Name} attempting to create self log file: {ex.Message}");
+				}				
+			}
+
 			return loggerConfiguration;
 		}
 
 		private void ValidateConfig(LogConfig logConfig)
 		{
-			if (logConfig.EnableFileLogging)
-			{
+			if (logConfig.EnableFileLogging) {
 				if (string.IsNullOrWhiteSpace(logConfig.FilePath))
 					throw new ArgumentException("File path is required when file logging is enabled.");
 			}
 
-			if (logConfig.EnableDbLogging)
-			{
+			if (logConfig.EnableDbLogging) {
 				if (string.IsNullOrWhiteSpace(logConfig.DbConnectionString))
 					throw new ArgumentException("Database connection string is required when database logging is enabled.");
 
@@ -90,8 +100,7 @@ namespace Dyvenix.Logging.Config
 
 		private LogEventLevel GetLogEventLevel(string logLevel)
 		{
-			LogEventLevel result = logLevel switch
-			{
+			LogEventLevel result = logLevel switch {
 				"Verbose" => LogEventLevel.Verbose,
 				"Debug" => LogEventLevel.Debug,
 				"Information" => LogEventLevel.Information,
@@ -106,8 +115,7 @@ namespace Dyvenix.Logging.Config
 
 		private ColumnOptions BuildColumnOptions()
 		{
-			var columnOptions = new ColumnOptions
-			{
+			var columnOptions = new ColumnOptions {
 				TimeStamp =
 				{
 					ColumnName = "TimeStampUTC",

@@ -18,12 +18,31 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.msalBroadcastService.msalSubject$
       .pipe(
-        filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS || msg.eventType === EventType.ACQUIRE_TOKEN_SUCCESS),
+        filter((msg: EventMessage) => 
+          msg.eventType === EventType.LOGIN_SUCCESS || 
+          msg.eventType === EventType.ACQUIRE_TOKEN_SUCCESS ||
+          msg.eventType === EventType.ACQUIRE_TOKEN_BY_CODE_START),
       )
       .subscribe((result: EventMessage) => {
-        console.log(result);
-        this.setLoginDisplay();
-        this.getClaims((result.payload as AuthenticationResult).account?.idTokenClaims as Record<string, any>);
+        
+          if (result.eventType === EventType.ACQUIRE_TOKEN_BY_CODE_START) {
+              // let acquireTokenByCodeFlowRequest: RedirectRequest | PopupRequest  = {
+              //     authority: environment.b2cPolicies.authorities.signUpSignIn.authority,
+              //     scopes: [],
+              // };
+      
+              // this.login(acquireTokenByCodeFlowRequest);
+              
+              console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+              console.log(result.payload);
+              console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+
+          } else {
+            this.setLoginDisplay();
+            this.getClaims((result.payload as AuthenticationResult).account?.idTokenClaims as Record<string, any>);
+
+            console.log(result);
+          }
       });
 
     this.msalBroadcastService.inProgress$

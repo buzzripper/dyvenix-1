@@ -1,22 +1,20 @@
-using Dyvenix.App1.Server.Config;
-using Microsoft.AspNetCore.Authorization;
+using Dyvenix.Auth.Core.Models;
+using Dyvenix.Core.Controllers;
+using Dyvenix.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Serilog;
+using System;
+using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System;
-using Dyvenix.App1.Server.Models.Auth;
-using Microsoft.Extensions.Configuration;
-using Dyvenix.Logging;
 
-namespace Dyvenix.App1.Server.Controllers
+namespace Dyvenix.Auth.Server.Controllers
 {
 	[ApiController]
-	[Route("api/[controller]")]
-	public class AuthController : ApiControllerBase<AuthController>
+	[Route("api/auth/[controller]")]
+	public class ApiConnectorController : ApiControllerBase<ApiConnectorController>
 	{
-		public AuthController(IDyvenixLogger<AuthController> logger) : base(logger)
+		public ApiConnectorController(IDyvenixLogger<ApiConnectorController> logger) : base(logger)
 		{
 		}
 
@@ -31,7 +29,7 @@ namespace Dyvenix.App1.Server.Controllers
 				return Unauthorized();
 			}
 
-			string content = await new System.IO.StreamReader(Request.Body).ReadToEndAsync();
+			string content = await new StreamReader(Request.Body).ReadToEndAsync();
 			var requestConnector = JsonSerializer.Deserialize<RequestConnector>(content);
 
 			// If input data is null, show block page
@@ -87,7 +85,7 @@ namespace Dyvenix.App1.Server.Controllers
 			var cred = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(auth.Substring(6))).Split(':');
 
 			// Evaluate the credentials and return the result
-			return (cred[0] == username && cred[1] == password);
+			return cred[0] == username && cred[1] == password;
 		}
 
 		[HttpPost, Route("[action]")]
@@ -101,7 +99,7 @@ namespace Dyvenix.App1.Server.Controllers
 				return Unauthorized();
 			}
 
-			string content = await new System.IO.StreamReader(Request.Body).ReadToEndAsync();
+			string content = await new StreamReader(Request.Body).ReadToEndAsync();
 			var requestConnector = JsonSerializer.Deserialize<RequestConnector>(content);
 
 			// If input data is null, show block page

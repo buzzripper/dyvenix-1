@@ -1,10 +1,9 @@
-﻿using Dyvenix.App1.Server.Models.Exceptions;
+﻿using Dyvenix.Core.Exceptions;
 using Dyvenix.Logging;
 using Microsoft.AspNetCore.Mvc;
-using Serilog;
 using System;
 
-namespace Dyvenix.App1.Server.Controllers
+namespace Dyvenix.Core.Controllers
 {
 	public class ApiControllerBase<T> : ControllerBase where T : ApiControllerBase<T>
 	{
@@ -19,17 +18,15 @@ namespace Dyvenix.App1.Server.Controllers
 		{
 			var errResponse = new ApiErrorResponse();
 
-			if (ex is ApiException apiEx)
-			{
+			if (ex is ApiException apiEx) {
 				errResponse.StatusCode = apiEx.StatusCode;
 
 				if (string.IsNullOrEmpty(apiEx.CorrelationId))
 					errResponse.Message = apiEx.Message;
 				else
 					errResponse.Message = $"{apiEx.Message} [CorrelationId: {apiEx.CorrelationId}]";
-			}
-			else
-			{
+
+			} else {
 				errResponse.StatusCode = 500;
 				errResponse.Message = ex.Message;
 			}

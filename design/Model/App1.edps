@@ -4,10 +4,11 @@
     <Connection ConnectionString="" Provider="" />
     <Generation>
       <GeneratedFiles>
-        <File Name="App1.Db.cs" DestinationFolder="..\..\src\app1.data\Contexts" />
-        <File Name="App1.AppUser.cs" DestinationFolder="D:\Code\buzzripper\dyvenix\src\app1.data\Entities" />
-        <File Name="App1.AccessClaim.cs" DestinationFolder="D:\Code\buzzripper\dyvenix\src\app1.data\Entities" />
-        <File Name="App1.LogEvent.cs" DestinationFolder="D:\Code\buzzripper\dyvenix\src\app1.data\Entities" />
+        <File Name="Db.cs" DestinationFolder="..\..\src\app1.data\Contexts" />
+        <File Name="AppUser.cs" DestinationFolder="D:\Code\buzzripper\dyvenix\src\app1.data\Entities" />
+        <File Name="AccessClaim.cs" DestinationFolder="D:\Code\buzzripper\dyvenix\src\app1.data\Entities" />
+        <File Name="LogEvent.cs" DestinationFolder="D:\Code\buzzripper\dyvenix\src\app1.data\Entities" />
+        <File Name="LogLevel.cs" DestinationFolder="..\..\src\app1.data\Entities" />
       </GeneratedFiles>
     </Generation>
     <DatabaseFirstNamingRules>

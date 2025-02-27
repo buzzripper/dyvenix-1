@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dyvenix.App1.Data.Migrations
 {
     [DbContext(typeof(Db))]
-    [Migration("20250227013633_Initial")]
+    [Migration("20250227030217_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -28,10 +28,12 @@ namespace Dyvenix.App1.Data.Migrations
             modelBuilder.Entity("Dyvenix.App1.Data.Entities.AccessClaim", b =>
                 {
                     b.Property<int>("Id")
+                        .HasMaxLength(-1)
                         .HasColumnType("int")
                         .HasColumnName("Id");
 
                     b.Property<Guid>("AppUserId")
+                        .HasMaxLength(-1)
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("AppUserId");
 
@@ -57,6 +59,7 @@ namespace Dyvenix.App1.Data.Migrations
             modelBuilder.Entity("Dyvenix.App1.Data.Entities.AppUser", b =>
                 {
                     b.Property<Guid>("Id")
+                        .HasMaxLength(-1)
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("Id");
 
@@ -96,11 +99,13 @@ namespace Dyvenix.App1.Data.Migrations
 
             modelBuilder.Entity("Dyvenix.App1.Data.Entities.LogEvent", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(-1)
+                        .HasColumnType("int")
                         .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Application")
                         .HasMaxLength(200)
@@ -108,25 +113,23 @@ namespace Dyvenix.App1.Data.Migrations
                         .HasColumnName("Application");
 
                     b.Property<string>("CorrelationId")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("CorrelationId");
 
                     b.Property<string>("Exception")
-                        .IsRequired()
-                        .HasMaxLength(0)
-                        .HasColumnType("nvarchar(0)")
+                        .HasMaxLength(-1)
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("Exception");
 
                     b.Property<int>("LogLevel")
+                        .HasMaxLength(-1)
                         .HasColumnType("int")
                         .HasColumnName("LogLevel");
 
                     b.Property<string>("Message")
-                        .IsRequired()
-                        .HasMaxLength(0)
-                        .HasColumnType("nvarchar(0)")
+                        .HasMaxLength(-1)
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("Message");
 
                     b.Property<string>("Source")
@@ -134,13 +137,18 @@ namespace Dyvenix.App1.Data.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasColumnName("Source");
 
-                    b.Property<DateTime>("TimeStampUTC")
+                    b.Property<DateTime>("TimeStamp")
+                        .HasMaxLength(-1)
                         .HasColumnType("datetime2")
-                        .HasColumnName("TimeStampUTC");
+                        .HasColumnName("TimeStamp");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TimeStampUTC");
+                    b.HasIndex("CorrelationId");
+
+                    b.HasIndex("Source");
+
+                    b.HasIndex("TimeStamp");
 
                     b.ToTable("LogEvents", "Logs");
                 });

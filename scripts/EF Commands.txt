@@ -1,0 +1,7 @@
+
+Entity Framework Commands
+---------------------------------
+
+Add-Migration -Name Initial -Project app1.data
+
+Update-Database -Project app1.data -Connection "Password=?#cbz84A#znn5gL3pap;User ID=dyvenix_admin;Initial Catalog=dyvenix;Data Source=localhost;Encrypt=False;"

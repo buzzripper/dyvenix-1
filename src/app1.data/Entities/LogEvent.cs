@@ -12,11 +12,12 @@ namespace Dyvenix.App1.Data.Entities
     public partial class LogEvent
     {
 
-        public string Id { get; set; }
+        public int Id { get; set; }
 
-        public System.DateTime TimeStampUTC { get; set; }
+        public System.DateTime TimeStamp { get; set; }
 
-        public int LogLevel { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public LogLevel LogLevel { get; set; }
 
         public string Application { get; set; }
 
@@ -38,7 +39,7 @@ namespace Dyvenix.App1.Data.Entities
         public static class PropNames 
         {
           public const string Id = "Id";
-          public const string TimeStampUTC = "TimeStampUTC";
+          public const string TimeStamp = "TimeStamp";
           public const string LogLevel = "LogLevel";
           public const string Application = "Application";
           public const string Source = "Source";

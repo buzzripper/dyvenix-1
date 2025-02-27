@@ -9,6 +9,8 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "app1.client", "src\app1.cli
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{069FCB1A-8D69-4C1F-A8ED-27F9C8BD5392}"
 	ProjectSection(SolutionItems) = preProject
+		scripts\DbCreate_Init.sql = scripts\DbCreate_Init.sql
+		scripts\EF Commands.txt = scripts\EF Commands.txt
 		scripts\RunNodeSvr.bat = scripts\RunNodeSvr.bat
 	EndProjectSection
 EndProject

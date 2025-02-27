@@ -70,7 +70,7 @@ namespace Dyvenix.App1.Data.Contexts
         private void AppUserMapping(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AppUser>().ToTable(@"AppUser");
-            modelBuilder.Entity<AppUser>().Property<System.Guid>(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedNever();
+            modelBuilder.Entity<AppUser>().Property<System.Guid>(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedNever().HasMaxLength(-1);
             modelBuilder.Entity<AppUser>().Property<string>(x => x.IdentityId).HasColumnName(@"IdentityId").IsRequired().ValueGeneratedNever().HasMaxLength(100);
             modelBuilder.Entity<AppUser>().Property<string>(x => x.FirstName).HasColumnName(@"FirstName").IsRequired().ValueGeneratedNever().HasMaxLength(100);
             modelBuilder.Entity<AppUser>().Property<string>(x => x.LastName).HasColumnName(@"LastName").IsRequired().ValueGeneratedNever().HasMaxLength(100);
@@ -90,10 +90,10 @@ namespace Dyvenix.App1.Data.Contexts
         private void AccessClaimMapping(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AccessClaim>().ToTable(@"AccessClaim");
-            modelBuilder.Entity<AccessClaim>().Property<int>(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedNever();
+            modelBuilder.Entity<AccessClaim>().Property<int>(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedNever().HasMaxLength(-1);
             modelBuilder.Entity<AccessClaim>().Property<string>(x => x.ClaimName).HasColumnName(@"ClaimName").IsRequired().ValueGeneratedNever().HasMaxLength(50);
             modelBuilder.Entity<AccessClaim>().Property<string>(x => x.ClaimValue).HasColumnName(@"ClaimValue").IsRequired().ValueGeneratedNever().HasMaxLength(50);
-            modelBuilder.Entity<AccessClaim>().Property<System.Guid>(x => x.AppUserId).HasColumnName(@"AppUserId").ValueGeneratedNever();
+            modelBuilder.Entity<AccessClaim>().Property<System.Guid>(x => x.AppUserId).HasColumnName(@"AppUserId").ValueGeneratedNever().HasMaxLength(-1);
             modelBuilder.Entity<AccessClaim>().HasKey(@"Id");
             modelBuilder.Entity<AccessClaim>().HasIndex(@"AppUserId").IsUnique(false);
         }
@@ -107,16 +107,18 @@ namespace Dyvenix.App1.Data.Contexts
         private void LogEventMapping(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<LogEvent>().ToTable(@"LogEvents", @"Logs");
-            modelBuilder.Entity<LogEvent>().Property<string>(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedOnAdd().HasMaxLength(50);
-            modelBuilder.Entity<LogEvent>().Property<System.DateTime>(x => x.TimeStampUTC).HasColumnName(@"TimeStampUTC").IsRequired().ValueGeneratedNever();
-            modelBuilder.Entity<LogEvent>().Property<int>(x => x.LogLevel).HasColumnName(@"LogLevel").IsRequired().ValueGeneratedNever();
+            modelBuilder.Entity<LogEvent>().Property<int>(x => x.Id).HasColumnName(@"Id").IsRequired().ValueGeneratedOnAdd().HasMaxLength(-1);
+            modelBuilder.Entity<LogEvent>().Property<System.DateTime>(x => x.TimeStamp).HasColumnName(@"TimeStamp").IsRequired().ValueGeneratedNever().HasMaxLength(-1);
+            modelBuilder.Entity<LogEvent>().Property<Dyvenix.App1.Data.Entities.LogLevel>(x => x.LogLevel).HasColumnName(@"LogLevel").IsRequired().ValueGeneratedNever().HasMaxLength(-1);
             modelBuilder.Entity<LogEvent>().Property<string>(x => x.Application).HasColumnName(@"Application").ValueGeneratedNever().HasMaxLength(200);
             modelBuilder.Entity<LogEvent>().Property<string>(x => x.Source).HasColumnName(@"Source").ValueGeneratedNever().HasMaxLength(200);
-            modelBuilder.Entity<LogEvent>().Property<string>(x => x.Message).HasColumnName(@"Message").IsRequired().ValueGeneratedNever().HasMaxLength(0);
-            modelBuilder.Entity<LogEvent>().Property<string>(x => x.CorrelationId).HasColumnName(@"CorrelationId").IsRequired().ValueGeneratedNever().HasMaxLength(50);
-            modelBuilder.Entity<LogEvent>().Property<string>(x => x.Exception).HasColumnName(@"Exception").IsRequired().ValueGeneratedNever().HasMaxLength(0);
+            modelBuilder.Entity<LogEvent>().Property<string>(x => x.Message).HasColumnName(@"Message").ValueGeneratedNever().HasMaxLength(-1);
+            modelBuilder.Entity<LogEvent>().Property<string>(x => x.CorrelationId).HasColumnName(@"CorrelationId").ValueGeneratedNever().HasMaxLength(50);
+            modelBuilder.Entity<LogEvent>().Property<string>(x => x.Exception).HasColumnName(@"Exception").ValueGeneratedNever().HasMaxLength(-1);
             modelBuilder.Entity<LogEvent>().HasKey(@"Id");
-            modelBuilder.Entity<LogEvent>().HasIndex(@"TimeStampUTC").IsUnique(false);
+            modelBuilder.Entity<LogEvent>().HasIndex(@"TimeStamp").IsUnique(false);
+            modelBuilder.Entity<LogEvent>().HasIndex(@"Source").IsUnique(false);
+            modelBuilder.Entity<LogEvent>().HasIndex(@"CorrelationId").IsUnique(false);
         }
 	
         partial void CustomizeLogEventMapping(ModelBuilder modelBuilder);

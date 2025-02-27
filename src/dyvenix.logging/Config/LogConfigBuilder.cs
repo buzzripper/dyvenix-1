@@ -118,7 +118,7 @@ namespace Dyvenix.Logging.Config
 			var columnOptions = new ColumnOptions {
 				TimeStamp =
 				{
-					ColumnName = "TimeStampUTC",
+					ColumnName = "TimeStamp",
 					ConvertToUtc = true,
 				},
 				Level =

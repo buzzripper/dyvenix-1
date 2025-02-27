@@ -22,6 +22,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "auth.core", "src\auth.core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dyvenix.core", "src\dyvenix.core\dyvenix.core.csproj", "{531C104A-5592-43BB-9054-286E4A7C28BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app1.data", "src\app1.data\app1.data.csproj", "{C6FE68A7-475D-40D1-9081-87A1AC2D3BC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		docs\Dyvenix Architecture.vsdx = docs\Dyvenix Architecture.vsdx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +59,10 @@ Global
 		{531C104A-5592-43BB-9054-286E4A7C28BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{531C104A-5592-43BB-9054-286E4A7C28BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{531C104A-5592-43BB-9054-286E4A7C28BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6FE68A7-475D-40D1-9081-87A1AC2D3BC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6FE68A7-475D-40D1-9081-87A1AC2D3BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6FE68A7-475D-40D1-9081-87A1AC2D3BC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6FE68A7-475D-40D1-9081-87A1AC2D3BC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

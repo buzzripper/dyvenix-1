@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<efcore context-namespace="Dyvenix.App1.Data.Contexts" p1:name="Db" p1:Guid="2038dd94-2954-499d-8e8e-90fbe252df2a" p1:EntityNamespace="Dyvenix.App1.Data.Entities" p1:AddlEntityNamespace1="System.Text.Json.Serialization" xmlns:p1="http://devart.com/schemas/EntityDeveloper/1.0">
+  <class name="AppUser" entity-set="AppUser" p1:Guid="2a0fdae0-0274-4bd6-96e6-deb24a99da56" p1:Category="">
+    <id name="Id" type="Guid" p1:ValidateRequired="true" p1:Guid="a1e52ff5-87be-4336-857d-42ef3189d51c">
+      <column name="" />
+    </id>
+    <property name="IdentityId" type="String" p1:ValidateRequired="false" p1:Guid="18176e7c-63be-4980-9c4a-3acb729a9c50" p1:MaxLength="100" p1:Index="True">
+      <column name="" />
+    </property>
+    <property name="FirstName" type="String" p1:ValidateRequired="true" p1:Guid="c91c4ba4-8a98-4b5d-955f-9f1905533ac7" p1:MaxLength="100">
+      <column name="" />
+    </property>
+    <property name="LastName" type="String" p1:ValidateRequired="true" p1:Guid="ec5345a7-ed4e-4409-a46b-c48e7c1ac263" p1:MaxLength="100" p1:Index="True">
+      <column name="" />
+    </property>
+    <property name="Email" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="5edac578-810b-4fb7-85f1-e24f38d8e36c" p1:MaxLength="200" p1:Index="True">
+      <column name="" />
+    </property>
+  </class>
+  <class name="AccessClaim" entity-set="AccessClaim" p1:Guid="a4cec6d0-baa2-4658-918f-ebd226ffc993" p1:Category="">
+    <id name="Id" type="Int32" p1:ValidateRequired="true" p1:Guid="1033647a-993f-452b-85c8-2a255126a631">
+      <column name="" />
+    </id>
+    <property name="ClaimName" type="String" p1:ValidateRequired="true" p1:Guid="f3d43e9c-d5dd-4f17-8f0d-8cbc6015afc4">
+      <column name="" />
+    </property>
+    <property name="ClaimValue" type="String" p1:ValidateRequired="true" p1:Guid="f89a6ed1-315d-439e-84f0-080d19b87df3">
+      <column name="" />
+    </property>
+    <property name="AppUserId" type="Guid" p1:ValidateRequired="true" p1:Guid="3619676c-93d2-4ded-b11e-aea1827a9d87" p1:Index="True">
+      <column name="" not-null="False" />
+    </property>
+  </class>
+  <class name="LogEvent" entity-set="LogEvent" table="LogEvents" schema="Logs" p1:Guid="7f19cad4-4ba8-4a21-9718-c75dd5de7748" p1:Category="">
+    <id name="Id" type="String" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="b9249cad-aa36-4661-82b4-9a3647afb94e">
+      <column name="" />
+    </id>
+    <property name="TimeStampUTC" type="DateTime" p1:ValidateRequired="true" p1:Guid="6df1b13f-68c7-452d-adae-de0cf1eddc2a" p1:Index="True">
+      <column name="" />
+    </property>
+    <property name="LogLevel" type="Int32" p1:ValidateRequired="true" p1:Guid="c8e095ac-ce30-4cbc-a8bd-cee329b10339">
+      <column name="" />
+    </property>
+    <property name="Application" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="8bcc3fc8-beec-4fc9-a7fb-a4c8a27b3fca" p1:MaxLength="200">
+      <column name="" />
+    </property>
+    <property name="Source" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="7954e574-2513-4e2e-b13d-f09972159fc3" p1:MaxLength="200">
+      <column name="" />
+    </property>
+    <property name="Message" type="String" p1:ValidateRequired="true" p1:Guid="0ced56af-7402-49bd-8f4c-34199b53071e" p1:MaxLength="0">
+      <column name="" />
+    </property>
+    <property name="CorrelationId" type="String" p1:ValidateRequired="true" p1:Guid="95510a25-e930-4736-a007-09f15f56b943">
+      <column name="" />
+    </property>
+    <property name="Exception" type="String" p1:ValidateRequired="true" p1:Guid="10652948-9502-4e34-b007-69c149d31a6b" p1:MaxLength="0">
+      <column name="" />
+    </property>
+  </class>
+  <associations>
+    <association name="AppUser_AccessClaim" cardinality="OneToMany" p1:Guid="1e94c3a1-5b4d-4202-89d7-8308adfe36d9">
+      <end1 multiplicity="One" name="AppUser" class="AccessClaim" relation-class="AppUser" generate="False" constrained="True" p1:Guid="bb5f3d48-e8dd-407f-8a05-1beecf4043db">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="AccessClaims" class="AppUser" relation-class="AccessClaim" p1:Guid="9a83c9af-5bab-4f39-b911-ecfc4be99149">
+        <property name="AppUserId" />
+      </end2>
+    </association>
+  </associations>
+</efcore>

@@ -49,7 +49,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       authority: environment.b2cPolicies.authorities.signUpSignIn.authority,
       redirectUri: '/',
       postLogoutRedirectUri: '/',
-      knownAuthorities: [environment.b2cPolicies.authorityDomain],
+      knownAuthorities: [environment.b2cPolicies.authorityDomain]
     },
     cache: {
       cacheLocation: BrowserCacheLocation.SessionStorage,

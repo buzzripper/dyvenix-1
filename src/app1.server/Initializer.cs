@@ -1,8 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using System.Data;
-using Serilog;
+﻿using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
+using System.Collections.ObjectModel;
+using System.Data;
 
 namespace Dyvenix.App1.Server;
 
@@ -18,8 +18,7 @@ public static class Initializer
 			.Enrich.FromLogContext()
 			.WriteTo.MSSqlServer(
 				_connectionString,
-				new MSSqlServerSinkOptions
-				{
+				new MSSqlServerSinkOptions {
 					TableName = _tableName,
 					AutoCreateSqlTable = false
 				},
@@ -35,8 +34,7 @@ public static class Initializer
 
 	private static ColumnOptions BuildColumnOptions()
 	{
-		var columnOptions = new ColumnOptions
-		{
+		var columnOptions = new ColumnOptions {
 			TimeStamp =
 			{
 				ColumnName = "TimeStampUTC",

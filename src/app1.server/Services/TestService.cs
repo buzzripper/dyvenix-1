@@ -24,12 +24,9 @@ public class TestService : ITestService
 		_logger.Info("TestService.Test() Info");
 		_logger.Warn("TestService.Test() Warn");
 		_logger.Fatal("TestService.Test() Fatal");
-		try
-		{
+		try {
 			throw new ApplicationException("YES!! App exception!!!");
-		}
-		catch (Exception ex)
-		{
+		} catch (Exception ex) {
 			_logger.Error(ex, ex.Message);
 		}
 	}

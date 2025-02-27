@@ -1,8 +1,6 @@
 ﻿using Dyvenix.App1.Server.Config;
 using Microsoft.AspNetCore.Authorization;
 using Serilog;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Dyvenix.App1.Server.Auth;

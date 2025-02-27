@@ -1,5 +1,6 @@
-﻿using Dyvenix.App1.Server.Services;
-using Dyvenix.Auth.Server.Config;
+﻿using Dyvenix.App1.Server.Auth;
+using Dyvenix.App1.Server.Services;
+using Dyvenix.Auth.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
@@ -9,11 +10,11 @@ namespace Dyvenix.App1.Server.Config;
 
 public static class ConfigServiceCollExt
 {
-	public static IServiceCollection AddAppServices(this IServiceCollection services, AppConfig appConfig, AuthConfig authConfig)
+	public static IServiceCollection AddAppServices(this IServiceCollection services, AppConfig appConfig)
 	{
 		services.AddSingleton(appConfig);
-		services.AddSingleton(authConfig);
 		services.AddScoped<ITestService, TestService>();
+		services.AddScoped<IAccessClaimsProvider, AccessClaimsProvider>();
 
 		return services;
 	}
@@ -49,8 +50,6 @@ public static class ConfigServiceCollExt
 			});
 			}
 		});
-
-
 
 		return services;
 	}

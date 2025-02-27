@@ -7,10 +7,10 @@ namespace Dyvenix.App1.Server.Auth;
 
 public static class CustomAuthentication
 {
-	 public static AuthenticationBuilder AddCustomAuthentication(this IServiceCollection services, IConfiguration configuration)
-        {
-            var builder = services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
+	public static AuthenticationBuilder AddCustomAuthentication(this IServiceCollection services, IConfiguration configuration)
+	{
+		var builder = services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
 
-            return builder;
-        }
+		return builder;
+	}
 }

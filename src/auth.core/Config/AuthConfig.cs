@@ -1,6 +1,4 @@
-﻿using Dyvenix.Core.Config;
-
-namespace Dyvenix.Auth.Server.Config;
+﻿namespace Dyvenix.Auth.Core.Config;
 
 public class AuthConfig
 {

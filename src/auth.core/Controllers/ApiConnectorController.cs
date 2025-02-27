@@ -8,7 +8,7 @@ using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Dyvenix.Auth.Server.Controllers
+namespace Dyvenix.Auth.Core.Controllers
 {
 	[ApiController]
 	[Route("api/auth/[controller]")]

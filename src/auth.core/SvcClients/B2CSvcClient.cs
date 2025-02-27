@@ -1,4 +1,4 @@
-﻿using Dyvenix.Auth.Server.Config;
+﻿using Dyvenix.Auth.Core.Config;
 using Dyvenix.Core.Exceptions;
 using Dyvenix.Logging;
 using System.Net.Http;
@@ -6,11 +6,11 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Dyvenix.Auth.Server.SvcClients;
+namespace Dyvenix.Auth.Core.SvcClients;
 
 public interface IB2CSvcClient
 {
-	Task<B2CTokenResponse> GetTokenFromAuthCode(string authCode, string codeVerifier);
+	Task<TokenFromAuthCodeResponse> GetTokenFromAuthCode(string authCode, string codeVerifier);
 }
 
 public class B2CSvcClient : IB2CSvcClient
@@ -36,7 +36,7 @@ public class B2CSvcClient : IB2CSvcClient
 		_logger = logger;
 	}
 
-	public async Task<B2CTokenResponse> GetTokenFromAuthCode(string authCode, string codeVerifier)
+	public async Task<TokenFromAuthCodeResponse> GetTokenFromAuthCode(string authCode, string codeVerifier)
 	{
 		var sb = new StringBuilder();
 
@@ -48,7 +48,7 @@ public class B2CSvcClient : IB2CSvcClient
 		sb.Append($"code={authCode}&");
 		sb.Append($"code_verifier={codeVerifier}");
 
-		return await PostAsync<B2CTokenResponse>(sb.ToString(), null);
+		return await PostAsync<TokenFromAuthCodeResponse>(sb.ToString(), null);
 	}
 
 	private async Task<T> PostAsync<T>(string uri, object payload)

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Dyvenix.Auth.Server.Config
+namespace Dyvenix.Auth.Core.Config
 {
 	public class B2CConfig
 	{

@@ -1,9 +1,8 @@
-﻿using Dyvenix.Auth.Server.Config;
-using Dyvenix.Core.Models;
+﻿using Dyvenix.Core.Models;
 using Microsoft.Extensions.Configuration;
 using System;
 
-namespace Dyvenix.App1.Server.Config;
+namespace Dyvenix.Auth.Core.Config;
 
 public static class AuthConfigBuilder
 {

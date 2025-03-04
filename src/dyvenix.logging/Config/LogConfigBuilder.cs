@@ -53,7 +53,7 @@ namespace Dyvenix.Logging.Config
 					new MSSqlServerSinkOptions {
 						TableName = logConfig.TableName,
 						SchemaName = logConfig.Schema,
-						AutoCreateSqlTable = false,
+						AutoCreateSqlTable = true,
 						BatchPostingLimit = logConfig.BatchPostingLimit
 					},
 					sinkOptionsSection: null,
@@ -118,7 +118,7 @@ namespace Dyvenix.Logging.Config
 			var columnOptions = new ColumnOptions {
 				TimeStamp =
 				{
-					ColumnName = "TimeStamp",
+					ColumnName = "Timestamp",
 					ConvertToUtc = true,
 				},
 				Level =
@@ -128,7 +128,7 @@ namespace Dyvenix.Logging.Config
 				AdditionalColumns = new Collection<SqlColumn>
 				{
 					new SqlColumn { ColumnName = "LogLevel", DataType = SqlDbType.Int },
-					new SqlColumn { ColumnName = "Application", DataType = SqlDbType.NVarChar, DataLength=100 },
+					new SqlColumn { ColumnName = "Application", DataType = SqlDbType.NVarChar, DataLength=200 },
 					new SqlColumn { ColumnName = "Source", DataType = SqlDbType.NVarChar, DataLength=200 },
 					new SqlColumn { ColumnName = "CorrelationId", DataType = SqlDbType.NVarChar, DataLength=50 },
 				}

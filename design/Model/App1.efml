@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <efcore context-namespace="Dyvenix.App1.Data.Contexts" p1:name="Db" p1:Guid="2038dd94-2954-499d-8e8e-90fbe252df2a" p1:EntityNamespace="Dyvenix.App1.Data.Entities" p1:AddlEntityNamespace1="System.Text.Json.Serialization" xmlns:p1="http://devart.com/schemas/EntityDeveloper/1.0">
   <class name="$EnumTypes">
-    <EnumType Name="LogLevel" class="Dyvenix.App1.Data.Entities.LogLevel" p1:Guid="82e4021f-d974-4ebf-84fa-e143df66503b" p1:Category="">
+    <EnumType Name="LogLevel" class="Dyvenix.App1.Data.Entities.LogLevel" p1:Guid="82e4021f-d974-4ebf-84fa-e143df66503b">
       <Member Name="Verbose" p1:Guid="3a15ea4a-c7b1-4e62-9c87-e3a585a41ccf" />
       <Member Name="Debug" p1:Guid="c58efac0-d324-4cf5-920b-6e60582d814b" />
       <Member Name="Information" p1:Guid="0ba24837-bbc1-4dcf-aa44-637007c7c1c0" />
@@ -10,7 +10,7 @@
       <Member Name="Fatal" p1:Guid="baef109d-922d-4028-8ce3-0e958c057900" />
     </EnumType>
   </class>
-  <class name="AppUser" entity-set="AppUser" p1:Guid="2a0fdae0-0274-4bd6-96e6-deb24a99da56" p1:Category="">
+  <class name="AppUser" entity-set="AppUser" p1:Guid="2a0fdae0-0274-4bd6-96e6-deb24a99da56">
     <id name="Id" type="Guid" p1:ValidateRequired="true" p1:Guid="a1e52ff5-87be-4336-857d-42ef3189d51c">
       <column name="" />
     </id>
@@ -27,7 +27,7 @@
       <column name="" />
     </property>
   </class>
-  <class name="AccessClaim" entity-set="AccessClaim" p1:Guid="a4cec6d0-baa2-4658-918f-ebd226ffc993" p1:Category="">
+  <class name="AccessClaim" entity-set="AccessClaim" p1:Guid="a4cec6d0-baa2-4658-918f-ebd226ffc993">
     <id name="Id" type="Int32" p1:ValidateRequired="true" p1:Guid="1033647a-993f-452b-85c8-2a255126a631">
       <column name="" />
     </id>
@@ -41,7 +41,7 @@
       <column name="" not-null="False" />
     </property>
   </class>
-  <class name="LogEvent" entity-set="LogEvent" table="LogEvents" schema="Logs" p1:Guid="7f19cad4-4ba8-4a21-9718-c75dd5de7748" p1:Category="">
+  <class name="LogEvent" entity-set="LogEvent" table="LogEvents" schema="Logs" p1:Guid="7f19cad4-4ba8-4a21-9718-c75dd5de7748">
     <id name="Id" type="Int32" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="b9249cad-aa36-4661-82b4-9a3647afb94e">
       <column name="" />
     </id>

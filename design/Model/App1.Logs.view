@@ -204,8 +204,8 @@
               </Model>
             </Children>
             <Location>
-              <X>576 px</X>
-              <Y>-464 px</Y>
+              <X>568 px</X>
+              <Y>-468 px</Y>
             </Location>
             <Size>
               <Width>150 px</Width>
@@ -364,8 +364,8 @@
               </Model>
             </Children>
             <Location>
-              <X>1008 px</X>
-              <Y>-416 px</Y>
+              <X>560 px</X>
+              <Y>-704 px</Y>
             </Location>
             <Size>
               <Width>150 px</Width>
@@ -392,8 +392,8 @@
           <ScaleMode>Free</ScaleMode>
           <Scale>0.97</Scale>
           <Location>
-            <X>150.51545947806 px</X>
-            <Y>-770.103070069252 px</Y>
+            <X>143.29896484555 px</X>
+            <Y>-753.608225194944 px</Y>
           </Location>
         </ViewPort>
         <Oid xsi:type="SchemaModelOID">

@@ -4,6 +4,7 @@ using Dyvenix.App1.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dyvenix.App1.Data.Migrations
 {
     [DbContext(typeof(Db))]
-    partial class DbModelSnapshot : ModelSnapshot
+    [Migration("20250305194919_Test1")]
+    partial class Test1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,6 +129,9 @@ namespace Dyvenix.App1.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Exception")
                         .HasColumnType("nvarchar(max)");
 
@@ -145,6 +151,9 @@ namespace Dyvenix.App1.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex(new[] { "Application" }, "IX_LogEvent_Application");
+
+                    b.HasIndex(new[] { "EventId" }, "IX_LogEvent_EventId")
+                        .IsUnique();
 
                     b.HasIndex(new[] { "Id" }, "IX_LogEvent_Id")
                         .IsUnique();

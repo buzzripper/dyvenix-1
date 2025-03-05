@@ -2,11 +2,9 @@
 // This file was auto-generated. Any changes made to it will be lost.
 //------------------------------------------------------------------------------
 using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Dyvenix.App1.Data.Entities;
-using System;
 using System.Collections.Generic;
+using Dyvenix.App1.Data.Entities;
 
 
 namespace Dyvenix.App1.Data;
@@ -47,6 +45,13 @@ public partial class Db : DbContext
 			entity.Property(e => e.Temp).IsRequired();
 			entity.Property(e => e.VarBin).IsRequired();
 			entity.Property(e => e.TinyInteger);
+
+			// Indexes
+			entity.HasIndex(e => e.Id, "IX_AppUser_Id").IsUnique();
+			entity.HasIndex(e => e.ExtId, "IX_AppUser_ExtId");
+			entity.HasIndex(e => e.FirstName, "IX_AppUser_FirstName");
+			entity.HasIndex(e => e.LastName, "IX_AppUser_LastName");
+			entity.HasIndex(e => e.Email, "IX_AppUser_Email");
 		});
 
 		modelBuilder.Entity<AccessClaim>(entity =>
@@ -57,6 +62,11 @@ public partial class Db : DbContext
 			entity.Property(e => e.AppUserId).IsRequired();
 			entity.Property(e => e.ClaimName).IsRequired().HasMaxLength(50);
 			entity.Property(e => e.ClaimValue).IsRequired().HasMaxLength(50);
+			entity.Property(e => e.AppUserId).IsRequired();
+
+			// Indexes
+			entity.HasIndex(e => e.Id, "IX_AccessClaim_Id").IsUnique();
+			entity.HasIndex(e => e.AppUserId, "IX_AccessClaim_AppUserId");
 		});
 
 		modelBuilder.Entity<LogEvent>(entity =>
@@ -64,13 +74,18 @@ public partial class Db : DbContext
 			entity.ToTable("LogEvents");
 
 			entity.Property(e => e.Id).ValueGeneratedNever().IsRequired();
-			entity.Property(e => e.Message).HasMaxLength(0);
+			entity.Property(e => e.Message);
 			entity.Property(e => e.Timestamp).HasColumnType("datetime");
-			entity.Property(e => e.Exception).HasMaxLength(0);
+			entity.Property(e => e.Exception);
 			entity.Property(e => e.LogLevel);
 			entity.Property(e => e.Application).HasMaxLength(200);
 			entity.Property(e => e.Source).HasMaxLength(200);
 			entity.Property(e => e.CorrelationId).HasMaxLength(50);
+
+			// Indexes
+			entity.HasIndex(e => e.Id, "IX_LogEvent_Id").IsUnique();
+			entity.HasIndex(e => e.Timestamp, "IX_LogEvent_Timestamp");
+			entity.HasIndex(e => e.Application, "IX_LogEvent_Application");
 		});
 
 

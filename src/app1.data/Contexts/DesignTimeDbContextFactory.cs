@@ -11,7 +11,6 @@ public class BloggingContextFactory : IDesignTimeDbContextFactory<Db>
         var optionsBuilder = new DbContextOptionsBuilder<Db>();
         optionsBuilder.UseSqlServer("Password=?#cbz84A#znn5gL3pap;User ID=dyvenix_admin;Initial Catalog=dyvenix;Data Source=localhost;Encrypt=False;");
 
-        //return new Db(optionsBuilder.Options);
-        return null;
+        return new Db(optionsBuilder.Options);
     }
 }

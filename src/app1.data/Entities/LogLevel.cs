@@ -5,10 +5,11 @@ using System;
 
 namespace Dyvenix.App1.Data.Entities;
 
-public partial class AccessClaim
+public enum LogLevel
 {
-	public Guid Id { get; set; }
-	public Guid AppUserId { get; set; }
-	public string ClaimName { get; set; }
-	public string ClaimValue { get; set; }
+	Verbose,
+	Debug,
+	Info,
+	Error,
+	Fatal,
 }

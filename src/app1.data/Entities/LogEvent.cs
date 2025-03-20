@@ -10,7 +10,8 @@ namespace Dyvenix.App1.Data.Entities;
 
 public partial class LogEvent
 {
-	public Guid Id { get; set; }
+	public int Id { get; set; }
+
 	public string Message { get; set; }
 	public DateTime Timestamp { get; set; }
 	public string Exception { get; set; }

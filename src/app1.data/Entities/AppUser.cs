@@ -9,6 +9,7 @@ namespace Dyvenix.App1.Data.Entities;
 public partial class AppUser
 {
 	public Guid Id { get; set; }
+
 	public string ExtId { get; set; }
 	public string FirstName { get; set; }
 	public string LastName { get; set; }
@@ -19,7 +20,7 @@ public partial class AppUser
 	public bool IsEnabled { get; set; }
 	public double Temp { get; set; }
 	public byte[] VarBin { get; set; }
-	public byte TinyInteger { get; set; }
+	public byte Fubar { get; set; }
 
 	// Navigation properties
 	public virtual ICollection<AccessClaim> AccessClaims { get; set; } = new List<AccessClaim>();

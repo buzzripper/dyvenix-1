@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dyvenix.App1.Data.Migrations
 {
     [DbContext(typeof(Db))]
-    [Migration("20250305195255_Test2")]
-    partial class Test2
+    [Migration("20250307002122_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,7 @@ namespace Dyvenix.App1.Data.Migrations
             modelBuilder.Entity("Dyvenix.App1.Data.Entities.AccessClaim", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("AppUserId")
@@ -45,7 +46,7 @@ namespace Dyvenix.App1.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "AppUserId" }, "IX_AccessClaim_AppUserId");
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex(new[] { "Id" }, "IX_AccessClaim_Id")
                         .IsUnique();
@@ -56,6 +57,7 @@ namespace Dyvenix.App1.Data.Migrations
             modelBuilder.Entity("Dyvenix.App1.Data.Entities.AppUser", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Age")
@@ -79,6 +81,9 @@ namespace Dyvenix.App1.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<byte>("Fubar")
+                        .HasColumnType("tinyint");
+
                     b.Property<bool>("IsEnabled")
                         .HasColumnType("bit");
 
@@ -92,9 +97,6 @@ namespace Dyvenix.App1.Data.Migrations
 
                     b.Property<double>("Temp")
                         .HasColumnType("float");
-
-                    b.Property<byte>("TinyInteger")
-                        .HasColumnType("tinyint");
 
                     b.Property<byte[]>("VarBin")
                         .IsRequired()
@@ -118,8 +120,11 @@ namespace Dyvenix.App1.Data.Migrations
 
             modelBuilder.Entity("Dyvenix.App1.Data.Entities.LogEvent", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Application")
                         .HasMaxLength(200)
@@ -154,7 +159,7 @@ namespace Dyvenix.App1.Data.Migrations
 
                     b.HasIndex(new[] { "Timestamp" }, "IX_LogEvent_Timestamp");
 
-                    b.ToTable("LogEvents", (string)null);
+                    b.ToTable("LogEvents", "Logs");
                 });
 
             modelBuilder.Entity("Dyvenix.App1.Data.Entities.AccessClaim", b =>

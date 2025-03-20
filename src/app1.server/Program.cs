@@ -51,7 +51,7 @@ Log.Logger.Debug($"Application URLs: {Environment.GetEnvironmentVariable("ASPNET
 
 Log.Logger.Debug("Starting application");
 app.Run();
-Log.Logger.Debug("Application started.");
+Log.Logger.Debug("Application stopped.");
 
 
 //static string GetAppEnv()

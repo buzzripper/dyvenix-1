@@ -18,22 +18,37 @@ public partial class Db : DbContext
 
     # region Properties
 
-	// Properties
-	public DbSet<AppUser> AppUser { get; set; }
 	public DbSet<AccessClaim> AccessClaim { get; set; }
+	public DbSet<AppUser> AppUser { get; set; }
 	public DbSet<LogEvent> LogEvent { get; set; }
-
-
 
     # endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+		modelBuilder.Entity<AccessClaim>(entity =>
+		{
+			entity.ToTable("AccessClaim");
+
+			entity.HasKey(e => e.Id);
+
+			entity.Property(e => e.ClaimName).IsRequired().HasMaxLength(50);
+			entity.Property(e => e.ClaimValue).IsRequired().HasMaxLength(50);
+			entity.Property(e => e.AppUserId).IsRequired();
+			entity.Property(e => e.ClaimName).IsRequired().HasMaxLength(50);
+			entity.Property(e => e.ClaimValue).IsRequired().HasMaxLength(50);
+			entity.Property(e => e.AppUserId).IsRequired();
+
+			// Indexes
+			entity.HasIndex(e => e.Id, "IX_AccessClaim_Id").IsUnique();
+		});
+
 		modelBuilder.Entity<AppUser>(entity =>
 		{
 			entity.ToTable("AppUser");
 
-			entity.Property(e => e.Id).ValueGeneratedNever().IsRequired();
+			entity.HasKey(e => e.Id);
+
 			entity.Property(e => e.ExtId).IsRequired().HasMaxLength(100);
 			entity.Property(e => e.FirstName).IsRequired().HasMaxLength(100);
 			entity.Property(e => e.LastName).IsRequired().HasMaxLength(100);
@@ -44,7 +59,18 @@ public partial class Db : DbContext
 			entity.Property(e => e.IsEnabled).IsRequired();
 			entity.Property(e => e.Temp).IsRequired();
 			entity.Property(e => e.VarBin).IsRequired();
-			entity.Property(e => e.TinyInteger);
+			entity.Property(e => e.Fubar);
+			entity.Property(e => e.ExtId).IsRequired().HasMaxLength(100);
+			entity.Property(e => e.FirstName).IsRequired().HasMaxLength(100);
+			entity.Property(e => e.LastName).IsRequired().HasMaxLength(100);
+			entity.Property(e => e.Email).IsRequired().HasMaxLength(200);
+			entity.Property(e => e.Birthdate).HasColumnType("datetime");
+			entity.Property(e => e.Age);
+			entity.Property(e => e.Population);
+			entity.Property(e => e.IsEnabled).IsRequired();
+			entity.Property(e => e.Temp).IsRequired();
+			entity.Property(e => e.VarBin).IsRequired();
+			entity.Property(e => e.Fubar);
 
 			// Indexes
 			entity.HasIndex(e => e.Id, "IX_AppUser_Id").IsUnique();
@@ -54,26 +80,19 @@ public partial class Db : DbContext
 			entity.HasIndex(e => e.Email, "IX_AppUser_Email");
 		});
 
-		modelBuilder.Entity<AccessClaim>(entity =>
-		{
-			entity.ToTable("AccessClaim");
-
-			entity.Property(e => e.Id).ValueGeneratedNever().IsRequired();
-			entity.Property(e => e.AppUserId).IsRequired();
-			entity.Property(e => e.ClaimName).IsRequired().HasMaxLength(50);
-			entity.Property(e => e.ClaimValue).IsRequired().HasMaxLength(50);
-			entity.Property(e => e.AppUserId).IsRequired();
-
-			// Indexes
-			entity.HasIndex(e => e.Id, "IX_AccessClaim_Id").IsUnique();
-			entity.HasIndex(e => e.AppUserId, "IX_AccessClaim_AppUserId");
-		});
-
 		modelBuilder.Entity<LogEvent>(entity =>
 		{
-			entity.ToTable("LogEvents");
+			entity.ToTable("LogEvents", "Logs");
 
-			entity.Property(e => e.Id).ValueGeneratedNever().IsRequired();
+			entity.HasKey(e => e.Id);
+
+			entity.Property(e => e.Message);
+			entity.Property(e => e.Timestamp).HasColumnType("datetime");
+			entity.Property(e => e.Exception);
+			entity.Property(e => e.LogLevel);
+			entity.Property(e => e.Application).HasMaxLength(200);
+			entity.Property(e => e.Source).HasMaxLength(200);
+			entity.Property(e => e.CorrelationId).HasMaxLength(50);
 			entity.Property(e => e.Message);
 			entity.Property(e => e.Timestamp).HasColumnType("datetime");
 			entity.Property(e => e.Exception);

@@ -8,7 +8,9 @@ namespace Dyvenix.App1.Data.Entities;
 public partial class AccessClaim
 {
 	public Guid Id { get; set; }
+
 	public Guid AppUserId { get; set; }
+
 	public string ClaimName { get; set; }
 	public string ClaimValue { get; set; }
 }

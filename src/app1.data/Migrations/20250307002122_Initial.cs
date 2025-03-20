@@ -6,11 +6,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Dyvenix.App1.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Test1 : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "Logs");
+
             migrationBuilder.CreateTable(
                 name: "AppUser",
                 columns: table => new
@@ -26,7 +29,7 @@ namespace Dyvenix.App1.Data.Migrations
                     IsEnabled = table.Column<bool>(type: "bit", nullable: false),
                     Temp = table.Column<double>(type: "float", nullable: false),
                     VarBin = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    TinyInteger = table.Column<byte>(type: "tinyint", nullable: false)
+                    Fubar = table.Column<byte>(type: "tinyint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -35,17 +38,18 @@ namespace Dyvenix.App1.Data.Migrations
 
             migrationBuilder.CreateTable(
                 name: "LogEvents",
+                schema: "Logs",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Timestamp = table.Column<DateTime>(type: "datetime", nullable: false),
                     Exception = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LogLevel = table.Column<int>(type: "int", nullable: false),
                     Application = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Source = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    CorrelationId = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CorrelationId = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -111,23 +115,20 @@ namespace Dyvenix.App1.Data.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_LogEvent_Application",
+                schema: "Logs",
                 table: "LogEvents",
                 column: "Application");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LogEvent_EventId",
-                table: "LogEvents",
-                column: "EventId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_LogEvent_Id",
+                schema: "Logs",
                 table: "LogEvents",
                 column: "Id",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_LogEvent_Timestamp",
+                schema: "Logs",
                 table: "LogEvents",
                 column: "Timestamp");
         }
@@ -139,7 +140,8 @@ namespace Dyvenix.App1.Data.Migrations
                 name: "AccessClaim");
 
             migrationBuilder.DropTable(
-                name: "LogEvents");
+                name: "LogEvents",
+                schema: "Logs");
 
             migrationBuilder.DropTable(
                 name: "AppUser");

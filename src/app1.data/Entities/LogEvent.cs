@@ -16,7 +16,7 @@ public partial class LogEvent
 	public DateTime Timestamp { get; set; }
 	public string Exception { get; set; }
 	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public LogLevel LogLevel { get; set; }
+	public LogLevel? LogLevel { get; set; }
 	public string Application { get; set; }
 	public string Source { get; set; }
 	public string CorrelationId { get; set; }

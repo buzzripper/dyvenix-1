@@ -23,13 +23,9 @@ namespace Dyvenix.App1.Data.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Birthdate = table.Column<DateTime>(type: "datetime", nullable: false),
-                    Age = table.Column<int>(type: "int", nullable: false),
-                    Population = table.Column<long>(type: "bigint", nullable: false),
-                    IsEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    Temp = table.Column<double>(type: "float", nullable: false),
-                    VarBin = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    Fubar = table.Column<byte>(type: "tinyint", nullable: false)
+                    Birthdate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    Age = table.Column<TimeSpan>(type: "time", nullable: true),
+                    IsEnabled = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -45,7 +41,7 @@ namespace Dyvenix.App1.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Timestamp = table.Column<DateTime>(type: "datetime", nullable: false),
-                    Exception = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Exception = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LogLevel = table.Column<int>(type: "int", nullable: false),
                     Application = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Source = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -82,6 +78,11 @@ namespace Dyvenix.App1.Data.Migrations
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AccessClaim_ClaimName",
+                table: "AccessClaim",
+                column: "ClaimName");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AccessClaim_Id",
                 table: "AccessClaim",
                 column: "Id",
@@ -96,11 +97,6 @@ namespace Dyvenix.App1.Data.Migrations
                 name: "IX_AppUser_ExtId",
                 table: "AppUser",
                 column: "ExtId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AppUser_FirstName",
-                table: "AppUser",
-                column: "FirstName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppUser_Id",

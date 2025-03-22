@@ -1,3 +1,4 @@
+using Dyvenix.App1.Data.Config;
 using Dyvenix.App1.Server.Config;
 using Dyvenix.Auth.Core.Config;
 using Dyvenix.Logging.Config;
@@ -26,6 +27,7 @@ builder.Services.AddDyvenixLoggingServices(builder.Configuration);
 
 builder.Services.AddAppServices(appConfig);
 builder.Services.AddDyvenixAuthServices(appConfig.AuthConfig);
+builder.Services.AddDyvenixDataServices(appConfig.DataConfig);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

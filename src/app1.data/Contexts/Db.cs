@@ -32,15 +32,14 @@ public partial class Db : DbContext
 
 			entity.HasKey(e => e.Id);
 
-			entity.Property(e => e.ClaimName).IsRequired().HasMaxLength(50);
-			entity.Property(e => e.ClaimValue).IsRequired().HasMaxLength(50);
-			entity.Property(e => e.AppUserId).IsRequired();
-			entity.Property(e => e.ClaimName).IsRequired().HasMaxLength(50);
-			entity.Property(e => e.ClaimValue).IsRequired().HasMaxLength(50);
-			entity.Property(e => e.AppUserId).IsRequired();
+			entity.Property(e => e.ClaimName).IsRequired(true).HasMaxLength(50);
+			entity.Property(e => e.ClaimValue).IsRequired(true).HasMaxLength(50);
+			entity.Property(e => e.AppUserId).IsRequired(true);
 
 			// Indexes
 			entity.HasIndex(e => e.Id, "IX_AccessClaim_Id").IsUnique();
+			entity.HasIndex(e => e.ClaimName, "IX_AccessClaim_ClaimName");
+			entity.HasIndex(e => e.AppUserId, "IX_AccessClaim_AppUserId");
 		});
 
 		modelBuilder.Entity<AppUser>(entity =>
@@ -49,33 +48,17 @@ public partial class Db : DbContext
 
 			entity.HasKey(e => e.Id);
 
-			entity.Property(e => e.ExtId).IsRequired().HasMaxLength(100);
-			entity.Property(e => e.FirstName).IsRequired().HasMaxLength(100);
-			entity.Property(e => e.LastName).IsRequired().HasMaxLength(100);
-			entity.Property(e => e.Email).IsRequired().HasMaxLength(200);
-			entity.Property(e => e.Birthdate).HasColumnType("datetime");
-			entity.Property(e => e.Age);
-			entity.Property(e => e.Population);
-			entity.Property(e => e.IsEnabled).IsRequired();
-			entity.Property(e => e.Temp).IsRequired();
-			entity.Property(e => e.VarBin).IsRequired();
-			entity.Property(e => e.Fubar);
-			entity.Property(e => e.ExtId).IsRequired().HasMaxLength(100);
-			entity.Property(e => e.FirstName).IsRequired().HasMaxLength(100);
-			entity.Property(e => e.LastName).IsRequired().HasMaxLength(100);
-			entity.Property(e => e.Email).IsRequired().HasMaxLength(200);
-			entity.Property(e => e.Birthdate).HasColumnType("datetime");
-			entity.Property(e => e.Age);
-			entity.Property(e => e.Population);
-			entity.Property(e => e.IsEnabled).IsRequired();
-			entity.Property(e => e.Temp).IsRequired();
-			entity.Property(e => e.VarBin).IsRequired();
-			entity.Property(e => e.Fubar);
+			entity.Property(e => e.ExtId).IsRequired(true).HasMaxLength(100);
+			entity.Property(e => e.FirstName).IsRequired(true).HasMaxLength(100);
+			entity.Property(e => e.LastName).IsRequired(true).HasMaxLength(100);
+			entity.Property(e => e.Email).IsRequired(true).HasMaxLength(200);
+			entity.Property(e => e.Birthdate).IsRequired(false).HasColumnType("datetime");
+			entity.Property(e => e.Age).IsRequired(false);
+			entity.Property(e => e.IsEnabled).IsRequired(false).HasColumnType("datetime");
 
 			// Indexes
 			entity.HasIndex(e => e.Id, "IX_AppUser_Id").IsUnique();
 			entity.HasIndex(e => e.ExtId, "IX_AppUser_ExtId");
-			entity.HasIndex(e => e.FirstName, "IX_AppUser_FirstName");
 			entity.HasIndex(e => e.LastName, "IX_AppUser_LastName");
 			entity.HasIndex(e => e.Email, "IX_AppUser_Email");
 		});
@@ -86,20 +69,13 @@ public partial class Db : DbContext
 
 			entity.HasKey(e => e.Id);
 
-			entity.Property(e => e.Message);
-			entity.Property(e => e.Timestamp).HasColumnType("datetime");
-			entity.Property(e => e.Exception);
-			entity.Property(e => e.LogLevel);
-			entity.Property(e => e.Application).HasMaxLength(200);
-			entity.Property(e => e.Source).HasMaxLength(200);
-			entity.Property(e => e.CorrelationId).HasMaxLength(50);
-			entity.Property(e => e.Message);
-			entity.Property(e => e.Timestamp).HasColumnType("datetime");
-			entity.Property(e => e.Exception);
-			entity.Property(e => e.LogLevel);
-			entity.Property(e => e.Application).HasMaxLength(200);
-			entity.Property(e => e.Source).HasMaxLength(200);
-			entity.Property(e => e.CorrelationId).HasMaxLength(50);
+			entity.Property(e => e.Message).IsRequired(false);
+			entity.Property(e => e.Timestamp).IsRequired(true).HasColumnType("datetime");
+			entity.Property(e => e.Exception).IsRequired(true);
+			entity.Property(e => e.LogLevel).IsRequired(true);
+			entity.Property(e => e.Application).IsRequired(false).HasMaxLength(200);
+			entity.Property(e => e.Source).IsRequired(false).HasMaxLength(200);
+			entity.Property(e => e.CorrelationId).IsRequired(false).HasMaxLength(50);
 
 			// Indexes
 			entity.HasIndex(e => e.Id, "IX_LogEvent_Id").IsUnique();

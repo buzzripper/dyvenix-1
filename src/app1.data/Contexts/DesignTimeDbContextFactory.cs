@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore;
-using Dyvenix.App1.Data.Contexts;
 
 namespace Dyvenix.App1.Data;
 
-public class BloggingContextFactory : IDesignTimeDbContextFactory<Db>
+public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<Db>
 {
     public Db CreateDbContext(string[] args)
     {

@@ -43,7 +43,9 @@ namespace Dyvenix.App1.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
+                    b.HasIndex(new[] { "AppUserId" }, "IX_AccessClaim_AppUserId");
+
+                    b.HasIndex(new[] { "ClaimName" }, "IX_AccessClaim_ClaimName");
 
                     b.HasIndex(new[] { "Id" }, "IX_AccessClaim_Id")
                         .IsUnique();
@@ -57,10 +59,10 @@ namespace Dyvenix.App1.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
+                    b.Property<TimeSpan?>("Age")
+                        .HasColumnType("time");
 
-                    b.Property<DateTime>("Birthdate")
+                    b.Property<DateTime?>("Birthdate")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Email")
@@ -78,34 +80,19 @@ namespace Dyvenix.App1.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<byte>("Fubar")
-                        .HasColumnType("tinyint");
-
-                    b.Property<bool>("IsEnabled")
-                        .HasColumnType("bit");
+                    b.Property<DateTime?>("IsEnabled")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<long>("Population")
-                        .HasColumnType("bigint");
-
-                    b.Property<double>("Temp")
-                        .HasColumnType("float");
-
-                    b.Property<byte[]>("VarBin")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex(new[] { "Email" }, "IX_AppUser_Email");
 
                     b.HasIndex(new[] { "ExtId" }, "IX_AppUser_ExtId");
-
-                    b.HasIndex(new[] { "FirstName" }, "IX_AppUser_FirstName");
 
                     b.HasIndex(new[] { "Id" }, "IX_AppUser_Id")
                         .IsUnique();
@@ -132,6 +119,7 @@ namespace Dyvenix.App1.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Exception")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("LogLevel")
@@ -162,7 +150,7 @@ namespace Dyvenix.App1.Data.Migrations
             modelBuilder.Entity("Dyvenix.App1.Data.Entities.AccessClaim", b =>
                 {
                     b.HasOne("Dyvenix.App1.Data.Entities.AppUser", null)
-                        .WithMany("AccessClaims")
+                        .WithMany("Claims")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -170,7 +158,7 @@ namespace Dyvenix.App1.Data.Migrations
 
             modelBuilder.Entity("Dyvenix.App1.Data.Entities.AppUser", b =>
                 {
-                    b.Navigation("AccessClaims");
+                    b.Navigation("Claims");
                 });
 #pragma warning restore 612, 618
         }

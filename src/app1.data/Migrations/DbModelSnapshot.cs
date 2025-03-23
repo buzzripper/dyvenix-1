@@ -56,12 +56,6 @@ namespace Dyvenix.App1.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<TimeSpan?>("Age")
-                        .HasColumnType("time");
-
-                    b.Property<DateTime?>("Birthdate")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -77,31 +71,19 @@ namespace Dyvenix.App1.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<byte?>("Fubar")
-                        .HasColumnType("tinyint");
-
-                    b.Property<DateTime>("IsEnabled")
-                        .HasColumnType("datetime");
+                    b.Property<bool>("IsEnabled")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<decimal>("Temp")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<byte[]>("VarBin")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex(new[] { "Email" }, "IX_AppUser_Email");
 
                     b.HasIndex(new[] { "ExtId" }, "IX_AppUser_ExtId");
-
-                    b.HasIndex(new[] { "FirstName" }, "IX_AppUser_FirstName");
 
                     b.HasIndex(new[] { "Id" }, "IX_AppUser_Id")
                         .IsUnique();

@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/22/2025 8:23 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/22/2025 9:45 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -16,12 +16,7 @@ public partial class AppUser
 	public string FirstName { get; set; }
 	public string LastName { get; set; }
 	public string Email { get; set; }
-	public DateTime? Birthdate { get; set; }
-	public TimeSpan? Age { get; set; }
-	public DateTime IsEnabled { get; set; }
-	public decimal Temp { get; set; }
-	public byte[] VarBin { get; set; }
-	public byte? Fubar { get; set; }
+	public bool IsEnabled { get; set; }
 
 	// Navigation Properties
 	public virtual ICollection<AccessClaim> Claims { get; set; } = new List<AccessClaim>();

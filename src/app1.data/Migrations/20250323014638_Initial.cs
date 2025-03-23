@@ -23,12 +23,7 @@ namespace Dyvenix.App1.Data.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Birthdate = table.Column<DateTime>(type: "datetime", nullable: true),
-                    Age = table.Column<TimeSpan>(type: "time", nullable: true),
-                    IsEnabled = table.Column<DateTime>(type: "datetime", nullable: false),
-                    Temp = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    VarBin = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    Fubar = table.Column<byte>(type: "tinyint", nullable: true)
+                    IsEnabled = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -95,11 +90,6 @@ namespace Dyvenix.App1.Data.Migrations
                 name: "IX_AppUser_ExtId",
                 table: "AppUser",
                 column: "ExtId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AppUser_FirstName",
-                table: "AppUser",
-                column: "FirstName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppUser_Id",

@@ -37,15 +37,12 @@ namespace Dyvenix.App1.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ClaimValue")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.HasIndex(new[] { "AppUserId" }, "IX_AccessClaim_AppUserId");
-
-                    b.HasIndex(new[] { "ClaimName" }, "IX_AccessClaim_ClaimName");
 
                     b.HasIndex(new[] { "Id" }, "IX_AccessClaim_Id")
                         .IsUnique();
@@ -80,7 +77,10 @@ namespace Dyvenix.App1.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime?>("IsEnabled")
+                    b.Property<byte?>("Fubar")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime>("IsEnabled")
                         .HasColumnType("datetime");
 
                     b.Property<string>("LastName")
@@ -88,11 +88,20 @@ namespace Dyvenix.App1.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<decimal>("Temp")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<byte[]>("VarBin")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex(new[] { "Email" }, "IX_AppUser_Email");
 
                     b.HasIndex(new[] { "ExtId" }, "IX_AppUser_ExtId");
+
+                    b.HasIndex(new[] { "FirstName" }, "IX_AppUser_FirstName");
 
                     b.HasIndex(new[] { "Id" }, "IX_AppUser_Id")
                         .IsUnique();
@@ -119,10 +128,9 @@ namespace Dyvenix.App1.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Exception")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LogLevel")
+                    b.Property<int?>("LogLevel")
                         .HasColumnType("int");
 
                     b.Property<string>("Message")
@@ -132,7 +140,7 @@ namespace Dyvenix.App1.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<DateTime>("Timestamp")
+                    b.Property<DateTime?>("Timestamp")
                         .HasColumnType("datetime");
 
                     b.HasKey("Id");

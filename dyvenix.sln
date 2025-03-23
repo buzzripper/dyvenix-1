@@ -36,6 +36,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AAC1C9BB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app.server.tests", "tests\app.server.tests\app.server.tests.csproj", "{596276E3-87CD-4D24-9F67-5280CB3B4088}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "design", "design", "{5A47F451-ED62-46A4-8E42-E4D66C43A675}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{C5900137-2241-49D7-A28C-465257F265A7}"
+	ProjectSection(SolutionItems) = preProject
+		design\Model\DyvenixModel.gmdl = design\Model\DyvenixModel.gmdl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{A07FFC57-E651-41EF-AF08-6939A4F9E7E3}"
+	ProjectSection(SolutionItems) = preProject
+		design\Model\Templates\DbContext.tmpl = design\Model\Templates\DbContext.tmpl
+		design\Model\Templates\Entities.tmpl = design\Model\Templates\Entities.tmpl
+		design\Model\Templates\Enums.tmpl = design\Model\Templates\Enums.tmpl
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +95,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3B42448E-5FE8-41CE-8F63-0B954CE871F6} = {BB28E274-5BC9-4265-B8F0-886091D00A08}
 		{596276E3-87CD-4D24-9F67-5280CB3B4088} = {AAC1C9BB-CA2F-45BA-97B3-A760574F66C6}
+		{C5900137-2241-49D7-A28C-465257F265A7} = {5A47F451-ED62-46A4-8E42-E4D66C43A675}
+		{A07FFC57-E651-41EF-AF08-6939A4F9E7E3} = {C5900137-2241-49D7-A28C-465257F265A7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {82B4D68F-4052-475A-B3AA-D6AECD147F3F}

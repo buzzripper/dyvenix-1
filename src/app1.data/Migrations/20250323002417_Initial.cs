@@ -25,7 +25,10 @@ namespace Dyvenix.App1.Data.Migrations
                     Email = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Birthdate = table.Column<DateTime>(type: "datetime", nullable: true),
                     Age = table.Column<TimeSpan>(type: "time", nullable: true),
-                    IsEnabled = table.Column<DateTime>(type: "datetime", nullable: true)
+                    IsEnabled = table.Column<DateTime>(type: "datetime", nullable: false),
+                    Temp = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    VarBin = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    Fubar = table.Column<byte>(type: "tinyint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,9 +43,9 @@ namespace Dyvenix.App1.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Timestamp = table.Column<DateTime>(type: "datetime", nullable: false),
-                    Exception = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LogLevel = table.Column<int>(type: "int", nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "datetime", nullable: true),
+                    Exception = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LogLevel = table.Column<int>(type: "int", nullable: true),
                     Application = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Source = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     CorrelationId = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
@@ -59,7 +62,7 @@ namespace Dyvenix.App1.Data.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AppUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClaimName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ClaimValue = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    ClaimValue = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -78,11 +81,6 @@ namespace Dyvenix.App1.Data.Migrations
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AccessClaim_ClaimName",
-                table: "AccessClaim",
-                column: "ClaimName");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_AccessClaim_Id",
                 table: "AccessClaim",
                 column: "Id",
@@ -97,6 +95,11 @@ namespace Dyvenix.App1.Data.Migrations
                 name: "IX_AppUser_ExtId",
                 table: "AppUser",
                 column: "ExtId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppUser_FirstName",
+                table: "AppUser",
+                column: "FirstName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppUser_Id",

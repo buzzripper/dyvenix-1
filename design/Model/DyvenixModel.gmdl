@@ -2,7 +2,7 @@
   "Name": "MyDoc",
   "Description": "My Description",
   "Version": "1.0.0",
-  "ModelFilepath": "D:\\Code\\buzzripper\\dyvenix\\design\\ModelTemplates\\Dyvenix.gmdl",
+  "ModelFilepath": "D:\\Code\\buzzripper\\dyvenix\\design\\Model\\DyvenixModel.gmdl",
   "DbContexts": [
     {
       "Id": "f485c6ef-a256-43b8-81ae-9284e262e485",
@@ -46,11 +46,11 @@
               "AssocId": null,
               "IsPrimaryKey": false,
               "IsIdentity": false,
-              "Nullable": true,
+              "Nullable": false,
               "MaxLength": 50,
-              "IsIndexed": true,
-              "IsIndexUnique": true,
-              "IsIndexClustered": true,
+              "IsIndexed": false,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
               "DisplayOrder": 1,
               "Attributes": [],
               "AddlUsings": []
@@ -63,7 +63,7 @@
               "AssocId": null,
               "IsPrimaryKey": false,
               "IsIdentity": false,
-              "Nullable": false,
+              "Nullable": true,
               "MaxLength": 50,
               "IsIndexed": false,
               "IsIndexUnique": false,
@@ -464,6 +464,7 @@
           "Name": "LogLevel",
           "IsExternal": false,
           "IsFlags": false,
+          "Enabled": true,
           "Namespace": "",
           "Members": [
             "Verbose",
@@ -493,9 +494,10 @@
         }
       ],
       "DbContextGen": {
-        "OutputFolder": "D:\\Code\\buzzripper\\dyvenix\\src\\app1.data\\Contexts",
+        "OutputFolder": "..\\..\\src\\app1.data\\Contexts",
         "Id": "eb8fddeb-773f-4471-8d15-befd762e670d",
         "GeneratorType": 0,
+        "TemplateFilepath": "Templates\\DbContext.tmpl",
         "Enabled": true,
         "InclHeader": true
       },
@@ -503,13 +505,15 @@
         "OutputFolder": "D:\\Code\\buzzripper\\dyvenix\\src\\app1.data\\Entities",
         "Id": "171722e6-9d5e-45c8-bacc-3a14e9e98fbc",
         "GeneratorType": 1,
+        "TemplateFilepath": "Templates\\Entities.tmpl",
         "Enabled": true,
         "InclHeader": true
       },
       "EnumGen": {
-        "OutputFolder": "D:\\Code\\buzzripper\\dyvenix\\src\\app1.data\\Entities",
+        "OutputFolder": "..\\..\\src\\app1.data\\Entities",
         "Id": "22a7658a-8284-4b07-aa71-e915918620ff",
         "GeneratorType": 1,
+        "TemplateFilepath": "Templates\\Enums.tmpl",
         "Enabled": true,
         "InclHeader": true
       }

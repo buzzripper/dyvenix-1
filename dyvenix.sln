@@ -48,6 +48,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		design\Model\Templates\DbContext.tmpl = design\Model\Templates\DbContext.tmpl
 		design\Model\Templates\Entities.tmpl = design\Model\Templates\Entities.tmpl
 		design\Model\Templates\Enums.tmpl = design\Model\Templates\Enums.tmpl
+		design\Model\Templates\Services.tmpl = design\Model\Templates\Services.tmpl
 	EndProjectSection
 EndProject
 Global
@@ -67,8 +68,6 @@ Global
 		{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3B42448E-5FE8-41CE-8F63-0B954CE871F6}.Release|Any CPU.Deploy.0 = Release|Any CPU

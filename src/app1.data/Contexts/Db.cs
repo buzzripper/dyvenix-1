@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/22/2025 9:45 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/23/2025 4:34 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using Microsoft.EntityFrameworkCore;
 using Dyvenix.App1.Data.Entities;
@@ -59,7 +59,7 @@ public partial class Db : DbContext
 			entity.HasIndex(e => e.Id, "IX_AppUser_Id").IsUnique();
 			entity.HasIndex(e => e.ExtId, "IX_AppUser_ExtId");
 			entity.HasIndex(e => e.LastName, "IX_AppUser_LastName");
-			entity.HasIndex(e => e.Email, "IX_AppUser_Email");
+			entity.HasIndex(e => e.Email, "IX_AppUser_Email").IsUnique();
 		});
 
 		modelBuilder.Entity<LogEvent>(entity =>

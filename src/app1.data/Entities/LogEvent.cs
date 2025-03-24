@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/22/2025 9:45 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/23/2025 4:34 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Linq;
@@ -24,4 +24,16 @@ public partial class LogEvent
 	public string CorrelationId { get; set; }
 
 	
+
+	public static class PropNames 
+    {
+		public const string Id = nameof(LogEvent.Id);
+		public const string Message = nameof(LogEvent.Message);
+		public const string Timestamp = nameof(LogEvent.Timestamp);
+		public const string Exception = nameof(LogEvent.Exception);
+		public const string LogLevel = nameof(LogEvent.LogLevel);
+		public const string Application = nameof(LogEvent.Application);
+		public const string Source = nameof(LogEvent.Source);
+		public const string CorrelationId = nameof(LogEvent.CorrelationId);
+    }
 }

@@ -184,7 +184,7 @@
               "Nullable": false,
               "MaxLength": 200,
               "IsIndexed": true,
-              "IsIndexUnique": false,
+              "IsIndexUnique": true,
               "IsIndexClustered": false,
               "DisplayOrder": 4,
               "Attributes": [],

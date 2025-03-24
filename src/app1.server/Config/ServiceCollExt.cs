@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace Dyvenix.App1.Server.Config;
 
-public static class ConfigServiceCollExt
+public static partial class ServiceCollExt
 {
 	public static IServiceCollection AddAppServices(this IServiceCollection services, AppConfig appConfig)
 	{
@@ -16,8 +16,12 @@ public static class ConfigServiceCollExt
 		services.AddScoped<ITestService, TestService>();
 		services.AddScoped<IAccessClaimsProvider, AccessClaimsProvider>();
 
+		AddGeneratedServices(services);
+
 		return services;
 	}
+
+	static partial void AddGeneratedServices(this IServiceCollection services);
 
 	public static IServiceCollection AddSwaggerServices(this IServiceCollection services, bool includeAuth)
 	{

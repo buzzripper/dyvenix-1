@@ -37,12 +37,5 @@ namespace Dyvenix.App1.Server.Controllers
 			_testService.TestLogLevels();
 			return Ok();
 		}
-
-		[HttpGet, Route("[action]")]
-		public IActionResult TestEF()
-		{
-			var appUsers = _testService.TestEF();
-			return Ok(appUsers);
-		}
 	}
 }

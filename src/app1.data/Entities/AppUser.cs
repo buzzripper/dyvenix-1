@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/22/2025 9:45 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/23/2025 4:34 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -21,4 +21,14 @@ public partial class AppUser
 	// Navigation Properties
 	public virtual ICollection<AccessClaim> Claims { get; set; } = new List<AccessClaim>();
 
+
+	public static class PropNames 
+    {
+		public const string Id = nameof(AppUser.Id);
+		public const string ExtId = nameof(AppUser.ExtId);
+		public const string FirstName = nameof(AppUser.FirstName);
+		public const string LastName = nameof(AppUser.LastName);
+		public const string Email = nameof(AppUser.Email);
+		public const string IsEnabled = nameof(AppUser.IsEnabled);
+    }
 }

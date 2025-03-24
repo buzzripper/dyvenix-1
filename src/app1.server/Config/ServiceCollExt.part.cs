@@ -7,6 +7,6 @@ public static partial class ServiceCollExt
 {
 	static partial void AddGeneratedServices(this IServiceCollection services)
 	{
-		services.AddScoped<IAppUserService, AppUserService2>();
+		services.AddScoped<IAppUserService, AppUserService>();
 	}
 }

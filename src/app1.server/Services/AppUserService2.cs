@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Dyvenix.App1.Server.Services;
 
-public interface IAppUserService
+public interface IAppUserService2
 {
 	Task<AppUser> GetById(Guid id);
 	Task<AppUser> GetByEmail(string email);
@@ -22,7 +22,7 @@ public interface IAppUserService
 	Task<EntityList<AppUser>> Query(GetAppUsersQuery query);
 }
 
-public class AppUserService2 : IAppUserService
+public class AppUserService2 : IAppUserService2
 {
 	private readonly IDbContextFactory _dbContextFactory;
 

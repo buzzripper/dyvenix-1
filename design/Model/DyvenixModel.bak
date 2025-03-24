@@ -11,9 +11,6 @@
       "ContextNamespace": "Dyvenix.App1.Data",
       "EntitiesNamespace": "Dyvenix.App1.Data.Entities",
       "EnumsNamespace": "Dyvenix.App1.Data.Entities",
-      "ServicesNamespace": "Dyvenix.App1.Server.Services",
-      "QueriesNamespace": "Dyvenix.App1.Server.Services.Queries",
-      "ControllersNamespace": "Dyvenix.App1.Server.Controllers",
       "AddlUsings": [],
       "Entities": [
         {
@@ -411,77 +408,12 @@
           "Cardinality": 1
         }
       ],
-      "Services": [
-        {
-          "Id": "58fb1efe-1025-409c-935d-a19a0f9a22d4",
-          "EntityId": "fef93c39-8118-4929-a516-fbb014e24365",
-          "Enabled": true,
-          "InclController": false,
-          "AddlUsings": [],
-          "GetSingleMethods": [
-            {
-              "PropertyId": "47618992-44bb-44ca-b414-27692e4a9768",
-              "Id": "6824320f-053c-423c-8061-6cffbb6e9aae",
-              "Name": "GetById",
-              "Attributes": [],
-              "DisplayOrder": 0
-            },
-            {
-              "PropertyId": "78f99456-bcd9-4fdf-934c-64a61dfc121b",
-              "Id": "01624eee-5d58-44b5-b19e-092c62adff97",
-              "Name": "GetByEmail",
-              "Attributes": [],
-              "DisplayOrder": 1
-            }
-          ],
-          "GetListMethods": [
-            {
-              "PropertyId": "00000000-0000-0000-0000-000000000000",
-              "Id": "3d47f857-e693-4ef8-ae9e-732778e16117",
-              "Name": "GetAll",
-              "Attributes": [],
-              "DisplayOrder": 0
-            },
-            {
-              "PropertyId": "96b41827-70c2-41e1-b7a4-d85e6c6c8925",
-              "Id": "6824320f-053c-423c-8061-6cffbb6e9aae",
-              "Name": "GetWithLastName",
-              "Attributes": [],
-              "DisplayOrder": 0
-            },
-            {
-              "PropertyId": "630ca00a-2ff3-4648-a638-d39e76227238",
-              "Id": "211f0109-3c49-4939-bf1a-75049be2f566",
-              "Name": "GetWithIsEnabled",
-              "Attributes": [
-              ],
-              "DisplayOrder": 0
-            }
-          ],
-          "QueryMethods": [
-            {
-                "Id": "26788289-DA20-4762-B031-0941486A4F2C",
-                "Name": "FindCompanyUsers",
-                "Name": "FindCompanyUsers",
-                "FilterPropertyIds": [
-                    "33e94fb6-db88-4837-a604-d5e08e844461",
-                    "4f76b75c-ad78-4557-95c4-aeb82534dc68",
-                    "96b41827-70c2-41e1-b7a4-d85e6c6c8925",
-                    "78f99456-bcd9-4fdf-934c-64a61dfc121b",
-                    "630ca00a-2ff3-4648-a638-d39e76227238"
-                ],
-                "Attributes": [],
-                "DisplayOrder": 2
-            }
-          ]
-        }
-      ],
       "DbContextGen": {
         "OutputFolder": "..\\..\\src\\app1.data\\Contexts",
         "Id": "eb8fddeb-773f-4471-8d15-befd762e670d",
         "GeneratorType": 0,
         "TemplateFilepath": "Templates\\DbContext.tmpl",
-        "Enabled": false,
+        "Enabled": true,
         "InclHeader": true
       },
       "EntityGen": {
@@ -489,7 +421,7 @@
         "Id": "171722e6-9d5e-45c8-bacc-3a14e9e98fbc",
         "GeneratorType": 1,
         "TemplateFilepath": "Templates\\Entities.tmpl",
-        "Enabled": false,
+        "Enabled": true,
         "InclHeader": true
       },
       "EnumGen": {
@@ -497,18 +429,6 @@
         "Id": "22a7658a-8284-4b07-aa71-e915918620ff",
         "GeneratorType": 1,
         "TemplateFilepath": "Templates\\Enums.tmpl",
-        "Enabled": false,
-        "InclHeader": true
-      },
-      "ServiceGen": {
-        "OutputFolder": "..\\..\\src\\app1.server\\Services",
-        "QueryTemplateFilepath": "Templates\\Query.tmpl",
-        "QueryOutputFolder": "..\\..\\src\\app1.server\\Services\\Queries",
-        "ControllerTemplateFilepath": null,
-        "ControllerOutputFolder": null,
-        "Id": "35a7a4ff-6462-4399-90d3-4e6936df20b9",
-        "GeneratorType": 4,
-        "TemplateFilepath": "Templates\\Services.tmpl",
         "Enabled": true,
         "InclHeader": true
       }

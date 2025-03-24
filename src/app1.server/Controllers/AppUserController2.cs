@@ -13,11 +13,11 @@ namespace Dyvenix.App1.Server.Controllers
 {
 	[ApiController]
 	[Route("api/[controller]")]
-	public class AppUserController : ApiControllerBase<AppUserController>
+	public class AppUserController2 : ApiControllerBase<AppUserController2>
 	{
 		private readonly IAppUserService _appUserService;
 
-		public AppUserController(IAppUserService appUserService, IDyvenixLogger<AppUserController> logger) : base(logger)
+		public AppUserController2(IAppUserService appUserService, IDyvenixLogger<AppUserController2> logger) : base(logger)
 		{
 			_appUserService = appUserService;
 		}

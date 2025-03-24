@@ -32,21 +32,12 @@ public class ${{SERVICE_NAME}} : I${{SERVICE_NAME}}
 
 	#region Get Single
 ${{SINGLE_METHODS}}
-
 	#endregion
 
 	#region Get List
 ${{LIST_METHODS}}
-
 	#endregion
 
-	#region Queries
 ${{QUERY_METHODS}}
-
-	private void AddSorting(ref IQueryable<${{SERVICE_NAME}}> dbQuery, ISortingQuery sortingQuery)
-	{
 ${{SORTING_METHOD}}
-	}
-
-	#endregion
 }

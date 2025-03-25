@@ -45,6 +45,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{C5900137
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{A07FFC57-E651-41EF-AF08-6939A4F9E7E3}"
 	ProjectSection(SolutionItems) = preProject
+		design\Model\Templates\Controllers.tmpl = design\Model\Templates\Controllers.tmpl
 		design\Model\Templates\DbContext.tmpl = design\Model\Templates\DbContext.tmpl
 		design\Model\Templates\Entities.tmpl = design\Model\Templates\Entities.tmpl
 		design\Model\Templates\Enums.tmpl = design\Model\Templates\Enums.tmpl

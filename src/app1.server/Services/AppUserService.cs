@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/24/2025 4:51 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/24/2025 10:02 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -8,11 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Dyvenix.App1.Data.Contexts;
 using Dyvenix.App1.Data.Entities;
-using Dyvenix.App1.Data.Queries;
 using Dyvenix.Core.Entities;
 using Dyvenix.Core.Queries;
 using Dyvenix.Logging;
-
+using Dyvenix.App1.Server.Services.Queries;
 
 namespace Dyvenix.App1.Server.Services;
 
@@ -103,9 +102,6 @@ public class AppUserService : IAppUserService
 		return result;
 	}
 
-	#endregion
-
-
 	private void AddSorting(ref IQueryable<AppUser> dbQuery, ISortingQuery sortingQuery)
 	{
 		if (string.Equals(sortingQuery.SortBy, AppUser.PropNames.Id, StringComparison.OrdinalIgnoreCase))
@@ -144,5 +140,7 @@ public class AppUserService : IAppUserService
 			else
 				dbQuery.OrderBy(x => x.IsEnabled);
 	}
+
+	#endregion
 
 }

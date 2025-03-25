@@ -5,7 +5,7 @@ using Dyvenix.Core.Queries;
 ${{ADDL_USINGS}}
 namespace ${{QUERIES_NS}};
 
-public class ${{QUERY_NAME}} : IPagingQuery, ISortingQuery
+public class ${{QUERY_CLASS_NAME}} : IPagingQuery, ISortingQuery
 {
 	public int RowOffset { get; set; }
 	public int PageSize { get; set; }
@@ -14,5 +14,5 @@ public class ${{QUERY_NAME}} : IPagingQuery, ISortingQuery
 	public string SortBy { get; set; }
 	public bool SortDesc { get; set; }
 
-${{QUERY_PROPERTIES}}
+${{FILTER_PROPERTIES}}
 }

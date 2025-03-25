@@ -1,32 +1,26 @@
 ﻿//------------------------------------------------------------------------------------------------------------
 // This file was auto-generated ${{CURR_TIMESTAMP}}. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using Dyvenix.App1.Data.Contexts;
-using Dyvenix.App1.Data.Entities;
+using Dyvenix.Core.Controllers;
 using Dyvenix.Core.Entities;
-using Dyvenix.Core.Queries;
 using Dyvenix.Logging;
 ${{ADDL_USINGS}}
 
-namespace ${{SERVICES_NS}};
+namespace ${{CONTROLLERS_NS}};
 
-public interface I${{SERVICE_NAME}}
+[ApiController]
+[Route("api/[controller]")]
+public class ${{CONTROLLER_NAME}} : ApiControllerBase<${{CONTROLLER_NAME}}>
 {
-${{INTERFACE_SIGNATURES}}
-}
+	private readonly I${{SERVICE_NAME}} _${{SERVICE_VAR_NAME}};
 
-public class ${{SERVICE_NAME}} : I${{SERVICE_NAME}}
-{
-	private readonly IDbContextFactory _dbContextFactory;
-
-	public ${{SERVICE_NAME}}(IDbContextFactory dbContextFactory, IDyvenixLogger<TestService> logger)
+	public ${{CONTROLLER_NAME}}(I${{SERVICE_NAME}} ${{SERVICE_VAR_NAME}}, IDyvenixLogger<${{CONTROLLER_NAME}}> logger) : base(logger)
 	{
-		_dbContextFactory = dbContextFactory;
+		_${{SERVICE_VAR_NAME}} = ${{SERVICE_VAR_NAME}};
 	}
 
 	#region Get Single
@@ -36,6 +30,5 @@ ${{SINGLE_METHODS}}
 	#region Get List
 ${{LIST_METHODS}}
 	#endregion
-
 ${{QUERY_METHODS}}
 }

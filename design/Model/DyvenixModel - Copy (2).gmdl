@@ -240,82 +240,72 @@
             "Enabled": true,
             "InclSave": false,
             "InclDelete": false,
-            "InclController": true,
+            "InclController": false,
             "AddlServiceUsings": [
-              "System"
+              "New Item",
+              "New Item 2"
             ],
-            "ServiceClassAttributes": [],
+            "ServiceClassAttributes": [
+              "Attr1",
+              "Attr2"
+            ],
             "AddlControllerUsings": [],
             "ControllerClassAttributes": [],
             "GetMethods": [
-              {
-                "FilterPropertyId": "47618992-44bb-44ca-b414-27692e4a9768",
-                "IsList": false,
-                "Id": "6824320f-053c-423c-8061-6cffbb6e9aae",
-                "Name": "GetById",
-                "Attributes": [
-                  "New Item"
-                ],
-                "DisplayOrder": 0,
-                "InclSorting": false,
-                "InclPaging": false
-              },
-              {
-                "FilterPropertyId": "78f99456-bcd9-4fdf-934c-64a61dfc121b",
-                "IsList": false,
-                "Id": "01624eee-5d58-44b5-b19e-092c62adff97",
-                "Name": "GetByEmail",
-                "Attributes": [],
-                "DisplayOrder": 1,
-                "InclSorting": false,
-                "InclPaging": false
-              },
-              {
-                "FilterPropertyId": "00000000-0000-0000-0000-000000000000",
-                "IsList": true,
-                "Id": "3d47f857-e693-4ef8-ae9e-732778e16117",
-                "Name": "GetAll",
-                "Attributes": [],
-                "DisplayOrder": 0,
-                "InclSorting": false,
-                "InclPaging": false
-              },
-              {
-                "FilterPropertyId": "96b41827-70c2-41e1-b7a4-d85e6c6c8925",
-                "IsList": true,
-                "Id": "6824320f-053c-423c-8061-6cffbb6e9aae",
-                "Name": "GetWithLastNameHey",
-                "Attributes": [],
-                "DisplayOrder": 0,
-                "InclSorting": true,
-                "InclPaging": false
-              }
+                {
+                    "FilterPropertyId": "47618992-44bb-44ca-b414-27692e4a9768",
+                    "IsList": false,
+                    "Id": "6824320f-053c-423c-8061-6cffbb6e9aae",
+                    "Name": "GetById",
+                    "Attributes": [],
+                    "DisplayOrder": 0
+                },
+                {
+                    "FilterPropertyId": "78f99456-bcd9-4fdf-934c-64a61dfc121b",
+                    "IsList": false,
+                    "Id": "01624eee-5d58-44b5-b19e-092c62adff97",
+                    "Name": "GetByEmail",
+                    "Attributes": [],
+                    "DisplayOrder": 1
+                },
+                {
+                    "FilterPropertyId": null,
+                    "IsList": true,
+                    "Id": "3d47f857-e693-4ef8-ae9e-732778e16117",
+                    "Name": "GetAll",
+                    "Attributes": [],
+                    "DisplayOrder": 0
+                },
+                {
+                    "FilterPropertyId": "96b41827-70c2-41e1-b7a4-d85e6c6c8925",
+                    "IsList": true,
+                    "Id": "6824320f-053c-423c-8061-6cffbb6e9aae",
+                    "Name": "GetWithLastName",
+                    "Attributes": [],
+                    "DisplayOrder": 0
+                },
+                {
+                    "FilterPropertyId": "630ca00a-2ff3-4648-a638-d39e76227238",
+                    "IsList": true,
+                    "Id": "211f0109-3c49-4939-bf1a-75049be2f566",
+                    "Name": "GetWithIsEnabled",
+                    "Attributes": [],
+                    "DisplayOrder": 0
+                }
             ],
             "QueryMethods": [
               {
                 "FilterPropertyIds": [
                   "33e94fb6-db88-4837-a604-d5e08e844461",
                   "4f76b75c-ad78-4557-95c4-aeb82534dc68",
-                  "96b41827-70c2-41e1-b7a4-d85e6c6c8925"
+                  "96b41827-70c2-41e1-b7a4-d85e6c6c8925",
+                  "78f99456-bcd9-4fdf-934c-64a61dfc121b",
+                  "630ca00a-2ff3-4648-a638-d39e76227238"
                 ],
                 "Id": "26788289-da20-4762-b031-0941486a4f2c",
                 "Name": "FindCompanyUsers",
                 "Attributes": [],
-                "DisplayOrder": 2,
-                "InclSorting": false,
-                "InclPaging": true
-              },
-              {
-                "FilterPropertyIds": [
-                  "96b41827-70c2-41e1-b7a4-d85e6c6c8925",
-                  "630ca00a-2ff3-4648-a638-d39e76227238"
-                ],
-                "Id": "c9e54a7b-1799-4dde-9b90-f22acf6cdd20",
-                "Name": "QueryDisabledUsers",
-                "Attributes": [],
-                "DisplayOrder": 0,
-                "InclSorting": true,
-                "InclPaging": false
+                "DisplayOrder": 2
               }
             ]
           }

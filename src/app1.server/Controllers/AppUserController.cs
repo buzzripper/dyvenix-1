@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/24/2025 7:00 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/26/2025 7:00 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -27,7 +27,7 @@ public class AppUserController : ApiControllerBase<AppUserController>
 
 	#region Get Single
 
-
+	[New Item]
 	[HttpGet, Route("[action]/{id}")]
 	public async Task<ActionResult<AppUser>> GetById(Guid id)
 	{
@@ -37,7 +37,6 @@ public class AppUserController : ApiControllerBase<AppUserController>
 			return LogErrorAndReturnErrorResponse(ex);
 		}
 	}
-
 
 	[HttpGet, Route("[action]/{email}")]
 	public async Task<ActionResult<AppUser>> GetByEmail(string email)
@@ -53,7 +52,6 @@ public class AppUserController : ApiControllerBase<AppUserController>
 
 	#region Get List
 
-
 	[HttpGet, Route("[action]")]
 	public async Task<ActionResult<List<AppUser>>> GetAll()
 	{
@@ -64,23 +62,11 @@ public class AppUserController : ApiControllerBase<AppUserController>
 		}
 	}
 
-
 	[HttpGet, Route("[action]/{lastName}")]
-	public async Task<ActionResult<List<AppUser>>> GetWithLastName(string lastName)
+	public async Task<ActionResult<List<AppUser>>> GetWithLastNameHey(string lastName)
 	{
 		try {
-			return await _appUserService.GetWithLastName(lastName);
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
-
-	[HttpGet, Route("[action]/{isEnabled}")]
-	public async Task<ActionResult<List<AppUser>>> GetWithIsEnabled(bool isEnabled)
-	{
-		try {
-			return await _appUserService.GetWithIsEnabled(isEnabled);
+			return await _appUserService.GetWithLastNameHey(lastName);
 		} catch (Exception ex) {
 			return LogErrorAndReturnErrorResponse(ex);
 		}
@@ -91,10 +77,20 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	#region Queries
 
 	[HttpPost, Route("[action]")]
-	public async Task<ActionResult<EntityList<AppUser>>> Query([FromBody] FindCompanyUsersQuery findCompanyUsersQuery)
+	public async Task<ActionResult<EntityList<AppUser>>> FindCompanyUsers([FromBody] FindCompanyUsersQuery findCompanyUsersQuery)
 	{
 		try {
 			return await _appUserService.FindCompanyUsers(findCompanyUsersQuery);
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
+
+	[HttpPost, Route("[action]")]
+	public async Task<ActionResult<EntityList<AppUser>>> QueryDisabledUsers([FromBody] QueryDisabledUsersQuery queryDisabledUsersQuery)
+	{
+		try {
+			return await _appUserService.QueryDisabledUsers(queryDisabledUsersQuery);
 		} catch (Exception ex) {
 			return LogErrorAndReturnErrorResponse(ex);
 		}

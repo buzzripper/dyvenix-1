@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/24/2025 10:02 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/26/2025 7:00 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -11,6 +11,7 @@ using Dyvenix.App1.Data.Entities;
 using Dyvenix.Core.Entities;
 using Dyvenix.Core.Queries;
 using Dyvenix.Logging;
+using System;
 using Dyvenix.App1.Server.Services.Queries;
 
 namespace Dyvenix.App1.Server.Services;
@@ -20,9 +21,9 @@ public interface IAppUserService
 	Task<AppUser>GetById(Guid id);
 	Task<AppUser>GetByEmail(string email);
 	Task<List<AppUser>>GetAll();
-	Task<List<AppUser>>GetWithLastName(string lastName);
-	Task<List<AppUser>>GetWithIsEnabled(bool isEnabled);
+	Task<List<AppUser>>GetWithLastNameHey(string lastName);
 	Task<EntityList<AppUser>>FindCompanyUsers(FindCompanyUsersQuery query);
+	Task<EntityList<AppUser>>QueryDisabledUsers(QueryDisabledUsersQuery query);
 }
 
 public class AppUserService : IAppUserService
@@ -36,6 +37,7 @@ public class AppUserService : IAppUserService
 
 	#region Get Single
 
+	[New Item]
 	public async Task<AppUser>GetById(Guid id)
 	{
 		var db = _dbContextFactory.CreateDbContext();
@@ -58,16 +60,10 @@ public class AppUserService : IAppUserService
 		return await db.AppUser.AsNoTracking().ToListAsync();
 	}
 
-	public async Task<List<AppUser>>GetWithLastName(string lastName)
+	public async Task<List<AppUser>>GetWithLastNameHey(string lastName)
 	{
 		var db = _dbContextFactory.CreateDbContext();
 		return await db.AppUser.Where(x => x.LastName == lastName).AsNoTracking().ToListAsync();
-	}
-
-	public async Task<List<AppUser>>GetWithIsEnabled(bool isEnabled)
-	{
-		var db = _dbContextFactory.CreateDbContext();
-		return await db.AppUser.Where(x => x.IsEnabled == isEnabled).AsNoTracking().ToListAsync();
 	}
 
 	#endregion
@@ -86,16 +82,33 @@ public class AppUserService : IAppUserService
 			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.FirstName, query.FirstName));
 		if (!string.IsNullOrWhiteSpace(query.LastName))
 			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.LastName, query.LastName));
-		if (!string.IsNullOrWhiteSpace(query.Email))
-			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.Email, query.Email));
-		dbQuery = dbQuery.Where(x => x.IsEnabled == query.IsEnabled);
+
+		// Paging
+		if (query.RecalcRowCount || query.GetRowCountOnly)
+			result.TotalRowCount = dbQuery.Count();
+		if (query.GetRowCountOnly)
+			return result;
+		dbQuery = dbQuery.Skip(query.RowOffset).Take(query.PageSize);
+
+		result.Data = await dbQuery.AsNoTracking().ToListAsync();
+
+		return result;
+	}
+
+	public async Task<EntityList<AppUser>>QueryDisabledUsers(QueryDisabledUsersQuery query)
+	{
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsNoTracking().AsQueryable();
+		var result = new EntityList<AppUser>();
+
+		// Filters
+		if (!string.IsNullOrWhiteSpace(query.LastName))
+			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.LastName, query.LastName));
+		if (query.IsEnabled.HasValue)
+			dbQuery = dbQuery.Where(x => x.IsEnabled == query.IsEnabled);
 
 		// Sorting
 		if (!string.IsNullOrWhiteSpace(query.SortBy))
-		this.AddSorting(ref dbQuery, query);
-
-		// Paging
-		dbQuery = dbQuery.Skip(query.RowOffset).Take(query.PageSize);
+			this.AddSorting(ref dbQuery, query);
 
 		result.Data = await dbQuery.AsNoTracking().ToListAsync();
 

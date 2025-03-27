@@ -102,7 +102,8 @@
           "Service": {
             "Id": "00000000-0000-0000-0000-000000000000",
             "Enabled": false,
-            "InclSave": false,
+            "InclCreate": false,
+            "InclUpdate": false,
             "InclDelete": false,
             "InclController": false,
             "AddlServiceUsings": [],
@@ -238,8 +239,9 @@
           "Service": {
             "Id": "58fb1efe-1025-409c-935d-a19a0f9a22d4",
             "Enabled": true,
-            "InclSave": false,
-            "InclDelete": false,
+            "InclCreate": true,
+            "InclUpdate": true,
+            "InclDelete": true,
             "InclController": true,
             "AddlServiceUsings": [
               "System"
@@ -492,7 +494,8 @@
           "Service": {
             "Id": "00000000-0000-0000-0000-000000000000",
             "Enabled": false,
-            "InclSave": false,
+            "InclCreate": false,
+            "InclUpdate": false,
             "InclDelete": false,
             "InclController": false,
             "AddlServiceUsings": [],

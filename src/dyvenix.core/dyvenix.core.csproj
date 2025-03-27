@@ -18,4 +18,8 @@
     <ProjectReference Include="..\dyvenix.logging\dyvenix.logging.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

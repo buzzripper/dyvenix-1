@@ -15,6 +15,7 @@ public static partial class ServiceCollExt
 		services.AddSingleton(appConfig);
 		services.AddScoped<ITestService, TestService>();
 		services.AddScoped<IAccessClaimsProvider, AccessClaimsProvider>();
+		services.AddScoped<IAppUserService2, AppUserService2>();
 
 		AddGeneratedServices(services);
 

@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/26/2025 9:38 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/27/2025 12:30 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -18,6 +18,9 @@ namespace Dyvenix.App1.Server.Services;
 
 public interface IAppUserService
 {
+	Task CreateAppUser(AppUser appUser);
+	Task UpdateAppUser(AppUser appUser);
+	Task DeleteAppUser(Guid id);
 	Task<AppUser>GetById(Guid id);
 	Task<AppUser>GetByEmail(string email);
 	Task<List<AppUser>>GetAll();
@@ -36,6 +39,38 @@ public class AppUserService : IAppUserService
 	{
 		_dbContextFactory = dbContextFactory;
 	}
+
+	// Create / Update / Delete
+
+	public async Task CreateAppUser(AppUser appUser)
+	{
+		if (appUser == null)
+			throw new ArgumentNullException(nameof(appUser));
+
+		using var db = _dbContextFactory.CreateDbContext();
+		db.Add(appUser);
+
+		await db.SaveChangesAsync();
+	}
+
+	public async Task UpdateAppUser(AppUser appUser)
+	{
+		if (appUser == null)
+			throw new ArgumentNullException(nameof(appUser));
+
+		using var db = _dbContextFactory.CreateDbContext();
+		db.Attach(appUser);
+		db.Entry(appUser).State = EntityState.Modified;
+
+		await db.SaveChangesAsync();
+	}
+
+	public async Task DeleteAppUser(Guid id)
+	{
+		using var db = _dbContextFactory.CreateDbContext();
+		await db.AppUser.Where(a => a.Id == id).ExecuteDeleteAsync();
+	}
+
 
 	#region Get Single
 

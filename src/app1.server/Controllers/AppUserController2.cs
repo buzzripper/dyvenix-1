@@ -1,103 +1,70 @@
-//using Dyvenix.App1.Data.Entities;
-//using Dyvenix.App1.Data.Queries;
-//using Dyvenix.App1.Server.Services;
-//using Dyvenix.Core.Controllers;
-//using Dyvenix.Core.Entities;
-//using Dyvenix.Logging;
-//using Microsoft.AspNetCore.Mvc;
-//using System;
-//using System.Collections.Generic;
-//using System.Threading.Tasks;
+using Dyvenix.App1.Data.Entities;
+using Dyvenix.App1.Server.Services;
+using Dyvenix.Core.Controllers;
+using Dyvenix.Core.DTOs;
+using Dyvenix.Logging;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
-//namespace Dyvenix.App1.Server.Controllers
-//{
-//	[ApiController]
-//	[Route("api/[controller]")]
-//	public class AppUserController2 : ApiControllerBase<AppUserController2>
-//	{
-//		private readonly IAppUserService _appUserService;
+namespace Dyvenix.App1.Server.Controllers;
 
-//		public AppUserController2(IAppUserService appUserService, IDyvenixLogger<AppUserController2> logger) : base(logger)
-//		{
-//			_appUserService = appUserService;
-//		}
+[ApiController]
+[Route("api/[controller]")]
+public class AppUserController2 : ApiControllerBase<AppUserController2>
+{
+	private readonly IAppUserService2 _appUserService2;
 
-//		#region Get Single
+	public AppUserController2(IAppUserService2 appUserService2, IDyvenixLogger<AppUserController2> logger) : base(logger)
+	{
+		_appUserService2 = appUserService2;
+	}
 
-//		[HttpGet, Route("[action]/{id}")]
-//		public async Task<ActionResult<AppUser>> GetById(Guid id)
-//		{
-//			try {
-//				return await _appUserService.GetById(id);
+	[HttpPost, Route("[action]")]
+	public async Task<ActionResult> CreateAppUser(AppUser appUser)
+	{
+		try {
+			var svcResponse =new ServiceResponse();
+			
+			await _appUserService2.CreateAppUser(appUser);
+			
+			svcResponse.Message = "Success";
+			return Ok(svcResponse);
 
-//			} catch (Exception ex) {
-//				return LogErrorAndReturnErrorResponse(ex);
-//			}
-//		}
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
 
-//		[HttpGet, Route("[action]/{email}")]
-//		public async Task<ActionResult<AppUser>> GetByEmail(string email)
-//		{
-//			try {
-//				return await _appUserService.GetByEmail(email);
+	[HttpPatch, Route("[action]")]
+	public async Task<ActionResult> UpdateAppUser(AppUser appUser)
+	{
+		try {
+			var svcResponse =new ServiceResponse();
+			
+			await _appUserService2.UpdateAppUser(appUser);
+			
+			svcResponse.Message = "Success";
+			return Ok(svcResponse);
 
-//			} catch (Exception ex) {
-//				return LogErrorAndReturnErrorResponse(ex);
-//			}
-//		}
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
 
-//		#endregion
+	[HttpPost, Route("[action]")]
+	public async Task<ActionResult> DeleteAppUser(Guid id)
+	{
+		try {
+			var svcResponse =new ServiceResponse();
+			
+			await _appUserService2.DeleteAppUser(id);
+			
+			svcResponse.Message = "Success";
+			return Ok(svcResponse);
 
-//		#region Get List
-
-//		[HttpGet, Route("[action]")]
-//		public async Task<ActionResult<List<AppUser>>> GetAll()
-//		{
-//			try {
-//				return await _appUserService.GetAll();
-
-//			} catch (Exception ex) {
-//				return LogErrorAndReturnErrorResponse(ex);
-//			}
-//		}
-
-//		[HttpGet, Route("[action]/{lastName}")]
-//		public async Task<ActionResult<List<AppUser>>> GetWithLastName(string lastName)
-//		{
-//			try {
-//				return await _appUserService.GetWithLastName(lastName);
-
-//			} catch (Exception ex) {
-//				return LogErrorAndReturnErrorResponse(ex);
-//			}
-//		}
-
-//		[HttpGet, Route("[action]/{isEnabled}")]
-//		public async Task<ActionResult<List<AppUser>>> GetWithIsEnabled(bool isEnabled)
-//		{
-//			try {
-//				return await _appUserService.GetWithIsEnabled(isEnabled);
-
-//			} catch (Exception ex) {
-//				return LogErrorAndReturnErrorResponse(ex);
-//			}
-//		}
-
-//		#endregion
-
-//		#region Queries
-
-//		[HttpPost, Route("[action]")]
-//		public async Task<ActionResult<EntityList<AppUser>>> Query([FromBody] GetAppUsersQuery getAppUsersQuery)
-//		{
-//			try {
-//				return await _appUserService.Query(getAppUsersQuery);
-
-//			} catch (Exception ex) {
-//				return LogErrorAndReturnErrorResponse(ex);
-//			}
-//		}
-
-//		#endregion
-//	}
-//}
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
+}

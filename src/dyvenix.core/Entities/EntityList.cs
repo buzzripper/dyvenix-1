@@ -2,7 +2,7 @@
 
 namespace Dyvenix.Core.Entities
 {
-    public class EntityList<T> where T : new()
+	public class EntityList<T> where T : new()
 	{
 		#region  Constructors
 

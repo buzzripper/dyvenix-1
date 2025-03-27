@@ -1,11 +1,12 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/26/2025 9:38 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/27/2025 12:30 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dyvenix.Core.Controllers;
+using Dyvenix.Core.DTOs;
 using Dyvenix.Core.Entities;
 using Dyvenix.Logging;
 using Dyvenix.App1.Server.Services;
@@ -23,6 +24,56 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	public AppUserController(IAppUserService appUserService, IDyvenixLogger<AppUserController> logger) : base(logger)
 	{
 		_appUserService = appUserService;
+	}
+
+	// Create / Update / Delete
+
+	[HttpPost, Route("[action]")]
+	public async Task<ActionResult> CreateAppUser(AppUser appUser)
+	{
+		try {
+			var svcResponse =new ServiceResponse();
+
+			await _appUserService.CreateAppUser(appUser);
+
+			svcResponse.Message = "Success";
+			return Ok(svcResponse);
+
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
+
+	[HttpPatch, Route("[action]")]
+	public async Task<ActionResult> UpdateAppUser(AppUser appUser)
+	{
+		try {
+			var svcResponse =new ServiceResponse();
+
+			await _appUserService.UpdateAppUser(appUser);
+
+			svcResponse.Message = "Success";
+			return Ok(svcResponse);
+
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
+
+	[HttpPost, Route("[action]")]
+	public async Task<ActionResult> DeleteAppUser(Guid id)
+	{
+		try {
+			var svcResponse =new ServiceResponse();
+
+			await _appUserService.DeleteAppUser(id);
+
+			svcResponse.Message = "Success";
+			return Ok(svcResponse);
+
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
 	}
 
 	#region Get Single

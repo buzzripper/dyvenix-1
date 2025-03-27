@@ -1,6 +1,6 @@
 ﻿using Dyvenix.App1.Data;
 using Dyvenix.App1.Data.Contexts;
-using Dyvenix.App1.Data.Entities;
+using Dyvenix.App1.Common.Entities;
 using Dyvenix.Logging;
 using System;
 using System.Collections.Generic;

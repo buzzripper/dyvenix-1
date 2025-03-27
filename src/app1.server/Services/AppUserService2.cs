@@ -1,5 +1,5 @@
 ﻿using Dyvenix.App1.Data.Contexts;
-using Dyvenix.App1.Data.Entities;
+using Dyvenix.App1.Common.Entities;
 using Dyvenix.Logging;
 using Microsoft.EntityFrameworkCore;
 using System;

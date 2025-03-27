@@ -1,8 +1,8 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/27/2025 12:30 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/27/2025 4:53 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using Microsoft.EntityFrameworkCore;
-using Dyvenix.App1.Data.Entities;
+using Dyvenix.App1.Common.Entities;
 
 
 namespace Dyvenix.App1.Data;

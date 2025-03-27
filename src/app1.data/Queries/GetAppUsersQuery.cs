@@ -1,6 +1,6 @@
 ﻿using Dyvenix.Core.Queries;
 
-namespace Dyvenix.App1.Data.Queries;
+namespace Dyvenix.App1.Common.Queries;
 
 public class GetAppUsersQuery : IPagingQuery, ISortingQuery
 {

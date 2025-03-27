@@ -1,10 +1,10 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/27/2025 12:30 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/27/2025 4:53 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
 
-namespace Dyvenix.App1.Data.Entities;
+namespace Dyvenix.App1.Common.Entities;
 
 public partial class AppUser
 {

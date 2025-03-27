@@ -1,4 +1,4 @@
-﻿//using Dyvenix.App1.Data.Entities;
+﻿//using Dyvenix.App1.Common.Entities;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;

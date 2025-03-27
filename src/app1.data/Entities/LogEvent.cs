@@ -1,12 +1,12 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/27/2025 12:30 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/27/2025 4:53 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace Dyvenix.App1.Data.Entities;
+namespace Dyvenix.App1.Common.Entities;
 
 public partial class LogEvent
 {

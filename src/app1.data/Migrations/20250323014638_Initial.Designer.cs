@@ -25,7 +25,7 @@ namespace Dyvenix.App1.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Dyvenix.App1.Data.Entities.AccessClaim", b =>
+            modelBuilder.Entity("Dyvenix.App1.Common.Entities.AccessClaim", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace Dyvenix.App1.Data.Migrations
                     b.ToTable("AccessClaim", (string)null);
                 });
 
-            modelBuilder.Entity("Dyvenix.App1.Data.Entities.AppUser", b =>
+            modelBuilder.Entity("Dyvenix.App1.Common.Entities.AppUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -96,7 +96,7 @@ namespace Dyvenix.App1.Data.Migrations
                     b.ToTable("AppUser", (string)null);
                 });
 
-            modelBuilder.Entity("Dyvenix.App1.Data.Entities.LogEvent", b =>
+            modelBuilder.Entity("Dyvenix.App1.Common.Entities.LogEvent", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -140,16 +140,16 @@ namespace Dyvenix.App1.Data.Migrations
                     b.ToTable("LogEvents", "Logs");
                 });
 
-            modelBuilder.Entity("Dyvenix.App1.Data.Entities.AccessClaim", b =>
+            modelBuilder.Entity("Dyvenix.App1.Common.Entities.AccessClaim", b =>
                 {
-                    b.HasOne("Dyvenix.App1.Data.Entities.AppUser", null)
+                    b.HasOne("Dyvenix.App1.Common.Entities.AppUser", null)
                         .WithMany("Claims")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Dyvenix.App1.Data.Entities.AppUser", b =>
+            modelBuilder.Entity("Dyvenix.App1.Common.Entities.AppUser", b =>
                 {
                     b.Navigation("Claims");
                 });

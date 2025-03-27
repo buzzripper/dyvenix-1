@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/27/2025 12:30 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/27/2025 4:53 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Dyvenix.App1.Data.Contexts;
-using Dyvenix.App1.Data.Entities;
+using Dyvenix.App1.Common.Entities;
 using Dyvenix.Core.Entities;
 using Dyvenix.Core.Queries;
 using Dyvenix.Logging;

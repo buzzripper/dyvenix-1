@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/26/2025 7:00 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/26/2025 9:38 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -27,7 +27,6 @@ public class AppUserController : ApiControllerBase<AppUserController>
 
 	#region Get Single
 
-	[New Item]
 	[HttpGet, Route("[action]/{id}")]
 	public async Task<ActionResult<AppUser>> GetById(Guid id)
 	{
@@ -62,11 +61,31 @@ public class AppUserController : ApiControllerBase<AppUserController>
 		}
 	}
 
-	[HttpGet, Route("[action]/{lastName}")]
-	public async Task<ActionResult<List<AppUser>>> GetWithLastNameHey(string lastName)
+	[HttpGet, Route("[action]/{lastName}/{pageSize?}/{rowOffset?}")]
+	public async Task<ActionResult<List<AppUser>>> GetWithLastName(string lastName, int pageSize = 0, int rowOffset = 0)
 	{
 		try {
-			return await _appUserService.GetWithLastNameHey(lastName);
+			return await _appUserService.GetWithLastName(lastName, pageSize, rowOffset);
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
+
+	[HttpGet, Route("[action]/{extId}")]
+	public async Task<ActionResult<List<AppUser>>> GetWithExtId(string extId)
+	{
+		try {
+			return await _appUserService.GetWithExtId(extId);
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
+
+	[HttpGet, Route("[action]/{pageSize?}/{rowOffset?}")]
+	public async Task<ActionResult<List<AppUser>>> GetAll2(int pageSize = 0, int rowOffset = 0)
+	{
+		try {
+			return await _appUserService.GetAll2(pageSize, rowOffset);
 		} catch (Exception ex) {
 			return LogErrorAndReturnErrorResponse(ex);
 		}

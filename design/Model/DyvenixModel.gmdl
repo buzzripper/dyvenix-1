@@ -253,9 +253,7 @@
                 "IsList": false,
                 "Id": "6824320f-053c-423c-8061-6cffbb6e9aae",
                 "Name": "GetById",
-                "Attributes": [
-                  "New Item"
-                ],
+                "Attributes": [],
                 "DisplayOrder": 0,
                 "InclSorting": false,
                 "InclPaging": false
@@ -284,11 +282,31 @@
                 "FilterPropertyId": "96b41827-70c2-41e1-b7a4-d85e6c6c8925",
                 "IsList": true,
                 "Id": "6824320f-053c-423c-8061-6cffbb6e9aae",
-                "Name": "GetWithLastNameHey",
+                "Name": "GetWithLastName",
                 "Attributes": [],
                 "DisplayOrder": 0,
-                "InclSorting": true,
+                "InclSorting": false,
+                "InclPaging": true
+              },
+              {
+                "FilterPropertyId": "33e94fb6-db88-4837-a604-d5e08e844461",
+                "IsList": true,
+                "Id": "a3564657-afc1-45e4-ae27-f678fae6f66b",
+                "Name": "GetWithExtId",
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
                 "InclPaging": false
+              },
+              {
+                "FilterPropertyId": "00000000-0000-0000-0000-000000000000",
+                "IsList": true,
+                "Id": "aede7f00-939e-4dbc-8ae1-17d5fe44628d",
+                "Name": "GetAll2",
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
+                "InclPaging": true
               }
             ],
             "QueryMethods": [

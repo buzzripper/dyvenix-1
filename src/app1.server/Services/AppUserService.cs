@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/26/2025 7:00 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/26/2025 9:38 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,9 @@ public interface IAppUserService
 	Task<AppUser>GetById(Guid id);
 	Task<AppUser>GetByEmail(string email);
 	Task<List<AppUser>>GetAll();
-	Task<List<AppUser>>GetWithLastNameHey(string lastName);
+	Task<List<AppUser>>GetWithLastName(string lastName, int pageSize, int rowOffset);
+	Task<List<AppUser>>GetWithExtId(string extId);
+	Task<List<AppUser>>GetAll2(int pageSize, int rowOffset);
 	Task<EntityList<AppUser>>FindCompanyUsers(FindCompanyUsersQuery query);
 	Task<EntityList<AppUser>>QueryDisabledUsers(QueryDisabledUsersQuery query);
 }
@@ -37,7 +39,6 @@ public class AppUserService : IAppUserService
 
 	#region Get Single
 
-	[New Item]
 	public async Task<AppUser>GetById(Guid id)
 	{
 		var db = _dbContextFactory.CreateDbContext();
@@ -56,14 +57,42 @@ public class AppUserService : IAppUserService
 
 	public async Task<List<AppUser>>GetAll()
 	{
-		var db = _dbContextFactory.CreateDbContext();
-		return await db.AppUser.AsNoTracking().ToListAsync();
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+
+		return await dbQuery.AsNoTracking().ToListAsync();
 	}
 
-	public async Task<List<AppUser>>GetWithLastNameHey(string lastName)
+	public async Task<List<AppUser>>GetWithLastName(string lastName, int pageSize, int rowOffset)
 	{
-		var db = _dbContextFactory.CreateDbContext();
-		return await db.AppUser.Where(x => x.LastName == lastName).AsNoTracking().ToListAsync();
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+
+		if (!string.IsNullOrWhiteSpace(lastName))
+			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.LastName, lastName));
+
+		if (pageSize > 0)
+			dbQuery = dbQuery.Skip(rowOffset).Take(pageSize);
+
+		return await dbQuery.AsNoTracking().ToListAsync();
+	}
+
+	public async Task<List<AppUser>>GetWithExtId(string extId)
+	{
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+
+		if (!string.IsNullOrWhiteSpace(extId))
+			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.ExtId, extId));
+
+		return await dbQuery.AsNoTracking().ToListAsync();
+	}
+
+	public async Task<List<AppUser>>GetAll2(int pageSize, int rowOffset)
+	{
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+
+		if (pageSize > 0)
+			dbQuery = dbQuery.Skip(rowOffset).Take(pageSize);
+
+		return await dbQuery.AsNoTracking().ToListAsync();
 	}
 
 	#endregion
@@ -72,7 +101,7 @@ public class AppUserService : IAppUserService
 
 	public async Task<EntityList<AppUser>>FindCompanyUsers(FindCompanyUsersQuery query)
 	{
-		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsNoTracking().AsQueryable();
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
 		var result = new EntityList<AppUser>();
 
 		// Filters
@@ -88,7 +117,8 @@ public class AppUserService : IAppUserService
 			result.TotalRowCount = dbQuery.Count();
 		if (query.GetRowCountOnly)
 			return result;
-		dbQuery = dbQuery.Skip(query.RowOffset).Take(query.PageSize);
+		if (query.PageSize > 0)
+			dbQuery = dbQuery.Skip(query.RowOffset).Take(query.PageSize);
 
 		result.Data = await dbQuery.AsNoTracking().ToListAsync();
 
@@ -97,7 +127,7 @@ public class AppUserService : IAppUserService
 
 	public async Task<EntityList<AppUser>>QueryDisabledUsers(QueryDisabledUsersQuery query)
 	{
-		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsNoTracking().AsQueryable();
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
 		var result = new EntityList<AppUser>();
 
 		// Filters

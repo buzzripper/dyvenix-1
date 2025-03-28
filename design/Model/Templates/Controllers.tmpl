@@ -1,11 +1,11 @@
 ﻿//------------------------------------------------------------------------------------------------------------
 // This file was auto-generated ${{CURR_TIMESTAMP}}. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Asp.Versioning;
+using Microsoft.AspNetCore.Mvc;
 using Dyvenix.Core.Controllers;
 using Dyvenix.Core.DTOs;
 using Dyvenix.Core.Entities;
@@ -15,7 +15,8 @@ ${{ADDL_USINGS}}
 namespace ${{CONTROLLERS_NS}};
 ${{CONTROLLER_ATTRS}}
 [ApiController]
-[Route("api/[controller]")]
+[ApiVersion(${{CONTROLLER_VERSION}})]
+[Route("api/v{version:apiVersion}/[controller]")]
 public class ${{CONTROLLER_NAME}} : ApiControllerBase<${{CONTROLLER_NAME}}>
 {
 	private readonly I${{SERVICE_NAME}} _${{SERVICE_VAR_NAME}};

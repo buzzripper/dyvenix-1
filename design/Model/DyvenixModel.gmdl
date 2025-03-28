@@ -107,6 +107,7 @@
             "InclUpdate": false,
             "InclDelete": false,
             "InclController": false,
+            "ControllerVersion": null,
             "AddlServiceUsings": [],
             "ServiceClassAttributes": [],
             "AddlControllerUsings": [],
@@ -244,6 +245,7 @@
             "InclUpdate": true,
             "InclDelete": true,
             "InclController": true,
+            "ControllerVersion": "1.0",
             "AddlServiceUsings": [
               "System"
             ],
@@ -499,6 +501,7 @@
             "InclUpdate": false,
             "InclDelete": false,
             "InclController": false,
+            "ControllerVersion": null,
             "AddlServiceUsings": [],
             "ServiceClassAttributes": [],
             "AddlControllerUsings": [],

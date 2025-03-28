@@ -27,7 +27,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\app1.common\App1.Common.csproj" />
 	  <ProjectReference Include="..\app1.data\App1.Data.csproj" />
-	  <ProjectReference Include="..\auth.core\Dyvenix.Auth.Core.csproj" />
+	  <ProjectReference Include="..\Dyvenix.Auth.Core\Dyvenix.Auth.Core.csproj" />
 	  <ProjectReference Include="..\dyvenix.core\Dyvenix.Core.csproj" />
 	  <ProjectReference Include="..\dyvenix.logging\Dyvenix.Logging.csproj" />
 	</ItemGroup>

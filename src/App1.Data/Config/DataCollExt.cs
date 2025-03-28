@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Dyvenix.App1.Data.Config;
 
-public static class AuthServiceCollExt
+public static class DataCollExt
 {
 	public static void AddDyvenixDataServices(this IServiceCollection services, DataConfig dataConfig)
 	{

@@ -15,15 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{069F
 		scripts\RunNodeSvr.bat = scripts\RunNodeSvr.bat
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Logging", "src\dyvenix.logging\Dyvenix.Logging.csproj", "{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Logging", "src\Dyvenix.Logging\Dyvenix.Logging.csproj", "{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ref", "ref", "{BB28E274-5BC9-4265-B8F0-886091D00A08}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "b2c-auth-sample", "src\b2c-auth-sample\b2c-auth-sample.esproj", "{3B42448E-5FE8-41CE-8F63-0B954CE871F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Auth.Core", "src\auth.core\Dyvenix.Auth.Core.csproj", "{F2FCADA5-A069-493F-991B-5CBB6A58DB04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Auth.Core", "src\Dyvenix.Auth.Core\Dyvenix.Auth.Core.csproj", "{F2FCADA5-A069-493F-991B-5CBB6A58DB04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Core", "src\dyvenix.core\Dyvenix.Core.csproj", "{531C104A-5592-43BB-9054-286E4A7C28BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Core", "src\Dyvenix.Core\Dyvenix.Core.csproj", "{531C104A-5592-43BB-9054-286E4A7C28BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Data", "src\app1.data\App1.Data.csproj", "{C6FE68A7-475D-40D1-9081-87A1AC2D3BC0}"
 EndProject
@@ -33,8 +33,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{02EA681E-C
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AAC1C9BB-CA2F-45BA-97B3-A760574F66C6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Server.Tests", "tests\app.server.tests\App1.Server.Tests.csproj", "{596276E3-87CD-4D24-9F67-5280CB3B4088}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "design", "design", "{5A47F451-ED62-46A4-8E42-E4D66C43A675}"
 EndProject
@@ -54,9 +52,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		design\Model\Templates\Services.tmpl = design\Model\Templates\Services.tmpl
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Server.Tests.Int", "tests\app.server.tests.int\App1.Server.Tests.Int.csproj", "{EC08F1DC-F44D-417E-924F-F1D0136884F8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Common", "src\app1.common\App1.Common.csproj", "{18042743-DB56-4917-8396-75906AC7A0AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Server.Tests", "tests\App1.Server.Tests\App1.Server.Tests.csproj", "{0E202CDF-887A-4D09-F6E0-785D9D4C9379}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Server.Tests.Int", "tests\App1.Server.Tests.Int\App1.Server.Tests.Int.csproj", "{69E52135-CD07-D1C5-873A-34F1AC357AFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -92,28 +92,28 @@ Global
 		{C6FE68A7-475D-40D1-9081-87A1AC2D3BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6FE68A7-475D-40D1-9081-87A1AC2D3BC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6FE68A7-475D-40D1-9081-87A1AC2D3BC0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{596276E3-87CD-4D24-9F67-5280CB3B4088}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{596276E3-87CD-4D24-9F67-5280CB3B4088}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{596276E3-87CD-4D24-9F67-5280CB3B4088}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{596276E3-87CD-4D24-9F67-5280CB3B4088}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC08F1DC-F44D-417E-924F-F1D0136884F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC08F1DC-F44D-417E-924F-F1D0136884F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC08F1DC-F44D-417E-924F-F1D0136884F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC08F1DC-F44D-417E-924F-F1D0136884F8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{18042743-DB56-4917-8396-75906AC7A0AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{18042743-DB56-4917-8396-75906AC7A0AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18042743-DB56-4917-8396-75906AC7A0AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18042743-DB56-4917-8396-75906AC7A0AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E202CDF-887A-4D09-F6E0-785D9D4C9379}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E202CDF-887A-4D09-F6E0-785D9D4C9379}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E202CDF-887A-4D09-F6E0-785D9D4C9379}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E202CDF-887A-4D09-F6E0-785D9D4C9379}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69E52135-CD07-D1C5-873A-34F1AC357AFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69E52135-CD07-D1C5-873A-34F1AC357AFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69E52135-CD07-D1C5-873A-34F1AC357AFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69E52135-CD07-D1C5-873A-34F1AC357AFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3B42448E-5FE8-41CE-8F63-0B954CE871F6} = {BB28E274-5BC9-4265-B8F0-886091D00A08}
-		{596276E3-87CD-4D24-9F67-5280CB3B4088} = {AAC1C9BB-CA2F-45BA-97B3-A760574F66C6}
 		{C5900137-2241-49D7-A28C-465257F265A7} = {5A47F451-ED62-46A4-8E42-E4D66C43A675}
 		{A07FFC57-E651-41EF-AF08-6939A4F9E7E3} = {C5900137-2241-49D7-A28C-465257F265A7}
-		{EC08F1DC-F44D-417E-924F-F1D0136884F8} = {AAC1C9BB-CA2F-45BA-97B3-A760574F66C6}
+		{0E202CDF-887A-4D09-F6E0-785D9D4C9379} = {AAC1C9BB-CA2F-45BA-97B3-A760574F66C6}
+		{69E52135-CD07-D1C5-873A-34F1AC357AFD} = {AAC1C9BB-CA2F-45BA-97B3-A760574F66C6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {82B4D68F-4052-475A-B3AA-D6AECD147F3F}

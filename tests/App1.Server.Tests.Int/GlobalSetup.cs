@@ -24,13 +24,14 @@ public class GlobalSetup
     {
         var basePath = Directory.GetCurrentDirectory();
         var configuration = new ConfigurationBuilder()
-			
 			.SetBasePath(basePath)
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build();
 
-        return null;
-    }
+		DataConfig dataConfig = new DataConfig();
+		configuration.GetSection("DataConfig").Bind(dataConfig);
+		return dataConfig;
+	}
 
 	private void SeedData()
 	{

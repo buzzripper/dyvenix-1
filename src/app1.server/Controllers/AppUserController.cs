@@ -12,11 +12,13 @@ using Dyvenix.Logging;
 using Dyvenix.App1.Server.Services;
 using Dyvenix.App1.Server.Services.Queries;
 using Dyvenix.App1.Common.Entities;
+using Asp.Versioning;
 
 namespace Dyvenix.App1.Server.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[ApiVersion(1.0)]
+[Route("api/v{version:apiVersion}/[controller]")]
 public class AppUserController : ApiControllerBase<AppUserController>
 {
 	private readonly IAppUserService _appUserService;

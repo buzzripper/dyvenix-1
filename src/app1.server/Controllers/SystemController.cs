@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Dyvenix.App1.Server.Config;
 using Dyvenix.App1.Server.Services;
 using Dyvenix.Core.Controllers;
@@ -7,7 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Dyvenix.App1.Server.Controllers
 {
 	[ApiController]
-	[Route("api/[controller]")]
+	[Route("api/v{version:apiVersion}/[controller]")]
+	[ApiVersion(1.0)]
 	public class SystemController : ApiControllerBase<SystemController>
 	{
 		private readonly AppConfig _appConfig;

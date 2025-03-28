@@ -14,6 +14,7 @@
       "ServicesNamespace": "Dyvenix.App1.Server.Services",
       "QueriesNamespace": "Dyvenix.App1.Server.Services.Queries",
       "ControllersNamespace": "Dyvenix.App1.Server.Controllers",
+      "ApiClientsNamespace": "Dyvenix.App1.Common.ApiClients",
       "AddlUsings": [],
       "Entities": [
         {
@@ -551,7 +552,7 @@
         "InclHeader": true
       },
       "EntityGen": {
-        "OutputFolder": "..\\..\\src\\app1.data\\Entities",
+        "OutputFolder": "..\\..\\src\\app1.common\\Entities",
         "Id": "171722e6-9d5e-45c8-bacc-3a14e9e98fbc",
         "GeneratorType": 1,
         "TemplateFilepath": "Templates\\Entities.tmpl",
@@ -559,7 +560,7 @@
         "InclHeader": true
       },
       "EnumGen": {
-        "OutputFolder": "..\\..\\src\\app1.data\\Entities",
+        "OutputFolder": "..\\..\\src\\app1.common\\Entities",
         "Id": "22a7658a-8284-4b07-aa71-e915918620ff",
         "GeneratorType": 1,
         "TemplateFilepath": "Templates\\Enums.tmpl",
@@ -569,9 +570,11 @@
       "ServiceGen": {
         "OutputFolder": "..\\..\\src\\app1.server\\Services",
         "QueryTemplateFilepath": "Templates\\Query.tmpl",
-        "QueryOutputFolder": "..\\..\\src\\app1.server\\Services\\Queries",
-        "ControllerTemplateFilepath": "Templates\\\\Controllers.tmpl",
+        "QueryOutputFolder": "..\\..\\src\\app1.common\\Queries",
+        "ControllerTemplateFilepath": "Templates\\Controllers.tmpl",
         "ControllerOutputFolder": "..\\..\\src\\app1.server\\Controllers",
+        "ApiClientTemplateFilepath": "Templates\\ApiClients.tmpl",
+        "ApiClientOutputFolder": "..\\..\\src\\app1.common\\ApiClients",
         "Id": "35a7a4ff-6462-4399-90d3-4e6936df20b9",
         "GeneratorType": 4,
         "TemplateFilepath": "Templates\\Services.tmpl",

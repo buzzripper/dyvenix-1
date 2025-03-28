@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\dyvenix.logging\dyvenix.logging.csproj" />
+    <ProjectReference Include="..\dyvenix.logging\Dyvenix.Logging.csproj" />
   </ItemGroup>
 
   <ItemGroup>

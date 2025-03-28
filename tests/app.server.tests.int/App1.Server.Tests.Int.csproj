@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\app1.data\app1.data.csproj" />
+    <ProjectReference Include="..\..\src\app1.data\App1.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

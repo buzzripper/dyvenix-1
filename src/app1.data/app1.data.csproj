@@ -23,8 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\dyvenix.core\dyvenix.core.csproj" />
-    <ProjectReference Include="..\dyvenix.logging\dyvenix.logging.csproj" />
+    <ProjectReference Include="..\app1.common\App1.Common.csproj" />
+    <ProjectReference Include="..\dyvenix.core\Dyvenix.Core.csproj" />
+    <ProjectReference Include="..\dyvenix.logging\Dyvenix.Logging.csproj" />
   </ItemGroup>
 
   <ItemGroup>

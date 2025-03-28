@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app1.server", "src\app1.server\app1.server.csproj", "{822FE7CC-EE1A-4D57-B237-E2577E940946}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Server", "src\app1.server\App1.Server.csproj", "{822FE7CC-EE1A-4D57-B237-E2577E940946}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "app1.client", "src\app1.client\app1.client.esproj", "{8038CD7E-89FA-4F43-9704-ED7EAD042C77}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "App1.Client", "src\app1.client\App1.Client.esproj", "{8038CD7E-89FA-4F43-9704-ED7EAD042C77}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{069FCB1A-8D69-4C1F-A8ED-27F9C8BD5392}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,17 +15,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{069F
 		scripts\RunNodeSvr.bat = scripts\RunNodeSvr.bat
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dyvenix.logging", "src\dyvenix.logging\dyvenix.logging.csproj", "{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Logging", "src\dyvenix.logging\Dyvenix.Logging.csproj", "{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ref", "ref", "{BB28E274-5BC9-4265-B8F0-886091D00A08}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "b2c-auth-sample", "src\b2c-auth-sample\b2c-auth-sample.esproj", "{3B42448E-5FE8-41CE-8F63-0B954CE871F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "auth.core", "src\auth.core\auth.core.csproj", "{F2FCADA5-A069-493F-991B-5CBB6A58DB04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Auth.Core", "src\auth.core\Dyvenix.Auth.Core.csproj", "{F2FCADA5-A069-493F-991B-5CBB6A58DB04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dyvenix.core", "src\dyvenix.core\dyvenix.core.csproj", "{531C104A-5592-43BB-9054-286E4A7C28BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Core", "src\dyvenix.core\Dyvenix.Core.csproj", "{531C104A-5592-43BB-9054-286E4A7C28BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app1.data", "src\app1.data\app1.data.csproj", "{C6FE68A7-475D-40D1-9081-87A1AC2D3BC0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Data", "src\app1.data\App1.Data.csproj", "{C6FE68A7-475D-40D1-9081-87A1AC2D3BC0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
@@ -34,7 +34,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{02EA681E-C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AAC1C9BB-CA2F-45BA-97B3-A760574F66C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app.server.tests", "tests\app.server.tests\app.server.tests.csproj", "{596276E3-87CD-4D24-9F67-5280CB3B4088}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Server.Tests", "tests\app.server.tests\App1.Server.Tests.csproj", "{596276E3-87CD-4D24-9F67-5280CB3B4088}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "design", "design", "{5A47F451-ED62-46A4-8E42-E4D66C43A675}"
 EndProject
@@ -54,9 +54,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		design\Model\Templates\Services.tmpl = design\Model\Templates\Services.tmpl
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app.server.tests.int", "tests\app.server.tests.int\app.server.tests.int.csproj", "{EC08F1DC-F44D-417E-924F-F1D0136884F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Server.Tests.Int", "tests\app.server.tests.int\App1.Server.Tests.Int.csproj", "{EC08F1DC-F44D-417E-924F-F1D0136884F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app1.common", "src\app1.common\app1.common.csproj", "{18042743-DB56-4917-8396-75906AC7A0AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Common", "src\app1.common\App1.Common.csproj", "{18042743-DB56-4917-8396-75906AC7A0AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +70,8 @@ Global
 		{822FE7CC-EE1A-4D57-B237-E2577E940946}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8038CD7E-89FA-4F43-9704-ED7EAD042C77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8038CD7E-89FA-4F43-9704-ED7EAD042C77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8038CD7E-89FA-4F43-9704-ED7EAD042C77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8038CD7E-89FA-4F43-9704-ED7EAD042C77}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}.Release|Any CPU.ActiveCfg = Release|Any CPU

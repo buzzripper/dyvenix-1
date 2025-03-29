@@ -1,20 +1,15 @@
 ﻿using Dyvenix.App1.Data.Contexts;
 using Microsoft.Extensions.Configuration;
-using System.Configuration;
 using System;
-using System.Diagnostics;
 using System.IO;
 using Dyvenix.App1.Data.Config;
-using NUnit.Framework;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Dyvenix.App1.Common.Entities;
 using System.Collections.Generic;
-using Dyvenix.Core.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Dyvenix.App1.Common.Config;
 using Dyvenix.App1.Data;
-using NUnit.Framework.Interfaces;
 
 namespace App1.Server.Tests.Int;
 
@@ -40,7 +35,7 @@ public class GlobalSetup
 		var services = new ServiceCollection();
 		services.AddDyvenixDataServices(dataConfig);
 		services.AddApiClientServices(apiClientConfig);
-		
+
 		ServiceProvider = services.BuildServiceProvider();
 
 		var testData = await SeedData();
@@ -73,59 +68,55 @@ public class GlobalSetup
 	private async Task<List<AppUser>> CreateTestAppUsers(Db db)
 	{
 		var appUsers = new List<AppUser>();
-		//var accessClaims = new List<AccessClaim>();
-
-		var firstNames = new[] { "John", "Jane", "Alice", "Bob" };
-		var lastNames = new[] { "Doe", "Smith", "Johnson", "Williams" };
-		var isEnabledOptions = new[] { true, false };
+		var firstNames = new[] { "John", "Jane", "Alice", "Bob", "Charlie", "Eve", "Mallory", "Trent" };
+		var lastNames = new[] { "Doe", "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller" };
 
 		var random = new Random();
 		var emailSet = new HashSet<string>();
+		var nameSet = new HashSet<string>();
 
-		foreach (var firstName in firstNames) {
-			foreach (var lastName in lastNames) {
-				foreach (var isEnabled in isEnabledOptions) {
-					for (int i = 0; i < 4; i++) // Ensure unique emails
-					{
-						string email;
-						int attempt = 0;
-						do {
-							email = $"{firstName.ToLower()}.{lastName.ToLower()}{i + attempt}@example.com";
-							attempt++;
-						} while (!emailSet.Add(email)); // Add returns false if the email already exists
+		while (appUsers.Count < 25) {
+			var firstName = firstNames[random.Next(firstNames.Length)];
+			var lastName = lastNames[random.Next(lastNames.Length)];
+			string nameCombination = $"{firstName} {lastName}";
 
-						var appUser = new AppUser {
-							Id = Guid.NewGuid(),
-							ExtId = random.NextDouble() < 0.1 ? null : Guid.NewGuid().ToString(), // 10% chance of null ExtId
-							FirstName = firstName,
-							LastName = lastName,
-							Email = email,
-							IsEnabled = isEnabled
-						};
-
-						appUsers.Add(appUser);
-
-						// Add 0-5 AccessClaims to each AppUser
-						int numberOfClaims = random.Next(0, 6);
-						for (int j = 0; j < numberOfClaims; j++) {
-							appUser.Claims.Add(new AccessClaim {
-								Id = Guid.NewGuid(),
-								ClaimName = $"ClaimName_{j}",
-								ClaimValue = $"ClaimValue_{j}",
-								AppUserId = appUser.Id
-							});
-						}
-					}
-				}
+			if (nameSet.Contains(nameCombination)) {
+				continue; // Ensure unique FirstName/LastName combinations
 			}
+			nameSet.Add(nameCombination);
+
+			string email;
+			int attempt = 0;
+			do {
+				email = $"{firstName.ToLower()}.{lastName.ToLower()}{attempt}@example.com";
+				attempt++;
+			} while (!emailSet.Add(email)); // Ensure unique emails
+
+			var appUser = new AppUser {
+				Id = Guid.NewGuid(),
+				ExtId = random.NextDouble() < 0.15 ? null : Guid.NewGuid().ToString(), // 15% chance of null ExtId
+				FirstName = firstName,
+				LastName = lastName,
+				Email = email,
+				IsEnabled = random.NextDouble() >= 0.25 // 25% chance of IsEnabled being false
+			};
+
+			// Add 0-5 AccessClaims to each AppUser
+			int numberOfClaims = random.Next(0, 6);
+			for (int j = 0; j < numberOfClaims; j++) {
+				appUser.Claims.Add(new AccessClaim {
+					Id = Guid.NewGuid(),
+					ClaimName = $"ClaimName_{j}",
+					ClaimValue = $"ClaimValue_{j}",
+					AppUserId = appUser.Id
+				});
+			}
+
+			appUsers.Add(appUser);
 		}
 
 		await db.AppUser.AddRangeAsync(appUsers);
-		//await db.AccessClaim.AddRangeAsync(accessClaims);
 		await db.SaveChangesAsync();
-
-		Console.WriteLine($"Inserted {appUsers.Count} AppUser rows");
-		//Console.WriteLine($"Inserted {accessClaims.Count} AccessClaim rows");
 
 		return appUsers;
 	}

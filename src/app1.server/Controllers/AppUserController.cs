@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/28/2025 9:41 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/29/2025 5:04 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -90,79 +90,15 @@ public class AppUserController : ApiControllerBase<AppUserController>
 		}
 	}
 
-	[HttpGet, Route("[action]/{email}")]
-	public async Task<ActionResult<AppUser>> GetByEmail(string email)
-	{
-		try {
-			return await _appUserService.GetByEmail(email);
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
 	#endregion
 
 	#region Get List
 
-	[HttpGet, Route("[action]")]
-	public async Task<ActionResult<List<AppUser>>> GetAll()
+	[HttpGet, Route("[action]/{lastName?}")]
+	public async Task<ActionResult<List<AppUser>>> GetWithLastName(lastName)
 	{
 		try {
-			return await _appUserService.GetAll();
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
-	[HttpGet, Route("[action]/{lastName}/{pageSize?}/{rowOffset?}")]
-	public async Task<ActionResult<List<AppUser>>> GetWithLastName(string lastName, int pageSize = 0, int rowOffset = 0)
-	{
-		try {
-			return await _appUserService.GetWithLastName(lastName, pageSize, rowOffset);
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
-	[HttpGet, Route("[action]/{extId}")]
-	public async Task<ActionResult<List<AppUser>>> GetWithExtId(string extId)
-	{
-		try {
-			return await _appUserService.GetWithExtId(extId);
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
-	[HttpGet, Route("[action]/{pageSize?}/{rowOffset?}")]
-	public async Task<ActionResult<List<AppUser>>> GetAll2(int pageSize = 0, int rowOffset = 0)
-	{
-		try {
-			return await _appUserService.GetAll2(pageSize, rowOffset);
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
-	#endregion
-
-	#region Queries
-
-	[HttpPost, Route("[action]")]
-	public async Task<ActionResult<EntityList<AppUser>>> FindCompanyUsers([FromBody] FindCompanyUsersQuery findCompanyUsersQuery)
-	{
-		try {
-			return await _appUserService.FindCompanyUsers(findCompanyUsersQuery);
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
-	[HttpPost, Route("[action]")]
-	public async Task<ActionResult<EntityList<AppUser>>> QueryDisabledUsers([FromBody] QueryDisabledUsersQuery queryDisabledUsersQuery)
-	{
-		try {
-			return await _appUserService.QueryDisabledUsers(queryDisabledUsersQuery);
+			return await _appUserService.GetWithLastName(lastName);
 		} catch (Exception ex) {
 			return LogErrorAndReturnErrorResponse(ex);
 		}

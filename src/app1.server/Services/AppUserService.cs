@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/28/2025 9:41 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/29/2025 5:03 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -20,14 +20,8 @@ public interface IAppUserService
 	Task CreateAppUser(AppUser appUser);
 	Task UpdateAppUser(AppUser appUser);
 	Task DeleteAppUser(Guid id);
-	Task<AppUser>GetById(Guid id);
-	Task<AppUser>GetByEmail(string email);
-	Task<List<AppUser>>GetAll();
-	Task<List<AppUser>>GetWithLastName(string lastName, int pageSize, int rowOffset);
-	Task<List<AppUser>>GetWithExtId(string extId);
-	Task<List<AppUser>>GetAll2(int pageSize, int rowOffset);
-	Task<EntityList<AppUser>>FindCompanyUsers(FindCompanyUsersQuery query);
-	Task<EntityList<AppUser>>QueryDisabledUsers(QueryDisabledUsersQuery query);
+	Task<AppUser> GetById(Guid id);
+	Task<List<AppUser>> GetWithLastName(string lastName);
 }
 
 public class AppUserService : IAppUserService
@@ -73,151 +67,37 @@ public class AppUserService : IAppUserService
 
 	#region Get Single
 
-	public async Task<AppUser>GetById(Guid id)
+	public async Task<AppUser> GetById(Guid id)
 	{
-		var db = _dbContextFactory.CreateDbContext();
-		return await db.AppUser.FirstOrDefaultAsync(x => x.Id == id);
-	}
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
 
-	public async Task<AppUser>GetByEmail(string email)
-	{
-		var db = _dbContextFactory.CreateDbContext();
-		return await db.AppUser.FirstOrDefaultAsync(x => x.Email == email);
+		dbQuery = dbQuery.Include(x => x.Claims);
+		dbQuery = dbQuery.Where(x => x.Id == id);
+
+		// Filters
+		if (id.HasValue)
+			dbQuery = dbQuery.Where(x => x.Id == id);
+		return await dbQuery.AsNoTracking().ToListAsync();
 	}
 
 	#endregion
 
 	#region Get List
 
-	public async Task<List<AppUser>>GetAll()
-	{
-		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
-
-		return await dbQuery.AsNoTracking().ToListAsync();
-	}
-
-	public async Task<List<AppUser>>GetWithLastName(string lastName, int pageSize, int rowOffset)
+	public async Task<List<AppUser>> GetWithLastName(string lastName)
 	{
 		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
 
 		if (!string.IsNullOrWhiteSpace(lastName))
 			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.LastName, lastName));
 
-		if (pageSize > 0)
-			dbQuery = dbQuery.Skip(rowOffset).Take(pageSize);
-
-		return await dbQuery.AsNoTracking().ToListAsync();
-	}
-
-	public async Task<List<AppUser>>GetWithExtId(string extId)
-	{
-		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
-
-		if (!string.IsNullOrWhiteSpace(extId))
-			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.ExtId, extId));
-
-		return await dbQuery.AsNoTracking().ToListAsync();
-	}
-
-	public async Task<List<AppUser>>GetAll2(int pageSize, int rowOffset)
-	{
-		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
-
-		if (pageSize > 0)
-			dbQuery = dbQuery.Skip(rowOffset).Take(pageSize);
-
+		// Filters
+		if (!string.IsNullOrWhiteSpace(lastName))
+			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.LastName, lastName));
 		return await dbQuery.AsNoTracking().ToListAsync();
 	}
 
 	#endregion
 
-	#region Queries
-
-	public async Task<EntityList<AppUser>>FindCompanyUsers(FindCompanyUsersQuery query)
-	{
-		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
-		var result = new EntityList<AppUser>();
-
-		// Filters
-		if (!string.IsNullOrWhiteSpace(query.ExtId))
-			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.ExtId, query.ExtId));
-		if (!string.IsNullOrWhiteSpace(query.FirstName))
-			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.FirstName, query.FirstName));
-		if (!string.IsNullOrWhiteSpace(query.LastName))
-			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.LastName, query.LastName));
-
-		// Paging
-		if (query.RecalcRowCount || query.GetRowCountOnly)
-			result.TotalRowCount = dbQuery.Count();
-		if (query.GetRowCountOnly)
-			return result;
-		if (query.PageSize > 0)
-			dbQuery = dbQuery.Skip(query.RowOffset).Take(query.PageSize);
-
-		result.Data = await dbQuery.AsNoTracking().ToListAsync();
-
-		return result;
-	}
-
-	public async Task<EntityList<AppUser>>QueryDisabledUsers(QueryDisabledUsersQuery query)
-	{
-		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
-		var result = new EntityList<AppUser>();
-
-		// Filters
-		if (!string.IsNullOrWhiteSpace(query.LastName))
-			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.LastName, query.LastName));
-		if (query.IsEnabled.HasValue)
-			dbQuery = dbQuery.Where(x => x.IsEnabled == query.IsEnabled);
-
-		// Sorting
-		if (!string.IsNullOrWhiteSpace(query.SortBy))
-			this.AddSorting(ref dbQuery, query);
-
-		result.Data = await dbQuery.AsNoTracking().ToListAsync();
-
-		return result;
-	}
-
-	private void AddSorting(ref IQueryable<AppUser> dbQuery, ISortingQuery sortingQuery)
-	{
-		if (string.Equals(sortingQuery.SortBy, AppUser.PropNames.Id, StringComparison.OrdinalIgnoreCase))
-			if (sortingQuery.SortDesc)
-				dbQuery.OrderByDescending(x => x.Id);
-			else
-				dbQuery.OrderBy(x => x.Id);
-
-		if (string.Equals(sortingQuery.SortBy, AppUser.PropNames.ExtId, StringComparison.OrdinalIgnoreCase))
-			if (sortingQuery.SortDesc)
-				dbQuery.OrderByDescending(x => x.ExtId);
-			else
-				dbQuery.OrderBy(x => x.ExtId);
-
-		if (string.Equals(sortingQuery.SortBy, AppUser.PropNames.FirstName, StringComparison.OrdinalIgnoreCase))
-			if (sortingQuery.SortDesc)
-				dbQuery.OrderByDescending(x => x.FirstName);
-			else
-				dbQuery.OrderBy(x => x.FirstName);
-
-		if (string.Equals(sortingQuery.SortBy, AppUser.PropNames.LastName, StringComparison.OrdinalIgnoreCase))
-			if (sortingQuery.SortDesc)
-				dbQuery.OrderByDescending(x => x.LastName);
-			else
-				dbQuery.OrderBy(x => x.LastName);
-
-		if (string.Equals(sortingQuery.SortBy, AppUser.PropNames.Email, StringComparison.OrdinalIgnoreCase))
-			if (sortingQuery.SortDesc)
-				dbQuery.OrderByDescending(x => x.Email);
-			else
-				dbQuery.OrderBy(x => x.Email);
-
-		if (string.Equals(sortingQuery.SortBy, AppUser.PropNames.IsEnabled, StringComparison.OrdinalIgnoreCase))
-			if (sortingQuery.SortDesc)
-				dbQuery.OrderByDescending(x => x.IsEnabled);
-			else
-				dbQuery.OrderBy(x => x.IsEnabled);
-	}
-
-	#endregion
 
 }

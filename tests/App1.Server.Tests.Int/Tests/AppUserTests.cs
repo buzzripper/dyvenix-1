@@ -1,4 +1,4 @@
-﻿namespace App1.Server.Tests.Int;
+﻿namespace App1.Server.Tests.Int.Tests;
 
 public class Tests
 {

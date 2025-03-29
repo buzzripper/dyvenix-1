@@ -149,7 +149,7 @@
               "AssocId": null,
               "IsPrimaryKey": false,
               "IsIdentity": false,
-              "Nullable": false,
+              "Nullable": true,
               "MaxLength": 100,
               "IsIndexed": true,
               "IsIndexUnique": false,

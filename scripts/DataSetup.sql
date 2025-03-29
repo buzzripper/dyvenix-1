@@ -1,3 +1,10 @@
+/*
+DROP TABLE IF EXISTS AccessClaim;
+DROP TABLE IF EXISTS AppUser;
+DROP TABLE IF EXISTS Logs.LogEvents;
+DROP TABLE IF EXISTS __EFMigrationsHistory;
+*/
+
 -- Clear
 DELETE FROM AccessClaim;
 DELETE FROM AppUser;

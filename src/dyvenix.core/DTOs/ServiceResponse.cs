@@ -6,7 +6,7 @@ public class ServiceResponse
 	public string Message { get; set; }
 }
 
-public class SvcResponse<T> : ServiceResponse
+public class ServiceResponse<T> : ServiceResponse
 {
 	public T Data { get; set; }
 }

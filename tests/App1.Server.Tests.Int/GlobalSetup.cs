@@ -10,81 +10,123 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Dyvenix.App1.Common.Entities;
 using System.Collections.Generic;
+using Dyvenix.Core.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Dyvenix.App1.Common.Config;
+using Dyvenix.App1.Data;
+using NUnit.Framework.Interfaces;
 
 namespace App1.Server.Tests.Int;
 
 [SetUpFixture]
 public class GlobalSetup
 {
+	public static ServiceProvider ServiceProvider { get; private set; }
+
 	[OneTimeSetUp]
 	public async Task OneTimeSetUp()
 	{
-		var dataConfig = LoadDataConfig();
-		Globals.DbContextFactory = new DbContextFactory(dataConfig);
-		await SeedData();
-	}
-
-	private DataConfig LoadDataConfig()
-    {
-        var basePath = Directory.GetCurrentDirectory();
-        var configuration = new ConfigurationBuilder()
+		var basePath = Directory.GetCurrentDirectory();
+		var configuration = new ConfigurationBuilder()
 			.SetBasePath(basePath)
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .Build();
+			.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+			.Build();
 
-		DataConfig dataConfig = new DataConfig();
-		configuration.GetSection("DataConfig").Bind(dataConfig);
-		return dataConfig;
+		// Read configs
+		var dataConfig = configuration.GetSection(nameof(DataConfig)).Get<DataConfig>();
+		var apiClientConfig = configuration.GetSection(nameof(ApiClientConfig)).Get<ApiClientConfig>();
+
+		// Register services
+		var services = new ServiceCollection();
+		services.AddDyvenixDataServices(dataConfig);
+		services.AddApiClientServices(apiClientConfig);
+		
+		ServiceProvider = services.BuildServiceProvider();
+
+		var testData = await SeedData();
+
+		services.AddSingleton(testData);
 	}
 
-	private async Task SeedData()
+	[OneTimeTearDown]
+	public void OneTimeTearown()
 	{
-		using var db = Globals.DbContextFactory.CreateDbContext();
+		ServiceProvider.Dispose();
+	}
+
+	private async Task<TestData> SeedData()
+	{
+		using var db = ServiceProvider.GetRequiredService<IDbContextFactory>().CreateDbContext();
 
 		var affectedRows = await db.AccessClaim.ExecuteDeleteAsync();
 		Console.WriteLine($"Deleted {affectedRows} AccessClaim rows");
 		affectedRows = await db.AppUser.ExecuteDeleteAsync();
 		Console.WriteLine($"Deleted {affectedRows} AppUser rows");
 
-        await PopulateAppUsers();
+		var appUsers = await CreateTestAppUsers(db);
+
+		return new TestData {
+			AppUsers = appUsers
+		};
 	}
 
-	private async Task PopulateAppUsers()
-    {
-        using var db = Globals.DbContextFactory.CreateDbContext();
+	private async Task<List<AppUser>> CreateTestAppUsers(Db db)
+	{
+		var appUsers = new List<AppUser>();
+		//var accessClaims = new List<AccessClaim>();
 
-        var appUsers = new List<AppUser>();
+		var firstNames = new[] { "John", "Jane", "Alice", "Bob" };
+		var lastNames = new[] { "Doe", "Smith", "Johnson", "Williams" };
+		var isEnabledOptions = new[] { true, false };
 
-        var firstNames = new[] { "John", "Jane", "Alice", "Bob" };
-        var lastNames = new[] { "Doe", "Smith", "Johnson", "Williams" };
-        var emails = new[] { "john@example.com", "jane@example.com", "alice@example.com", "bob@example.com" };
-        var isEnabledOptions = new[] { true, false };
+		var random = new Random();
+		var emailSet = new HashSet<string>();
 
-        foreach (var firstName in firstNames)
-        {
-            foreach (var lastName in lastNames)
-            {
-                foreach (var email in emails)
-                {
-                    foreach (var isEnabled in isEnabledOptions)
-                    {
-                        appUsers.Add(new AppUser
-                        {
-                            Id = Guid.NewGuid(),
-                            ExtId = Guid.NewGuid().ToString(),
-                            FirstName = firstName,
-                            LastName = lastName,
-                            Email = email,
-                            IsEnabled = isEnabled
-                        });
-                    }
-                }
-            }
-        }
+		foreach (var firstName in firstNames) {
+			foreach (var lastName in lastNames) {
+				foreach (var isEnabled in isEnabledOptions) {
+					for (int i = 0; i < 4; i++) // Ensure unique emails
+					{
+						string email;
+						int attempt = 0;
+						do {
+							email = $"{firstName.ToLower()}.{lastName.ToLower()}{i + attempt}@example.com";
+							attempt++;
+						} while (!emailSet.Add(email)); // Add returns false if the email already exists
 
-        await db.AppUser.AddRangeAsync(appUsers);
-        await db.SaveChangesAsync();
+						var appUser = new AppUser {
+							Id = Guid.NewGuid(),
+							ExtId = random.NextDouble() < 0.1 ? null : Guid.NewGuid().ToString(), // 10% chance of null ExtId
+							FirstName = firstName,
+							LastName = lastName,
+							Email = email,
+							IsEnabled = isEnabled
+						};
 
-        Console.WriteLine($"Inserted {appUsers.Count} AppUser rows");
-    }
+						appUsers.Add(appUser);
+
+						// Add 0-5 AccessClaims to each AppUser
+						int numberOfClaims = random.Next(0, 6);
+						for (int j = 0; j < numberOfClaims; j++) {
+							appUser.Claims.Add(new AccessClaim {
+								Id = Guid.NewGuid(),
+								ClaimName = $"ClaimName_{j}",
+								ClaimValue = $"ClaimValue_{j}",
+								AppUserId = appUser.Id
+							});
+						}
+					}
+				}
+			}
+		}
+
+		await db.AppUser.AddRangeAsync(appUsers);
+		//await db.AccessClaim.AddRangeAsync(accessClaims);
+		await db.SaveChangesAsync();
+
+		Console.WriteLine($"Inserted {appUsers.Count} AppUser rows");
+		//Console.WriteLine($"Inserted {accessClaims.Count} AccessClaim rows");
+
+		return appUsers;
+	}
 }

@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/28/2025 7:11 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/28/2025 9:41 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using Microsoft.EntityFrameworkCore;
 using Dyvenix.App1.Common.Entities;
@@ -49,7 +49,7 @@ public partial class Db : DbContext
 			entity.HasKey(e => e.Id);
 
 			// Properties
-			entity.Property(e => e.ExtId).IsRequired(true).HasMaxLength(100);
+			entity.Property(e => e.ExtId).IsRequired(false).HasMaxLength(100);
 			entity.Property(e => e.FirstName).IsRequired(true).HasMaxLength(100);
 			entity.Property(e => e.LastName).IsRequired(true).HasMaxLength(100);
 			entity.Property(e => e.Email).IsRequired(true).HasMaxLength(200);

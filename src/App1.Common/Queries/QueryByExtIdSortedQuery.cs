@@ -1,15 +1,17 @@
 //------------------------------------------------------------------------------------------------------------
 // This file was auto-generated 3/30/2025 7:31 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
+using System;
+using Dyvenix.Core.Queries;
 
-namespace Dyvenix.App1.Common.Entities;
+namespace Dyvenix.App1.Server.Services.Queries;
 
-public enum LogLevel
+public class QueryByExtIdSortedQuery : ISortingQuery
 {
-	Verbose,
-	Debug,
-	Info,
-	Error,
-	Fatal,
+	public string SortBy { get; set; }
+	public bool SortDesc { get; set; }
+
+
+	public string ExtId { get; set; }
 
 }

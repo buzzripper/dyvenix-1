@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/29/2025 10:52 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/30/2025 7:31 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -17,6 +17,7 @@ public partial class AppUser
 	public string LastName { get; set; }
 	public string Email { get; set; }
 	public bool IsEnabled { get; set; }
+	public string CompanyId { get; set; }
 
 	// Navigation Properties
 	public virtual ICollection<AccessClaim> Claims { get; set; } = new List<AccessClaim>();
@@ -30,5 +31,6 @@ public partial class AppUser
 		public const string LastName = nameof(AppUser.LastName);
 		public const string Email = nameof(AppUser.Email);
 		public const string IsEnabled = nameof(AppUser.IsEnabled);
+		public const string CompanyId = nameof(AppUser.CompanyId);
     }
 }

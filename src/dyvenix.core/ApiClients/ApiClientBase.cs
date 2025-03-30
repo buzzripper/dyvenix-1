@@ -15,6 +15,15 @@ namespace Dyvenix.Core.ApiClients;
 public abstract class ApiClientBase<T> where T : class
 {
 	private readonly HttpClient _httpClient;
+	private readonly JsonSerializerOptions _jsonSerializerOptionsGet = new JsonSerializerOptions {
+		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+		PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+	};
+	private readonly JsonSerializerOptions _jsonSerializerOptionsPost = new JsonSerializerOptions {
+		WriteIndented = true,
+		PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+	};
+
 	protected readonly IDyvenixLogger<T> _logger;
 
 	public ApiClientBase(IHttpClientFactory httpClientFactory, string baseUrl, IHttpContextAccessor httpContextAccessor, IDyvenixLogger<T> logger)
@@ -30,7 +39,7 @@ public abstract class ApiClientBase<T> where T : class
 		_logger = logger;
 	}
 
-	protected async Task<T> GetAsync<T>(string uri)
+	protected async Task<T> GetAsync(string uri)
 	{
 		var httpResponse = await _httpClient.GetAsync(uri);
 
@@ -39,28 +48,21 @@ public abstract class ApiClientBase<T> where T : class
 
 		var responseString = await httpResponse.Content.ReadAsStringAsync();
 
-		var options = new JsonSerializerOptions {
-			DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-			PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-		};
-		return JsonSerializer.Deserialize<T>(responseString, options);
+		return JsonSerializer.Deserialize<T>(responseString, _jsonSerializerOptionsGet);
 	}
 
-	protected async Task<T> PostAsync<T>(string uri, object payload)
+	protected async Task<T> PostAsync(string uri, object payload)
 	{
-		var responseString = await PostAsync(uri, payload);
+		var responseString = await PostAsyncString(uri, payload);
+
 		return JsonSerializer.Deserialize<T>(responseString);
 	}
 
-	protected async Task<string> PostAsync(string uri, object payload)
+	protected async Task<string> PostAsyncString(string uri, object payload)
 	{
-		var options = new JsonSerializerOptions {
-			WriteIndented = true,
-			PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-		};
-
-		var json = JsonSerializer.Serialize(payload, options);
+		var json = JsonSerializer.Serialize(payload, _jsonSerializerOptionsPost);
 		using var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+
 		var httpResponse = await _httpClient.PostAsync(uri, stringContent);
 
 		if (!httpResponse.IsSuccessStatusCode)

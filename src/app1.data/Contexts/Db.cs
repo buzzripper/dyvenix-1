@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/29/2025 10:52 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/30/2025 7:31 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using Microsoft.EntityFrameworkCore;
 using Dyvenix.App1.Common.Entities;
@@ -54,12 +54,14 @@ public partial class Db : DbContext
 			entity.Property(e => e.LastName).IsRequired(true).HasMaxLength(100);
 			entity.Property(e => e.Email).IsRequired(true).HasMaxLength(200);
 			entity.Property(e => e.IsEnabled).IsRequired(true);
+			entity.Property(e => e.CompanyId).IsRequired(true).HasMaxLength(10);
 
 			// Indexes
 			entity.HasIndex(e => e.Id, "IX_AppUser_Id").IsUnique();
 			entity.HasIndex(e => e.ExtId, "IX_AppUser_ExtId");
 			entity.HasIndex(e => e.LastName, "IX_AppUser_LastName");
 			entity.HasIndex(e => e.Email, "IX_AppUser_Email").IsUnique();
+			entity.HasIndex(e => e.CompanyId, "IX_AppUser_CompanyId");
 		});
 
 		modelBuilder.Entity<LogEvent>(entity =>

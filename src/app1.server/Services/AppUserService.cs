@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/29/2025 10:52 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/30/2025 7:31 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -21,13 +21,15 @@ public interface IAppUserService
 	Task UpdateAppUser(AppUser appUser);
 	Task DeleteAppUser(Guid id);
 	Task<AppUser> GetById(Guid id);
-	Task<List<AppUser>> GetByExtId(string extId);
+	Task<List<AppUser>> GetByExtId(string extId, string lastName);
 	Task<List<AppUser>> GetByFirstName(string firstName);
 	Task<List<AppUser>> GetByLastNameWithClaims(string lastName);
-	Task<List<AppUser>> GetByExtIdAndLast(string extId, string lastName);
-	Task<List<AppUser>> GetByExtIdSorted(string extId);
-	Task<List<AppUser>> QueryByExtIdPaging(string extId, int pageSize, int rowOffset);
+	Task<List<AppUser>> GetByExtId(string extId, string lastName, bool isEnabled);
 	Task<List<AppUser>> GetAll();
+	Task<List<AppUser>> GetAllWithPaging(int pageSize, int pageOffset);
+	Task<List<AppUser>> GetForCoEnabled(string email, bool isEnabled, string companyId);
+	Task<EntityList<AppUser>>QueryByExtIdSorted(QueryByExtIdSortedQuery query);
+	Task<EntityList<AppUser>>QueryByExtIdPaging(QueryByExtIdPagingQuery query);
 }
 
 public class AppUserService : IAppUserService
@@ -90,12 +92,14 @@ public class AppUserService : IAppUserService
 
 	#region Get List
 
-	public async Task<List<AppUser>> GetByExtId(string extId)
+	public async Task<List<AppUser>> GetByExtId(string extId, string lastName)
 	{
 		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
 
 		if (!string.IsNullOrWhiteSpace(extId))
 			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.ExtId, extId));
+		if (!string.IsNullOrWhiteSpace(lastName))
+			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.LastName, lastName));
 
 		return await dbQuery.AsNoTracking().ToListAsync();
 	}
@@ -121,7 +125,7 @@ public class AppUserService : IAppUserService
 		return await dbQuery.AsNoTracking().ToListAsync();
 	}
 
-	public async Task<List<AppUser>> GetByExtIdAndLast(string extId, string lastName)
+	public async Task<List<AppUser>> GetByExtId(string extId, string lastName, bool isEnabled)
 	{
 		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
 
@@ -129,28 +133,7 @@ public class AppUserService : IAppUserService
 			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.ExtId, extId));
 		if (!string.IsNullOrWhiteSpace(lastName))
 			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.LastName, lastName));
-
-		return await dbQuery.AsNoTracking().ToListAsync();
-	}
-
-	public async Task<List<AppUser>> GetByExtIdSorted(string extId)
-	{
-		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
-
-		if (!string.IsNullOrWhiteSpace(extId))
-			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.ExtId, extId));
-
-		return await dbQuery.AsNoTracking().ToListAsync();
-	}
-
-	public async Task<List<AppUser>> QueryByExtIdPaging(string extId, int pageSize, int rowOffset)
-	{
-		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
-
-		if (!string.IsNullOrWhiteSpace(extId))
-			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.ExtId, extId));
-		if (pageSize > 0)
-			dbQuery = dbQuery.Skip(rowOffset).Take(pageSize);
+		dbQuery = dbQuery.Where(x => x.IsEnabled == isEnabled);
 
 		return await dbQuery.AsNoTracking().ToListAsync();
 	}
@@ -163,7 +146,118 @@ public class AppUserService : IAppUserService
 		return await dbQuery.AsNoTracking().ToListAsync();
 	}
 
+	public async Task<List<AppUser>> GetAllWithPaging(int pageSize, int pageOffset)
+	{
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+
+		if (pageSize > 0)
+			dbQuery = dbQuery.Skip(pageOffset * pageSize).Take(pageSize);
+
+		return await dbQuery.AsNoTracking().ToListAsync();
+	}
+
+	public async Task<List<AppUser>> GetForCoEnabled(string email, bool isEnabled, string companyId)
+	{
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+
+		if (!string.IsNullOrWhiteSpace(email))
+			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.Email, email));
+		dbQuery = dbQuery.Where(x => x.IsEnabled == isEnabled);
+		if (!string.IsNullOrWhiteSpace(companyId))
+			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.CompanyId, companyId));
+
+		return await dbQuery.AsNoTracking().ToListAsync();
+	}
+
 	#endregion
 
+	#region Queries
+
+	public async Task<EntityList<AppUser>>QueryByExtIdSorted(QueryByExtIdSortedQuery query)
+	{
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+		var result = new EntityList<AppUser>();
+
+		// Filters
+		if (!string.IsNullOrWhiteSpace(query.ExtId))
+			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.ExtId, query.ExtId));
+
+		// Sorting
+		if (!string.IsNullOrWhiteSpace(query.SortBy))
+			this.AddSorting(ref dbQuery, query);
+
+		result.Data = await dbQuery.AsNoTracking().ToListAsync();
+
+		return result;
+	}
+
+	public async Task<EntityList<AppUser>>QueryByExtIdPaging(QueryByExtIdPagingQuery query)
+	{
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+		var result = new EntityList<AppUser>();
+
+		// Filters
+		if (!string.IsNullOrWhiteSpace(query.ExtId))
+			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.ExtId, query.ExtId));
+
+		// Paging
+		if (query.RecalcRowCount || query.GetRowCountOnly)
+			result.TotalRowCount = dbQuery.Count();
+		if (query.GetRowCountOnly)
+			return result;
+		if (query.PageSize > 0)
+			dbQuery = dbQuery.Skip(query.PageOffset).Take(query.PageSize);
+
+		result.Data = await dbQuery.AsNoTracking().ToListAsync();
+
+		return result;
+	}
+
+	private void AddSorting(ref IQueryable<AppUser> dbQuery, ISortingQuery sortingQuery)
+	{
+		if (string.Equals(sortingQuery.SortBy, AppUser.PropNames.Id, StringComparison.OrdinalIgnoreCase))
+			if (sortingQuery.SortDesc)
+				dbQuery.OrderByDescending(x => x.Id);
+			else
+				dbQuery.OrderBy(x => x.Id);
+
+		if (string.Equals(sortingQuery.SortBy, AppUser.PropNames.ExtId, StringComparison.OrdinalIgnoreCase))
+			if (sortingQuery.SortDesc)
+				dbQuery.OrderByDescending(x => x.ExtId);
+			else
+				dbQuery.OrderBy(x => x.ExtId);
+
+		if (string.Equals(sortingQuery.SortBy, AppUser.PropNames.FirstName, StringComparison.OrdinalIgnoreCase))
+			if (sortingQuery.SortDesc)
+				dbQuery.OrderByDescending(x => x.FirstName);
+			else
+				dbQuery.OrderBy(x => x.FirstName);
+
+		if (string.Equals(sortingQuery.SortBy, AppUser.PropNames.LastName, StringComparison.OrdinalIgnoreCase))
+			if (sortingQuery.SortDesc)
+				dbQuery.OrderByDescending(x => x.LastName);
+			else
+				dbQuery.OrderBy(x => x.LastName);
+
+		if (string.Equals(sortingQuery.SortBy, AppUser.PropNames.Email, StringComparison.OrdinalIgnoreCase))
+			if (sortingQuery.SortDesc)
+				dbQuery.OrderByDescending(x => x.Email);
+			else
+				dbQuery.OrderBy(x => x.Email);
+
+		if (string.Equals(sortingQuery.SortBy, AppUser.PropNames.IsEnabled, StringComparison.OrdinalIgnoreCase))
+			if (sortingQuery.SortDesc)
+				dbQuery.OrderByDescending(x => x.IsEnabled);
+			else
+				dbQuery.OrderBy(x => x.IsEnabled);
+
+		if (string.Equals(sortingQuery.SortBy, AppUser.PropNames.CompanyId, StringComparison.OrdinalIgnoreCase))
+			if (sortingQuery.SortDesc)
+				dbQuery.OrderByDescending(x => x.CompanyId);
+			else
+				dbQuery.OrderBy(x => x.CompanyId);
+	}
+
+	#endregion
 
 }

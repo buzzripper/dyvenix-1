@@ -68,8 +68,9 @@ public class GlobalSetup
 	private async Task<List<AppUser>> CreateTestAppUsers(Db db)
 	{
 		var appUsers = new List<AppUser>();
-		var firstNames = new[] { "John", "Jane", "Alice", "Bob", "Charlie", "Eve", "Mallory", "Trent" };
-		var lastNames = new[] { "Doe", "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller" };
+		var firstNames = new[] { "John", "Jane", "Alice", "Bob", "Charlie", "Eve", "Mallory", "Trent", "Oscar", "Grace", "Victor", "Walter", "Xander", "Yvonne", "Zara" };
+		var lastNames = new[] { "Doe", "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson" };
+		var companyIds = new[] { "ABC", "DEF", "GHI", "JKL", "MNO" };
 
 		var random = new Random();
 		var emailSet = new HashSet<string>();
@@ -98,11 +99,12 @@ public class GlobalSetup
 				FirstName = firstName,
 				LastName = lastName,
 				Email = email,
-				IsEnabled = random.NextDouble() >= 0.25 // 25% chance of IsEnabled being false
+				IsEnabled = random.NextDouble() >= 0.15, // 15% chance of IsEnabled being false
+				CompanyId = companyIds[random.Next(companyIds.Length)]
 			};
 
-			// Add 0-5 AccessClaims to each AppUser
-			int numberOfClaims = random.Next(0, 6);
+			// Add 0-8 AccessClaims to each AppUser
+			int numberOfClaims = random.Next(0, 9);
 			for (int j = 0; j < numberOfClaims; j++) {
 				appUser.Claims.Add(new AccessClaim {
 					Id = Guid.NewGuid(),
@@ -118,6 +120,9 @@ public class GlobalSetup
 		await db.AppUser.AddRangeAsync(appUsers);
 		await db.SaveChangesAsync();
 
+		Console.WriteLine($"Inserted {appUsers.Count} AppUser rows");
+
 		return appUsers;
 	}
+
 }

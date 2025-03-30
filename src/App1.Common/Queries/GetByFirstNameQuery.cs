@@ -1,15 +1,15 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/30/2025 7:31 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/30/2025 8:26 AM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
+using System;
 
-namespace Dyvenix.App1.Common.Entities;
 
-public enum LogLevel
+namespace Dyvenix.App1.Server.Services.Queries;
+
+public class GetByFirstNameQuery 
 {
-	Verbose,
-	Debug,
-	Info,
-	Error,
-	Fatal,
+
+
+	public string FirstName { get; set; }
 
 }

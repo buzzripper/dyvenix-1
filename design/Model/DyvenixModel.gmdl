@@ -255,9 +255,17 @@
                 "Name": "GetById",
                 "FilterPropertyIds": [
                   "47618992-44bb-44ca-b414-27692e4a9768",
+                  "47618992-44bb-44ca-b414-27692e4a9768",
+                  "47618992-44bb-44ca-b414-27692e4a9768",
+                  "47618992-44bb-44ca-b414-27692e4a9768",
+                  "47618992-44bb-44ca-b414-27692e4a9768",
                   "47618992-44bb-44ca-b414-27692e4a9768"
                 ],
                 "InclNavPropertyIds": [
+                  "84a3373f-6e7e-4879-9dec-4ed3523db354",
+                  "84a3373f-6e7e-4879-9dec-4ed3523db354",
+                  "84a3373f-6e7e-4879-9dec-4ed3523db354",
+                  "84a3373f-6e7e-4879-9dec-4ed3523db354",
                   "84a3373f-6e7e-4879-9dec-4ed3523db354",
                   "84a3373f-6e7e-4879-9dec-4ed3523db354",
                   "84a3373f-6e7e-4879-9dec-4ed3523db354"
@@ -270,11 +278,117 @@
               },
               {
                 "Id": "3211c63a-2eb6-4270-a3de-ff8f05d517f6",
-                "Name": "GetWithLastName",
+                "Name": "GetByExtId",
                 "FilterPropertyIds": [
+                  "96b41827-70c2-41e1-b7a4-d85e6c6c8925",
+                  "33e94fb6-db88-4837-a604-d5e08e844461",
+                  "33e94fb6-db88-4837-a604-d5e08e844461",
+                  "96b41827-70c2-41e1-b7a4-d85e6c6c8925",
+                  "33e94fb6-db88-4837-a604-d5e08e844461",
+                  "96b41827-70c2-41e1-b7a4-d85e6c6c8925",
+                  "33e94fb6-db88-4837-a604-d5e08e844461",
+                  "96b41827-70c2-41e1-b7a4-d85e6c6c8925"
+                ],
+                "InclNavPropertyIds": [],
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
+                "InclPaging": false,
+                "UseQuery": false
+              },
+              {
+                "Id": "5bbdd84e-46a3-4c00-a827-772ed5937ab2",
+                "Name": "GetByFirstName",
+                "FilterPropertyIds": [
+                  "4f76b75c-ad78-4557-95c4-aeb82534dc68",
+                  "4f76b75c-ad78-4557-95c4-aeb82534dc68",
+                  "4f76b75c-ad78-4557-95c4-aeb82534dc68",
+                  "4f76b75c-ad78-4557-95c4-aeb82534dc68"
+                ],
+                "InclNavPropertyIds": [],
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
+                "InclPaging": false,
+                "UseQuery": false
+              },
+              {
+                "Id": "3212b1e0-1c3a-4b19-8901-53e20a4105de",
+                "Name": "GetByLastNameWithClaims",
+                "FilterPropertyIds": [
+                  "96b41827-70c2-41e1-b7a4-d85e6c6c8925",
+                  "96b41827-70c2-41e1-b7a4-d85e6c6c8925",
                   "96b41827-70c2-41e1-b7a4-d85e6c6c8925",
                   "96b41827-70c2-41e1-b7a4-d85e6c6c8925"
                 ],
+                "InclNavPropertyIds": [
+                  "84a3373f-6e7e-4879-9dec-4ed3523db354",
+                  "84a3373f-6e7e-4879-9dec-4ed3523db354",
+                  "84a3373f-6e7e-4879-9dec-4ed3523db354",
+                  "84a3373f-6e7e-4879-9dec-4ed3523db354"
+                ],
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
+                "InclPaging": false,
+                "UseQuery": false
+              },
+              {
+                "Id": "9d6a2c9d-ce7f-4d80-b492-f542df189cc5",
+                "Name": "GetByExtIdAndLast",
+                "FilterPropertyIds": [
+                  "33e94fb6-db88-4837-a604-d5e08e844461",
+                  "33e94fb6-db88-4837-a604-d5e08e844461",
+                  "630ca00a-2ff3-4648-a638-d39e76227238",
+                  "33e94fb6-db88-4837-a604-d5e08e844461",
+                  "630ca00a-2ff3-4648-a638-d39e76227238",
+                  "33e94fb6-db88-4837-a604-d5e08e844461",
+                  "630ca00a-2ff3-4648-a638-d39e76227238",
+                  "96b41827-70c2-41e1-b7a4-d85e6c6c8925"
+                ],
+                "InclNavPropertyIds": [],
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
+                "InclPaging": false,
+                "UseQuery": false
+              },
+              {
+                "Id": "5266fa27-4c47-4616-aee0-6f8750fdc628",
+                "Name": "GetByExtIdSorted",
+                "FilterPropertyIds": [
+                  "33e94fb6-db88-4837-a604-d5e08e844461",
+                  "33e94fb6-db88-4837-a604-d5e08e844461",
+                  "33e94fb6-db88-4837-a604-d5e08e844461",
+                  "33e94fb6-db88-4837-a604-d5e08e844461"
+                ],
+                "InclNavPropertyIds": [],
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": true,
+                "InclPaging": false,
+                "UseQuery": false
+              },
+              {
+                "Id": "13017234-94f5-4df7-8263-f1d098984dc8",
+                "Name": "QueryByExtIdPaging",
+                "FilterPropertyIds": [
+                  "33e94fb6-db88-4837-a604-d5e08e844461",
+                  "33e94fb6-db88-4837-a604-d5e08e844461",
+                  "33e94fb6-db88-4837-a604-d5e08e844461",
+                  "33e94fb6-db88-4837-a604-d5e08e844461"
+                ],
+                "InclNavPropertyIds": [],
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
+                "InclPaging": true,
+                "UseQuery": false
+              },
+              {
+                "Id": "8b9d572f-c05f-4c65-8e90-b0c5983f203f",
+                "Name": "GetAll",
+                "FilterPropertyIds": [],
                 "InclNavPropertyIds": [],
                 "Attributes": [],
                 "DisplayOrder": 0,

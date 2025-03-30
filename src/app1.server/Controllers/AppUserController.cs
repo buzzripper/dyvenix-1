@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/29/2025 5:04 PM. Any changes made to it will be lost.
+// This file was auto-generated 3/29/2025 10:53 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -94,11 +94,71 @@ public class AppUserController : ApiControllerBase<AppUserController>
 
 	#region Get List
 
-	[HttpGet, Route("[action]/{lastName?}")]
-	public async Task<ActionResult<List<AppUser>>> GetWithLastName(lastName)
+	[HttpGet, Route("[action]/{extId?}")]
+	public async Task<ActionResult<List<AppUser>>> GetByExtId(string extId)
 	{
 		try {
-			return await _appUserService.GetWithLastName(lastName);
+			return await _appUserService.GetByExtId(extId);
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
+
+	[HttpGet, Route("[action]/{firstName?}")]
+	public async Task<ActionResult<List<AppUser>>> GetByFirstName(string firstName)
+	{
+		try {
+			return await _appUserService.GetByFirstName(firstName);
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
+
+	[HttpGet, Route("[action]/{lastName?}")]
+	public async Task<ActionResult<List<AppUser>>> GetByLastNameWithClaims(string lastName)
+	{
+		try {
+			return await _appUserService.GetByLastNameWithClaims(lastName);
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
+
+	[HttpGet, Route("[action]/{extId?}/{lastName?}")]
+	public async Task<ActionResult<List<AppUser>>> GetByExtIdAndLast(string extId, string lastName)
+	{
+		try {
+			return await _appUserService.GetByExtIdAndLast(extId, lastName);
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
+
+	[HttpGet, Route("[action]/{extId?}")]
+	public async Task<ActionResult<List<AppUser>>> GetByExtIdSorted(string extId)
+	{
+		try {
+			return await _appUserService.GetByExtIdSorted(extId);
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
+
+	[HttpGet, Route("[action]/{extId?}/{pageSize?}/{rowOffset?}")]
+	public async Task<ActionResult<List<AppUser>>> QueryByExtIdPaging(string extId, int pageSize = 0, int rowOffset = 0)
+	{
+		try {
+			return await _appUserService.QueryByExtIdPaging(extId, pageSize, rowOffset);
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
+
+	[HttpGet, Route("[action]")]
+	public async Task<ActionResult<List<AppUser>>> GetAll()
+	{
+		try {
+			return await _appUserService.GetAll();
 		} catch (Exception ex) {
 			return LogErrorAndReturnErrorResponse(ex);
 		}

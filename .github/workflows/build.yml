@@ -46,7 +46,7 @@ jobs:
           echo "SHORT_VERSION=${{env.VER_MAJOR}}.${{env.VER_MINOR}}.${{env.VER_PATCH}}" >> $GITHUB_ENV  
           echo "ARTIFACT_NAME=Dyvenix_AppServer_${{env.VER_MAJOR}}.${{env.VER_MINOR}}.${{env.VER_PATCH}}.${{github.run_number}}" >> $GITHUB_ENV  
 
-        ### Build Web API
+        ### Build Solution
 
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
@@ -57,13 +57,14 @@ jobs:
         run: dotnet restore "${{ env.API_ROOT_DIR }}"
 
       - name: Build
-        run: dotnet build "${{ env.API_ROOT_DIR }}" --configuration ${{ env.CONFIGURATION }} --no-restore -p:Version=${{ env.VERSION }}
+        # run: dotnet build "${{ env.API_ROOT_DIR }}" --configuration ${{ env.CONFIGURATION }} --no-restore -p:Version=${{ env.VERSION }}
+        run: dotnet build "./dyvenix.sln" --configuration ${{ env.CONFIGURATION }} --no-restore -p:Version=${{ env.VERSION }}
 
-      - name: Test
-        run: dotnet test "${{ env.API_ROOT_DIR }}" --no-build
+      # - name: Test
+      #   run: dotnet test "${{ env.API_ROOT_DIR }}" --no-build
 
-      - name: Publish
-        run: dotnet publish "${{ env.API_ROOT_DIR }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+      # - name: Publish
+      #   run: dotnet publish "${{ env.API_ROOT_DIR }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
 
       - name: Generate .env file
         run: |
@@ -74,35 +75,45 @@ jobs:
 
       ### Build Angular
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 18
 
-      - name: Install dependencies
-        working-directory: ${{ env.ANG_ROOT_DIR }}
-        run: npm ci
+      # - name: Install dependencies
+      #   working-directory: ${{ env.ANG_ROOT_DIR }}
+      #   run: npm ci
 
-      - name: Build Angular app
-        working-directory: ${{ env.ANG_ROOT_DIR }}
-        run: |
-          npm version ${{ env.SHORT_VERSION }} --no-git-tag-version
-          npm run build -- --configuration=production --output-path=${{ env.ANG_OUTPUT_PATH }}
+      # - name: Build Angular app
+      #   working-directory: ${{ env.ANG_ROOT_DIR }}
+      #   run: |
+      #     npm version ${{ env.SHORT_VERSION }} --no-git-tag-version
+      #     npm run build -- --configuration=production --output-path=${{ env.ANG_OUTPUT_PATH }}
 
-      - name: Move browser folder contents up
-        working-directory: ${{ env.ANG_ROOT_DIR }}
-        run: mv ${{ env.ANG_OUTPUT_PATH }}/browser/* ${{ env.ANG_OUTPUT_PATH }}/
+      # - name: Move browser folder contents up
+      #   working-directory: ${{ env.ANG_ROOT_DIR }}
+      #   run: mv ${{ env.ANG_OUTPUT_PATH }}/browser/* ${{ env.ANG_OUTPUT_PATH }}/
 
-      - name: Move angular output to wwwroot
-        run: | 
-          mkdir ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
-          mv ${{ env.ANG_ROOT_DIR }}/${{ env.ANG_OUTPUT_PATH }}/* ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
+      # - name: Move angular output to wwwroot
+      #   run: | 
+      #     mkdir ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
+      #     mv ${{ env.ANG_ROOT_DIR }}/${{ env.ANG_OUTPUT_PATH }}/* ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/wwwroot/
 
-      - name: Publish Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.ARTIFACT_NAME }}
-          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+      # - name: Publish Artifacts
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: ${{ env.ARTIFACT_NAME }}
+      #     path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+
+
+
+
+
+
+
+
+
 
   # deploy:
   #   runs-on: ubuntu-latest

@@ -1,5 +1,4 @@
 ﻿using Dyvenix.Core.Exceptions;
-using Dyvenix.Logging;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -14,6 +13,8 @@ namespace Dyvenix.Core.ApiClients;
 
 public abstract class ApiClientBase<T> where T : class
 {
+	#region Fields
+
 	private readonly HttpClient _httpClient;
 	private readonly JsonSerializerOptions _jsonSerializerOptionsGet = new JsonSerializerOptions {
 		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
@@ -24,9 +25,11 @@ public abstract class ApiClientBase<T> where T : class
 		PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 	};
 
-	protected readonly IDyvenixLogger<T> _logger;
+	#endregion
 
-	public ApiClientBase(IHttpClientFactory httpClientFactory, string baseUrl, IHttpContextAccessor httpContextAccessor, IDyvenixLogger<T> logger)
+	#region Ctors / Init
+
+	public ApiClientBase(string baseUrl, IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor)
 	{
 		_httpClient = httpClientFactory.CreateClient();
 		_httpClient.BaseAddress = new Uri(baseUrl.TrimEnd());
@@ -36,10 +39,13 @@ public abstract class ApiClientBase<T> where T : class
 			throw new Exception($"{GetType().Name}: No access token found for ApiClient {baseUrl}.");
 
 		_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-		_logger = logger;
 	}
 
-	protected async Task<T> GetAsync(string uri)
+	#endregion
+
+	#region Methods
+
+	protected async Task<TResult> GetAsync<TResult>(string uri)
 	{
 		var httpResponse = await _httpClient.GetAsync(uri);
 
@@ -48,17 +54,17 @@ public abstract class ApiClientBase<T> where T : class
 
 		var responseString = await httpResponse.Content.ReadAsStringAsync();
 
-		return JsonSerializer.Deserialize<T>(responseString, _jsonSerializerOptionsGet);
+		return JsonSerializer.Deserialize<TResult>(responseString, _jsonSerializerOptionsGet);
 	}
 
-	protected async Task<T> PostAsync(string uri, object payload)
+	protected async Task<TResult> PostAsync<TResult>(string uri, object payload)
 	{
-		var responseString = await PostAsyncString(uri, payload);
+		var responseString = await PostAsync(uri, payload);
 
-		return JsonSerializer.Deserialize<T>(responseString);
+		return JsonSerializer.Deserialize<TResult>(responseString);
 	}
 
-	protected async Task<string> PostAsyncString(string uri, object payload)
+	protected async Task<string> PostAsync(string uri, object payload)
 	{
 		var json = JsonSerializer.Serialize(payload, _jsonSerializerOptionsPost);
 		using var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
@@ -70,4 +76,6 @@ public abstract class ApiClientBase<T> where T : class
 
 		return await httpResponse.Content.ReadAsStringAsync();
 	}
+
+	#endregion
 }

@@ -6,11 +6,8 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 using Dyvenix.Core.ApiClients;
-using Dyvenix.Core.DTOs;
 using Dyvenix.Core.Entities;
-using Dyvenix.Logging;
 ${{ADDL_USINGS}}
 
 namespace ${{API_CLIENTS_NS}};
@@ -21,8 +18,8 @@ ${{INTERFACE_SIGNATURES}}
 }
 public class ${{API_CLIENT_NAME}} : ApiClientBase<${{ENTITY_NAME}}>, I${{API_CLIENT_NAME}}
 {
-    public ${{API_CLIENT_NAME}}(IHttpClientFactory httpClientFactory, string baseUrl, IHttpContextAccessor httpContextAccessor, IDyvenixLogger<${{ENTITY_NAME}}> logger)
-        : base(httpClientFactory, baseUrl, httpContextAccessor, logger)
+    public ${{API_CLIENT_NAME}}(string baseUrl, IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor)
+        : base(baseUrl, httpClientFactory, httpContextAccessor)
     {
     }
 

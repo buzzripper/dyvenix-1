@@ -1,9 +1,7 @@
 ﻿using Dyvenix.Core.Exceptions;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using System;
+using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -16,6 +14,7 @@ public abstract class ApiClientBase<T> where T : class
 	#region Fields
 
 	private readonly HttpClient _httpClient;
+
 	private readonly JsonSerializerOptions _jsonSerializerOptionsGet = new JsonSerializerOptions {
 		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
 		PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -29,16 +28,9 @@ public abstract class ApiClientBase<T> where T : class
 
 	#region Ctors / Init
 
-	public ApiClientBase(string baseUrl, IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor)
+	public ApiClientBase(HttpClient httpClient)
 	{
-		_httpClient = httpClientFactory.CreateClient();
-		_httpClient.BaseAddress = new Uri(baseUrl.TrimEnd());
-
-		var accessToken = httpContextAccessor.HttpContext.GetTokenAsync("access_token")?.GetAwaiter().GetResult();
-		if (string.IsNullOrWhiteSpace(accessToken))
-			throw new Exception($"{GetType().Name}: No access token found for ApiClient {baseUrl}.");
-
-		_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+		_httpClient = httpClient;
 	}
 
 	#endregion
@@ -51,6 +43,9 @@ public abstract class ApiClientBase<T> where T : class
 
 		if (!httpResponse.IsSuccessStatusCode)
 			throw new HttpException((int)httpResponse.StatusCode, httpResponse.ReasonPhrase);
+
+		if (httpResponse.StatusCode == HttpStatusCode.NoContent)
+			return default;
 
 		var responseString = await httpResponse.Content.ReadAsStringAsync();
 

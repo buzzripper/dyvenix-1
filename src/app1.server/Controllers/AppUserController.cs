@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/30/2025 10:36 PM. Any changes made to it will be lost.
+// This file was auto-generated 4/1/2025 10:11 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -100,7 +100,7 @@ public class AppUserController : ApiControllerBase<AppUserController>
 		}
 	}
 
-	[HttpGet, Route("[action]/{firstName}")]
+	[HttpGet, Route("[action]/{firstName?}")]
 	public async Task<ActionResult<List<AppUser>>> GetByFirstName(string firstName)
 	{
 		try {

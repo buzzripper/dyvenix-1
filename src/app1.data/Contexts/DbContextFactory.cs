@@ -8,20 +8,36 @@ public interface IDbContextFactory
 	Db CreateDbContext();
 }
 
+//public class DbContextFactory : IDbContextFactory
+//{
+//	protected readonly DataConfig _dataConfig;
+
+//	public DbContextFactory(DataConfig dataConfig)
+//	{
+//		_dataConfig = dataConfig;
+//	}
+
+//	public Db CreateDbContext()
+//	{
+//		var b = new DbContextOptionsBuilder<Db>();
+//		b.UseSqlServer(_dataConfig.ConnectionString);
+
+//		return new Db(b.Options);
+//	}
+//}
+
 public class DbContextFactory : IDbContextFactory
 {
-	protected readonly DataConfig _dataConfig;
+	protected readonly DbContextOptions<Db> _options;
 
-	public DbContextFactory(DataConfig dataConfig)
+	public DbContextFactory(DbContextOptions<Db> options)
 	{
-		_dataConfig = dataConfig;
+		_options = options;
 	}
 
 	public Db CreateDbContext()
 	{
-		var b = new DbContextOptionsBuilder<Db>();
-		b.UseSqlServer(_dataConfig.ConnectionString);
-
-		return new Db(b.Options);
+		return new Db(_options);
 	}
 }
+

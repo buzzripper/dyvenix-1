@@ -1,11 +1,10 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 3/30/2025 10:36 PM. Any changes made to it will be lost.
+// This file was auto-generated 4/1/2025 10:11 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Dyvenix.Core.ApiClients;
 using Dyvenix.Core.Entities;
 using Dyvenix.App1.Server.Services.Queries;
@@ -33,34 +32,31 @@ public interface IAppUserApiClient
 }
 public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 {
-    public AppUserApiClient(string baseUrl, IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor)
-        : base(baseUrl, httpClientFactory, httpContextAccessor)
+    public AppUserApiClient(HttpClient httpClient)
+        : base(httpClient)
     {
     }
 
-	#region Create/Update/Delete
 	#region Create / Update / Delete
 
 	public async Task<AppUser> CreateAppUser(AppUser appUser)
 	{
 		ArgumentNullException.ThrowIfNull(appUser);
 
-		return await PostAsync<AppUser>("v1/AppUser/CreateAppUser", appUser);
+		return await PostAsync<AppUser>("api/v1/AppUser/CreateAppUser", appUser);
 	}
 
 	public async Task UpdateAppUser(AppUser appUser)
 	{
 		ArgumentNullException.ThrowIfNull(appUser);
 
-		await PostAsync<AppUser>("v1/AppUser/UpdateAppUser", appUser);
+		await PostAsync<AppUser>("api/v1/AppUser/UpdateAppUser", appUser);
 	}
 
 	public async Task DeleteAppUser(Guid id)
 	{
-		await PostAsync<string>($"v1/AppUser/DeleteAppUser/{id}", null);
+		await PostAsync<string>($"api/v1/AppUser/DeleteAppUser/{id}", null);
 	}
-
-	#endregion
 
 	#endregion
 
@@ -68,7 +64,7 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 
 	public async Task<AppUser> GetById(Guid id)
 	{
-		return await GetAsync<AppUser>($"v1/AppUser/GetById/{id}");
+		return await GetAsync<AppUser>($"api/v1/AppUser/GetById/{id}");
 	}
 
 	#endregion
@@ -77,47 +73,47 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 
 	public async Task<List<AppUser>> GetByExtId(string extId, string lastName)
 	{
-		return await GetAsync<List<AppUser>>($"v1/AppUser/GetByExtId/{extId}, /{lastName}");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByExtId/{extId}, /{lastName}");
 	}
 
 	public async Task<List<AppUser>> GetByFirstName(string firstName)
 	{
-		return await GetAsync<List<AppUser>>($"v1/AppUser/GetByFirstName/{firstName}");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByFirstName/{firstName}");
 	}
 
 	public async Task<List<AppUser>> GetByLastNameWithClaims(string lastName)
 	{
-		return await GetAsync<List<AppUser>>($"v1/AppUser/GetByLastNameWithClaims/{lastName}");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByLastNameWithClaims/{lastName}");
 	}
 
 	public async Task<List<AppUser>> GetByExtId(string extId, string lastName, bool isEnabled)
 	{
-		return await GetAsync<List<AppUser>>($"v1/AppUser/GetByExtId/{extId}, /{lastName}, /{isEnabled}");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByExtId/{extId}, /{lastName}, /{isEnabled}");
 	}
 
 	public async Task<List<AppUser>> QueryByExtIdSorted(string extId)
 	{
-		return await GetAsync<List<AppUser>>($"v1/AppUser/QueryByExtIdSorted/{extId}");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/QueryByExtIdSorted/{extId}");
 	}
 
 	public async Task<List<AppUser>> QueryByExtIdPaging(string extId, int pageSize, int pageOffset)
 	{
-		return await GetAsync<List<AppUser>>($"v1/AppUser/QueryByExtIdPaging/{extId}, /{{pageSize}}/{{pageOffset}}");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/QueryByExtIdPaging/{extId}, /{pageSize}/{pageOffset}");
 	}
 
 	public async Task<List<AppUser>> GetAll()
 	{
-		return await GetAsync<List<AppUser>>($"v1/AppUser/GetAll");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetAll");
 	}
 
 	public async Task<List<AppUser>> GetAllWithPaging(int pageSize, int pageOffset)
 	{
-		return await GetAsync<List<AppUser>>($"v1/AppUser/GetAllWithPaging/{{pageSize}}/{{pageOffset}}");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetAllWithPaging/{pageSize}/{pageOffset}");
 	}
 
 	public async Task<List<AppUser>> GetForCoEnabled(string email, bool isEnabled, string companyId)
 	{
-		return await GetAsync<List<AppUser>>($"v1/AppUser/GetForCoEnabled/{email}, /{isEnabled}, /{companyId}");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetForCoEnabled/{email}, /{isEnabled}, /{companyId}");
 	}
 
 	#endregion
@@ -128,14 +124,14 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 	{
 		ArgumentNullException.ThrowIfNull(query);
 
-		return await PostAsync<EntityList<AppUser>>("v1/AppUser/QueryByExtIdSorted", query);
+		return await PostAsync<EntityList<AppUser>>("api/v1/AppUser/QueryByExtIdSorted", query);
 	}
 
 	public async Task<EntityList<AppUser>>QueryByExtIdPaging(QueryByExtIdPagingQuery query)
 	{
 		ArgumentNullException.ThrowIfNull(query);
 
-		return await PostAsync<EntityList<AppUser>>("v1/AppUser/QueryByExtIdPaging", query);
+		return await PostAsync<EntityList<AppUser>>("api/v1/AppUser/QueryByExtIdPaging", query);
 	}
 	#endregion
 

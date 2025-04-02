@@ -57,3 +57,6 @@ Log.Logger.Debug("Starting application");
 app.Run();
 Log.Logger.Debug("Application stopped.");
 
+
+// This is needed by integration tests using WebApplicationFactory
+public partial class Program { }

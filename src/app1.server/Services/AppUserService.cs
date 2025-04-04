@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/1/2025 10:11 PM. Any changes made to it will be lost.
+// This file was auto-generated 4/2/2025 9:33 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -22,14 +22,14 @@ public interface IAppUserService
 	Task DeleteAppUser(Guid id);
 	Task<AppUser> GetById(Guid id);
 	Task<List<AppUser>> GetByExtId(string extId, string lastName);
-	Task<List<AppUser>> GetByFirstName(string firstName);
+	Task<List<AppUser>> GetEnabledByCompany(bool isEnabled, string companyId);
 	Task<List<AppUser>> GetByLastNameWithClaims(string lastName);
-	Task<List<AppUser>> GetByExtId(string extId, string lastName, bool isEnabled);
 	Task<List<AppUser>> GetAll();
 	Task<List<AppUser>> GetAllWithPaging(int pageSize, int pageOffset);
-	Task<List<AppUser>> GetForCoEnabled(string email, bool isEnabled, string companyId);
-	Task<EntityList<AppUser>>QueryByExtIdSorted(QueryByExtIdSortedQuery query);
-	Task<EntityList<AppUser>>QueryByExtIdPaging(QueryByExtIdPagingQuery query);
+	Task<List<AppUser>> GetByCompany(string email, bool isEnabled, string companyId);
+	Task<List<AppUser>> GetByCompanyWithPaging(string companyId, int pageSize, int pageOffset);
+	Task<EntityList<AppUser>>QueryByCompanySorted(QueryByCompanySortedQuery query);
+	Task<EntityList<AppUser>>QueryByCompanySortedPaging(QueryByCompanySortedPagingQuery query);
 }
 
 public class AppUserService : IAppUserService
@@ -104,12 +104,13 @@ public class AppUserService : IAppUserService
 		return await dbQuery.AsNoTracking().ToListAsync();
 	}
 
-	public async Task<List<AppUser>> GetByFirstName(string firstName)
+	public async Task<List<AppUser>> GetEnabledByCompany(bool isEnabled, string companyId)
 	{
 		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
 
-		if (!string.IsNullOrWhiteSpace(firstName))
-			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.FirstName, firstName));
+		dbQuery = dbQuery.Where(x => x.IsEnabled == isEnabled);
+		if (!string.IsNullOrWhiteSpace(companyId))
+			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.CompanyId, companyId));
 
 		return await dbQuery.AsNoTracking().ToListAsync();
 	}
@@ -121,19 +122,6 @@ public class AppUserService : IAppUserService
 		dbQuery = dbQuery.Include(x => x.Claims);
 		if (!string.IsNullOrWhiteSpace(lastName))
 			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.LastName, lastName));
-
-		return await dbQuery.AsNoTracking().ToListAsync();
-	}
-
-	public async Task<List<AppUser>> GetByExtId(string extId, string lastName, bool isEnabled)
-	{
-		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
-
-		if (!string.IsNullOrWhiteSpace(extId))
-			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.ExtId, extId));
-		if (!string.IsNullOrWhiteSpace(lastName))
-			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.LastName, lastName));
-		dbQuery = dbQuery.Where(x => x.IsEnabled == isEnabled);
 
 		return await dbQuery.AsNoTracking().ToListAsync();
 	}
@@ -156,7 +144,7 @@ public class AppUserService : IAppUserService
 		return await dbQuery.AsNoTracking().ToListAsync();
 	}
 
-	public async Task<List<AppUser>> GetForCoEnabled(string email, bool isEnabled, string companyId)
+	public async Task<List<AppUser>> GetByCompany(string email, bool isEnabled, string companyId)
 	{
 		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
 
@@ -169,11 +157,23 @@ public class AppUserService : IAppUserService
 		return await dbQuery.AsNoTracking().ToListAsync();
 	}
 
+	public async Task<List<AppUser>> GetByCompanyWithPaging(string companyId, int pageSize, int pageOffset)
+	{
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+
+		if (!string.IsNullOrWhiteSpace(companyId))
+			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.CompanyId, companyId));
+		if (pageSize > 0)
+			dbQuery = dbQuery.Skip(pageOffset * pageSize).Take(pageSize);
+
+		return await dbQuery.AsNoTracking().ToListAsync();
+	}
+
 	#endregion
 
 	#region Queries
 
-	public async Task<EntityList<AppUser>>QueryByExtIdSorted(QueryByExtIdSortedQuery query)
+	public async Task<EntityList<AppUser>>QueryByCompanySorted(QueryByCompanySortedQuery query)
 	{
 		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
 		var result = new EntityList<AppUser>();
@@ -181,6 +181,8 @@ public class AppUserService : IAppUserService
 		// Filters
 		if (!string.IsNullOrWhiteSpace(query.ExtId))
 			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.ExtId, query.ExtId));
+		if (!string.IsNullOrWhiteSpace(query.CompanyId))
+			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.CompanyId, query.CompanyId));
 
 		// Sorting
 		if (!string.IsNullOrWhiteSpace(query.SortBy))
@@ -191,7 +193,7 @@ public class AppUserService : IAppUserService
 		return result;
 	}
 
-	public async Task<EntityList<AppUser>>QueryByExtIdPaging(QueryByExtIdPagingQuery query)
+	public async Task<EntityList<AppUser>>QueryByCompanySortedPaging(QueryByCompanySortedPagingQuery query)
 	{
 		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
 		var result = new EntityList<AppUser>();
@@ -199,6 +201,8 @@ public class AppUserService : IAppUserService
 		// Filters
 		if (!string.IsNullOrWhiteSpace(query.ExtId))
 			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.ExtId, query.ExtId));
+		if (!string.IsNullOrWhiteSpace(query.CompanyId))
+			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.CompanyId, query.CompanyId));
 
 		// Paging
 		if (query.RecalcRowCount || query.GetRowCountOnly)

@@ -9,8 +9,12 @@
       "Name": "Db",
       "Enabled": true,
       "ContextNamespace": "Dyvenix.App1.Data",
-      "EntitiesNamespace": "Dyvenix.App1.Data.Entities",
-      "EnumsNamespace": "Dyvenix.App1.Data.Entities",
+      "EntitiesNamespace": "Dyvenix.App1.Common.Entities",
+      "EnumsNamespace": "Dyvenix.App1.Common.Entities",
+      "ServicesNamespace": "Dyvenix.App1.Server.Services",
+      "QueriesNamespace": "Dyvenix.App1.Server.Services.Queries",
+      "ControllersNamespace": "Dyvenix.App1.Server.Controllers",
+      "ApiClientsNamespace": "Dyvenix.App1.Common.ApiClients",
       "AddlUsings": [],
       "Entities": [
         {
@@ -95,7 +99,21 @@
           "AddlUsings": [
             "System.Data",
             "System.Text"
-          ]
+          ],
+          "Service": {
+            "Id": "00000000-0000-0000-0000-000000000000",
+            "Enabled": false,
+            "InclCreate": false,
+            "InclUpdate": false,
+            "InclDelete": false,
+            "InclController": false,
+            "ControllerVersion": null,
+            "AddlServiceUsings": [],
+            "ServiceClassAttributes": [],
+            "AddlControllerUsings": [],
+            "ControllerClassAttributes": [],
+            "Methods": []
+          }
         },
         {
           "Id": "fef93c39-8118-4929-a516-fbb014e24365",
@@ -130,12 +148,12 @@
               "AssocId": null,
               "IsPrimaryKey": false,
               "IsIdentity": false,
-              "Nullable": false,
+              "Nullable": true,
               "MaxLength": 100,
               "IsIndexed": true,
               "IsIndexUnique": false,
               "IsIndexClustered": false,
-              "DisplayOrder": 1,
+              "DisplayOrder": 0,
               "Attributes": [],
               "AddlUsings": []
             },
@@ -152,7 +170,7 @@
               "IsIndexed": false,
               "IsIndexUnique": false,
               "IsIndexClustered": false,
-              "DisplayOrder": 2,
+              "DisplayOrder": 1,
               "Attributes": [],
               "AddlUsings": []
             },
@@ -169,7 +187,7 @@
               "IsIndexed": true,
               "IsIndexUnique": false,
               "IsIndexClustered": false,
-              "DisplayOrder": 3,
+              "DisplayOrder": 2,
               "Attributes": [],
               "AddlUsings": []
             },
@@ -186,7 +204,7 @@
               "IsIndexed": true,
               "IsIndexUnique": true,
               "IsIndexClustered": false,
-              "DisplayOrder": 4,
+              "DisplayOrder": 3,
               "Attributes": [],
               "AddlUsings": []
             },
@@ -206,6 +224,23 @@
               "DisplayOrder": 7,
               "Attributes": [],
               "AddlUsings": []
+            },
+            {
+              "Id": "199356b1-4e76-40a0-b34e-237ede1f4717",
+              "Name": "CompanyId",
+              "PrimitiveTypeId": 1,
+              "EnumTypeId": null,
+              "AssocId": null,
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 10,
+              "IsIndexed": true,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
+              "DisplayOrder": 6,
+              "Attributes": [],
+              "AddlUsings": []
             }
           ],
           "NavProperties": [
@@ -218,7 +253,152 @@
             }
           ],
           "Attributes": [],
-          "AddlUsings": []
+          "AddlUsings": [],
+          "Service": {
+            "Id": "58fb1efe-1025-409c-935d-a19a0f9a22d4",
+            "Enabled": true,
+            "InclCreate": true,
+            "InclUpdate": true,
+            "InclDelete": true,
+            "InclController": true,
+            "ControllerVersion": "1.0",
+            "AddlServiceUsings": [],
+            "ServiceClassAttributes": [],
+            "AddlControllerUsings": [],
+            "ControllerClassAttributes": [],
+            "Methods": [
+              {
+                "Id": "c484799a-3a78-4dde-b2ad-7f0ec4935598",
+                "Name": "GetById",
+                "FilterPropertyIds": [
+                  "47618992-44bb-44ca-b414-27692e4a9768"
+                ],
+                "InclNavPropertyIds": [
+                  "84a3373f-6e7e-4879-9dec-4ed3523db354"
+                ],
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
+                "InclPaging": false,
+                "UseQuery": false
+              },
+              {
+                "Id": "3211c63a-2eb6-4270-a3de-ff8f05d517f6",
+                "Name": "GetByExtId",
+                "FilterPropertyIds": [
+                  "33e94fb6-db88-4837-a604-d5e08e844461"
+                ],
+                "InclNavPropertyIds": [],
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
+                "InclPaging": false,
+                "UseQuery": false
+              },
+              {
+                "Id": "5bbdd84e-46a3-4c00-a827-772ed5937ab2",
+                "Name": "GetEnabledByCompany",
+                "FilterPropertyIds": [
+                  "4f76b75c-ad78-4557-95c4-aeb82534dc68"
+                ],
+                "InclNavPropertyIds": [],
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": true,
+                "InclPaging": false,
+                "UseQuery": false
+              },
+              {
+                "Id": "3212b1e0-1c3a-4b19-8901-53e20a4105de",
+                "Name": "GetByLastNameWithClaims",
+                "FilterPropertyIds": [
+                  "96b41827-70c2-41e1-b7a4-d85e6c6c8925"
+                ],
+                "InclNavPropertyIds": [
+                  "84a3373f-6e7e-4879-9dec-4ed3523db354"
+                ],
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
+                "InclPaging": false,
+                "UseQuery": false
+              },
+              {
+                "Id": "5266fa27-4c47-4616-aee0-6f8750fdc628",
+                "Name": "QueryByCompanySorted",
+                "FilterPropertyIds": [
+                  "33e94fb6-db88-4837-a604-d5e08e844461"
+                ],
+                "InclNavPropertyIds": [],
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": true,
+                "InclPaging": false,
+                "UseQuery": true
+              },
+              {
+                "Id": "13017234-94f5-4df7-8263-f1d098984dc8",
+                "Name": "QueryByCompanySortedPaging",
+                "FilterPropertyIds": [
+                  "33e94fb6-db88-4837-a604-d5e08e844461"
+                ],
+                "InclNavPropertyIds": [],
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
+                "InclPaging": true,
+                "UseQuery": true
+              },
+              {
+                "Id": "8b9d572f-c05f-4c65-8e90-b0c5983f203f",
+                "Name": "GetAll",
+                "FilterPropertyIds": [],
+                "InclNavPropertyIds": [],
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
+                "InclPaging": false,
+                "UseQuery": false
+              },
+              {
+                "Id": "39dbbd16-a1d3-41b9-a2fa-c35cc75218a7",
+                "Name": "GetAllWithPaging",
+                "FilterPropertyIds": [],
+                "InclNavPropertyIds": [],
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
+                "InclPaging": true,
+                "UseQuery": false
+              },
+              {
+                "Id": "371dbc8f-5f1d-45f3-9cc2-bdc88cd19de3",
+                "Name": "GetByCompany",
+                "FilterPropertyIds": [
+                  "199356b1-4e76-40a0-b34e-237ede1f4717"
+                ],
+                "InclNavPropertyIds": [],
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
+                "InclPaging": false,
+                "UseQuery": false
+              },
+              {
+                "Id": "5a2c93ef-d47b-4904-a3cc-0003e68e5020",
+                "Name": "GetByCompanyWithPaging",
+                "FilterPropertyIds": [
+                  "199356b1-4e76-40a0-b34e-237ede1f4717"
+                ],
+                "InclNavPropertyIds": [],
+                "Attributes": [],
+                "DisplayOrder": 0,
+                "InclSorting": false,
+                "InclPaging": true,
+                "UseQuery": false
+              }
+            ]
+          }
         },
         {
           "Id": "7a69f8a2-87ca-45ae-8933-9413dd3ec23f",
@@ -370,7 +550,21 @@
           "AddlUsings": [
             "System.Linq",
             "System.Text"
-          ]
+          ],
+          "Service": {
+            "Id": "00000000-0000-0000-0000-000000000000",
+            "Enabled": false,
+            "InclCreate": false,
+            "InclUpdate": false,
+            "InclDelete": false,
+            "InclController": false,
+            "ControllerVersion": null,
+            "AddlServiceUsings": [],
+            "ServiceClassAttributes": [],
+            "AddlControllerUsings": [],
+            "ControllerClassAttributes": [],
+            "Methods": []
+          }
         }
       ],
       "Enums": [
@@ -417,7 +611,7 @@
         "InclHeader": true
       },
       "EntityGen": {
-        "OutputFolder": "..\\..\\src\\app1.data\\Entities",
+        "OutputFolder": "..\\..\\src\\app1.common\\Entities",
         "Id": "171722e6-9d5e-45c8-bacc-3a14e9e98fbc",
         "GeneratorType": 1,
         "TemplateFilepath": "Templates\\Entities.tmpl",
@@ -425,10 +619,26 @@
         "InclHeader": true
       },
       "EnumGen": {
-        "OutputFolder": "..\\..\\src\\app1.data\\Entities",
+        "OutputFolder": "..\\..\\src\\app1.common\\Entities",
         "Id": "22a7658a-8284-4b07-aa71-e915918620ff",
         "GeneratorType": 1,
         "TemplateFilepath": "Templates\\Enums.tmpl",
+        "Enabled": true,
+        "InclHeader": true
+      },
+      "ServiceGen": {
+        "OutputFolder": "..\\..\\src\\app1.server\\Services",
+        "QueryTemplateFilepath": "Templates\\Query.tmpl",
+        "QueryOutputFolder": "..\\..\\src\\app1.common\\Queries",
+        "ControllerTemplateFilepath": "Templates\\Controllers.tmpl",
+        "ControllerOutputFolder": "..\\..\\src\\app1.server\\Controllers",
+        "ApiClientTemplateFilepath": "Templates\\ApiClients.tmpl",
+        "ApiClientOutputFolder": "..\\..\\src\\app1.common\\ApiClients",
+        "ApiClientServicesExtTemplateFilepath": "Templates\\ApiClientCollExt.tmpl",
+        "ApiClientServicesExtOutputFilepath": "..\\..\\src\\App1.Common\\Config\\ApiClientCollExt.part.cs",
+        "Id": "35a7a4ff-6462-4399-90d3-4e6936df20b9",
+        "GeneratorType": 4,
+        "TemplateFilepath": "Templates\\Services.tmpl",
         "Enabled": true,
         "InclHeader": true
       }

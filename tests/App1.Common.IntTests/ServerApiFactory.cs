@@ -39,11 +39,11 @@ public class ServerApiFactory : WebApplicationFactory<Program>
 			});
 
 			// Override the default registration with an options that returns the in-memory database
-			services.AddSingleton<DbContextOptions<Db>>(sp => {
-				return new DbContextOptionsBuilder<Db>()
-					.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Unique DB per test
-					.Options;
-			});
+			//services.AddSingleton<DbContextOptions<Db>>(sp => {
+			//	return new DbContextOptionsBuilder<Db>()
+			//		.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Unique DB per test
+			//		.Options;
+			//});
 		});
 	}
 }

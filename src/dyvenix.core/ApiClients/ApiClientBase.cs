@@ -42,7 +42,7 @@ public abstract class ApiClientBase<T> where T : class
 		var httpResponse = await _httpClient.GetAsync(uri);
 
 		if (!httpResponse.IsSuccessStatusCode)
-			throw new HttpException((int)httpResponse.StatusCode, httpResponse.ReasonPhrase);
+			throw new HttpException((int)httpResponse.StatusCode, $"{(int)httpResponse.StatusCode} - {httpResponse.ReasonPhrase}");
 
 		if (httpResponse.StatusCode == HttpStatusCode.NoContent)
 			return default;

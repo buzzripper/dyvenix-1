@@ -1,0 +1,158 @@
+{
+  "Name": null,
+  "Description": null,
+  "Version": "1.0.0",
+  "ModelFilepath": "D:\\Code\\buzzripper\\dyvenix\\design\\Model\\Dyv2.gmdl",
+  "DbContexts": [
+    {
+      "Id": "00000000-0000-0000-0000-000000000000",
+      "Name": "DbContext",
+      "Enabled": true,
+      "ContextNamespace": null,
+      "EntitiesNamespace": null,
+      "EnumsNamespace": null,
+      "ServicesNamespace": null,
+      "QueriesNamespace": null,
+      "ControllersNamespace": null,
+      "ApiClientsNamespace": null,
+      "AddlUsings": [],
+      "Entities": [
+        {
+          "Id": "2eb8e877-3cb2-4576-b97e-a1f47d93448b",
+          "Name": "AccessClaim",
+          "Schema": null,
+          "TableName": null,
+          "Enabled": true,
+          "Namespace": "",
+          "Properties": [
+            {
+              "Id": "0d6bc36d-db40-4b0e-afa6-d8637f725d27",
+              "Name": "Id",
+              "IsPrimaryKey": true,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 0,
+              "IsIndexed": true,
+              "IsIndexUnique": true,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 4,
+                "Name": "Guid",
+                "CSType": "Guid",
+                "SqlType": "uniqueidentifier"
+              },
+              "EnumType": null,
+              "Assoc": null
+            },
+            {
+              "Id": "1a358be2-26ba-4b2d-9bc2-945dcf8fb7b2",
+              "Name": "ClaimName",
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": false,
+              "MaxLength": 100,
+              "IsIndexed": true,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 1,
+                "Name": "String",
+                "CSType": "string",
+                "SqlType": "nvarchar"
+              },
+              "EnumType": null,
+              "Assoc": null
+            },
+            {
+              "Id": "7cac7155-d8eb-4663-bbed-c14bae5759b2",
+              "Name": "ClaimValue",
+              "IsPrimaryKey": false,
+              "IsIdentity": false,
+              "Nullable": true,
+              "MaxLength": 200,
+              "IsIndexed": false,
+              "IsIndexUnique": false,
+              "IsIndexClustered": false,
+              "DisplayOrder": 0,
+              "Attributes": [],
+              "AddlUsings": [],
+              "PrimitiveType": {
+                "Id": 1,
+                "Name": "String",
+                "CSType": "string",
+                "SqlType": "nvarchar"
+              },
+              "EnumType": null,
+              "Assoc": null
+            }
+          ],
+          "NavProperties": [],
+          "Attributes": [],
+          "AddlUsings": [],
+          "Service": {
+            "Id": "00000000-0000-0000-0000-000000000000",
+            "Enabled": false,
+            "InclCreate": false,
+            "InclUpdate": false,
+            "InclDelete": false,
+            "InclController": false,
+            "ControllerVersion": null,
+            "AddlServiceUsings": [],
+            "ServiceClassAttributes": [],
+            "AddlControllerUsings": [],
+            "ControllerClassAttributes": [],
+            "Methods": []
+          }
+        }
+      ],
+      "Enums": [],
+      "Assocs": [],
+      "DbContextGen": {
+        "OutputFolder": null,
+        "Id": "f1b57ab3-e7f6-4eb8-b001-317fadcd86ef",
+        "GeneratorType": 0,
+        "TemplateFilepath": null,
+        "Enabled": false,
+        "InclHeader": false
+      },
+      "EntityGen": {
+        "OutputFolder": null,
+        "Id": "d120ed28-3c83-45f4-baa8-36ad6b51b595",
+        "GeneratorType": 1,
+        "TemplateFilepath": null,
+        "Enabled": false,
+        "InclHeader": false
+      },
+      "EnumGen": {
+        "OutputFolder": null,
+        "Id": "49e5f602-983f-448a-9433-2e28bdc67b59",
+        "GeneratorType": 1,
+        "TemplateFilepath": null,
+        "Enabled": false,
+        "InclHeader": false
+      },
+      "ServiceGen": {
+        "OutputFolder": null,
+        "QueryTemplateFilepath": null,
+        "QueryOutputFolder": null,
+        "ControllerTemplateFilepath": null,
+        "ControllerOutputFolder": null,
+        "ApiClientTemplateFilepath": null,
+        "ApiClientOutputFolder": null,
+        "ApiClientServicesExtTemplateFilepath": null,
+        "ApiClientServicesExtOutputFilepath": null,
+        "Id": "86d2b909-f9b4-4924-b9d6-823488c5f5d5",
+        "GeneratorType": 4,
+        "TemplateFilepath": null,
+        "Enabled": false,
+        "InclHeader": false
+      }
+    }
+  ]
+}

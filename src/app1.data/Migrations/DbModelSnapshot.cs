@@ -33,16 +33,16 @@ namespace Dyvenix.App1.Data.Migrations
 
                     b.Property<string>("ClaimName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ClaimValue")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex(new[] { "AppUserId" }, "IX_AccessClaim_AppUserId");
+
+                    b.HasIndex(new[] { "ClaimName" }, "IX_AccessClaim_ClaimName");
 
                     b.HasIndex(new[] { "Id" }, "IX_AccessClaim_Id")
                         .IsUnique();
@@ -57,31 +57,24 @@ namespace Dyvenix.App1.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CompanyId")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ExtId")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsEnabled")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -102,42 +95,43 @@ namespace Dyvenix.App1.Data.Migrations
 
             modelBuilder.Entity("Dyvenix.App1.Common.Entities.LogEvent", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Application")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CorrelationId")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Exception")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LogLevel")
-                        .HasColumnType("int");
-
                     b.Property<string>("Message")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Source")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime?>("Timestamp")
-                        .HasColumnType("datetime");
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex(new[] { "Application" }, "IX_LogEvent_Application");
 
+                    b.HasIndex(new[] { "CorrelationId" }, "IX_LogEvent_CorrelationId");
+
                     b.HasIndex(new[] { "Id" }, "IX_LogEvent_Id")
                         .IsUnique();
+
+                    b.HasIndex(new[] { "Source" }, "IX_LogEvent_Source");
 
                     b.HasIndex(new[] { "Timestamp" }, "IX_LogEvent_Timestamp");
 

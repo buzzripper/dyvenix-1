@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/2/2025 7:12 AM. Any changes made to it will be lost.
+// This file was auto-generated 4/4/2025 2:36 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using Microsoft.Extensions.DependencyInjection;
 using Dyvenix.App1.Common.ApiClients;

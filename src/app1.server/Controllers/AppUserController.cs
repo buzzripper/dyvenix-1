@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/4/2025 2:36 PM. Any changes made to it will be lost.
+// This file was auto-generated 4/4/2025 4:11 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -13,6 +13,7 @@ using Dyvenix.Logging;
 using Dyvenix.App1.Server.Services;
 using Dyvenix.App1.Server.Services.Queries;
 using Dyvenix.App1.Common.Entities;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Dyvenix.App1.Server.Controllers;
 
@@ -34,7 +35,7 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	public async Task<ActionResult> CreateAppUser(AppUser appUser)
 	{
 		try {
-			var svcResponse =new ServiceResponse();
+			var svcResponse = new ServiceResponse();
 
 			await _appUserService.CreateAppUser(appUser);
 
@@ -50,7 +51,7 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	public async Task<ActionResult> UpdateAppUser(AppUser appUser)
 	{
 		try {
-			var svcResponse =new ServiceResponse();
+			var svcResponse = new ServiceResponse();
 
 			await _appUserService.UpdateAppUser(appUser);
 
@@ -66,7 +67,7 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	public async Task<ActionResult> DeleteAppUser(Guid id)
 	{
 		try {
-			var svcResponse =new ServiceResponse();
+			var svcResponse = new ServiceResponse();
 
 			await _appUserService.DeleteAppUser(id);
 
@@ -110,8 +111,10 @@ public class AppUserController : ApiControllerBase<AppUserController>
 		}
 	}
 
-	[HttpGet, Route("[action]/{isEnabled}/{companyId}")]
-	public async Task<ActionResult<List<AppUser>>> GetEnabledByCompany(bool isEnabled, string companyId)
+	[HttpGet]
+	[Route("[action]/{isEnabled}/{companyId}")]
+	[Route("[action]/{isEnabled}")]
+	public async Task<ActionResult<List<AppUser>>> GetEnabledByCompany(bool isEnabled, [FromRoute] string companyId = null)
 	{
 		try {
 			return await _appUserService.GetEnabledByCompany(isEnabled, companyId);

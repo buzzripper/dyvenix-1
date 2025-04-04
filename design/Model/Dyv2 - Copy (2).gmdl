@@ -1085,7 +1085,6 @@
         "DbContextGen": {
           "$id": "164",
           "OutputFolder": "..\\\\..\\\\src\\\\app1.data\\\\Contexts",
-          "ContextNamespace": "Dyvenix.App1.Data",
           "Id": "f1b57ab3-e7f6-4eb8-b001-317fadcd86ef",
           "GeneratorType": 0,
           "TemplateFilepath": "Templates\\\\DbContext.tmpl",
@@ -1095,7 +1094,6 @@
         "EntityGen": {
           "$id": "165",
           "OutputFolder": "..\\\\..\\\\src\\\\app1.common\\\\Entities",
-          "EntitiesNamespace": "Dyvenix.App1.Common.Entities",
           "Id": "d120ed28-3c83-45f4-baa8-36ad6b51b595",
           "GeneratorType": 1,
           "TemplateFilepath": "Templates\\\\Entities.tmpl",
@@ -1105,7 +1103,6 @@
         "EnumGen": {
           "$id": "166",
           "OutputFolder": "..\\\\..\\\\src\\\\app1.common\\\\Entities",
-          "EnumsNamespace": "Dyvenix.App1.Common.Entities",
           "Id": "49e5f602-983f-448a-9433-2e28bdc67b59",
           "GeneratorType": 1,
           "TemplateFilepath": "Templates\\\\Enums.tmpl",
@@ -1123,10 +1120,6 @@
           "ApiClientOutputFolder": "..\\\\..\\\\src\\\\app1.common\\\\ApiClients",
           "ApiClientServicesExtTemplateFilepath": "Templates\\\\ApiClientCollExt.tmpl",
           "ApiClientServicesExtOutputFilepath": "..\\\\..\\\\src\\\\App1.Common\\\\Config\\\\ApiClientCollExt.part.cs",
-          "ServicesNamespace": "Dyvenix.App1.Server.Services",
-          "QueriesNamespace": "Dyvenix.App1.Server.Services.Queries",
-          "ControllersNamespace": "Dyvenix.App1.Server.Controllers",
-          "ApiClientsNamespace": "Dyvenix.App1.Common.ApiClients",
           "Id": "86d2b909-f9b4-4924-b9d6-823488c5f5d5",
           "GeneratorType": 4,
           "TemplateFilepath": "Templates\\\\Services.tmpl",

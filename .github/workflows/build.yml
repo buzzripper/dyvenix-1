@@ -1,15 +1,15 @@
 name: Build
-# on:
-  # workflow_dispatch:
-    # inputs:
-    #   environment:
-    #     description: 'Environment to deploy to. Dev is default'
-    #     default: 'Dev'
-    #     type: choice
-    #     options:
-    #     - Dev
-    #     - QA
-    #     - Prod
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to. Dev is default'
+        default: 'Dev'
+        type: choice
+        options:
+        - Dev
+        - QA
+        - Prod
 
   # push:
   #   branches:

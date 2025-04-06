@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/4/2025 4:11 PM. Any changes made to it will be lost.
+// This file was auto-generated 4/6/2025 11:44 AM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Dyvenix.Core.ApiClients;
 using Dyvenix.Core.Entities;
-using Dyvenix.App1.Server.Services.Queries;
+using Dyvenix.App1.Common.Queries;
 using Dyvenix.App1.Common.Entities;
 
 namespace Dyvenix.App1.Common.ApiClients;
@@ -17,10 +17,9 @@ public interface IAppUserApiClient
 	Task<AppUser> CreateAppUser(AppUser appUser);
 	Task UpdateAppUser(AppUser appUser);
 	Task DeleteAppUser(Guid id);
-	Task<AppUser> GetById(Guid id);
 	Task<List<AppUser>> GetAll();
+	Task<List<AppUser>> GetByCompanyId(string companyId);
 	Task<List<AppUser>> GetAllWithPaging(int pageSize, int pageOffset);
-	Task<List<AppUser>> GetEnabledByCompany(bool isEnabled, string companyId);
 }
 public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 {
@@ -52,14 +51,6 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 
 	#endregion
 
-	#region Single Methods
-
-	public async Task<AppUser> GetById(Guid id)
-	{
-		return await GetAsync<AppUser>($"api/v1/AppUser/GetById/{id}");
-	}
-
-	#endregion
 
 	#region List Methods
 
@@ -68,14 +59,14 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetAll");
 	}
 
+	public async Task<List<AppUser>> GetByCompanyId(string companyId)
+	{
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByCompanyId/{companyId}");
+	}
+
 	public async Task<List<AppUser>> GetAllWithPaging(int pageSize, int pageOffset)
 	{
 		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetAllWithPaging/{pageSize}/{pageOffset}");
-	}
-
-	public async Task<List<AppUser>> GetEnabledByCompany(bool isEnabled, string companyId)
-	{
-		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetEnabledByCompany/{isEnabled}/{companyId}");
 	}
 
 	#endregion

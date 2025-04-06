@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/4/2025 4:11 PM. Any changes made to it will be lost.
+// This file was auto-generated 4/6/2025 11:44 AM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -11,14 +11,13 @@ using Dyvenix.Core.DTOs;
 using Dyvenix.Core.Entities;
 using Dyvenix.Logging;
 using Dyvenix.App1.Server.Services;
-using Dyvenix.App1.Server.Services.Queries;
+using Dyvenix.App1.Common.Queries;
 using Dyvenix.App1.Common.Entities;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace Dyvenix.App1.Server.Controllers;
 
 [ApiController]
-[ApiVersion(1.0)]
+[ApiVersion()]
 [Route("api/v{version:apiVersion}/[controller]")]
 public class AppUserController : ApiControllerBase<AppUserController>
 {
@@ -35,7 +34,7 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	public async Task<ActionResult> CreateAppUser(AppUser appUser)
 	{
 		try {
-			var svcResponse = new ServiceResponse();
+			var svcResponse =new ServiceResponse();
 
 			await _appUserService.CreateAppUser(appUser);
 
@@ -51,7 +50,7 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	public async Task<ActionResult> UpdateAppUser(AppUser appUser)
 	{
 		try {
-			var svcResponse = new ServiceResponse();
+			var svcResponse =new ServiceResponse();
 
 			await _appUserService.UpdateAppUser(appUser);
 
@@ -67,7 +66,7 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	public async Task<ActionResult> DeleteAppUser(Guid id)
 	{
 		try {
-			var svcResponse = new ServiceResponse();
+			var svcResponse =new ServiceResponse();
 
 			await _appUserService.DeleteAppUser(id);
 
@@ -80,16 +79,6 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	}
 
 
-	[HttpGet, Route("[action]/{id}")]
-	public async Task<ActionResult<AppUser>> GetById(Guid id)
-	{
-		try {
-			return await _appUserService.GetById(id);
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
 
 	[HttpGet, Route("[action]")]
 	public async Task<ActionResult<List<AppUser>>> GetAll()
@@ -101,23 +90,21 @@ public class AppUserController : ApiControllerBase<AppUserController>
 		}
 	}
 
-	[HttpGet, Route("[action]/{pageSize}/{pageOffset}")]
-	public async Task<ActionResult<List<AppUser>>> GetAllWithPaging(int pageSize = 0, int pageOffset = 0)
+	[HttpGet, Route("[action]/{companyId}")]
+	public async Task<ActionResult<List<AppUser>>> GetByCompanyId(string companyId)
 	{
 		try {
-			return await _appUserService.GetAllWithPaging(pageSize, pageOffset);
+			return await _appUserService.GetByCompanyId(companyId);
 		} catch (Exception ex) {
 			return LogErrorAndReturnErrorResponse(ex);
 		}
 	}
 
-	[HttpGet]
-	[Route("[action]/{isEnabled}/{companyId}")]
-	[Route("[action]/{isEnabled}")]
-	public async Task<ActionResult<List<AppUser>>> GetEnabledByCompany(bool isEnabled, [FromRoute] string companyId = null)
+	[HttpGet, Route("[action]/{pageSize}/{pageOffset}")]
+	public async Task<ActionResult<List<AppUser>>> GetAllWithPaging(int pageSize = 0, int pageOffset = 0)
 	{
 		try {
-			return await _appUserService.GetEnabledByCompany(isEnabled, companyId);
+			return await _appUserService.GetAllWithPaging(pageSize, pageOffset);
 		} catch (Exception ex) {
 			return LogErrorAndReturnErrorResponse(ex);
 		}

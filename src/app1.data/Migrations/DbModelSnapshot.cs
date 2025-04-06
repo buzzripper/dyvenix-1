@@ -33,7 +33,7 @@ namespace Dyvenix.App1.Data.Migrations
 
                     b.Property<string>("ClaimName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
@@ -41,8 +41,6 @@ namespace Dyvenix.App1.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex(new[] { "AppUserId" }, "IX_AccessClaim_AppUserId");
-
-                    b.HasIndex(new[] { "ClaimName" }, "IX_AccessClaim_ClaimName");
 
                     b.HasIndex(new[] { "Id" }, "IX_AccessClaim_Id")
                         .IsUnique();
@@ -57,16 +55,18 @@ namespace Dyvenix.App1.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CompanyId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ExtId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsEnabled")
@@ -78,10 +78,7 @@ namespace Dyvenix.App1.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "CompanyId" }, "IX_AppUser_CompanyId");
-
-                    b.HasIndex(new[] { "Email" }, "IX_AppUser_Email")
-                        .IsUnique();
+                    b.HasIndex(new[] { "Email" }, "IX_AppUser_Email");
 
                     b.HasIndex(new[] { "ExtId" }, "IX_AppUser_ExtId");
 
@@ -113,7 +110,7 @@ namespace Dyvenix.App1.Data.Migrations
 
                     b.Property<string>("Message")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Source")
                         .IsRequired()
@@ -130,6 +127,8 @@ namespace Dyvenix.App1.Data.Migrations
 
                     b.HasIndex(new[] { "Id" }, "IX_LogEvent_Id")
                         .IsUnique();
+
+                    b.HasIndex(new[] { "Message" }, "IX_LogEvent_Message");
 
                     b.HasIndex(new[] { "Source" }, "IX_LogEvent_Source");
 

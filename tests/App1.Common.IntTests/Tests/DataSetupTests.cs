@@ -66,17 +66,18 @@ public class DataSetupTests : IClassFixture<DataSetupTestsFixture>, IDisposable
 
 	public void Dispose()
 	{
-		var dataMgr = _serviceProvider.GetService<IDataManager>();
-		var appUsersToCreate = dataMgr.ResetDataSet(DataSetType.Default);
-
-		_output.WriteLine("Done!");
+		
 	}
 
 	#endregion
 
 	[Fact]
-	public void SetupData()
+	public async Task SetupData()
 	{
+		using var dataMgr = _serviceProvider.GetService<IDataManager>();
+		var appUsersToCreate = await dataMgr.ResetDataSet(DataSetType.Default);
+
+		_output.WriteLine("Done!");
 	}
 }
 

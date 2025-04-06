@@ -1,6 +1,6 @@
 name: Build
-on:
-  workflow_dispatch:
+# on:
+  # workflow_dispatch:
     # inputs:
     #   environment:
     #     description: 'Environment to deploy to. Dev is default'
@@ -11,7 +11,7 @@ on:
     #     - QA
     #     - Prod
 
-  push:
+  # push:
   #   branches:
   #   - main
 

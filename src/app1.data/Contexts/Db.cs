@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/6/2025 11:44 AM. Any changes made to it will be lost.
+// This file was auto-generated 4/6/2025 5:06 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using Microsoft.EntityFrameworkCore;
 using Dyvenix.App1.Common.Entities;
@@ -17,6 +17,8 @@ public partial class Db : DbContext
     # region Properties
 
 	public DbSet<AppUser> AppUser { get; set; }
+	public DbSet<AccessClaim> AccessClaim { get; set; }
+	public DbSet<LogEvent> LogEvent { get; set; }
 
     # endregion
 
@@ -35,11 +37,54 @@ public partial class Db : DbContext
 			entity.Property(e => e.LastName).IsRequired(true);
 			entity.Property(e => e.Email).IsRequired(true);
 			entity.Property(e => e.CompanyId).IsRequired(false);
+			entity.Property(e => e.ExtId).IsRequired(true);
 
 			// Indexes
 			entity.HasIndex(e => e.Id, "IX_AppUser_Id").IsUnique();
 			entity.HasIndex(e => e.LastName, "IX_AppUser_LastName");
 			entity.HasIndex(e => e.Email, "IX_AppUser_Email");
+			entity.HasIndex(e => e.ExtId, "IX_AppUser_ExtId");
+		});
+
+		modelBuilder.Entity<AccessClaim>(entity =>
+		{
+			entity.ToTable("AccessClaim");
+
+			// PK
+			entity.HasKey(e => e.Id);
+
+			// Properties
+			entity.Property(e => e.ClaimName).IsRequired(true);
+			entity.Property(e => e.ClaimValue).IsRequired(false);
+			entity.Property(e => e.AppUserId).IsRequired(true);
+
+			// Indexes
+			entity.HasIndex(e => e.Id, "IX_AccessClaim_Id").IsUnique();
+			entity.HasIndex(e => e.AppUserId, "IX_AccessClaim_AppUserId");
+		});
+
+		modelBuilder.Entity<LogEvent>(entity =>
+		{
+			entity.ToTable("LogEvents", "Logs");
+
+			// PK
+			entity.HasKey(e => e.Id);
+
+			// Properties
+			entity.Property(e => e.Message).IsRequired(true);
+			entity.Property(e => e.Timestamp).IsRequired(true);
+			entity.Property(e => e.Exception).IsRequired(true);
+			entity.Property(e => e.Application).IsRequired(true);
+			entity.Property(e => e.Source).IsRequired(true);
+			entity.Property(e => e.CorrelationId).IsRequired(true);
+
+			// Indexes
+			entity.HasIndex(e => e.Id, "IX_LogEvent_Id").IsUnique();
+			entity.HasIndex(e => e.Message, "IX_LogEvent_Message");
+			entity.HasIndex(e => e.Timestamp, "IX_LogEvent_Timestamp");
+			entity.HasIndex(e => e.Application, "IX_LogEvent_Application");
+			entity.HasIndex(e => e.Source, "IX_LogEvent_Source");
+			entity.HasIndex(e => e.CorrelationId, "IX_LogEvent_CorrelationId");
 		});
 
 

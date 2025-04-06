@@ -25,7 +25,7 @@ public class DefaultDataGenerator
 			string nameCombination = $"{firstName} {lastName}";
 
 			if (nameSet.Contains(nameCombination)) {
-				continue; // Ensure unique FirstName/LastName combinations
+				continue;
 			}
 			nameSet.Add(nameCombination);
 
@@ -38,7 +38,7 @@ public class DefaultDataGenerator
 
 			var appUser = new AppUser {
 				Id = Guid.NewGuid(),
-				ExtId = random.NextDouble() < 0.15 ? null : Guid.NewGuid().ToString(), // 15% chance of null ExtId
+				ExtId = Guid.NewGuid().ToString(),
 				FirstName = firstName,
 				LastName = lastName,
 				Email = email,

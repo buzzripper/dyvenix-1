@@ -19,12 +19,12 @@ namespace Dyvenix.App1.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ExtId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IsEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    CompanyId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    CompanyId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExtId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -37,7 +37,7 @@ namespace Dyvenix.App1.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Exception = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Application = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -55,7 +55,7 @@ namespace Dyvenix.App1.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AppUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ClaimName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -75,26 +75,15 @@ namespace Dyvenix.App1.Data.Migrations
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AccessClaim_ClaimName",
-                table: "AccessClaim",
-                column: "ClaimName");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_AccessClaim_Id",
                 table: "AccessClaim",
                 column: "Id",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_AppUser_CompanyId",
-                table: "AppUser",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_AppUser_Email",
                 table: "AppUser",
-                column: "Email",
-                unique: true);
+                column: "Email");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppUser_ExtId",
@@ -130,6 +119,12 @@ namespace Dyvenix.App1.Data.Migrations
                 table: "LogEvents",
                 column: "Id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LogEvent_Message",
+                schema: "Logs",
+                table: "LogEvents",
+                column: "Message");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LogEvent_Source",

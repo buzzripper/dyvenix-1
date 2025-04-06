@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/6/2025 11:44 AM. Any changes made to it will be lost.
+// This file was auto-generated 4/6/2025 5:06 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ using Dyvenix.App1.Common.Entities;
 namespace Dyvenix.App1.Server.Controllers;
 
 [ApiController]
-[ApiVersion()]
+[ApiVersion(1.0)]
 [Route("api/v{version:apiVersion}/[controller]")]
 public class AppUserController : ApiControllerBase<AppUserController>
 {
@@ -79,6 +79,16 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	}
 
 
+	[HttpGet, Route("[action]/{id}")]
+	public async Task<ActionResult<AppUser>> GetById(Guid id)
+	{
+		try {
+			return await _appUserService.GetById(id);
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
+
 
 	[HttpGet, Route("[action]")]
 	public async Task<ActionResult<List<AppUser>>> GetAll()
@@ -105,6 +115,16 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	{
 		try {
 			return await _appUserService.GetAllWithPaging(pageSize, pageOffset);
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
+
+	[HttpGet, Route("[action]/{isEnabled}/{companyId}")]
+	public async Task<ActionResult<List<AppUser>>> GetEnabledByCompany(bool isEnabled, string companyId)
+	{
+		try {
+			return await _appUserService.GetEnabledByCompany(isEnabled, companyId);
 		} catch (Exception ex) {
 			return LogErrorAndReturnErrorResponse(ex);
 		}

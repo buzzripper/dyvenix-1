@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace App1.Tests.Common.Data;
+namespace Dyvenix.App1.Tests.Common.Data;
 
 public interface IDataManager : IDisposable
 {

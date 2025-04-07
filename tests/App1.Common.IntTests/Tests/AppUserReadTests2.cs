@@ -10,9 +10,9 @@ namespace Dyvenix.App1.Common.IntTests.Tests;
 
 #region Fixture
 
-public class AppUserReadTestsFixture : IClassFixture<GlobalTestFixture>, IDisposable
+public class AppUserReadTestsFixture2 : IClassFixture<GlobalTestFixture>, IDisposable
 {
-	public AppUserReadTestsFixture(GlobalTestFixture globalFixture)
+	public AppUserReadTestsFixture2(GlobalTestFixture globalFixture)
 	{
 		ServerApiFactory = new ServerApiFactory();
 		ServiceProvider = ServerApiFactory.Services;
@@ -39,7 +39,7 @@ public class AppUserReadTestsFixture : IClassFixture<GlobalTestFixture>, IDispos
 #endregion
 
 [Collection("Global Collection")]
-public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposable
+public class AppUserReadTests2 : IClassFixture<AppUserReadTestsFixture>, IDisposable
 {
 	private static readonly Random _random = new Random();
 
@@ -52,7 +52,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 
 	#region Ctors / Init
 
-	public AppUserReadTests(AppUserReadTestsFixture classFixture, ITestOutputHelper output)
+	public AppUserReadTests2(AppUserReadTestsFixture classFixture, ITestOutputHelper output)
 	{
 		_apiClient = classFixture.AppUserApiClient;
 		_dataSet = classFixture.DataSet;

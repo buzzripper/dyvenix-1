@@ -1,8 +1,8 @@
 ﻿
-namespace App1.Common.IntTests;
+namespace Dyvenix.App1.Common.IntTests;
 
 [CollectionDefinition("Global Collection")]
 public class GlobalCollection : ICollectionFixture<GlobalTestFixture>
 {
-    // No code needed here, xUnit uses this to associate tests with the fixture.
+	// No code needed here, xUnit uses this to associate tests with the fixture.
 }

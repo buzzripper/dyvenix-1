@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace App1.Common.IntTests;
+﻿namespace Dyvenix.App1.Common.IntTests;
 
 public class GlobalTestFixture
 {

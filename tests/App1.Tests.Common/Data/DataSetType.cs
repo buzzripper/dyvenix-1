@@ -1,4 +1,4 @@
-﻿namespace App1.Tests.Common.Data;
+﻿namespace Dyvenix.App1.Tests.Common.Data;
 
 public enum DataSetType
 {

@@ -6,7 +6,7 @@
 //using System.Threading.Tasks;
 //using Xunit.Abstractions;
 
-//namespace App1.Common.IntTests.Tests;
+//namespace Dyvenix.App1.Common.IntTests.Tests;
 
 //#region Fixture
 

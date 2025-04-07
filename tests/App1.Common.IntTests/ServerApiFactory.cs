@@ -6,13 +6,9 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Dyvenix.App1.Common.Config;
-using App1.Tests.Common.Data;
-using Dyvenix.App1.Data.Config;
-using Dyvenix.App1.Data;
-using Microsoft.EntityFrameworkCore;
-using System;
+using Dyvenix.App1.Tests.Common.Data;
 
-namespace App1.Common.IntTests;
+namespace Dyvenix.App1.Common.IntTests;
 
 public class ServerApiFactory : WebApplicationFactory<Program>
 {

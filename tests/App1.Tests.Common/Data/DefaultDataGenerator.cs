@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace App1.Tests.Common.Data;
+namespace Dyvenix.App1.Tests.Common.Data;
 
 public class DefaultDataGenerator
 {
@@ -43,7 +43,9 @@ public class DefaultDataGenerator
 				LastName = lastName,
 				Email = email,
 				IsEnabled = random.NextDouble() >= 0.15, // 15% chance of IsEnabled being false
-				CompanyId = companyIds[random.Next(companyIds.Length)]
+				CompanyId = companyIds[random.Next(companyIds.Length)],
+				GroupCode = random.NextDouble() >= 0.15 ? random.Next(1, 10) : null,
+				UserType = (UserType)random.Next(0, 3) // Randomly assign UserType between 0 and 2
 			};
 
 			// Add 0-8 AccessClaims to each AppUser

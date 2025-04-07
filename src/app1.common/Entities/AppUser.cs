@@ -1,7 +1,8 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/6/2025 5:06 PM. Any changes made to it will be lost.
+// This file was auto-generated 4/6/2025 10:15 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace Dyvenix.App1.Common.Entities;
@@ -18,6 +19,9 @@ public partial class AppUser
 	public string Email { get; set; }
 	public string CompanyId { get; set; }
 	public string ExtId { get; set; }
+	public int? GroupCode { get; set; }
+	[JsonConverter(typeof(JsonStringEnumConverter))]
+	public UserType UserType { get; set; }
 
 	// Navigation Properties
 	public virtual ICollection<AccessClaim> Claims { get; set; } = new List<AccessClaim>();
@@ -32,5 +36,7 @@ public partial class AppUser
 		public const string Email = nameof(AppUser.Email);
 		public const string CompanyId = nameof(AppUser.CompanyId);
 		public const string ExtId = nameof(AppUser.ExtId);
+		public const string GroupCode = nameof(AppUser.GroupCode);
+		public const string UserType = nameof(AppUser.UserType);
     }
 }

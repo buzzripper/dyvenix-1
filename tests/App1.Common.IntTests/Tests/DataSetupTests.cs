@@ -1,18 +1,13 @@
-﻿using App1.Tests.Common.Data;
-using Dyvenix.App1.Common.ApiClients;
-using Dyvenix.App1.Common.Config;
-using Dyvenix.App1.Common.Entities;
-using Dyvenix.App1.Data.Config;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
 using Xunit.Abstractions;
+using Dyvenix.App1.Data.Config;
+using Dyvenix.App1.Tests.Common.Data;
 
-namespace App1.Common.IntTests.Tests;
+namespace Dyvenix.App1.Common.IntTests.Tests;
 
 #region Fixture
 
@@ -66,7 +61,7 @@ public class DataSetupTests : IClassFixture<DataSetupTestsFixture>, IDisposable
 
 	public void Dispose()
 	{
-		
+
 	}
 
 	#endregion

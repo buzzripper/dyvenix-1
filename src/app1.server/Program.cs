@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System;
+using System.Text.Json.Serialization;
 
 //const string cRootConfigSectionName = "ApplicationConfig";
 
@@ -30,7 +31,11 @@ builder.Services.AddAppServices(appConfig);
 builder.Services.AddDyvenixAuthServices(appConfig.AuthConfig);
 builder.Services.AddDyvenixDataServices(appConfig.DataConfig);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+	.AddJsonOptions(options => {
+		options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+	});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerServices(appConfig.AuthConfig.Enabled);
 builder.Services.AddHttpClient();

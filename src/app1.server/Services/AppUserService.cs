@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/6/2025 5:06 PM. Any changes made to it will be lost.
+// This file was auto-generated 4/6/2025 10:15 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -23,8 +23,15 @@ public interface IAppUserService
 	Task<AppUser> GetById(Guid id);
 	Task<List<AppUser>> GetAll();
 	Task<List<AppUser>> GetByCompanyId(string companyId);
-	Task<List<AppUser>> GetAllWithPaging(int pageSize, int pageOffset);
-	Task<List<AppUser>> GetEnabledByCompany(bool isEnabled, string companyId);
+	Task<List<AppUser>> GetAllWithPaging(int pageSize = 0, int pageOffset = 0);
+	Task<List<AppUser>> GetEnabledByCompany(string companyId);
+	Task<List<AppUser>> GetByCompanyExtId(string companyId, string? extId = null);
+	Task<List<AppUser>> GetByCompanyExtIdWPging(string companyId, string? extId = null, int pageSize = 0, int pageOffset = 0);
+	Task<List<AppUser>> GetByGroupCode(int groupCode);
+	Task<List<AppUser>> GetByGroupCodeWPging(int groupCode, int pageSize = 0, int pageOffset = 0);
+	Task<List<AppUser>> GetByUserType(UserType userType);
+	Task<List<AppUser>> GetByUserTypeWPging(UserType userType, int pageSize = 0, int pageOffset = 0);
+	Task<List<AppUser>> GetEnabledByUserTypeWPging(UserType? userType = null, int pageSize = 0, int pageOffset = 0);
 }
 
 public class AppUserService : IAppUserService
@@ -102,7 +109,7 @@ public class AppUserService : IAppUserService
 		return await dbQuery.AsNoTracking().ToListAsync();
 	}
 
-	public async Task<List<AppUser>> GetAllWithPaging(int pageSize, int pageOffset)
+	public async Task<List<AppUser>> GetAllWithPaging(int pageSize = 0, int pageOffset = 0)
 	{
 		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
 
@@ -112,13 +119,99 @@ public class AppUserService : IAppUserService
 		return await dbQuery.AsNoTracking().ToListAsync();
 	}
 
-	public async Task<List<AppUser>> GetEnabledByCompany(bool isEnabled, string companyId)
+	public async Task<List<AppUser>> GetEnabledByCompany(string companyId)
 	{
 		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
 
-		dbQuery = dbQuery.Where(x => x.IsEnabled == isEnabled);
 		if (!string.IsNullOrWhiteSpace(companyId))
 			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.CompanyId, companyId));
+
+		// Internal
+		dbQuery = dbQuery.Where(x => x.IsEnabled == true);
+
+		return await dbQuery.AsNoTracking().ToListAsync();
+	}
+
+	public async Task<List<AppUser>> GetByCompanyExtId(string companyId, string? extId = null)
+	{
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+
+		if (!string.IsNullOrWhiteSpace(companyId))
+			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.CompanyId, companyId));
+		// Optional
+		if (!string.IsNullOrWhiteSpace(extId))
+			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.ExtId, extId));
+
+		return await dbQuery.AsNoTracking().ToListAsync();
+	}
+
+	public async Task<List<AppUser>> GetByCompanyExtIdWPging(string companyId, string? extId = null, int pageSize = 0, int pageOffset = 0)
+	{
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+
+		if (!string.IsNullOrWhiteSpace(companyId))
+			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.CompanyId, companyId));
+		// Optional
+		if (!string.IsNullOrWhiteSpace(extId))
+			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.ExtId, extId));
+		if (pageSize > 0)
+			dbQuery = dbQuery.Skip(pageOffset * pageSize).Take(pageSize);
+
+		return await dbQuery.AsNoTracking().ToListAsync();
+	}
+
+	public async Task<List<AppUser>> GetByGroupCode(int groupCode)
+	{
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+
+		dbQuery = dbQuery.Where(x => x.GroupCode == groupCode);
+
+		return await dbQuery.AsNoTracking().ToListAsync();
+	}
+
+	public async Task<List<AppUser>> GetByGroupCodeWPging(int groupCode, int pageSize = 0, int pageOffset = 0)
+	{
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+
+		dbQuery = dbQuery.Where(x => x.GroupCode == groupCode);
+		if (pageSize > 0)
+			dbQuery = dbQuery.Skip(pageOffset * pageSize).Take(pageSize);
+
+		return await dbQuery.AsNoTracking().ToListAsync();
+	}
+
+	public async Task<List<AppUser>> GetByUserType(UserType userType)
+	{
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+
+		dbQuery = dbQuery.Where(x => x.UserType == userType);
+
+		return await dbQuery.AsNoTracking().ToListAsync();
+	}
+
+	public async Task<List<AppUser>> GetByUserTypeWPging(UserType userType, int pageSize = 0, int pageOffset = 0)
+	{
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+
+		dbQuery = dbQuery.Where(x => x.UserType == userType);
+		if (pageSize > 0)
+			dbQuery = dbQuery.Skip(pageOffset * pageSize).Take(pageSize);
+
+		return await dbQuery.AsNoTracking().ToListAsync();
+	}
+
+	public async Task<List<AppUser>> GetEnabledByUserTypeWPging(UserType? userType = null, int pageSize = 0, int pageOffset = 0)
+	{
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+
+		// Optional
+		if (userType.HasValue)
+			dbQuery = dbQuery.Where(x => x.UserType == userType);
+
+		// Internal
+		dbQuery = dbQuery.Where(x => x.IsEnabled == true);
+		if (pageSize > 0)
+			dbQuery = dbQuery.Skip(pageOffset * pageSize).Take(pageSize);
 
 		return await dbQuery.AsNoTracking().ToListAsync();
 	}

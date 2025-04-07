@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using Microsoft.OpenApi.Any;
+using System;
 
 namespace Dyvenix.App1.Server.Config;
 
@@ -43,6 +45,7 @@ public static partial class ServiceCollExt
 
 		// Register Swagger
 		services.AddEndpointsApiExplorer();
+
 		services.AddSwaggerGen(options => {
 			var provider = services.BuildServiceProvider()
 							 .GetRequiredService<IApiVersionDescriptionProvider>();

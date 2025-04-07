@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/6/2025 5:06 PM. Any changes made to it will be lost.
+// This file was auto-generated 4/6/2025 10:15 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using Microsoft.EntityFrameworkCore;
 using Dyvenix.App1.Common.Entities;
@@ -33,11 +33,13 @@ public partial class Db : DbContext
 
 			// Properties
 			entity.Property(e => e.IsEnabled).IsRequired(true);
-			entity.Property(e => e.FirstName).IsRequired(true);
-			entity.Property(e => e.LastName).IsRequired(true);
-			entity.Property(e => e.Email).IsRequired(true);
-			entity.Property(e => e.CompanyId).IsRequired(false);
-			entity.Property(e => e.ExtId).IsRequired(true);
+			entity.Property(e => e.FirstName).IsRequired(true).HasMaxLength(100);
+			entity.Property(e => e.LastName).IsRequired(true).HasMaxLength(100);
+			entity.Property(e => e.Email).IsRequired(true).HasMaxLength(200);
+			entity.Property(e => e.CompanyId).IsRequired(false).HasMaxLength(10);
+			entity.Property(e => e.ExtId).IsRequired(true).HasMaxLength(50);
+			entity.Property(e => e.GroupCode).IsRequired(false);
+			entity.Property(e => e.UserType).IsRequired(true);
 
 			// Indexes
 			entity.HasIndex(e => e.Id, "IX_AppUser_Id").IsUnique();
@@ -54,8 +56,8 @@ public partial class Db : DbContext
 			entity.HasKey(e => e.Id);
 
 			// Properties
-			entity.Property(e => e.ClaimName).IsRequired(true);
-			entity.Property(e => e.ClaimValue).IsRequired(false);
+			entity.Property(e => e.ClaimName).IsRequired(true).HasMaxLength(100);
+			entity.Property(e => e.ClaimValue).IsRequired(false).HasMaxLength(200);
 			entity.Property(e => e.AppUserId).IsRequired(true);
 
 			// Indexes
@@ -72,11 +74,11 @@ public partial class Db : DbContext
 
 			// Properties
 			entity.Property(e => e.Message).IsRequired(true);
-			entity.Property(e => e.Timestamp).IsRequired(true);
+			entity.Property(e => e.Timestamp).IsRequired(true).HasColumnType("datetime");
 			entity.Property(e => e.Exception).IsRequired(true);
-			entity.Property(e => e.Application).IsRequired(true);
-			entity.Property(e => e.Source).IsRequired(true);
-			entity.Property(e => e.CorrelationId).IsRequired(true);
+			entity.Property(e => e.Application).IsRequired(true).HasMaxLength(100);
+			entity.Property(e => e.Source).IsRequired(true).HasMaxLength(100);
+			entity.Property(e => e.CorrelationId).IsRequired(true).HasMaxLength(50);
 
 			// Indexes
 			entity.HasIndex(e => e.Id, "IX_LogEvent_Id").IsUnique();

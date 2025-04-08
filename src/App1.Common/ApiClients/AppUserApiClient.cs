@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/6/2025 10:15 PM. Any changes made to it will be lost.
+// This file was auto-generated 4/8/2025 9:53 AM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -20,15 +20,15 @@ public interface IAppUserApiClient
 	Task<AppUser> GetById(Guid id);
 	Task<List<AppUser>> GetAll();
 	Task<List<AppUser>> GetByCompanyId(string companyId);
-	Task<List<AppUser>> GetAllWithPaging(int pageSize, int pageOffset);
-	Task<List<AppUser>> GetEnabledByCompany(bool isEnabled, string companyId);
-	Task<List<AppUser>> GetByCompanyExtId(string companyId, string extId);
-	Task<List<AppUser>> GetByCompanyExtIdWPging(string companyId, string extId, int pageSize, int pageOffset);
+	Task<List<AppUser>> GetAllWithPaging(int pgSize = 0, int pgOffset = 0);
+	Task<List<AppUser>> GetEnabledByCompany(string companyId);
+	Task<List<AppUser>> GetByCompanyExtId(string companyId, string? extId = null);
+	Task<List<AppUser>> GetByCompanyExtIdWPging(string companyId, string? extId = null, int pgSize = 0, int pgOffset = 0);
 	Task<List<AppUser>> GetByGroupCode(int groupCode);
-	Task<List<AppUser>> GetByGroupCodeWPging(int groupCode, int pageSize, int pageOffset);
+	Task<List<AppUser>> GetByGroupCodeWPging(int groupCode, int pgSize = 0, int pgOffset = 0);
 	Task<List<AppUser>> GetByUserType(UserType userType);
-	Task<List<AppUser>> GetByUserTypeWPging(UserType userType, int pageSize, int pageOffset);
-	Task<List<AppUser>> GetEnabledByUserTypeWPging(bool isEnabled, UserType userType, int pageSize, int pageOffset);
+	Task<List<AppUser>> GetByUserTypeWPging(UserType userType, int pgSize = 0, int pgOffset = 0);
+	Task<List<AppUser>> GetEnabledByUserTypeWPging(UserType? userType = null, int pgSize = 0, int pgOffset = 0);
 }
 public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 {
@@ -81,24 +81,24 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByCompanyId/{companyId}");
 	}
 
-	public async Task<List<AppUser>> GetAllWithPaging(int pageSize, int pageOffset)
+	public async Task<List<AppUser>> GetAllWithPaging(int pgSize = 0, int pgOffset = 0)
 	{
-		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetAllWithPaging/{pageSize}/{pageOffset}");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetAllWithPaging?pgSize={pgSize}&pgOffset={pgOffset}");
 	}
 
-	public async Task<List<AppUser>> GetEnabledByCompany(bool isEnabled, string companyId)
+	public async Task<List<AppUser>> GetEnabledByCompany(string companyId)
 	{
-		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetEnabledByCompany/{isEnabled}/{companyId}");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetEnabledByCompany/{companyId}");
 	}
 
-	public async Task<List<AppUser>> GetByCompanyExtId(string companyId, string extId)
+	public async Task<List<AppUser>> GetByCompanyExtId(string companyId, string? extId = null)
 	{
-		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByCompanyExtId/{companyId}/{extId}");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByCompanyExtId/{companyId}?extId={extId}");
 	}
 
-	public async Task<List<AppUser>> GetByCompanyExtIdWPging(string companyId, string extId, int pageSize, int pageOffset)
+	public async Task<List<AppUser>> GetByCompanyExtIdWPging(string companyId, string? extId = null, int pgSize = 0, int pgOffset = 0)
 	{
-		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByCompanyExtIdWPging/{companyId}/{extId}/{pageSize}/{pageOffset}");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByCompanyExtIdWPging/{companyId}?extId={extId}&pgSize={pgSize}&pgOffset={pgOffset}");
 	}
 
 	public async Task<List<AppUser>> GetByGroupCode(int groupCode)
@@ -106,9 +106,9 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByGroupCode/{groupCode}");
 	}
 
-	public async Task<List<AppUser>> GetByGroupCodeWPging(int groupCode, int pageSize, int pageOffset)
+	public async Task<List<AppUser>> GetByGroupCodeWPging(int groupCode, int pgSize = 0, int pgOffset = 0)
 	{
-		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByGroupCodeWPging/{groupCode}/{pageSize}/{pageOffset}");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByGroupCodeWPging/{groupCode}?pgSize={pgSize}&pgOffset={pgOffset}");
 	}
 
 	public async Task<List<AppUser>> GetByUserType(UserType userType)
@@ -116,14 +116,14 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByUserType/{userType}");
 	}
 
-	public async Task<List<AppUser>> GetByUserTypeWPging(UserType userType, int pageSize, int pageOffset)
+	public async Task<List<AppUser>> GetByUserTypeWPging(UserType userType, int pgSize = 0, int pgOffset = 0)
 	{
-		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByUserTypeWPging/{userType}/{pageSize}/{pageOffset}");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByUserTypeWPging/{userType}?pgSize={pgSize}&pgOffset={pgOffset}");
 	}
 
-	public async Task<List<AppUser>> GetEnabledByUserTypeWPging(bool isEnabled, UserType userType, int pageSize, int pageOffset)
+	public async Task<List<AppUser>> GetEnabledByUserTypeWPging(UserType? userType = null, int pgSize = 0, int pgOffset = 0)
 	{
-		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetEnabledByUserTypeWPging/{isEnabled}/{userType}/{pageSize}/{pageOffset}");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetEnabledByUserTypeWPging?userType={userType}&pgSize={pgSize}&pgOffset={pgOffset}");
 	}
 
 	#endregion

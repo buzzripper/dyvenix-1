@@ -205,7 +205,7 @@
                     "IsPrimaryKey": false,
                     "IsIdentity": false,
                     "Nullable": false,
-                    "MaxLength": 50,
+                    "MaxLength": 68,
                     "IsIndexed": true,
                     "IsIndexUnique": false,
                     "IsIndexClustered": false,
@@ -1235,6 +1235,15 @@
             "ApiClientsNamespace": "Dyvenix.App1.Common.ApiClients",
             "Id": "2d032e7d-1fc9-4343-b652-72f9760c3ec9",
             "GeneratorType": 4,
+            "Enabled": true,
+            "InclHeader": true
+          },
+          "IntTestsGen": {
+            "$id": "182",
+            "OutputFolder": "..\\..\\tests\\App1.Common.IntTests\\Tests",
+            "Namespace": "Dyvenix.App1.Common.IntTests.Tests",
+            "Id": "13259eeb-fd18-4606-a17c-5c5f07d556fa",
+            "GeneratorType": 5,
             "Enabled": true,
             "InclHeader": true
           }

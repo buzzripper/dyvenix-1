@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/6/2025 10:15 PM. Any changes made to it will be lost.
+// This file was auto-generated 4/8/2025 9:53 AM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using Microsoft.EntityFrameworkCore;
 using Dyvenix.App1.Common.Entities;
@@ -37,7 +37,7 @@ public partial class Db : DbContext
 			entity.Property(e => e.LastName).IsRequired(true).HasMaxLength(100);
 			entity.Property(e => e.Email).IsRequired(true).HasMaxLength(200);
 			entity.Property(e => e.CompanyId).IsRequired(false).HasMaxLength(10);
-			entity.Property(e => e.ExtId).IsRequired(true).HasMaxLength(50);
+			entity.Property(e => e.ExtId).IsRequired(true).HasMaxLength(68);
 			entity.Property(e => e.GroupCode).IsRequired(false);
 			entity.Property(e => e.UserType).IsRequired(true);
 

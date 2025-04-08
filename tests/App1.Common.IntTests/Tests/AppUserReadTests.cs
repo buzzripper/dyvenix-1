@@ -1,4 +1,7 @@
-﻿using System;
+//------------------------------------------------------------------------------------------------------------
+// This file was auto-generated 4/8/2025 9:53 AM. Any changes made to it will be lost.
+//------------------------------------------------------------------------------------------------------------
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,7 +49,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 	#region Fields
 
 	private readonly IAppUserApiClient _apiClient;
-	private readonly DataSet _dataSet;
+	private readonly DataSet _ds;
 
 	#endregion
 
@@ -55,7 +58,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 	public AppUserReadTests(AppUserReadTestsFixture classFixture, ITestOutputHelper output)
 	{
 		_apiClient = classFixture.AppUserApiClient;
-		_dataSet = classFixture.DataSet;
+		_ds = classFixture.DataSet;
 	}
 
 	public void Dispose()
@@ -64,20 +67,18 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 
 	#endregion
 
-	#region GetById()
+	#region Single Methods
 
 	[Fact]
 	public async Task GetById_Success()
 	{
-		var dsAppUser = _dataSet.AppUsers.First();
-
+		var dsAppUser = _ds.AppUsers.First();
 		var appUser = await _apiClient.GetById(dsAppUser.Id);
-
-		Assert.Equal(dsAppUser.LastName, appUser.LastName);
+		Assert.Equal(dsAppUser.Id, appUser.Id);
 	}
 
 	[Fact]
-	public async Task GetById_NotFound_RetunsNull()
+	public async Task GetById_NotFound()
 	{
 		var appUser = await _apiClient.GetById(Guid.Empty);
 		Assert.Null(appUser);
@@ -85,60 +86,445 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 
 	#endregion
 
-	#region GetEnabledByCompany
+	#region List Methods
 
 	[Fact]
-	public async Task GetEnabledByCompany_BothValid_Success()
+	public async Task GetAll()
 	{
-		var dsAppUser = _dataSet.AppUsers.First(au => au.CompanyId != null && au.IsEnabled);
-		var dsAppUsers = _dataSet.AppUsers.Where(x => (x.CompanyId == dsAppUser.CompanyId) && x.IsEnabled).ToList();
+		var appUser = await _apiClient.GetAll();
+		Assert.Equal(appUser.Count, _ds.AppUsers.Count);
+	}
 
+	// GetByCompanyId - companyId: dsAppUser.CompanyId
+	[Fact]
+	public async Task GetByCompanyId_1()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId);
+		var appUsers = await _apiClient.GetByCompanyId(companyId: dsAppUser.CompanyId);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
 
-		var appUsers = await _apiClient.GetEnabledByCompany(true, dsAppUser.CompanyId);
-		//appUsers = await _apiClient.GetAll();
-		Assert.Equal(dsAppUsers.Count, appUsers.Count);
+	// GetByCompanyId - companyId: bd4-4ee8-bbb5-1115d2b0f35f
+	[Fact]
+	public async Task GetByCompanyId_2()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId);
+		var appUsers = await _apiClient.GetByCompanyId(companyId: bd4-4ee8-bbb5-1115d2b0f35f);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	[Fact]
+	public async Task GetAllWithPaging()
+	{
+		var appUser = await _apiClient.GetAllWithPaging();
+		Assert.Equal(appUser.Count, _ds.AppUsers.Count);
+	}
+
+	// GetEnabledByCompany - companyId: dsAppUser.CompanyId
+	[Fact]
+	public async Task GetEnabledByCompany_1()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId);
+		var appUsers = await _apiClient.GetEnabledByCompany(companyId: dsAppUser.CompanyId);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetEnabledByCompany - companyId: b35-4bc6-8327-5c52d5aec925
+	[Fact]
+	public async Task GetEnabledByCompany_2()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId);
+		var appUsers = await _apiClient.GetEnabledByCompany(companyId: b35-4bc6-8327-5c52d5aec925);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtId - companyId: dsAppUser.CompanyId, extId: dsAppUser.ExtId, pgSize: 3
+	[Fact]
+	public async Task GetByCompanyExtId_1()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: dsAppUser.CompanyId, extId: dsAppUser.ExtId, pgSize: 3);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtId - companyId: dsAppUser.CompanyId, extId: dsAppUser.ExtId, pgSize: 0
+	[Fact]
+	public async Task GetByCompanyExtId_2()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: dsAppUser.CompanyId, extId: dsAppUser.ExtId, pgSize: 0);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtId - companyId: dsAppUser.CompanyId, extId: 7a4bc7bd-b84f-4ea4-81f8-d624cbac32c4, pgSize: 3
+	[Fact]
+	public async Task GetByCompanyExtId_3()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: dsAppUser.CompanyId, extId: 7a4bc7bd-b84f-4ea4-81f8-d624cbac32c4, pgSize: 3);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtId - companyId: dsAppUser.CompanyId, extId: 7a4bc7bd-b84f-4ea4-81f8-d624cbac32c4, pgSize: 0
+	[Fact]
+	public async Task GetByCompanyExtId_4()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: dsAppUser.CompanyId, extId: 7a4bc7bd-b84f-4ea4-81f8-d624cbac32c4, pgSize: 0);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtId - companyId: dsAppUser.CompanyId, extId: null, pgSize: 3
+	[Fact]
+	public async Task GetByCompanyExtId_5()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: dsAppUser.CompanyId, extId: null, pgSize: 3);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtId - companyId: dsAppUser.CompanyId, extId: null, pgSize: 0
+	[Fact]
+	public async Task GetByCompanyExtId_6()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: dsAppUser.CompanyId, extId: null, pgSize: 0);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtId - companyId: cdf-4863-b677-a033a0f55d0b, extId: dsAppUser.ExtId, pgSize: 3
+	[Fact]
+	public async Task GetByCompanyExtId_7()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: cdf-4863-b677-a033a0f55d0b, extId: dsAppUser.ExtId, pgSize: 3);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtId - companyId: cdf-4863-b677-a033a0f55d0b, extId: dsAppUser.ExtId, pgSize: 0
+	[Fact]
+	public async Task GetByCompanyExtId_8()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: cdf-4863-b677-a033a0f55d0b, extId: dsAppUser.ExtId, pgSize: 0);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtId - companyId: cdf-4863-b677-a033a0f55d0b, extId: 7a4bc7bd-b84f-4ea4-81f8-d624cbac32c4, pgSize: 3
+	[Fact]
+	public async Task GetByCompanyExtId_9()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: cdf-4863-b677-a033a0f55d0b, extId: 7a4bc7bd-b84f-4ea4-81f8-d624cbac32c4, pgSize: 3);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtId - companyId: cdf-4863-b677-a033a0f55d0b, extId: 7a4bc7bd-b84f-4ea4-81f8-d624cbac32c4, pgSize: 0
+	[Fact]
+	public async Task GetByCompanyExtId_10()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: cdf-4863-b677-a033a0f55d0b, extId: 7a4bc7bd-b84f-4ea4-81f8-d624cbac32c4, pgSize: 0);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtId - companyId: cdf-4863-b677-a033a0f55d0b, extId: null, pgSize: 3
+	[Fact]
+	public async Task GetByCompanyExtId_11()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: cdf-4863-b677-a033a0f55d0b, extId: null, pgSize: 3);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtId - companyId: cdf-4863-b677-a033a0f55d0b, extId: null, pgSize: 0
+	[Fact]
+	public async Task GetByCompanyExtId_12()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: cdf-4863-b677-a033a0f55d0b, extId: null, pgSize: 0);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtIdWPging - companyId: dsAppUser.CompanyId, extId: dsAppUser.ExtId, pgSize: 3
+	[Fact]
+	public async Task GetByCompanyExtIdWPging_1()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: dsAppUser.CompanyId, extId: dsAppUser.ExtId, pgSize: 3);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtIdWPging - companyId: dsAppUser.CompanyId, extId: dsAppUser.ExtId, pgSize: 0
+	[Fact]
+	public async Task GetByCompanyExtIdWPging_2()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: dsAppUser.CompanyId, extId: dsAppUser.ExtId, pgSize: 0);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtIdWPging - companyId: dsAppUser.CompanyId, extId: 2adfd697-efdf-4c23-819d-acb02a077bc4, pgSize: 3
+	[Fact]
+	public async Task GetByCompanyExtIdWPging_3()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: dsAppUser.CompanyId, extId: 2adfd697-efdf-4c23-819d-acb02a077bc4, pgSize: 3);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtIdWPging - companyId: dsAppUser.CompanyId, extId: 2adfd697-efdf-4c23-819d-acb02a077bc4, pgSize: 0
+	[Fact]
+	public async Task GetByCompanyExtIdWPging_4()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: dsAppUser.CompanyId, extId: 2adfd697-efdf-4c23-819d-acb02a077bc4, pgSize: 0);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtIdWPging - companyId: dsAppUser.CompanyId, extId: null, pgSize: 3
+	[Fact]
+	public async Task GetByCompanyExtIdWPging_5()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: dsAppUser.CompanyId, extId: null, pgSize: 3);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtIdWPging - companyId: dsAppUser.CompanyId, extId: null, pgSize: 0
+	[Fact]
+	public async Task GetByCompanyExtIdWPging_6()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: dsAppUser.CompanyId, extId: null, pgSize: 0);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtIdWPging - companyId: f5a-4d68-bbb2-ab2d18649a17, extId: dsAppUser.ExtId, pgSize: 3
+	[Fact]
+	public async Task GetByCompanyExtIdWPging_7()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: f5a-4d68-bbb2-ab2d18649a17, extId: dsAppUser.ExtId, pgSize: 3);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtIdWPging - companyId: f5a-4d68-bbb2-ab2d18649a17, extId: dsAppUser.ExtId, pgSize: 0
+	[Fact]
+	public async Task GetByCompanyExtIdWPging_8()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: f5a-4d68-bbb2-ab2d18649a17, extId: dsAppUser.ExtId, pgSize: 0);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtIdWPging - companyId: f5a-4d68-bbb2-ab2d18649a17, extId: 2adfd697-efdf-4c23-819d-acb02a077bc4, pgSize: 3
+	[Fact]
+	public async Task GetByCompanyExtIdWPging_9()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: f5a-4d68-bbb2-ab2d18649a17, extId: 2adfd697-efdf-4c23-819d-acb02a077bc4, pgSize: 3);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtIdWPging - companyId: f5a-4d68-bbb2-ab2d18649a17, extId: 2adfd697-efdf-4c23-819d-acb02a077bc4, pgSize: 0
+	[Fact]
+	public async Task GetByCompanyExtIdWPging_10()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: f5a-4d68-bbb2-ab2d18649a17, extId: 2adfd697-efdf-4c23-819d-acb02a077bc4, pgSize: 0);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtIdWPging - companyId: f5a-4d68-bbb2-ab2d18649a17, extId: null, pgSize: 3
+	[Fact]
+	public async Task GetByCompanyExtIdWPging_11()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: f5a-4d68-bbb2-ab2d18649a17, extId: null, pgSize: 3);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByCompanyExtIdWPging - companyId: f5a-4d68-bbb2-ab2d18649a17, extId: null, pgSize: 0
+	[Fact]
+	public async Task GetByCompanyExtIdWPging_12()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId&& x.ExtId == dsAppUser.ExtId);
+		var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: f5a-4d68-bbb2-ab2d18649a17, extId: null, pgSize: 0);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByGroupCode - groupCode: dsAppUser.GroupCode
+	[Fact]
+	public async Task GetByGroupCode_1()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.GroupCode == dsAppUser.GroupCode);
+		var appUsers = await _apiClient.GetByGroupCode(groupCode: dsAppUser.GroupCode);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByGroupCode - groupCode: int.MaxValue
+	[Fact]
+	public async Task GetByGroupCode_2()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.GroupCode == dsAppUser.GroupCode);
+		var appUsers = await _apiClient.GetByGroupCode(groupCode: int.MaxValue);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByGroupCodeWPging - groupCode: dsAppUser.GroupCode
+	[Fact]
+	public async Task GetByGroupCodeWPging_1()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.GroupCode == dsAppUser.GroupCode);
+		var appUsers = await _apiClient.GetByGroupCodeWPging(groupCode: dsAppUser.GroupCode);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByGroupCodeWPging - groupCode: int.MaxValue
+	[Fact]
+	public async Task GetByGroupCodeWPging_2()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.GroupCode == dsAppUser.GroupCode);
+		var appUsers = await _apiClient.GetByGroupCodeWPging(groupCode: int.MaxValue);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByUserType - userType: dsAppUser.UserType
+	[Fact]
+	public async Task GetByUserType_1()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == dsAppUser.UserType);
+		var appUsers = await _apiClient.GetByUserType(userType: dsAppUser.UserType);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByUserType - userType: null
+	[Fact]
+	public async Task GetByUserType_2()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == dsAppUser.UserType);
+		var appUsers = await _apiClient.GetByUserType(userType: null);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByUserTypeWPging - userType: dsAppUser.UserType
+	[Fact]
+	public async Task GetByUserTypeWPging_1()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == dsAppUser.UserType);
+		var appUsers = await _apiClient.GetByUserTypeWPging(userType: dsAppUser.UserType);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetByUserTypeWPging - userType: null
+	[Fact]
+	public async Task GetByUserTypeWPging_2()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == dsAppUser.UserType);
+		var appUsers = await _apiClient.GetByUserTypeWPging(userType: null);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetEnabledByUserTypeWPging - userType: dsAppUser.UserType, pgSize: 3
+	[Fact]
+	public async Task GetEnabledByUserTypeWPging_1()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == dsAppUser.UserType);
+		var appUsers = await _apiClient.GetEnabledByUserTypeWPging(userType: dsAppUser.UserType, pgSize: 3);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetEnabledByUserTypeWPging - userType: dsAppUser.UserType, pgSize: 0
+	[Fact]
+	public async Task GetEnabledByUserTypeWPging_2()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == dsAppUser.UserType);
+		var appUsers = await _apiClient.GetEnabledByUserTypeWPging(userType: dsAppUser.UserType, pgSize: 0);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetEnabledByUserTypeWPging - userType: null, pgSize: 3
+	[Fact]
+	public async Task GetEnabledByUserTypeWPging_3()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == dsAppUser.UserType);
+		var appUsers = await _apiClient.GetEnabledByUserTypeWPging(userType: null, pgSize: 3);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetEnabledByUserTypeWPging - userType: null, pgSize: 0
+	[Fact]
+	public async Task GetEnabledByUserTypeWPging_4()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == dsAppUser.UserType);
+		var appUsers = await _apiClient.GetEnabledByUserTypeWPging(userType: null, pgSize: 0);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetEnabledByUserTypeWPging - userType: null, pgSize: 3
+	[Fact]
+	public async Task GetEnabledByUserTypeWPging_5()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == dsAppUser.UserType);
+		var appUsers = await _apiClient.GetEnabledByUserTypeWPging(userType: null, pgSize: 3);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	}
+
+	// GetEnabledByUserTypeWPging - userType: null, pgSize: 0
+	[Fact]
+	public async Task GetEnabledByUserTypeWPging_6()
+	{
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == dsAppUser.UserType);
+		var appUsers = await _apiClient.GetEnabledByUserTypeWPging(userType: null, pgSize: 0);
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
 	}
 
 	#endregion
 
-	[Fact]
-	public async Task GetByFirstAndLast_Success()
-	{
-		var dsAppUser = _dataSet.AppUsers.Where(au => au.ExtId != null).Skip(Rnd(0, _dataSet.AppUsers.Count - 1)).FirstOrDefault();
-		var dsAppUsers = _dataSet.AppUsers.Where(x => x.FirstName == dsAppUser.FirstName && x.FirstName == dsAppUser.LastName).ToList();
-		var appUsers = await _apiClient.GetAll();
-
-		Assert.Equal(appUsers.Count, _dataSet.AppUsers.Count);
-	}
-
-	[Fact]
-	public async Task GetAll_Success()
-	{
-		var appUsers = await _apiClient.GetAll();
-
-		Assert.Equal(appUsers.Count, _dataSet.AppUsers.Count);
-	}
-
-	[Fact]
-	public async Task GetAllWithPaging_Success()
-	{
-		var count = _dataSet.AppUsers.Count;
-		if (count < 3)
-			throw new ApplicationException("Need at least 3 AppUsers to test paging");
-
-		var pageSize = _dataSet.AppUsers.Count / 3;
-		var remainder = _dataSet.AppUsers.Count % 3;
-		var totalPages = (remainder == 0) ? 3 : 4;
-
-		for (var i = 0; i < totalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pageSize, i);
-			if (i < (totalPages - 1)) {
-				Assert.Equal(pageSize, appUsers.Count);
-			} else {
-				Assert.Equal(remainder, appUsers.Count);
-			}
-		}
-	}
+	#region Helper Methods
 
 	private static int Rnd(int x, int y)
 	{
@@ -146,5 +532,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 			throw new ArgumentException("x must be less than or equal to y");
 		return _random.Next(x, y + 1); // +1 to include 'y'
 	}
+
+	#endregion
 }
 

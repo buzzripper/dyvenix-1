@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/8/2025 5:35 PM. Any changes made to it will be lost.
+// This file was auto-generated 4/8/2025 10:35 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Linq;
@@ -105,22 +105,22 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId).ToList();
 
 		// Act
-		var appUsers = await _apiClient.GetByCompanyId(companyId: Good.Value);
+		var appUsers = await _apiClient.GetByCompanyId(companyId: dsAppUser.CompanyId);
 
 		// Assert
 		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
 	}
 
-	// GetByCompanyId() - CompanyId:NotFound
+	// GetByCompanyId() - CompanyId:NotExist
 	[Fact]
 	public async Task GetByCompanyId_2()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == "ef5-4741-bbab-29dd38691f54").ToList();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == Guid.NewGuid().ToString()[10..]).ToList();
 
 		// Act
-		var appUsers = await _apiClient.GetByCompanyId(companyId: NotFound.Value);
+		var appUsers = await _apiClient.GetByCompanyId(companyId: Guid.NewGuid().ToString()[10..]);
 
 		// Assert
 		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
@@ -142,220 +142,118 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId).ToList();
 
 		// Act
-		var appUsers = await _apiClient.GetEnabledByCompany(companyId: Good.Value);
+		var appUsers = await _apiClient.GetEnabledByCompany(companyId: dsAppUser.CompanyId);
 
 		// Assert
 		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
 	}
 
-	// GetEnabledByCompany() - CompanyId:NotFound
+	// GetEnabledByCompany() - CompanyId:NotExist
 	[Fact]
 	public async Task GetEnabledByCompany_2()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == "6aa-4f19-a936-70a99d22ae28").ToList();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == Guid.NewGuid().ToString()[10..]).ToList();
 
 		// Act
-		var appUsers = await _apiClient.GetEnabledByCompany(companyId: NotFound.Value);
+		var appUsers = await _apiClient.GetEnabledByCompany(companyId: Guid.NewGuid().ToString()[10..]);
 
 		// Assert
 		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
 	}
 
-	// GetByCompanyExtId() - CompanyId:Good, ExtId:Good, Paging:Good
+	// GetByCompanyExtId() - CompanyId:Good, ExtId:Good
 	[Fact]
 	public async Task GetByCompanyExtId_1()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
 		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId && x.ExtId == dsAppUser.ExtId).ToList();
-		var pgr = new Pager(dsAppUsers.Count);
 
-		// Act / Assert
-		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
-			Assert.Equal(appUsers.Count, pgr.Expected[i]);
-		}
+		// Act
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: dsAppUser.CompanyId, extId: dsAppUser.ExtId);
+
+		// Assert
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
 	}
 
-	// GetByCompanyExtId() - CompanyId:Good, ExtId:Good, Paging:NotSupplied
+	// GetByCompanyExtId() - CompanyId:Good, ExtId:NotExist
 	[Fact]
 	public async Task GetByCompanyExtId_2()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId && x.ExtId == dsAppUser.ExtId).ToList();
-		var pgr = new Pager(dsAppUsers.Count);
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId && x.ExtId == Guid.NewGuid().ToString()).ToList();
 
-		// Act / Assert
-		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
-			Assert.Equal(appUsers.Count, pgr.Expected[i]);
-		}
+		// Act
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: dsAppUser.CompanyId, extId: Guid.NewGuid().ToString());
+
+		// Assert
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
 	}
 
-	// GetByCompanyExtId() - CompanyId:Good, ExtId:NotFound, Paging:Good
+	// GetByCompanyExtId() - CompanyId:Good, ExtId:NotSupplied
 	[Fact]
 	public async Task GetByCompanyExtId_3()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId && x.ExtId == "3900eba7-b512-4708-8036-54ab44909adb").ToList();
-		var pgr = new Pager(dsAppUsers.Count);
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId).ToList();
 
-		// Act / Assert
-		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
-			Assert.Equal(appUsers.Count, pgr.Expected[i]);
-		}
+		// Act
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: dsAppUser.CompanyId);
+
+		// Assert
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
 	}
 
-	// GetByCompanyExtId() - CompanyId:Good, ExtId:NotFound, Paging:NotSupplied
+	// GetByCompanyExtId() - CompanyId:NotExist, ExtId:Good
 	[Fact]
 	public async Task GetByCompanyExtId_4()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId && x.ExtId == "3900eba7-b512-4708-8036-54ab44909adb").ToList();
-		var pgr = new Pager(dsAppUsers.Count);
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == Guid.NewGuid().ToString()[10..] && x.ExtId == dsAppUser.ExtId).ToList();
 
-		// Act / Assert
-		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
-			Assert.Equal(appUsers.Count, pgr.Expected[i]);
-		}
+		// Act
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: Guid.NewGuid().ToString()[10..], extId: dsAppUser.ExtId);
+
+		// Assert
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
 	}
 
-	// GetByCompanyExtId() - CompanyId:Good, ExtId:NotSupplied, Paging:Good
+	// GetByCompanyExtId() - CompanyId:NotExist, ExtId:NotExist
 	[Fact]
 	public async Task GetByCompanyExtId_5()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId && x.ExtId == null).ToList();
-		var pgr = new Pager(dsAppUsers.Count);
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == Guid.NewGuid().ToString()[10..] && x.ExtId == Guid.NewGuid().ToString()).ToList();
 
-		// Act / Assert
-		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
-			Assert.Equal(appUsers.Count, pgr.Expected[i]);
-		}
+		// Act
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: Guid.NewGuid().ToString()[10..], extId: Guid.NewGuid().ToString());
+
+		// Assert
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
 	}
 
-	// GetByCompanyExtId() - CompanyId:Good, ExtId:NotSupplied, Paging:NotSupplied
+	// GetByCompanyExtId() - CompanyId:NotExist, ExtId:NotSupplied
 	[Fact]
 	public async Task GetByCompanyExtId_6()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId && x.ExtId == null).ToList();
-		var pgr = new Pager(dsAppUsers.Count);
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == Guid.NewGuid().ToString()[10..]).ToList();
 
-		// Act / Assert
-		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
-			Assert.Equal(appUsers.Count, pgr.Expected[i]);
-		}
+		// Act
+		var appUsers = await _apiClient.GetByCompanyExtId(companyId: Guid.NewGuid().ToString()[10..]);
+
+		// Assert
+		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
 	}
 
-	// GetByCompanyExtId() - CompanyId:NotFound, ExtId:Good, Paging:Good
-	[Fact]
-	public async Task GetByCompanyExtId_7()
-	{
-		// Arrange
-		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == "472-4aef-824a-f2eb40205361" && x.ExtId == dsAppUser.ExtId).ToList();
-		var pgr = new Pager(dsAppUsers.Count);
-
-		// Act / Assert
-		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
-			Assert.Equal(appUsers.Count, pgr.Expected[i]);
-		}
-	}
-
-	// GetByCompanyExtId() - CompanyId:NotFound, ExtId:Good, Paging:NotSupplied
-	[Fact]
-	public async Task GetByCompanyExtId_8()
-	{
-		// Arrange
-		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == "472-4aef-824a-f2eb40205361" && x.ExtId == dsAppUser.ExtId).ToList();
-		var pgr = new Pager(dsAppUsers.Count);
-
-		// Act / Assert
-		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
-			Assert.Equal(appUsers.Count, pgr.Expected[i]);
-		}
-	}
-
-	// GetByCompanyExtId() - CompanyId:NotFound, ExtId:NotFound, Paging:Good
-	[Fact]
-	public async Task GetByCompanyExtId_9()
-	{
-		// Arrange
-		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == "472-4aef-824a-f2eb40205361" && x.ExtId == "3900eba7-b512-4708-8036-54ab44909adb").ToList();
-		var pgr = new Pager(dsAppUsers.Count);
-
-		// Act / Assert
-		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
-			Assert.Equal(appUsers.Count, pgr.Expected[i]);
-		}
-	}
-
-	// GetByCompanyExtId() - CompanyId:NotFound, ExtId:NotFound, Paging:NotSupplied
-	[Fact]
-	public async Task GetByCompanyExtId_10()
-	{
-		// Arrange
-		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == "472-4aef-824a-f2eb40205361" && x.ExtId == "3900eba7-b512-4708-8036-54ab44909adb").ToList();
-		var pgr = new Pager(dsAppUsers.Count);
-
-		// Act / Assert
-		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
-			Assert.Equal(appUsers.Count, pgr.Expected[i]);
-		}
-	}
-
-	// GetByCompanyExtId() - CompanyId:NotFound, ExtId:NotSupplied, Paging:Good
-	[Fact]
-	public async Task GetByCompanyExtId_11()
-	{
-		// Arrange
-		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == "472-4aef-824a-f2eb40205361" && x.ExtId == null).ToList();
-		var pgr = new Pager(dsAppUsers.Count);
-
-		// Act / Assert
-		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
-			Assert.Equal(appUsers.Count, pgr.Expected[i]);
-		}
-	}
-
-	// GetByCompanyExtId() - CompanyId:NotFound, ExtId:NotSupplied, Paging:NotSupplied
-	[Fact]
-	public async Task GetByCompanyExtId_12()
-	{
-		// Arrange
-		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == "472-4aef-824a-f2eb40205361" && x.ExtId == null).ToList();
-		var pgr = new Pager(dsAppUsers.Count);
-
-		// Act / Assert
-		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
-			Assert.Equal(appUsers.Count, pgr.Expected[i]);
-		}
-	}
-
-	// GetByCompanyExtIdWPging() - CompanyId:Good, ExtId:Good, Paging:Good
+	// GetByCompanyExtIdWPging() - CompanyId:Good, ExtId:Good, Paging:Good, Paging:Good
 	[Fact]
 	public async Task GetByCompanyExtIdWPging_1()
 	{
@@ -366,12 +264,12 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 
 		// Act / Assert
 		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
+			var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: dsAppUser.CompanyId, extId: dsAppUser.ExtId, pgSize: pgr.PageSize, pgOffset: i);
 			Assert.Equal(appUsers.Count, pgr.Expected[i]);
 		}
 	}
 
-	// GetByCompanyExtIdWPging() - CompanyId:Good, ExtId:Good, Paging:NotSupplied
+	// GetByCompanyExtIdWPging() - CompanyId:Good, ExtId:Good, Paging:NotSupplied, Paging:NotSupplied
 	[Fact]
 	public async Task GetByCompanyExtIdWPging_2()
 	{
@@ -382,167 +280,167 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 
 		// Act / Assert
 		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
+			var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: dsAppUser.CompanyId, extId: dsAppUser.ExtId);
 			Assert.Equal(appUsers.Count, pgr.Expected[i]);
 		}
 	}
 
-	// GetByCompanyExtIdWPging() - CompanyId:Good, ExtId:NotFound, Paging:Good
+	// GetByCompanyExtIdWPging() - CompanyId:Good, ExtId:NotExist, Paging:Good, Paging:Good
 	[Fact]
 	public async Task GetByCompanyExtIdWPging_3()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId && x.ExtId == "5cf6bc6f-bc72-4ab8-8379-d8f60fd4aea5").ToList();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId && x.ExtId == Guid.NewGuid().ToString()).ToList();
 		var pgr = new Pager(dsAppUsers.Count);
 
 		// Act / Assert
 		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
+			var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: dsAppUser.CompanyId, extId: Guid.NewGuid().ToString(), pgSize: pgr.PageSize, pgOffset: i);
 			Assert.Equal(appUsers.Count, pgr.Expected[i]);
 		}
 	}
 
-	// GetByCompanyExtIdWPging() - CompanyId:Good, ExtId:NotFound, Paging:NotSupplied
+	// GetByCompanyExtIdWPging() - CompanyId:Good, ExtId:NotExist, Paging:NotSupplied, Paging:NotSupplied
 	[Fact]
 	public async Task GetByCompanyExtIdWPging_4()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId && x.ExtId == "5cf6bc6f-bc72-4ab8-8379-d8f60fd4aea5").ToList();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId && x.ExtId == Guid.NewGuid().ToString()).ToList();
 		var pgr = new Pager(dsAppUsers.Count);
 
 		// Act / Assert
 		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
+			var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: dsAppUser.CompanyId, extId: Guid.NewGuid().ToString());
 			Assert.Equal(appUsers.Count, pgr.Expected[i]);
 		}
 	}
 
-	// GetByCompanyExtIdWPging() - CompanyId:Good, ExtId:NotSupplied, Paging:Good
+	// GetByCompanyExtIdWPging() - CompanyId:Good, ExtId:NotSupplied, Paging:Good, Paging:Good
 	[Fact]
 	public async Task GetByCompanyExtIdWPging_5()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId && x.ExtId == null).ToList();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId).ToList();
 		var pgr = new Pager(dsAppUsers.Count);
 
 		// Act / Assert
 		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
+			var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: dsAppUser.CompanyId, pgSize: pgr.PageSize, pgOffset: i);
 			Assert.Equal(appUsers.Count, pgr.Expected[i]);
 		}
 	}
 
-	// GetByCompanyExtIdWPging() - CompanyId:Good, ExtId:NotSupplied, Paging:NotSupplied
+	// GetByCompanyExtIdWPging() - CompanyId:Good, ExtId:NotSupplied, Paging:NotSupplied, Paging:NotSupplied
 	[Fact]
 	public async Task GetByCompanyExtIdWPging_6()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId && x.ExtId == null).ToList();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == dsAppUser.CompanyId).ToList();
 		var pgr = new Pager(dsAppUsers.Count);
 
 		// Act / Assert
 		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
+			var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: dsAppUser.CompanyId);
 			Assert.Equal(appUsers.Count, pgr.Expected[i]);
 		}
 	}
 
-	// GetByCompanyExtIdWPging() - CompanyId:NotFound, ExtId:Good, Paging:Good
+	// GetByCompanyExtIdWPging() - CompanyId:NotExist, ExtId:Good, Paging:Good, Paging:Good
 	[Fact]
 	public async Task GetByCompanyExtIdWPging_7()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == "539-463d-9bf0-89c7dda81c9c" && x.ExtId == dsAppUser.ExtId).ToList();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == Guid.NewGuid().ToString()[10..] && x.ExtId == dsAppUser.ExtId).ToList();
 		var pgr = new Pager(dsAppUsers.Count);
 
 		// Act / Assert
 		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
+			var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: Guid.NewGuid().ToString()[10..], extId: dsAppUser.ExtId, pgSize: pgr.PageSize, pgOffset: i);
 			Assert.Equal(appUsers.Count, pgr.Expected[i]);
 		}
 	}
 
-	// GetByCompanyExtIdWPging() - CompanyId:NotFound, ExtId:Good, Paging:NotSupplied
+	// GetByCompanyExtIdWPging() - CompanyId:NotExist, ExtId:Good, Paging:NotSupplied, Paging:NotSupplied
 	[Fact]
 	public async Task GetByCompanyExtIdWPging_8()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == "539-463d-9bf0-89c7dda81c9c" && x.ExtId == dsAppUser.ExtId).ToList();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == Guid.NewGuid().ToString()[10..] && x.ExtId == dsAppUser.ExtId).ToList();
 		var pgr = new Pager(dsAppUsers.Count);
 
 		// Act / Assert
 		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
+			var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: Guid.NewGuid().ToString()[10..], extId: dsAppUser.ExtId);
 			Assert.Equal(appUsers.Count, pgr.Expected[i]);
 		}
 	}
 
-	// GetByCompanyExtIdWPging() - CompanyId:NotFound, ExtId:NotFound, Paging:Good
+	// GetByCompanyExtIdWPging() - CompanyId:NotExist, ExtId:NotExist, Paging:Good, Paging:Good
 	[Fact]
 	public async Task GetByCompanyExtIdWPging_9()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == "539-463d-9bf0-89c7dda81c9c" && x.ExtId == "5cf6bc6f-bc72-4ab8-8379-d8f60fd4aea5").ToList();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == Guid.NewGuid().ToString()[10..] && x.ExtId == Guid.NewGuid().ToString()).ToList();
 		var pgr = new Pager(dsAppUsers.Count);
 
 		// Act / Assert
 		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
+			var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: Guid.NewGuid().ToString()[10..], extId: Guid.NewGuid().ToString(), pgSize: pgr.PageSize, pgOffset: i);
 			Assert.Equal(appUsers.Count, pgr.Expected[i]);
 		}
 	}
 
-	// GetByCompanyExtIdWPging() - CompanyId:NotFound, ExtId:NotFound, Paging:NotSupplied
+	// GetByCompanyExtIdWPging() - CompanyId:NotExist, ExtId:NotExist, Paging:NotSupplied, Paging:NotSupplied
 	[Fact]
 	public async Task GetByCompanyExtIdWPging_10()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == "539-463d-9bf0-89c7dda81c9c" && x.ExtId == "5cf6bc6f-bc72-4ab8-8379-d8f60fd4aea5").ToList();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == Guid.NewGuid().ToString()[10..] && x.ExtId == Guid.NewGuid().ToString()).ToList();
 		var pgr = new Pager(dsAppUsers.Count);
 
 		// Act / Assert
 		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
+			var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: Guid.NewGuid().ToString()[10..], extId: Guid.NewGuid().ToString());
 			Assert.Equal(appUsers.Count, pgr.Expected[i]);
 		}
 	}
 
-	// GetByCompanyExtIdWPging() - CompanyId:NotFound, ExtId:NotSupplied, Paging:Good
+	// GetByCompanyExtIdWPging() - CompanyId:NotExist, ExtId:NotSupplied, Paging:Good, Paging:Good
 	[Fact]
 	public async Task GetByCompanyExtIdWPging_11()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == "539-463d-9bf0-89c7dda81c9c" && x.ExtId == null).ToList();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == Guid.NewGuid().ToString()[10..]).ToList();
 		var pgr = new Pager(dsAppUsers.Count);
 
 		// Act / Assert
 		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
+			var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: Guid.NewGuid().ToString()[10..], pgSize: pgr.PageSize, pgOffset: i);
 			Assert.Equal(appUsers.Count, pgr.Expected[i]);
 		}
 	}
 
-	// GetByCompanyExtIdWPging() - CompanyId:NotFound, ExtId:NotSupplied, Paging:NotSupplied
+	// GetByCompanyExtIdWPging() - CompanyId:NotExist, ExtId:NotSupplied, Paging:NotSupplied, Paging:NotSupplied
 	[Fact]
 	public async Task GetByCompanyExtIdWPging_12()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.CompanyId != null);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == "539-463d-9bf0-89c7dda81c9c" && x.ExtId == null).ToList();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.CompanyId == Guid.NewGuid().ToString()[10..]).ToList();
 		var pgr = new Pager(dsAppUsers.Count);
 
 		// Act / Assert
 		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
+			var appUsers = await _apiClient.GetByCompanyExtIdWPging(companyId: Guid.NewGuid().ToString()[10..]);
 			Assert.Equal(appUsers.Count, pgr.Expected[i]);
 		}
 	}
@@ -553,16 +451,16 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.GroupCode.HasValue);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.GroupCode == dsAppUser.GroupCode).ToList();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.GroupCode == dsAppUser.GroupCode.Value).ToList();
 
 		// Act
-		var appUsers = await _apiClient.GetByGroupCode(groupCode: Good);
+		var appUsers = await _apiClient.GetByGroupCode(groupCode: dsAppUser.GroupCode.Value);
 
 		// Assert
 		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
 	}
 
-	// GetByGroupCode() - GroupCode:NotFound
+	// GetByGroupCode() - GroupCode:NotExist
 	[Fact]
 	public async Task GetByGroupCode_2()
 	{
@@ -571,40 +469,74 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var dsAppUsers = _ds.AppUsers.Where(x => x.GroupCode == int.MaxValue).ToList();
 
 		// Act
-		var appUsers = await _apiClient.GetByGroupCode(groupCode: NotFound);
+		var appUsers = await _apiClient.GetByGroupCode(groupCode: int.MaxValue);
 
 		// Assert
 		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
 	}
 
-	// GetByGroupCodeWPging() - GroupCode:Good
+	// GetByGroupCodeWPging() - GroupCode:Good, Paging:Good, Paging:Good
 	[Fact]
 	public async Task GetByGroupCodeWPging_1()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.GroupCode.HasValue);
-		var dsAppUsers = _ds.AppUsers.Where(x => x.GroupCode == dsAppUser.GroupCode).ToList();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.GroupCode == dsAppUser.GroupCode.Value).ToList();
+		var pgr = new Pager(dsAppUsers.Count);
 
-		// Act
-		var appUsers = await _apiClient.GetByGroupCodeWPging(groupCode: Good);
-
-		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+		// Act / Assert
+		for (var i = 0; i < pgr.TotalPages; i++) {
+			var appUsers = await _apiClient.GetByGroupCodeWPging(groupCode: dsAppUser.GroupCode.Value, pgSize: pgr.PageSize, pgOffset: i);
+			Assert.Equal(appUsers.Count, pgr.Expected[i]);
+		}
 	}
 
-	// GetByGroupCodeWPging() - GroupCode:NotFound
+	// GetByGroupCodeWPging() - GroupCode:Good, Paging:NotSupplied, Paging:NotSupplied
 	[Fact]
 	public async Task GetByGroupCodeWPging_2()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First(x => x.GroupCode.HasValue);
+		var dsAppUsers = _ds.AppUsers.Where(x => x.GroupCode == dsAppUser.GroupCode.Value).ToList();
+		var pgr = new Pager(dsAppUsers.Count);
+
+		// Act / Assert
+		for (var i = 0; i < pgr.TotalPages; i++) {
+			var appUsers = await _apiClient.GetByGroupCodeWPging(groupCode: dsAppUser.GroupCode.Value);
+			Assert.Equal(appUsers.Count, pgr.Expected[i]);
+		}
+	}
+
+	// GetByGroupCodeWPging() - GroupCode:NotExist, Paging:Good, Paging:Good
+	[Fact]
+	public async Task GetByGroupCodeWPging_3()
+	{
+		// Arrange
+		var dsAppUser = _ds.AppUsers.First(x => x.GroupCode.HasValue);
 		var dsAppUsers = _ds.AppUsers.Where(x => x.GroupCode == int.MaxValue).ToList();
+		var pgr = new Pager(dsAppUsers.Count);
 
-		// Act
-		var appUsers = await _apiClient.GetByGroupCodeWPging(groupCode: NotFound);
+		// Act / Assert
+		for (var i = 0; i < pgr.TotalPages; i++) {
+			var appUsers = await _apiClient.GetByGroupCodeWPging(groupCode: int.MaxValue, pgSize: pgr.PageSize, pgOffset: i);
+			Assert.Equal(appUsers.Count, pgr.Expected[i]);
+		}
+	}
 
-		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+	// GetByGroupCodeWPging() - GroupCode:NotExist, Paging:NotSupplied, Paging:NotSupplied
+	[Fact]
+	public async Task GetByGroupCodeWPging_4()
+	{
+		// Arrange
+		var dsAppUser = _ds.AppUsers.First(x => x.GroupCode.HasValue);
+		var dsAppUsers = _ds.AppUsers.Where(x => x.GroupCode == int.MaxValue).ToList();
+		var pgr = new Pager(dsAppUsers.Count);
+
+		// Act / Assert
+		for (var i = 0; i < pgr.TotalPages; i++) {
+			var appUsers = await _apiClient.GetByGroupCodeWPging(groupCode: int.MaxValue);
+			Assert.Equal(appUsers.Count, pgr.Expected[i]);
+		}
 	}
 
 	// GetByUserType() - UserType:Good
@@ -616,58 +548,45 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == dsAppUser.UserType).ToList();
 
 		// Act
-		var appUsers = await _apiClient.GetByUserType(userType: Good);
+		var appUsers = await _apiClient.GetByUserType(userType: dsAppUser.UserType);
 
 		// Assert
 		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
 	}
 
-	// GetByUserType() - UserType:NotFound
-	[Fact]
-	public async Task GetByUserType_2()
-	{
-		// Arrange
-		var dsAppUser = _ds.AppUsers.First();
-		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == null).ToList();
-
-		// Act
-		var appUsers = await _apiClient.GetByUserType(userType: NotFound);
-
-		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
-	}
-
-	// GetByUserTypeWPging() - UserType:Good
+	// GetByUserTypeWPging() - UserType:Good, Paging:Good, Paging:Good
 	[Fact]
 	public async Task GetByUserTypeWPging_1()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First();
 		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == dsAppUser.UserType).ToList();
+		var pgr = new Pager(dsAppUsers.Count);
 
-		// Act
-		var appUsers = await _apiClient.GetByUserTypeWPging(userType: Good);
-
-		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+		// Act / Assert
+		for (var i = 0; i < pgr.TotalPages; i++) {
+			var appUsers = await _apiClient.GetByUserTypeWPging(userType: dsAppUser.UserType, pgSize: pgr.PageSize, pgOffset: i);
+			Assert.Equal(appUsers.Count, pgr.Expected[i]);
+		}
 	}
 
-	// GetByUserTypeWPging() - UserType:NotFound
+	// GetByUserTypeWPging() - UserType:Good, Paging:NotSupplied, Paging:NotSupplied
 	[Fact]
 	public async Task GetByUserTypeWPging_2()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First();
-		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == null).ToList();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == dsAppUser.UserType).ToList();
+		var pgr = new Pager(dsAppUsers.Count);
 
-		// Act
-		var appUsers = await _apiClient.GetByUserTypeWPging(userType: NotFound);
-
-		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+		// Act / Assert
+		for (var i = 0; i < pgr.TotalPages; i++) {
+			var appUsers = await _apiClient.GetByUserTypeWPging(userType: dsAppUser.UserType);
+			Assert.Equal(appUsers.Count, pgr.Expected[i]);
+		}
 	}
 
-	// GetEnabledByUserTypeWPging() - UserType:Good, Paging:Good
+	// GetEnabledByUserTypeWPging() - UserType:Good, Paging:Good, Paging:Good
 	[Fact]
 	public async Task GetEnabledByUserTypeWPging_1()
 	{
@@ -678,12 +597,12 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 
 		// Act / Assert
 		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
+			var appUsers = await _apiClient.GetEnabledByUserTypeWPging(userType: dsAppUser.UserType, pgSize: pgr.PageSize, pgOffset: i);
 			Assert.Equal(appUsers.Count, pgr.Expected[i]);
 		}
 	}
 
-	// GetEnabledByUserTypeWPging() - UserType:Good, Paging:NotSupplied
+	// GetEnabledByUserTypeWPging() - UserType:Good, Paging:NotSupplied, Paging:NotSupplied
 	[Fact]
 	public async Task GetEnabledByUserTypeWPging_2()
 	{
@@ -694,71 +613,39 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 
 		// Act / Assert
 		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
+			var appUsers = await _apiClient.GetEnabledByUserTypeWPging(userType: dsAppUser.UserType);
 			Assert.Equal(appUsers.Count, pgr.Expected[i]);
 		}
 	}
 
-	// GetEnabledByUserTypeWPging() - UserType:NotFound, Paging:Good
+	// GetEnabledByUserTypeWPging() - UserType:NotSupplied, Paging:Good, Paging:Good
 	[Fact]
 	public async Task GetEnabledByUserTypeWPging_3()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First();
-		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == null).ToList();
+		var dsAppUsers = _ds.AppUsers.ToList();
 		var pgr = new Pager(dsAppUsers.Count);
 
 		// Act / Assert
 		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
+			var appUsers = await _apiClient.GetEnabledByUserTypeWPging(pgSize: pgr.PageSize, pgOffset: i);
 			Assert.Equal(appUsers.Count, pgr.Expected[i]);
 		}
 	}
 
-	// GetEnabledByUserTypeWPging() - UserType:NotFound, Paging:NotSupplied
+	// GetEnabledByUserTypeWPging() - UserType:NotSupplied, Paging:NotSupplied, Paging:NotSupplied
 	[Fact]
 	public async Task GetEnabledByUserTypeWPging_4()
 	{
 		// Arrange
 		var dsAppUser = _ds.AppUsers.First();
-		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == null).ToList();
+		var dsAppUsers = _ds.AppUsers.ToList();
 		var pgr = new Pager(dsAppUsers.Count);
 
 		// Act / Assert
 		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
-			Assert.Equal(appUsers.Count, pgr.Expected[i]);
-		}
-	}
-
-	// GetEnabledByUserTypeWPging() - UserType:NotSupplied, Paging:Good
-	[Fact]
-	public async Task GetEnabledByUserTypeWPging_5()
-	{
-		// Arrange
-		var dsAppUser = _ds.AppUsers.First();
-		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == null).ToList();
-		var pgr = new Pager(dsAppUsers.Count);
-
-		// Act / Assert
-		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
-			Assert.Equal(appUsers.Count, pgr.Expected[i]);
-		}
-	}
-
-	// GetEnabledByUserTypeWPging() - UserType:NotSupplied, Paging:NotSupplied
-	[Fact]
-	public async Task GetEnabledByUserTypeWPging_6()
-	{
-		// Arrange
-		var dsAppUser = _ds.AppUsers.First();
-		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == null).ToList();
-		var pgr = new Pager(dsAppUsers.Count);
-
-		// Act / Assert
-		for (var i = 0; i < pgr.TotalPages; i++) {
-			var appUsers = await _apiClient.GetAllWithPaging(pgr.PageSize, i);
+			var appUsers = await _apiClient.GetEnabledByUserTypeWPging();
 			Assert.Equal(appUsers.Count, pgr.Expected[i]);
 		}
 	}

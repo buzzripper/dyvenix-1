@@ -13,13 +13,14 @@ public class DefaultDataGenerator
 		var appUsers = new List<AppUser>();
 		var firstNames = new[] { "John", "Jane", "Alice", "Bob", "Charlie", "Eve", "Mallory", "Trent", "Oscar", "Grace", "Victor", "Walter", "Xander", "Yvonne", "Zara" };
 		var lastNames = new[] { "Doe", "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson" };
-		var companyIds = new[] { "ABC", "DEF", "GHI", "JKL", "MNO" };
+		//var companyIds = new[] { "ABC", "DEF", "GHI", "JKL", "MNO" };
+		var companyIds = new[] { "ABC", "DEF", "GHI" };
 
 		var random = new Random();
 		var emailSet = new HashSet<string>();
 		var nameSet = new HashSet<string>();
 
-		while (appUsers.Count < 25) {
+		while (appUsers.Count < 50) {
 			var firstName = firstNames[random.Next(firstNames.Length)];
 			var lastName = lastNames[random.Next(lastNames.Length)];
 			string nameCombination = $"{firstName} {lastName}";
@@ -44,7 +45,7 @@ public class DefaultDataGenerator
 				Email = email,
 				IsEnabled = random.NextDouble() >= 0.15, // 15% chance of IsEnabled being false
 				CompanyId = companyIds[random.Next(companyIds.Length)],
-				GroupCode = random.NextDouble() >= 0.15 ? random.Next(1, 10) : null,
+				GroupCode = random.NextDouble() >= 0.15 ? random.Next(1, 5) : null,
 				UserType = (UserType)random.Next(0, 3) // Randomly assign UserType between 0 and 2
 			};
 

@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/8/2025 10:44 PM. Any changes made to it will be lost.
+// This file was auto-generated 4/9/2025 9:14 AM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -25,8 +25,7 @@ public interface IAppUserService
 	Task<List<AppUser>> GetByCompanyId(string companyId);
 	Task<List<AppUser>> GetAllWithPaging(int pageSize = 0, int pageOffset = 0);
 	Task<List<AppUser>> GetEnabledByCompany(string companyId);
-	Task<List<AppUser>> GetByCompanyExtId(string companyId, string? extId = null);
-	Task<List<AppUser>> GetByCompanyExtIdWPging(string companyId, string? extId = null, int pageSize = 0, int pageOffset = 0);
+	Task<List<AppUser>> GetByCompanyExtId(string companyId, string extId = null);
 	Task<List<AppUser>> GetByGroupCode(int groupCode);
 	Task<List<AppUser>> GetByGroupCodeWPging(int groupCode, int pageSize = 0, int pageOffset = 0);
 	Task<List<AppUser>> GetByUserType(UserType userType);
@@ -132,7 +131,7 @@ public class AppUserService : IAppUserService
 		return await dbQuery.AsNoTracking().ToListAsync();
 	}
 
-	public async Task<List<AppUser>> GetByCompanyExtId(string companyId, string? extId = null)
+	public async Task<List<AppUser>> GetByCompanyExtId(string companyId, string extId = null)
 	{
 		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
 
@@ -141,21 +140,6 @@ public class AppUserService : IAppUserService
 		// Optional
 		if (!string.IsNullOrWhiteSpace(extId))
 			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.ExtId, extId));
-
-		return await dbQuery.AsNoTracking().ToListAsync();
-	}
-
-	public async Task<List<AppUser>> GetByCompanyExtIdWPging(string companyId, string? extId = null, int pageSize = 0, int pageOffset = 0)
-	{
-		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
-
-		if (!string.IsNullOrWhiteSpace(companyId))
-			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.CompanyId, companyId));
-		// Optional
-		if (!string.IsNullOrWhiteSpace(extId))
-			dbQuery = dbQuery.Where(x => EF.Functions.Like(x.ExtId, extId));
-		if (pageSize > 0)
-			dbQuery = dbQuery.Skip(pageOffset * pageSize).Take(pageSize);
 
 		return await dbQuery.AsNoTracking().ToListAsync();
 	}

@@ -85,22 +85,6 @@ public class AppUserReadTests2 : IClassFixture<AppUserReadTestsFixture>, IDispos
 
 	#endregion
 
-	#region GetEnabledByCompany
-
-	[Fact]
-	public async Task GetEnabledByCompany_BothValid_Success()
-	{
-		var dsAppUser = _dataSet.AppUsers.First(au => au.CompanyId != null && au.IsEnabled);
-		var dsAppUsers = _dataSet.AppUsers.Where(x => (x.CompanyId == dsAppUser.CompanyId) && x.IsEnabled).ToList();
-
-
-		//var appUsers = await _apiClient.GetEnabledByCompany(true, dsAppUser.CompanyId);
-		//appUsers = await _apiClient.GetAll();
-		//Assert.Equal(dsAppUsers.Count, appUsers.Count);
-	}
-
-	#endregion
-
 	[Fact]
 	public async Task GetByFirstAndLast_Success()
 	{

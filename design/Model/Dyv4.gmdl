@@ -712,15 +712,15 @@
                     },
                     {
                       "$id": "108",
-                      "Id": "d39d5c3d-7c50-4637-bc44-2cc797589ccc",
-                      "Name": "GetByCompanyExtIdWPging",
+                      "Id": "b2a9bc5f-c3b5-42dd-a1ee-586f324e8518",
+                      "Name": "GetByGroupCode",
                       "Attributes": {
                         "$id": "109",
                         "$values": []
                       },
                       "DisplayOrder": 0,
                       "InclSorting": false,
-                      "InclPaging": true,
+                      "InclPaging": false,
                       "UseQuery": false,
                       "FilterProperties": {
                         "$id": "110",
@@ -728,46 +728,6 @@
                           {
                             "$id": "111",
                             "Property": {
-                              "$ref": "26"
-                            },
-                            "IsOptional": false,
-                            "IsInternal": false,
-                            "InternalValue": null
-                          },
-                          {
-                            "$id": "112",
-                            "Property": {
-                              "$ref": "29"
-                            },
-                            "IsOptional": true,
-                            "IsInternal": false,
-                            "InternalValue": null
-                          }
-                        ]
-                      },
-                      "InclNavProperties": {
-                        "$id": "113",
-                        "$values": []
-                      }
-                    },
-                    {
-                      "$id": "114",
-                      "Id": "b2a9bc5f-c3b5-42dd-a1ee-586f324e8518",
-                      "Name": "GetByGroupCode",
-                      "Attributes": {
-                        "$id": "115",
-                        "$values": []
-                      },
-                      "DisplayOrder": 0,
-                      "InclSorting": false,
-                      "InclPaging": false,
-                      "UseQuery": false,
-                      "FilterProperties": {
-                        "$id": "116",
-                        "$values": [
-                          {
-                            "$id": "117",
-                            "Property": {
                               "$ref": "33"
                             },
                             "IsOptional": false,
@@ -777,16 +737,16 @@
                         ]
                       },
                       "InclNavProperties": {
-                        "$id": "118",
+                        "$id": "112",
                         "$values": []
                       }
                     },
                     {
-                      "$id": "119",
+                      "$id": "113",
                       "Id": "14de014f-8a50-41a0-9bc0-a7c3cf8a48e7",
                       "Name": "GetByGroupCodeWPging",
                       "Attributes": {
-                        "$id": "120",
+                        "$id": "114",
                         "$values": []
                       },
                       "DisplayOrder": 0,
@@ -794,10 +754,10 @@
                       "InclPaging": true,
                       "UseQuery": false,
                       "FilterProperties": {
-                        "$id": "121",
+                        "$id": "115",
                         "$values": [
                           {
-                            "$id": "122",
+                            "$id": "116",
                             "Property": {
                               "$ref": "33"
                             },
@@ -808,16 +768,16 @@
                         ]
                       },
                       "InclNavProperties": {
-                        "$id": "123",
+                        "$id": "117",
                         "$values": []
                       }
                     },
                     {
-                      "$id": "124",
+                      "$id": "118",
                       "Id": "878df4f2-24f3-4e81-9cb8-c3ca3053167d",
                       "Name": "GetByUserType",
                       "Attributes": {
-                        "$id": "125",
+                        "$id": "119",
                         "$values": []
                       },
                       "DisplayOrder": 0,
@@ -825,10 +785,10 @@
                       "InclPaging": false,
                       "UseQuery": false,
                       "FilterProperties": {
-                        "$id": "126",
+                        "$id": "120",
                         "$values": [
                           {
-                            "$id": "127",
+                            "$id": "121",
                             "Property": {
                               "$ref": "37"
                             },
@@ -839,16 +799,16 @@
                         ]
                       },
                       "InclNavProperties": {
-                        "$id": "128",
+                        "$id": "122",
                         "$values": []
                       }
                     },
                     {
-                      "$id": "129",
+                      "$id": "123",
                       "Id": "a077c4aa-0943-4816-939b-3eea7618b7a2",
                       "Name": "GetByUserTypeWPging",
                       "Attributes": {
-                        "$id": "130",
+                        "$id": "124",
                         "$values": []
                       },
                       "DisplayOrder": 0,
@@ -856,10 +816,10 @@
                       "InclPaging": true,
                       "UseQuery": false,
                       "FilterProperties": {
-                        "$id": "131",
+                        "$id": "125",
                         "$values": [
                           {
-                            "$id": "132",
+                            "$id": "126",
                             "Property": {
                               "$ref": "37"
                             },
@@ -870,16 +830,16 @@
                         ]
                       },
                       "InclNavProperties": {
-                        "$id": "133",
+                        "$id": "127",
                         "$values": []
                       }
                     },
                     {
-                      "$id": "134",
+                      "$id": "128",
                       "Id": "0e636b9d-26ba-41f3-8bac-49eac15ce506",
                       "Name": "GetEnabledByUserTypeWPging",
                       "Attributes": {
-                        "$id": "135",
+                        "$id": "129",
                         "$values": []
                       },
                       "DisplayOrder": 0,
@@ -887,10 +847,10 @@
                       "InclPaging": true,
                       "UseQuery": false,
                       "FilterProperties": {
-                        "$id": "136",
+                        "$id": "130",
                         "$values": [
                           {
-                            "$id": "137",
+                            "$id": "131",
                             "Property": {
                               "$ref": "12"
                             },
@@ -899,7 +859,7 @@
                             "InternalValue": "true"
                           },
                           {
-                            "$id": "138",
+                            "$id": "132",
                             "Property": {
                               "$ref": "37"
                             },
@@ -910,7 +870,7 @@
                         ]
                       },
                       "InclNavProperties": {
-                        "$id": "139",
+                        "$id": "133",
                         "$values": []
                       }
                     }
@@ -922,7 +882,7 @@
               "$ref": "46"
             },
             {
-              "$id": "140",
+              "$id": "134",
               "Id": "a78f3326-4b21-48d8-a988-d378fb173f60",
               "Name": "LogEvent",
               "Schema": "Logs",
@@ -930,10 +890,10 @@
               "Enabled": true,
               "Namespace": null,
               "Properties": {
-                "$id": "141",
+                "$id": "135",
                 "$values": [
                   {
-                    "$id": "142",
+                    "$id": "136",
                     "Id": "7c67f50c-c3ef-4fe9-9bb8-6dbadd8def43",
                     "Name": "Id",
                     "IsPrimaryKey": true,
@@ -945,15 +905,15 @@
                     "IsIndexClustered": false,
                     "DisplayOrder": 0,
                     "Attributes": {
-                      "$id": "143",
+                      "$id": "137",
                       "$values": []
                     },
                     "AddlUsings": {
-                      "$id": "144",
+                      "$id": "138",
                       "$values": []
                     },
                     "PrimitiveType": {
-                      "$id": "145",
+                      "$id": "139",
                       "Id": 4,
                       "Name": "Guid",
                       "CSType": "Guid",
@@ -963,7 +923,7 @@
                     "Assoc": null
                   },
                   {
-                    "$id": "146",
+                    "$id": "140",
                     "Id": "fd303196-f7ab-47d5-80c9-502bd002bc3c",
                     "Name": "Message",
                     "IsPrimaryKey": false,
@@ -975,15 +935,15 @@
                     "IsIndexClustered": false,
                     "DisplayOrder": 0,
                     "Attributes": {
-                      "$id": "147",
+                      "$id": "141",
                       "$values": []
                     },
                     "AddlUsings": {
-                      "$id": "148",
+                      "$id": "142",
                       "$values": []
                     },
                     "PrimitiveType": {
-                      "$id": "149",
+                      "$id": "143",
                       "Id": 1,
                       "Name": "String",
                       "CSType": "string",
@@ -993,7 +953,7 @@
                     "Assoc": null
                   },
                   {
-                    "$id": "150",
+                    "$id": "144",
                     "Id": "0c62e255-5103-45b1-ad1f-af7444eaf911",
                     "Name": "Timestamp",
                     "IsPrimaryKey": false,
@@ -1005,15 +965,15 @@
                     "IsIndexClustered": false,
                     "DisplayOrder": 0,
                     "Attributes": {
-                      "$id": "151",
+                      "$id": "145",
                       "$values": []
                     },
                     "AddlUsings": {
-                      "$id": "152",
+                      "$id": "146",
                       "$values": []
                     },
                     "PrimitiveType": {
-                      "$id": "153",
+                      "$id": "147",
                       "Id": 5,
                       "Name": "DateTime",
                       "CSType": "DateTime",
@@ -1023,7 +983,7 @@
                     "Assoc": null
                   },
                   {
-                    "$id": "154",
+                    "$id": "148",
                     "Id": "c46eed35-8856-42b9-b8ff-6c61b1985c7f",
                     "Name": "Exception",
                     "IsPrimaryKey": false,
@@ -1031,6 +991,58 @@
                     "Nullable": false,
                     "MaxLength": 0,
                     "IsIndexed": false,
+                    "IsIndexUnique": false,
+                    "IsIndexClustered": false,
+                    "DisplayOrder": 0,
+                    "Attributes": {
+                      "$id": "149",
+                      "$values": []
+                    },
+                    "AddlUsings": {
+                      "$id": "150",
+                      "$values": []
+                    },
+                    "PrimitiveType": {
+                      "$ref": "143"
+                    },
+                    "EnumType": null,
+                    "Assoc": null
+                  },
+                  {
+                    "$id": "151",
+                    "Id": "7e5e38a9-9d9a-4d69-86d8-846c22fd7faf",
+                    "Name": "Application",
+                    "IsPrimaryKey": false,
+                    "IsIdentity": false,
+                    "Nullable": false,
+                    "MaxLength": 100,
+                    "IsIndexed": true,
+                    "IsIndexUnique": false,
+                    "IsIndexClustered": false,
+                    "DisplayOrder": 0,
+                    "Attributes": {
+                      "$id": "152",
+                      "$values": []
+                    },
+                    "AddlUsings": {
+                      "$id": "153",
+                      "$values": []
+                    },
+                    "PrimitiveType": {
+                      "$ref": "143"
+                    },
+                    "EnumType": null,
+                    "Assoc": null
+                  },
+                  {
+                    "$id": "154",
+                    "Id": "b7b214aa-1bdb-4623-a259-bc06d11dc1f9",
+                    "Name": "Source",
+                    "IsPrimaryKey": false,
+                    "IsIdentity": false,
+                    "Nullable": false,
+                    "MaxLength": 100,
+                    "IsIndexed": true,
                     "IsIndexUnique": false,
                     "IsIndexClustered": false,
                     "DisplayOrder": 0,
@@ -1043,19 +1055,19 @@
                       "$values": []
                     },
                     "PrimitiveType": {
-                      "$ref": "149"
+                      "$ref": "143"
                     },
                     "EnumType": null,
                     "Assoc": null
                   },
                   {
                     "$id": "157",
-                    "Id": "7e5e38a9-9d9a-4d69-86d8-846c22fd7faf",
-                    "Name": "Application",
+                    "Id": "4b28f8a6-b72a-4b66-9de2-adaa06c3c514",
+                    "Name": "CorrelationId",
                     "IsPrimaryKey": false,
                     "IsIdentity": false,
                     "Nullable": false,
-                    "MaxLength": 100,
+                    "MaxLength": 50,
                     "IsIndexed": true,
                     "IsIndexUnique": false,
                     "IsIndexClustered": false,
@@ -1069,59 +1081,7 @@
                       "$values": []
                     },
                     "PrimitiveType": {
-                      "$ref": "149"
-                    },
-                    "EnumType": null,
-                    "Assoc": null
-                  },
-                  {
-                    "$id": "160",
-                    "Id": "b7b214aa-1bdb-4623-a259-bc06d11dc1f9",
-                    "Name": "Source",
-                    "IsPrimaryKey": false,
-                    "IsIdentity": false,
-                    "Nullable": false,
-                    "MaxLength": 100,
-                    "IsIndexed": true,
-                    "IsIndexUnique": false,
-                    "IsIndexClustered": false,
-                    "DisplayOrder": 0,
-                    "Attributes": {
-                      "$id": "161",
-                      "$values": []
-                    },
-                    "AddlUsings": {
-                      "$id": "162",
-                      "$values": []
-                    },
-                    "PrimitiveType": {
-                      "$ref": "149"
-                    },
-                    "EnumType": null,
-                    "Assoc": null
-                  },
-                  {
-                    "$id": "163",
-                    "Id": "4b28f8a6-b72a-4b66-9de2-adaa06c3c514",
-                    "Name": "CorrelationId",
-                    "IsPrimaryKey": false,
-                    "IsIdentity": false,
-                    "Nullable": false,
-                    "MaxLength": 50,
-                    "IsIndexed": true,
-                    "IsIndexUnique": false,
-                    "IsIndexClustered": false,
-                    "DisplayOrder": 0,
-                    "Attributes": {
-                      "$id": "164",
-                      "$values": []
-                    },
-                    "AddlUsings": {
-                      "$id": "165",
-                      "$values": []
-                    },
-                    "PrimitiveType": {
-                      "$ref": "149"
+                      "$ref": "143"
                     },
                     "EnumType": null,
                     "Assoc": null
@@ -1129,19 +1089,19 @@
                 ]
               },
               "NavProperties": {
-                "$id": "166",
+                "$id": "160",
                 "$values": []
               },
               "Attributes": {
-                "$id": "167",
+                "$id": "161",
                 "$values": []
               },
               "AddlUsings": {
-                "$id": "168",
+                "$id": "162",
                 "$values": []
               },
               "Service": {
-                "$id": "169",
+                "$id": "163",
                 "Id": "b8f51a31-bb1b-49f0-91bb-71fb0bfb37fb",
                 "Enabled": true,
                 "InclCreate": true,
@@ -1150,23 +1110,23 @@
                 "InclController": false,
                 "ControllerVersion": "1.0",
                 "AddlServiceUsings": {
-                  "$id": "170",
+                  "$id": "164",
                   "$values": []
                 },
                 "ServiceClassAttributes": {
-                  "$id": "171",
+                  "$id": "165",
                   "$values": []
                 },
                 "AddlControllerUsings": {
-                  "$id": "172",
+                  "$id": "166",
                   "$values": []
                 },
                 "ControllerClassAttributes": {
-                  "$id": "173",
+                  "$id": "167",
                   "$values": []
                 },
                 "Methods": {
-                  "$id": "174",
+                  "$id": "168",
                   "$values": []
                 }
               }
@@ -1174,7 +1134,7 @@
           ]
         },
         "Enums": {
-          "$id": "175",
+          "$id": "169",
           "$values": [
             {
               "$ref": "40"
@@ -1182,7 +1142,7 @@
           ]
         },
         "Assocs": {
-          "$id": "176",
+          "$id": "170",
           "$values": [
             {
               "$ref": "45"
@@ -1190,12 +1150,12 @@
           ]
         },
         "Generators": {
-          "$id": "177",
+          "$id": "171",
           "Id": "5be80a04-cc3c-469f-834c-a3bc679035e3",
           "Enabled": true,
           "TemplatesFolder": "Templates",
           "DbContextGen": {
-            "$id": "178",
+            "$id": "172",
             "OutputFolder": "..\\..\\src\\App1.Data\\Contexts",
             "ContextNamespace": "Dyvenix.App1.Data",
             "Id": "d69022db-e848-4bee-b45b-337c142e1389",
@@ -1204,7 +1164,7 @@
             "InclHeader": true
           },
           "EntityGen": {
-            "$id": "179",
+            "$id": "173",
             "OutputFolder": "..\\..\\src\\App1.Common\\Entities",
             "EntitiesNamespace": "Dyvenix.App1.Common.Entities",
             "Id": "1026971e-56e8-4df3-8d56-61c6a7f2bd1d",
@@ -1213,7 +1173,7 @@
             "InclHeader": true
           },
           "EnumGen": {
-            "$id": "180",
+            "$id": "174",
             "OutputFolder": "..\\..\\src\\App1.Common\\Entities",
             "EnumsNamespace": "Dyvenix.App1.Common.Entities",
             "Id": "f8010385-fee4-4dbf-aa95-5fb53454b790",
@@ -1222,7 +1182,7 @@
             "InclHeader": true
           },
           "ServiceGen": {
-            "$id": "181",
+            "$id": "175",
             "OutputFolder": "..\\..\\src\\App1.Server\\Services",
             "QueryOutputFolder": "..\\..\\src\\App1.Common\\Queries",
             "ControllerOutputFolder": "..\\..\\src\\App1.Server\\Controllers",
@@ -1239,7 +1199,7 @@
             "InclHeader": true
           },
           "IntTestsGen": {
-            "$id": "182",
+            "$id": "176",
             "OutputFolder": "..\\..\\tests\\App1.Common.IntTests\\Tests",
             "Namespace": "Dyvenix.App1.Common.IntTests.Tests",
             "Id": "13259eeb-fd18-4606-a17c-5c5f07d556fa",

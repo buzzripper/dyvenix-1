@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/8/2025 10:44 PM. Any changes made to it will be lost.
+// This file was auto-generated 4/9/2025 9:14 AM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -131,20 +131,10 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	}
 
 	[HttpGet, Route("[action]/{companyId}")]
-	public async Task<ActionResult<List<AppUser>>> GetByCompanyExtId([FromRoute] string companyId, [FromQuery] string extId)
+	public async Task<ActionResult<List<AppUser>>> GetByCompanyExtId([FromRoute] string companyId, [FromQuery] string extId = null)
 	{
 		try {
 			return await _appUserService.GetByCompanyExtId(companyId, extId);
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
-	[HttpGet, Route("[action]/{companyId}")]
-	public async Task<ActionResult<List<AppUser>>> GetByCompanyExtIdWPging([FromRoute] string companyId, [FromQuery] string extId, [FromQuery] int pgSize = 0, [FromQuery] int pgOffset = 0)
-	{
-		try {
-			return await _appUserService.GetByCompanyExtIdWPging(companyId, extId, pgSize, pgOffset);
 		} catch (Exception ex) {
 			return LogErrorAndReturnErrorResponse(ex);
 		}
@@ -191,7 +181,7 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	}
 
 	[HttpGet, Route("[action]")]
-	public async Task<ActionResult<List<AppUser>>> GetEnabledByUserTypeWPging([FromQuery] UserType? userType, [FromQuery] int pgSize = 0, [FromQuery] int pgOffset = 0)
+	public async Task<ActionResult<List<AppUser>>> GetEnabledByUserTypeWPging([FromQuery] UserType? userType = null, [FromQuery] int pgSize = 0, [FromQuery] int pgOffset = 0)
 	{
 		try {
 			return await _appUserService.GetEnabledByUserTypeWPging(userType, pgSize, pgOffset);

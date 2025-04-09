@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/8/2025 10:44 PM. Any changes made to it will be lost.
+// This file was auto-generated 4/9/2025 9:14 AM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -22,8 +22,7 @@ public interface IAppUserApiClient
 	Task<List<AppUser>> GetByCompanyId(string companyId);
 	Task<List<AppUser>> GetAllWithPaging(int pgSize = 0, int pgOffset = 0);
 	Task<List<AppUser>> GetEnabledByCompany(string companyId);
-	Task<List<AppUser>> GetByCompanyExtId(string companyId, string? extId = null);
-	Task<List<AppUser>> GetByCompanyExtIdWPging(string companyId, string? extId = null, int pgSize = 0, int pgOffset = 0);
+	Task<List<AppUser>> GetByCompanyExtId(string companyId, string extId = null);
 	Task<List<AppUser>> GetByGroupCode(int groupCode);
 	Task<List<AppUser>> GetByGroupCodeWPging(int groupCode, int pgSize = 0, int pgOffset = 0);
 	Task<List<AppUser>> GetByUserType(UserType userType);
@@ -91,15 +90,9 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetEnabledByCompany/{companyId}");
 	}
 
-	public async Task<List<AppUser>> GetByCompanyExtId(string companyId, string? extId = null)
+	public async Task<List<AppUser>> GetByCompanyExtId(string companyId, string extId = null)
 	{
-		//return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByCompanyExtId/{companyId}?extId={extId}");
-		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByCompanyExtId/{companyId}");
-	}
-
-	public async Task<List<AppUser>> GetByCompanyExtIdWPging(string companyId, string? extId = null, int pgSize = 0, int pgOffset = 0)
-	{
-		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByCompanyExtIdWPging/{companyId}?extId={extId}&pgSize={pgSize}&pgOffset={pgOffset}");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByCompanyExtId/{companyId}?extId={extId}");
 	}
 
 	public async Task<List<AppUser>> GetByGroupCode(int groupCode)

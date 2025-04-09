@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/8/2025 10:35 PM. Any changes made to it will be lost.
+// This file was auto-generated 4/8/2025 10:44 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Linq;
@@ -108,7 +108,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var appUsers = await _apiClient.GetByCompanyId(companyId: dsAppUser.CompanyId);
 
 		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+		Assert.Equal(appUsers.Count, dsAppUsers.Count);
 	}
 
 	// GetByCompanyId() - CompanyId:NotExist
@@ -123,7 +123,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var appUsers = await _apiClient.GetByCompanyId(companyId: Guid.NewGuid().ToString()[10..]);
 
 		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+		Assert.Equal(appUsers.Count, dsAppUsers.Count);
 	}
 
 	[Fact]
@@ -145,7 +145,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var appUsers = await _apiClient.GetEnabledByCompany(companyId: dsAppUser.CompanyId);
 
 		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+		Assert.Equal(appUsers.Count, dsAppUsers.Count);
 	}
 
 	// GetEnabledByCompany() - CompanyId:NotExist
@@ -160,7 +160,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var appUsers = await _apiClient.GetEnabledByCompany(companyId: Guid.NewGuid().ToString()[10..]);
 
 		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+		Assert.Equal(appUsers.Count, dsAppUsers.Count);
 	}
 
 	// GetByCompanyExtId() - CompanyId:Good, ExtId:Good
@@ -175,7 +175,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var appUsers = await _apiClient.GetByCompanyExtId(companyId: dsAppUser.CompanyId, extId: dsAppUser.ExtId);
 
 		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+		Assert.Equal(appUsers.Count, dsAppUsers.Count);
 	}
 
 	// GetByCompanyExtId() - CompanyId:Good, ExtId:NotExist
@@ -190,7 +190,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var appUsers = await _apiClient.GetByCompanyExtId(companyId: dsAppUser.CompanyId, extId: Guid.NewGuid().ToString());
 
 		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+		Assert.Equal(appUsers.Count, dsAppUsers.Count);
 	}
 
 	// GetByCompanyExtId() - CompanyId:Good, ExtId:NotSupplied
@@ -205,7 +205,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var appUsers = await _apiClient.GetByCompanyExtId(companyId: dsAppUser.CompanyId);
 
 		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+		Assert.Equal(appUsers.Count, dsAppUsers.Count);
 	}
 
 	// GetByCompanyExtId() - CompanyId:NotExist, ExtId:Good
@@ -220,7 +220,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var appUsers = await _apiClient.GetByCompanyExtId(companyId: Guid.NewGuid().ToString()[10..], extId: dsAppUser.ExtId);
 
 		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+		Assert.Equal(appUsers.Count, dsAppUsers.Count);
 	}
 
 	// GetByCompanyExtId() - CompanyId:NotExist, ExtId:NotExist
@@ -235,7 +235,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var appUsers = await _apiClient.GetByCompanyExtId(companyId: Guid.NewGuid().ToString()[10..], extId: Guid.NewGuid().ToString());
 
 		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+		Assert.Equal(appUsers.Count, dsAppUsers.Count);
 	}
 
 	// GetByCompanyExtId() - CompanyId:NotExist, ExtId:NotSupplied
@@ -250,7 +250,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var appUsers = await _apiClient.GetByCompanyExtId(companyId: Guid.NewGuid().ToString()[10..]);
 
 		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+		Assert.Equal(appUsers.Count, dsAppUsers.Count);
 	}
 
 	// GetByCompanyExtIdWPging() - CompanyId:Good, ExtId:Good, Paging:Good, Paging:Good
@@ -457,7 +457,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var appUsers = await _apiClient.GetByGroupCode(groupCode: dsAppUser.GroupCode.Value);
 
 		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+		Assert.Equal(appUsers.Count, dsAppUsers.Count);
 	}
 
 	// GetByGroupCode() - GroupCode:NotExist
@@ -472,7 +472,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var appUsers = await _apiClient.GetByGroupCode(groupCode: int.MaxValue);
 
 		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+		Assert.Equal(appUsers.Count, dsAppUsers.Count);
 	}
 
 	// GetByGroupCodeWPging() - GroupCode:Good, Paging:Good, Paging:Good
@@ -551,7 +551,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var appUsers = await _apiClient.GetByUserType(userType: dsAppUser.UserType);
 
 		// Assert
-		Assert.Equal(appUsers.Count, _ds.AppUsers.Count);
+		Assert.Equal(appUsers.Count, dsAppUsers.Count);
 	}
 
 	// GetByUserTypeWPging() - UserType:Good, Paging:Good, Paging:Good

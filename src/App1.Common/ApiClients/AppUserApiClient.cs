@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/8/2025 10:35 PM. Any changes made to it will be lost.
+// This file was auto-generated 4/8/2025 10:44 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -93,7 +93,8 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 
 	public async Task<List<AppUser>> GetByCompanyExtId(string companyId, string? extId = null)
 	{
-		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByCompanyExtId/{companyId}?extId={extId}");
+		//return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByCompanyExtId/{companyId}?extId={extId}");
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByCompanyExtId/{companyId}");
 	}
 
 	public async Task<List<AppUser>> GetByCompanyExtIdWPging(string companyId, string? extId = null, int pgSize = 0, int pgOffset = 0)

@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/9/2025 9:14 AM. Any changes made to it will be lost.
+// This file was auto-generated 4/9/2025 9:08 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -31,6 +31,7 @@ public interface IAppUserService
 	Task<List<AppUser>> GetByUserType(UserType userType);
 	Task<List<AppUser>> GetByUserTypeWPging(UserType userType, int pageSize = 0, int pageOffset = 0);
 	Task<List<AppUser>> GetEnabledByUserTypeWPging(UserType? userType = null, int pageSize = 0, int pageOffset = 0);
+	Task<List<AppUser>> GetByGroupCodeWClaims(int groupCode);
 }
 
 public class AppUserService : IAppUserService
@@ -196,6 +197,16 @@ public class AppUserService : IAppUserService
 		dbQuery = dbQuery.Where(x => x.IsEnabled == true);
 		if (pageSize > 0)
 			dbQuery = dbQuery.Skip(pageOffset * pageSize).Take(pageSize);
+
+		return await dbQuery.AsNoTracking().ToListAsync();
+	}
+
+	public async Task<List<AppUser>> GetByGroupCodeWClaims(int groupCode)
+	{
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+
+		dbQuery = dbQuery.Include(x => x.Claims);
+		dbQuery = dbQuery.Where(x => x.GroupCode == groupCode);
 
 		return await dbQuery.AsNoTracking().ToListAsync();
 	}

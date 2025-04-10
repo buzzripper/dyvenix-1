@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/9/2025 9:14 AM. Any changes made to it will be lost.
+// This file was auto-generated 4/9/2025 9:08 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Linq;
@@ -51,6 +51,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 
 	private readonly IAppUserApiClient _apiClient;
 	private readonly DataSet _ds;
+	private readonly ITestOutputHelper _output;
 
 	#endregion
 
@@ -60,6 +61,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 	{
 		_apiClient = classFixture.AppUserApiClient;
 		_ds = classFixture.DataSet;
+		_output = output;
 	}
 
 	public void Dispose()
@@ -454,6 +456,42 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 			var appUsers = await _apiClient.GetEnabledByUserTypeWPging();
 			Assert.Equal(pgr.Expected[i], appUsers.Count);
 		}
+	}
+
+	// GetByGroupCodeWClaims() - GroupCode:Good
+	[Fact]
+	public async Task GetByGroupCodeWClaims_01()
+	{
+		// Arrange
+		var dsAppUser = _ds.AppUsers.First(x => x.GroupCode.HasValue);
+		var dsAppUsers = _ds.AppUsers.Where(x => x.GroupCode == dsAppUser.GroupCode.Value).ToList();
+		var dsClaimsCount = dsAppUsers.Sum(x => x.Claims?.Count);
+
+		// Act
+		var appUsers = await _apiClient.GetByGroupCodeWClaims(groupCode: dsAppUser.GroupCode.Value);
+		var claimsCount = appUsers.Sum(x => x.Claims?.Count);
+
+		// Assert
+		Assert.Equal(dsAppUsers.Count, appUsers.Count);
+		Assert.Equal(dsClaimsCount, claimsCount);
+	}
+
+	// GetByGroupCodeWClaims() - GroupCode:NotExist
+	[Fact]
+	public async Task GetByGroupCodeWClaims_02()
+	{
+		// Arrange
+		var dsAppUser = _ds.AppUsers.First(x => x.GroupCode.HasValue);
+		var dsAppUsers = _ds.AppUsers.Where(x => x.GroupCode == int.MaxValue).ToList();
+		var dsClaimsCount = dsAppUsers.Sum(x => x.Claims?.Count);
+
+		// Act
+		var appUsers = await _apiClient.GetByGroupCodeWClaims(groupCode: int.MaxValue);
+		var claimsCount = appUsers.Sum(x => x.Claims?.Count);
+
+		// Assert
+		Assert.Equal(dsAppUsers.Count, appUsers.Count);
+		Assert.Equal(dsClaimsCount, claimsCount);
 	}
 
 	#endregion

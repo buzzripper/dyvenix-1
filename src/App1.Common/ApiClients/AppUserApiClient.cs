@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/9/2025 9:14 AM. Any changes made to it will be lost.
+// This file was auto-generated 4/9/2025 9:08 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -28,6 +28,7 @@ public interface IAppUserApiClient
 	Task<List<AppUser>> GetByUserType(UserType userType);
 	Task<List<AppUser>> GetByUserTypeWPging(UserType userType, int pgSize = 0, int pgOffset = 0);
 	Task<List<AppUser>> GetEnabledByUserTypeWPging(UserType? userType = null, int pgSize = 0, int pgOffset = 0);
+	Task<List<AppUser>> GetByGroupCodeWClaims(int groupCode);
 }
 public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 {
@@ -118,6 +119,11 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 	public async Task<List<AppUser>> GetEnabledByUserTypeWPging(UserType? userType = null, int pgSize = 0, int pgOffset = 0)
 	{
 		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetEnabledByUserTypeWPging?userType={userType}&pgSize={pgSize}&pgOffset={pgOffset}");
+	}
+
+	public async Task<List<AppUser>> GetByGroupCodeWClaims(int groupCode)
+	{
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetByGroupCodeWClaims/{groupCode}");
 	}
 
 	#endregion

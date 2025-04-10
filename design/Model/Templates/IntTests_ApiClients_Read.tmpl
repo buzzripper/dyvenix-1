@@ -51,6 +51,7 @@ public class ${{ENTITY_NAME}}ReadTests : IClassFixture<${{ENTITY_NAME}}ReadTests
 
 	private readonly I${{ENTITY_NAME}}ApiClient _apiClient;
 	private readonly DataSet _ds;
+	private readonly ITestOutputHelper _output;
 
 	#endregion
 
@@ -60,6 +61,7 @@ public class ${{ENTITY_NAME}}ReadTests : IClassFixture<${{ENTITY_NAME}}ReadTests
 	{
 		_apiClient = classFixture.${{ENTITY_NAME}}ApiClient;
 		_ds = classFixture.DataSet;
+		_output = output;
 	}
 
 	public void Dispose()

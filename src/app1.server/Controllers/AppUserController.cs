@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/9/2025 9:14 AM. Any changes made to it will be lost.
+// This file was auto-generated 4/9/2025 9:08 PM. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -185,6 +185,16 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	{
 		try {
 			return await _appUserService.GetEnabledByUserTypeWPging(userType, pgSize, pgOffset);
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
+
+	[HttpGet, Route("[action]/{groupCode}")]
+	public async Task<ActionResult<List<AppUser>>> GetByGroupCodeWClaims([FromRoute] int groupCode)
+	{
+		try {
+			return await _appUserService.GetByGroupCodeWClaims(groupCode);
 		} catch (Exception ex) {
 			return LogErrorAndReturnErrorResponse(ex);
 		}

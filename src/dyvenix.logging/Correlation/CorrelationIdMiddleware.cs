@@ -17,13 +17,14 @@ public class CorrelationIdMiddleware
 
 	public async Task Invoke(HttpContext context)
 	{
-		var correlationId = context.Request.Headers["X-Correlation-ID"].FirstOrDefault()
+		// HttpContext request/response headers
+		var correlationId = context.Request.Headers[LogConstants.CorrelationHeaderName].FirstOrDefault()
 							?? Guid.NewGuid().ToString();
+		context.Response.Headers[LogConstants.CorrelationHeaderName] = correlationId;
 
-		context.Items["CorrelationId"] = correlationId;
-		context.Response.Headers["X-Correlation-ID"] = correlationId;
-
-		using (LogContext.PushProperty("CorrelationId", correlationId))
+		// HttpContext items
+		context.Items[LogConstants.CorrelationItemName] = correlationId;
+		using (LogContext.PushProperty(LogConstants.CorrelationItemName, correlationId))
 		{
 			await _next(context);
 		}

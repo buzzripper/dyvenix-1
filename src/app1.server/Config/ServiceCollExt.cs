@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Microsoft.OpenApi.Any;
 using System;
+using Dyvenix.Logging.Correlation;
 
 namespace Dyvenix.App1.Server.Config;
 
@@ -17,9 +18,9 @@ public static partial class ServiceCollExt
 	public static IServiceCollection AddAppServices(this IServiceCollection services, AppConfig appConfig)
 	{
 		services.AddSingleton(appConfig);
+		services.AddScoped<ICorrelationIdAccessor, CorrelationIdAccessor>();
 		services.AddScoped<ITestService, TestService>();
 		services.AddScoped<IAccessClaimsProvider, AccessClaimsProvider>();
-		services.AddScoped<IAppUserService2, AppUserService2>();
 
 		AddGeneratedServices(services);
 

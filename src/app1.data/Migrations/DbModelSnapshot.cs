@@ -40,6 +40,11 @@ namespace Dyvenix.App1.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
                     b.HasKey("Id");
 
                     b.HasIndex(new[] { "AppUserId" }, "IX_AccessClaim_AppUserId");
@@ -67,8 +72,8 @@ namespace Dyvenix.App1.Data.Migrations
 
                     b.Property<string>("ExtId")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(68)
+                        .HasColumnType("nvarchar(68)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -86,10 +91,17 @@ namespace Dyvenix.App1.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
                     b.Property<int>("UserType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex(new[] { "CompanyId" }, "IX_AppUser_CompanyId");
 
                     b.HasIndex(new[] { "Email" }, "IX_AppUser_Email");
 

@@ -31,6 +31,7 @@ public abstract class ApiClientBase<T> where T : class
 	public ApiClientBase(HttpClient httpClient)
 	{
 		_httpClient = httpClient;
+		_jsonSerializerOptionsGet.Converters.Add(new JsonStringEnumConverter());
 	}
 
 	#endregion

@@ -1,16 +1,20 @@
-﻿
+﻿using System;
+
 namespace Dyvenix.Core.Exceptions;
 
 public class NotFoundApiException : ApiException
 {
-	public NotFoundApiException(string message) : base(message)
-	{
-	}
+	#region Ctors / Init
 
-	public NotFoundApiException(string correlationId, string message) : base(message)
-	{
-		CorrelationId = correlationId;
-	}
+	public NotFoundApiException() : base() { }
+
+	public NotFoundApiException(string message) : base(message) { }
+
+	public NotFoundApiException(string message, Exception innerException) : base(message, innerException) { }
+
+	public NotFoundApiException(string message, string correlationId) : base(message, correlationId) { }
+
+	#endregion
 
 	protected override int GetStatusCode()
 	{

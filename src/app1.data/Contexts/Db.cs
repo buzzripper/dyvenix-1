@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/9/2025 9:08 PM. Any changes made to it will be lost.
+// This file was auto-generated ${{CURR_TIMESTAMP}}. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using Microsoft.EntityFrameworkCore;
 using Dyvenix.App1.Common.Entities;
@@ -31,6 +31,8 @@ public partial class Db : DbContext
 			// PK
 			entity.HasKey(e => e.Id);
 
+			entity.Property(e => e.RowVersion).IsRowVersion();
+
 			// Properties
 			entity.Property(e => e.IsEnabled).IsRequired(true);
 			entity.Property(e => e.FirstName).IsRequired(true).HasMaxLength(100);
@@ -45,6 +47,7 @@ public partial class Db : DbContext
 			entity.HasIndex(e => e.Id, "IX_AppUser_Id").IsUnique();
 			entity.HasIndex(e => e.LastName, "IX_AppUser_LastName");
 			entity.HasIndex(e => e.Email, "IX_AppUser_Email");
+			entity.HasIndex(e => e.CompanyId, "IX_AppUser_CompanyId");
 			entity.HasIndex(e => e.ExtId, "IX_AppUser_ExtId");
 		});
 
@@ -54,6 +57,8 @@ public partial class Db : DbContext
 
 			// PK
 			entity.HasKey(e => e.Id);
+
+			entity.Property(e => e.RowVersion).IsRowVersion();
 
 			// Properties
 			entity.Property(e => e.ClaimName).IsRequired(true).HasMaxLength(100);

@@ -22,4 +22,8 @@
 		<PackageReference Include="Serilog.Sinks.MSSqlServer" Version="8.1.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Misc\" />
+	</ItemGroup>
+
 </Project>

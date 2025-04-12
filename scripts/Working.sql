@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS __EFMigrationsHistory;
 DELETE FROM AccessClaim;
 DELETE FROM AppUser;
 DELETE FROM Logs.LogEvents;
-*/""
+*/
 
 
 SELECT * FROM AppUser;

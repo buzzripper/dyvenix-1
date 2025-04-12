@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/9/2025 9:08 PM. Any changes made to it will be lost.
+// This file was auto-generated. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Dyvenix.App1.Data.Contexts;
 using Dyvenix.App1.Common.Entities;
 using Dyvenix.Core.Entities;
+using Dyvenix.Core.Exceptions;
 using Dyvenix.Core.Queries;
 using Dyvenix.Logging;
 using Dyvenix.App1.Common.Queries;
@@ -25,10 +26,12 @@ public interface ILogEventService
 public class LogEventService : ILogEventService
 {
 	private readonly IDbContextFactory _dbContextFactory;
+	private readonly IDyvenixLogger<LogEventService> _logger;
 
-	public LogEventService(IDbContextFactory dbContextFactory, IDyvenixLogger<TestService> logger)
+	public LogEventService(IDbContextFactory dbContextFactory, IDyvenixLogger<LogEventService> logger)
 	{
 		_dbContextFactory = dbContextFactory;
+		_logger = logger;
 	}
 
 	#region Create / Update / Delete
@@ -50,10 +53,14 @@ public class LogEventService : ILogEventService
 
 		using var db = _dbContextFactory.CreateDbContext();
 
-		db.Attach(logEvent);
-		db.Entry(logEvent).State = EntityState.Modified;
+		try {
+			db.Attach(logEvent);
+			db.Entry(logEvent).State = EntityState.Modified;
+			await db.SaveChangesAsync();
 
-		await db.SaveChangesAsync();
+		} catch (DbUpdateConcurrencyException) {
+			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
+		}
 	}
 
 	public async Task DeleteLogEvent(Guid id)

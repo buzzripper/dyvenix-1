@@ -1,6 +1,6 @@
-﻿using Serilog;
+﻿using Dyvenix.Logging.Correlation;
+using Serilog;
 using System;
-using System.Security.Cryptography;
 
 namespace Dyvenix.Logging;
 
@@ -13,15 +13,19 @@ public interface IDyvenixLogger<T>
 	void Error(string message);
 	void Error(Exception ex, string message);
 	void Fatal(string message);
+
+	string CorrelationId { get; }
 }
 
 public class DyvenixLogger<T> : IDyvenixLogger<T>
 {
 	private readonly ILogger _logger;
+	private readonly ICorrelationIdAccessor _correlationIdAccessor;
 
-	public DyvenixLogger()
+	public DyvenixLogger(ICorrelationIdAccessor correlationIdAccessor)
 	{
 		_logger = Log.ForContext("Source", typeof(T).Name);
+		_correlationIdAccessor = correlationIdAccessor;
 	}
 
 	public void Verbose(string message)
@@ -58,4 +62,6 @@ public class DyvenixLogger<T> : IDyvenixLogger<T>
 	{
 		_logger.Fatal(message);
 	}
+
+	public string CorrelationId => _correlationIdAccessor?.GetCorrelationId();
 }

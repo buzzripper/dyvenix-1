@@ -1,7 +1,6 @@
 using Asp.Versioning;
 using Dyvenix.Auth.Core.Models;
 using Dyvenix.Auth.Core.Services;
-using Dyvenix.Core.Controllers;
 using Dyvenix.Core.Models;
 using Dyvenix.Logging;
 using Microsoft.AspNetCore.Mvc;

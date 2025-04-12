@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/9/2025 9:08 PM. Any changes made to it will be lost.
+// This file was auto-generated. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 
@@ -9,6 +9,8 @@ public partial class AccessClaim
 {
 	// PK
 	public Guid Id { get; set; }
+
+	public byte[] RowVersion { get; set; }
 
 	// FKs
 	public Guid AppUserId { get; set; }

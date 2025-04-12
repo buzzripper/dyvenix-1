@@ -1,6 +1,5 @@
 using Asp.Versioning;
 using Dyvenix.Auth.Core.Models;
-using Dyvenix.Core.Controllers;
 using Dyvenix.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -132,5 +131,4 @@ public class ApiConnectorController : ApiControllerBase<ApiConnectorController>
 
 		return Ok(result);
 	}
-
 }

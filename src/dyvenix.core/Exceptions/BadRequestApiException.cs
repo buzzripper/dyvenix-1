@@ -1,16 +1,20 @@
-﻿
+﻿using System;
+
 namespace Dyvenix.Core.Exceptions;
 
 public class BadRequestApiException : ApiException
 {
-	public BadRequestApiException(string message) : base(message)
-	{
-	}
+	#region Ctors / Init
 
-	public BadRequestApiException(string correlationId, string message) : base(message)
-	{
-		CorrelationId = correlationId;
-	}
+	public BadRequestApiException() : base() { }
+
+	public BadRequestApiException(string message) : base(message) { }
+
+	public BadRequestApiException(string message, Exception innerException) : base(message, innerException) { }
+
+	public BadRequestApiException(string message, string correlationId) : base(message, correlationId) { }
+
+	#endregion
 
 	protected override int GetStatusCode()
 	{

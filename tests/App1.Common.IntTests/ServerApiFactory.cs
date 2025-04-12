@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Dyvenix.App1.Common.Config;
 using Dyvenix.App1.Tests.Common.Data;
+using System.Text.Json.Serialization;
 
 namespace Dyvenix.App1.Common.IntTests;
 
@@ -34,12 +35,10 @@ public class ServerApiFactory : WebApplicationFactory<Program>
 				return this.CreateClient();
 			});
 
-			// Override the default registration with an options that returns the in-memory database
-			//services.AddSingleton<DbContextOptions<Db>>(sp => {
-			//	return new DbContextOptionsBuilder<Db>()
-			//		.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Unique DB per test
-			//		.Options;
-			//});
+			services.AddControllers()
+				.AddJsonOptions(options => {
+					options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+				});
 		});
 	}
 }

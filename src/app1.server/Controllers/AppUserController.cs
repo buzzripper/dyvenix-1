@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/9/2025 9:08 PM. Any changes made to it will be lost.
+// This file was auto-generated. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -28,56 +28,52 @@ public class AppUserController : ApiControllerBase<AppUserController>
 		_appUserService = appUserService;
 	}
 
-	// Create / Update / Delete
+	// Update methods
 
 	[HttpPost, Route("[action]")]
 	public async Task<ActionResult> CreateAppUser(AppUser appUser)
 	{
-		try {
-			var svcResponse =new ServiceResponse();
+		var apiResponse =new ApiResponse();
 
+		try {
 			await _appUserService.CreateAppUser(appUser);
 
-			svcResponse.Message = "Success";
-			return Ok(svcResponse);
+			return Ok(apiResponse);
 
 		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
+			return LogErrorAndReturnErrorResponse(apiResponse, ex);
 		}
 	}
 
 	[HttpPatch, Route("[action]")]
 	public async Task<ActionResult> UpdateAppUser(AppUser appUser)
 	{
+		var apiResponse =new ApiResponse<byte[]>();
+
 		try {
-			var svcResponse =new ServiceResponse();
+			apiResponse.Data = await _appUserService.UpdateAppUser(appUser);
 
-			await _appUserService.UpdateAppUser(appUser);
-
-			svcResponse.Message = "Success";
-			return Ok(svcResponse);
+			return Ok(apiResponse);
 
 		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
+			return LogErrorAndReturnErrorResponse(apiResponse, ex);
 		}
 	}
 
 	[HttpPost, Route("[action]")]
 	public async Task<ActionResult> DeleteAppUser(Guid id)
 	{
-		try {
-			var svcResponse =new ServiceResponse();
+		var apiResponse =new ApiResponse();
 
+		try {
 			await _appUserService.DeleteAppUser(id);
 
-			svcResponse.Message = "Success";
-			return Ok(svcResponse);
+			return Ok(apiResponse);
 
 		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
+			return LogErrorAndReturnErrorResponse(apiResponse, ex);
 		}
 	}
-
 
 	[HttpGet, Route("[action]/{id}")]
 	public async Task<ActionResult<AppUser>> GetById(Guid id)
@@ -89,112 +85,22 @@ public class AppUserController : ApiControllerBase<AppUserController>
 		}
 	}
 
+	[HttpGet, Route("[action]/{id}")]
+	public async Task<ActionResult<AppUser>> GetByIdwClaims(Guid id)
+	{
+		try {
+			return await _appUserService.GetByIdwClaims(id);
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(ex);
+		}
+	}
+
 
 	[HttpGet, Route("[action]")]
 	public async Task<ActionResult<List<AppUser>>> GetAll()
 	{
 		try {
 			return await _appUserService.GetAll();
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
-	[HttpGet, Route("[action]/{companyId}")]
-	public async Task<ActionResult<List<AppUser>>> GetByCompanyId([FromRoute] string companyId)
-	{
-		try {
-			return await _appUserService.GetByCompanyId(companyId);
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
-	[HttpGet, Route("[action]")]
-	public async Task<ActionResult<List<AppUser>>> GetAllWithPaging([FromQuery] int pgSize = 0, [FromQuery] int pgOffset = 0)
-	{
-		try {
-			return await _appUserService.GetAllWithPaging(pgSize, pgOffset);
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
-	[HttpGet, Route("[action]/{companyId}")]
-	public async Task<ActionResult<List<AppUser>>> GetEnabledByCompany([FromRoute] string companyId)
-	{
-		try {
-			return await _appUserService.GetEnabledByCompany(companyId);
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
-	[HttpGet, Route("[action]/{companyId}")]
-	public async Task<ActionResult<List<AppUser>>> GetByCompanyExtId([FromRoute] string companyId, [FromQuery] string extId = null)
-	{
-		try {
-			return await _appUserService.GetByCompanyExtId(companyId, extId);
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
-	[HttpGet, Route("[action]/{groupCode}")]
-	public async Task<ActionResult<List<AppUser>>> GetByGroupCode([FromRoute] int groupCode)
-	{
-		try {
-			return await _appUserService.GetByGroupCode(groupCode);
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
-	[HttpGet, Route("[action]/{groupCode}")]
-	public async Task<ActionResult<List<AppUser>>> GetByGroupCodeWPging([FromRoute] int groupCode, [FromQuery] int pgSize = 0, [FromQuery] int pgOffset = 0)
-	{
-		try {
-			return await _appUserService.GetByGroupCodeWPging(groupCode, pgSize, pgOffset);
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
-	[HttpGet, Route("[action]/{userType}")]
-	public async Task<ActionResult<List<AppUser>>> GetByUserType([FromRoute] UserType userType)
-	{
-		try {
-			return await _appUserService.GetByUserType(userType);
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
-	[HttpGet, Route("[action]/{userType}")]
-	public async Task<ActionResult<List<AppUser>>> GetByUserTypeWPging([FromRoute] UserType userType, [FromQuery] int pgSize = 0, [FromQuery] int pgOffset = 0)
-	{
-		try {
-			return await _appUserService.GetByUserTypeWPging(userType, pgSize, pgOffset);
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
-	[HttpGet, Route("[action]")]
-	public async Task<ActionResult<List<AppUser>>> GetEnabledByUserTypeWPging([FromQuery] UserType? userType = null, [FromQuery] int pgSize = 0, [FromQuery] int pgOffset = 0)
-	{
-		try {
-			return await _appUserService.GetEnabledByUserTypeWPging(userType, pgSize, pgOffset);
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
-		}
-	}
-
-	[HttpGet, Route("[action]/{groupCode}")]
-	public async Task<ActionResult<List<AppUser>>> GetByGroupCodeWClaims([FromRoute] int groupCode)
-	{
-		try {
-			return await _appUserService.GetByGroupCodeWClaims(groupCode);
 		} catch (Exception ex) {
 			return LogErrorAndReturnErrorResponse(ex);
 		}

@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------------------
-// This file was auto-generated 4/9/2025 9:08 PM. Any changes made to it will be lost.
+// This file was auto-generated. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
 using System.Text.Json.Serialization;
@@ -12,6 +12,8 @@ public partial class AppUser
 	// PK
 	public Guid Id { get; set; }
 
+	public byte[] RowVersion { get; set; }
+
 	// Properties
 	public bool IsEnabled { get; set; }
 	public string FirstName { get; set; }
@@ -20,7 +22,6 @@ public partial class AppUser
 	public string CompanyId { get; set; }
 	public string ExtId { get; set; }
 	public int? GroupCode { get; set; }
-	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public UserType UserType { get; set; }
 
 	// Navigation Properties

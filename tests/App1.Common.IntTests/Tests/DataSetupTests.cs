@@ -13,8 +13,6 @@ namespace Dyvenix.App1.Common.IntTests.Tests;
 
 public class DataSetupTestsFixture : IDisposable
 {
-	//private readonly IServiceProvider _serviceProvider;
-
 	public DataSetupTestsFixture()
 	{
 		var basePath = Directory.GetCurrentDirectory();
@@ -66,7 +64,7 @@ public class DataSetupTests : IClassFixture<DataSetupTestsFixture>, IDisposable
 
 	#endregion
 
-	[Fact]
+	[Fact(Skip = "Not part of test suite, this is a utility test for populating actual database.")]
 	public async Task SetupData()
 	{
 		using var dataMgr = _serviceProvider.GetService<IDataManager>();

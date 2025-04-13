@@ -6,18 +6,52 @@ using System;
 
 namespace Dyvenix.Core.Controllers;
 
-public class ApiControllerBase<T> : ControllerBase where T : ApiControllerBase<T>
+public class ApiControllerBase<TController> : ControllerBase
 {
-	protected readonly IDyvenixLogger<T> _logger;
+	#region Fields
 
-	public ApiControllerBase(IDyvenixLogger<T> logger)
+	protected readonly IDyvenixLogger<TController> _logger;
+
+	#endregion
+
+	#region Ctors / Init
+
+	public ApiControllerBase(IDyvenixLogger<TController> logger)
 	{
 		_logger = logger;
 	}
 
-	protected ObjectResult LogErrorAndReturnErrorResponse(Exception ex)
+	#endregion
+
+	protected ApiResponse CreateApiResponse()
 	{
-		return LogErrorAndReturnErrorResponse(new ApiResponse(), ex);
+		var apiResponse = new ApiResponse();
+		apiResponse.CorrelationId = _logger.CorrelationId;
+		return apiResponse;
+	}
+
+	protected ApiResponse<TData> CreateApiResponse<TData>()
+	{
+		var apiResponse = new ApiResponse<TData>();
+		apiResponse.CorrelationId = _logger.CorrelationId;
+		return apiResponse;
+	}
+
+	protected ObjectResult LogErrorAndReturnErrorResponse<TData>(ApiResponse<TData> apiResponse, Exception ex)
+	{
+		if (ex is ApiException apiEx) {
+			apiResponse.StatusCode = apiEx.StatusCode;
+			apiResponse.Message = apiEx.Message;
+			apiResponse.CorrelationId = apiEx.CorrelationId ?? _logger.CorrelationId;
+
+		} else {
+			apiResponse.StatusCode = 500;
+			apiResponse.Message = ex.Message;
+		}
+
+		_logger.Error(ex, ex.Message);
+
+		return new ObjectResult(apiResponse) { StatusCode = apiResponse.StatusCode };
 	}
 
 	protected ObjectResult LogErrorAndReturnErrorResponse(ApiResponse apiResponse, Exception ex)
@@ -36,4 +70,21 @@ public class ApiControllerBase<T> : ControllerBase where T : ApiControllerBase<T
 
 		return new ObjectResult(apiResponse) { StatusCode = apiResponse.StatusCode };
 	}
+
+	//protected ObjectResult LogErrorAndReturnErrorResponse(ApiResponse apiResponse, Exception ex)
+	//{
+	//	if (ex is ApiException apiEx) {
+	//		apiResponse.StatusCode = apiEx.StatusCode;
+	//		apiResponse.Message = apiEx.Message;
+	//		apiResponse.CorrelationId = apiEx.CorrelationId ?? _logger.CorrelationId;
+
+	//	} else {
+	//		apiResponse.StatusCode = 500;
+	//		apiResponse.Message = ex.Message;
+	//	}
+
+	//	_logger.Error(ex, ex.Message);
+
+	//	return new ObjectResult(apiResponse) { StatusCode = apiResponse.StatusCode };
+	//}
 }

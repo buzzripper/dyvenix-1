@@ -18,7 +18,7 @@ namespace Dyvenix.App1.Server.Services;
 
 public interface IAppUserService
 {
-	Task CreateAppUser(AppUser appUser);
+	Task<Guid> CreateAppUser(AppUser appUser);
 	Task<byte[]> UpdateAppUser(AppUser appUser);
 	Task DeleteAppUser(Guid id);
 	Task<AppUser> GetById(Guid id);
@@ -39,7 +39,7 @@ public class AppUserService : IAppUserService
 
 	#region Create / Update / Delete
 
-	public async Task CreateAppUser(AppUser appUser)
+	public async Task<Guid> CreateAppUser(AppUser appUser)
 	{
 		ArgumentNullException.ThrowIfNull(appUser);
 
@@ -47,6 +47,8 @@ public class AppUserService : IAppUserService
 			using var db = _dbContextFactory.CreateDbContext();
 			db.Add(appUser);
 			await db.SaveChangesAsync();
+
+			return appUser.Id;
 
 		} catch (DbUpdateConcurrencyException) {
 			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);

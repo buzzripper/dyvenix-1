@@ -33,10 +33,10 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	[HttpPost, Route("[action]")]
 	public async Task<ActionResult> CreateAppUser(AppUser appUser)
 	{
-		var apiResponse =new ApiResponse();
+		var apiResponse = CreateApiResponse<Guid>();
 
 		try {
-			await _appUserService.CreateAppUser(appUser);
+			apiResponse.Data = await _appUserService.CreateAppUser(appUser);
 
 			return Ok(apiResponse);
 
@@ -48,7 +48,7 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	[HttpPatch, Route("[action]")]
 	public async Task<ActionResult> UpdateAppUser(AppUser appUser)
 	{
-		var apiResponse =new ApiResponse<byte[]>();
+		var apiResponse = CreateApiResponse<byte[]>();
 
 		try {
 			apiResponse.Data = await _appUserService.UpdateAppUser(appUser);
@@ -63,8 +63,7 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	[HttpPost, Route("[action]")]
 	public async Task<ActionResult> DeleteAppUser(Guid id)
 	{
-		var apiResponse =new ApiResponse();
-
+		var apiResponse = CreateApiResponse();
 		try {
 			await _appUserService.DeleteAppUser(id);
 
@@ -78,20 +77,28 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	[HttpGet, Route("[action]/{id}")]
 	public async Task<ActionResult<AppUser>> GetById(Guid id)
 	{
+		var apiResponse = CreateApiResponse<AppUser>();
 		try {
-			return await _appUserService.GetById(id);
+			apiResponse.Data = await _appUserService.GetById(id);
+
+			return Ok(apiResponse);
+
 		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
+			return LogErrorAndReturnErrorResponse(apiResponse, ex);
 		}
 	}
 
 	[HttpGet, Route("[action]/{id}")]
 	public async Task<ActionResult<AppUser>> GetByIdwClaims(Guid id)
 	{
+		var apiResponse = CreateApiResponse<AppUser>();
 		try {
-			return await _appUserService.GetByIdwClaims(id);
+			apiResponse.Data = await _appUserService.GetByIdwClaims(id);
+
+			return Ok(apiResponse);
+
 		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
+			return LogErrorAndReturnErrorResponse(apiResponse, ex);
 		}
 	}
 
@@ -99,10 +106,14 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	[HttpGet, Route("[action]")]
 	public async Task<ActionResult<List<AppUser>>> GetAll()
 	{
+		var apiResponse = CreateApiResponse<List<AppUser>>();
 		try {
-			return await _appUserService.GetAll();
+			apiResponse.Data = await _appUserService.GetAll();
+
+			return Ok(apiResponse);
+
 		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(ex);
+			return LogErrorAndReturnErrorResponse(apiResponse, ex);
 		}
 	}
 

@@ -9,12 +9,13 @@ using Dyvenix.Core.ApiClients;
 using Dyvenix.Core.Entities;
 using Dyvenix.App1.Common.Queries;
 using Dyvenix.App1.Common.Entities;
+using Dyvenix.Core.DTOs;
 
 namespace Dyvenix.App1.Common.ApiClients;
 
 public interface IAppUserApiClient
 {
-	Task<AppUser> CreateAppUser(AppUser appUser);
+	Task<Guid> CreateAppUser(AppUser appUser);
 	Task UpdateAppUser(AppUser appUser);
 	Task DeleteAppUser(Guid id);
 	Task<AppUser> GetById(Guid id);
@@ -30,11 +31,11 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 
 	#region Create / Update / Delete
 
-	public async Task<AppUser> CreateAppUser(AppUser appUser)
+	public async Task<Guid> CreateAppUser(AppUser appUser)
 	{
 		ArgumentNullException.ThrowIfNull(appUser);
 
-		return await PostAsync<AppUser>("api/v1/AppUser/CreateAppUser", appUser);
+		return await PostAsync<Guid>("api/v1/AppUser/CreateAppUser", appUser);
 	}
 
 	public async Task UpdateAppUser(AppUser appUser)
@@ -46,7 +47,10 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 
 	public async Task DeleteAppUser(Guid id)
 	{
-		await PostAsync<string>($"api/v1/AppUser/DeleteAppUser/{id}", null);
+		if (id == Guid.Empty)
+			throw new ArgumentNullException(nameof(id));
+
+		await PostAsync($"api/v1/AppUser/DeleteAppUser/{id}", null);
 	}
 
 	#endregion

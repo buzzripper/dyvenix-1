@@ -7,16 +7,15 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit.Abstractions;
 using Dyvenix.App1.Common.ApiClients;
-using Dyvenix.App1.Tests.Common;
 using Dyvenix.App1.Tests.Common.Data;
 
 namespace Dyvenix.App1.Common.IntTests.Tests;
 
 #region Fixture
 
-public class AppUserReadTestsFixture : IClassFixture<GlobalTestFixture>, IDisposable
+public class AppUserReadTestsFixture : IDisposable
 {
-	public AppUserReadTestsFixture(GlobalTestFixture globalFixture)
+	public AppUserReadTestsFixture()
 	{
 		ServerApiFactory = new ServerApiFactory();
 		ServiceProvider = ServerApiFactory.Services;
@@ -37,6 +36,7 @@ public class AppUserReadTestsFixture : IClassFixture<GlobalTestFixture>, IDispos
 
 	public void Dispose()
 	{
+		ServerApiFactory.Dispose();
 	}
 }
 
@@ -45,7 +45,6 @@ public class AppUserReadTestsFixture : IClassFixture<GlobalTestFixture>, IDispos
 [Collection("Global Collection")]
 public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposable
 {
-
 	#region Fields
 
 	private readonly IAppUserApiClient _apiClient;
@@ -111,12 +110,6 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 		var appUser = await _apiClient.GetAll();
 		Assert.Equal(_ds.AppUsers.Count, appUser.Count);
 	}
-
-	#endregion
-
-	#region Helper Methods
-
-	
 
 	#endregion
 }

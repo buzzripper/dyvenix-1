@@ -2,7 +2,6 @@
 
 public class GlobalTestFixture
 {
-
 	public GlobalTestFixture()
 	{
 	}

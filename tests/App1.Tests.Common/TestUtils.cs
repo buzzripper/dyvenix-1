@@ -6,8 +6,24 @@ using System.Threading.Tasks;
 
 namespace Dyvenix.App1.Tests.Common;
 
-public class TestUtils
+public static class TestUtils
 {
+	private static readonly Random _random = new Random();
+
+	public static int Rnd(int x, int y = int.MaxValue)
+	{
+		if (x > y)
+			throw new ArgumentException("x must be less than or equal to y");
+		
+		var yVal = y < int.MaxValue ? y : int.MaxValue - 1;	// 1st arg is inclusive but 2nd arg is exclusive
+		
+		return _random.Next(x, yVal);
+	}
+
+	public static bool PctChance(int x)
+	{
+		return _random.Next(0, 100) > x;
+	}
 }
 
 public class Pager

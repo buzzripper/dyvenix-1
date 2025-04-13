@@ -45,7 +45,6 @@ public class AppUserReadTestsFixture : IClassFixture<GlobalTestFixture>, IDispos
 [Collection("Global Collection")]
 public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposable
 {
-	private static readonly Random _random = new Random();
 
 	#region Fields
 
@@ -117,12 +116,7 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 
 	#region Helper Methods
 
-	private static int Rnd(int x, int y)
-	{
-		if (x > y)
-			throw new ArgumentException("x must be less than or equal to y");
-		return _random.Next(x, y + 1); // +1 to include 'y'
-	}
+	
 
 	#endregion
 }

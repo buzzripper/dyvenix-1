@@ -43,11 +43,14 @@ public class AppUserService : IAppUserService
 	{
 		ArgumentNullException.ThrowIfNull(appUser);
 
-		using var db = _dbContextFactory.CreateDbContext();
+		try {
+			using var db = _dbContextFactory.CreateDbContext();
+			db.Add(appUser);
+			await db.SaveChangesAsync();
 
-		db.Add(appUser);
-
-		await db.SaveChangesAsync();
+		} catch (DbUpdateConcurrencyException) {
+			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
+		}
 	}
 
 	public async Task<byte[]> UpdateAppUser(AppUser appUser)

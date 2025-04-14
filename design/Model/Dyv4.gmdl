@@ -306,7 +306,7 @@
                 "$values": [
                   {
                     "$id": "43",
-                    "Id": "4778c52d-92f1-4dc8-bb95-1258a708521b",
+                    "Id": "1c7316ea-ca65-4546-ae41-cf608f8b489a",
                     "Name": "Claims",
                     "DisplayOrder": 0,
                     "Attributes": {
@@ -315,183 +315,191 @@
                     },
                     "Assoc": {
                       "$id": "45",
-                      "Id": "87aa79d0-23c4-400e-b9f6-35b3f9822528",
-                      "PrimaryEntityId": "42ee0b14-af23-4911-9ca6-1ef88e3906b7",
-                      "NavPropertyId": "4778c52d-92f1-4dc8-bb95-1258a708521b",
-                      "FKEntityId": "82878ce9-8d99-434b-8472-b3afa0dc9dcc",
-                      "FKPropertyId": "44808c80-f7c2-4d77-9855-7f2efc493899",
-                      "Cardinality": 1
+                      "Id": "5fe935d2-a502-45e6-bb49-b48d57be56d8",
+                      "Cardinality": 1,
+                      "PrimaryEntity": {
+                        "$ref": "6"
+                      },
+                      "NavProperty": {
+                        "$ref": "43"
+                      },
+                      "FKEntity": {
+                        "$id": "46",
+                        "Id": "82878ce9-8d99-434b-8472-b3afa0dc9dcc",
+                        "InclRowVersion": true,
+                        "Name": "AccessClaim",
+                        "Schema": null,
+                        "TableName": null,
+                        "Enabled": true,
+                        "Namespace": null,
+                        "Properties": {
+                          "$id": "47",
+                          "$values": [
+                            {
+                              "$id": "48",
+                              "Id": "8915532e-b44b-4439-b02b-81451d45505f",
+                              "Name": "Id",
+                              "IsPrimaryKey": true,
+                              "IsIdentity": false,
+                              "Nullable": false,
+                              "MaxLength": 0,
+                              "IsIndexed": true,
+                              "IsIndexUnique": true,
+                              "IsIndexClustered": false,
+                              "DisplayOrder": 0,
+                              "Attributes": {
+                                "$id": "49",
+                                "$values": []
+                              },
+                              "AddlUsings": {
+                                "$id": "50",
+                                "$values": []
+                              },
+                              "PrimitiveType": {
+                                "$id": "51",
+                                "Id": 4,
+                                "Name": "Guid",
+                                "CSType": "Guid",
+                                "SqlType": "uniqueidentifier"
+                              },
+                              "EnumType": null,
+                              "Assoc": null
+                            },
+                            {
+                              "$id": "52",
+                              "Id": "cd52077e-1c28-487f-b14c-c8986c6a4ef0",
+                              "Name": "ClaimName",
+                              "IsPrimaryKey": false,
+                              "IsIdentity": false,
+                              "Nullable": false,
+                              "MaxLength": 100,
+                              "IsIndexed": false,
+                              "IsIndexUnique": false,
+                              "IsIndexClustered": false,
+                              "DisplayOrder": 0,
+                              "Attributes": {
+                                "$id": "53",
+                                "$values": []
+                              },
+                              "AddlUsings": {
+                                "$id": "54",
+                                "$values": []
+                              },
+                              "PrimitiveType": {
+                                "$ref": "32"
+                              },
+                              "EnumType": null,
+                              "Assoc": null
+                            },
+                            {
+                              "$id": "55",
+                              "Id": "f32277a5-760d-4b42-b8b0-38905c0e99da",
+                              "Name": "ClaimValue",
+                              "IsPrimaryKey": false,
+                              "IsIdentity": false,
+                              "Nullable": true,
+                              "MaxLength": 200,
+                              "IsIndexed": false,
+                              "IsIndexUnique": false,
+                              "IsIndexClustered": false,
+                              "DisplayOrder": 0,
+                              "Attributes": {
+                                "$id": "56",
+                                "$values": []
+                              },
+                              "AddlUsings": {
+                                "$id": "57",
+                                "$values": []
+                              },
+                              "PrimitiveType": {
+                                "$ref": "32"
+                              },
+                              "EnumType": null,
+                              "Assoc": null
+                            },
+                            {
+                              "$id": "58",
+                              "Id": "f1172569-ff8b-43d0-a63a-adffe02e0325",
+                              "Name": "AppUserId",
+                              "IsPrimaryKey": false,
+                              "IsIdentity": false,
+                              "Nullable": false,
+                              "MaxLength": 0,
+                              "IsIndexed": true,
+                              "IsIndexUnique": false,
+                              "IsIndexClustered": false,
+                              "DisplayOrder": 3,
+                              "Attributes": {
+                                "$id": "59",
+                                "$values": []
+                              },
+                              "AddlUsings": {
+                                "$id": "60",
+                                "$values": []
+                              },
+                              "PrimitiveType": {
+                                "$ref": "11"
+                              },
+                              "EnumType": null,
+                              "Assoc": {
+                                "$ref": "45"
+                              }
+                            }
+                          ]
+                        },
+                        "NavProperties": {
+                          "$id": "61",
+                          "$values": []
+                        },
+                        "Attributes": {
+                          "$id": "62",
+                          "$values": []
+                        },
+                        "AddlUsings": {
+                          "$id": "63",
+                          "$values": []
+                        },
+                        "Service": {
+                          "$id": "64",
+                          "Id": "7884a049-a65b-441f-bde0-2fd19a857874",
+                          "Enabled": true,
+                          "InclCreate": true,
+                          "InclUpdate": true,
+                          "InclDelete": true,
+                          "InclController": true,
+                          "ControllerVersion": "1.0",
+                          "AddlServiceUsings": {
+                            "$id": "65",
+                            "$values": []
+                          },
+                          "ServiceClassAttributes": {
+                            "$id": "66",
+                            "$values": []
+                          },
+                          "AddlControllerUsings": {
+                            "$id": "67",
+                            "$values": []
+                          },
+                          "ControllerClassAttributes": {
+                            "$id": "68",
+                            "$values": []
+                          },
+                          "ReadMethods": {
+                            "$id": "69",
+                            "$values": []
+                          },
+                          "UpdateMethods": {
+                            "$id": "70",
+                            "$values": []
+                          }
+                        }
+                      },
+                      "FKProperty": {
+                        "$ref": "58"
+                      }
                     },
                     "FKEntity": {
-                      "$id": "46",
-                      "Id": "82878ce9-8d99-434b-8472-b3afa0dc9dcc",
-                      "InclRowVersion": true,
-                      "Name": "AccessClaim",
-                      "Schema": null,
-                      "TableName": null,
-                      "Enabled": true,
-                      "Namespace": null,
-                      "Properties": {
-                        "$id": "47",
-                        "$values": [
-                          {
-                            "$id": "48",
-                            "Id": "8915532e-b44b-4439-b02b-81451d45505f",
-                            "Name": "Id",
-                            "IsPrimaryKey": true,
-                            "IsIdentity": false,
-                            "Nullable": false,
-                            "MaxLength": 0,
-                            "IsIndexed": true,
-                            "IsIndexUnique": true,
-                            "IsIndexClustered": false,
-                            "DisplayOrder": 0,
-                            "Attributes": {
-                              "$id": "49",
-                              "$values": []
-                            },
-                            "AddlUsings": {
-                              "$id": "50",
-                              "$values": []
-                            },
-                            "PrimitiveType": {
-                              "$id": "51",
-                              "Id": 4,
-                              "Name": "Guid",
-                              "CSType": "Guid",
-                              "SqlType": "uniqueidentifier"
-                            },
-                            "EnumType": null,
-                            "Assoc": null
-                          },
-                          {
-                            "$id": "52",
-                            "Id": "cd52077e-1c28-487f-b14c-c8986c6a4ef0",
-                            "Name": "ClaimName",
-                            "IsPrimaryKey": false,
-                            "IsIdentity": false,
-                            "Nullable": false,
-                            "MaxLength": 100,
-                            "IsIndexed": false,
-                            "IsIndexUnique": false,
-                            "IsIndexClustered": false,
-                            "DisplayOrder": 0,
-                            "Attributes": {
-                              "$id": "53",
-                              "$values": []
-                            },
-                            "AddlUsings": {
-                              "$id": "54",
-                              "$values": []
-                            },
-                            "PrimitiveType": {
-                              "$ref": "32"
-                            },
-                            "EnumType": null,
-                            "Assoc": null
-                          },
-                          {
-                            "$id": "55",
-                            "Id": "f32277a5-760d-4b42-b8b0-38905c0e99da",
-                            "Name": "ClaimValue",
-                            "IsPrimaryKey": false,
-                            "IsIdentity": false,
-                            "Nullable": true,
-                            "MaxLength": 200,
-                            "IsIndexed": false,
-                            "IsIndexUnique": false,
-                            "IsIndexClustered": false,
-                            "DisplayOrder": 0,
-                            "Attributes": {
-                              "$id": "56",
-                              "$values": []
-                            },
-                            "AddlUsings": {
-                              "$id": "57",
-                              "$values": []
-                            },
-                            "PrimitiveType": {
-                              "$ref": "32"
-                            },
-                            "EnumType": null,
-                            "Assoc": null
-                          },
-                          {
-                            "$id": "58",
-                            "Id": "44808c80-f7c2-4d77-9855-7f2efc493899",
-                            "Name": "AppUserId",
-                            "IsPrimaryKey": false,
-                            "IsIdentity": false,
-                            "Nullable": false,
-                            "MaxLength": 0,
-                            "IsIndexed": true,
-                            "IsIndexUnique": false,
-                            "IsIndexClustered": false,
-                            "DisplayOrder": 3,
-                            "Attributes": {
-                              "$id": "59",
-                              "$values": []
-                            },
-                            "AddlUsings": {
-                              "$id": "60",
-                              "$values": []
-                            },
-                            "PrimitiveType": {
-                              "$ref": "11"
-                            },
-                            "EnumType": null,
-                            "Assoc": {
-                              "$ref": "45"
-                            }
-                          }
-                        ]
-                      },
-                      "NavProperties": {
-                        "$id": "61",
-                        "$values": []
-                      },
-                      "Attributes": {
-                        "$id": "62",
-                        "$values": []
-                      },
-                      "AddlUsings": {
-                        "$id": "63",
-                        "$values": []
-                      },
-                      "Service": {
-                        "$id": "64",
-                        "Id": "7884a049-a65b-441f-bde0-2fd19a857874",
-                        "Enabled": true,
-                        "InclCreate": true,
-                        "InclUpdate": true,
-                        "InclDelete": true,
-                        "InclController": true,
-                        "ControllerVersion": "1.0",
-                        "AddlServiceUsings": {
-                          "$id": "65",
-                          "$values": []
-                        },
-                        "ServiceClassAttributes": {
-                          "$id": "66",
-                          "$values": []
-                        },
-                        "AddlControllerUsings": {
-                          "$id": "67",
-                          "$values": []
-                        },
-                        "ControllerClassAttributes": {
-                          "$id": "68",
-                          "$values": []
-                        },
-                        "ReadMethods": {
-                          "$id": "69",
-                          "$values": []
-                        },
-                        "UpdateMethods": {
-                          "$id": "70",
-                          "$values": []
-                        }
-                      }
+                      "$ref": "46"
                     }
                   }
                 ]
@@ -614,7 +622,28 @@
                         "$id": "92",
                         "$values": [
                           {
-                            "$ref": "43"
+                            "$id": "93",
+                            "Id": "4778c52d-92f1-4dc8-bb95-1258a708521b",
+                            "Name": "Claims",
+                            "DisplayOrder": 0,
+                            "Attributes": {
+                              "$id": "94",
+                              "$values": []
+                            },
+                            "Assoc": {
+                              "$id": "95",
+                              "Id": "87aa79d0-23c4-400e-b9f6-35b3f9822528",
+                              "Cardinality": 1,
+                              "PrimaryEntity": null,
+                              "NavProperty": null,
+                              "FKEntity": {
+                                "$ref": "46"
+                              },
+                              "FKProperty": null
+                            },
+                            "FKEntity": {
+                              "$ref": "46"
+                            }
                           }
                         ]
                       }
@@ -622,18 +651,18 @@
                   ]
                 },
                 "UpdateMethods": {
-                  "$id": "93",
+                  "$id": "96",
                   "$values": [
                     {
-                      "$id": "94",
+                      "$id": "97",
                       "Id": "313cf258-bf44-4d92-be91-212e9f411d2f",
                       "Name": "UpdateFirstName",
                       "UseDto": false,
                       "UpdateProperties": {
-                        "$id": "95",
+                        "$id": "98",
                         "$values": [
                           {
-                            "$id": "96",
+                            "$id": "99",
                             "Property": {
                               "$ref": "16"
                             },
@@ -644,15 +673,15 @@
                       "DisplayOrder": 0
                     },
                     {
-                      "$id": "97",
+                      "$id": "100",
                       "Id": "257e5212-e3eb-4557-835b-aefa9f203c76",
                       "Name": "UpdateEmail",
                       "UseDto": false,
                       "UpdateProperties": {
-                        "$id": "98",
+                        "$id": "101",
                         "$values": [
                           {
-                            "$id": "99",
+                            "$id": "102",
                             "Property": {
                               "$ref": "23"
                             },
@@ -670,7 +699,7 @@
               "$ref": "46"
             },
             {
-              "$id": "100",
+              "$id": "103",
               "Id": "a78f3326-4b21-48d8-a988-d378fb173f60",
               "InclRowVersion": false,
               "Name": "LogEvent",
@@ -679,10 +708,10 @@
               "Enabled": true,
               "Namespace": null,
               "Properties": {
-                "$id": "101",
+                "$id": "104",
                 "$values": [
                   {
-                    "$id": "102",
+                    "$id": "105",
                     "Id": "7c67f50c-c3ef-4fe9-9bb8-6dbadd8def43",
                     "Name": "Id",
                     "IsPrimaryKey": true,
@@ -694,15 +723,15 @@
                     "IsIndexClustered": false,
                     "DisplayOrder": 0,
                     "Attributes": {
-                      "$id": "103",
+                      "$id": "106",
                       "$values": []
                     },
                     "AddlUsings": {
-                      "$id": "104",
+                      "$id": "107",
                       "$values": []
                     },
                     "PrimitiveType": {
-                      "$id": "105",
+                      "$id": "108",
                       "Id": 4,
                       "Name": "Guid",
                       "CSType": "Guid",
@@ -712,7 +741,7 @@
                     "Assoc": null
                   },
                   {
-                    "$id": "106",
+                    "$id": "109",
                     "Id": "fd303196-f7ab-47d5-80c9-502bd002bc3c",
                     "Name": "Message",
                     "IsPrimaryKey": false,
@@ -724,15 +753,15 @@
                     "IsIndexClustered": false,
                     "DisplayOrder": 0,
                     "Attributes": {
-                      "$id": "107",
+                      "$id": "110",
                       "$values": []
                     },
                     "AddlUsings": {
-                      "$id": "108",
+                      "$id": "111",
                       "$values": []
                     },
                     "PrimitiveType": {
-                      "$id": "109",
+                      "$id": "112",
                       "Id": 1,
                       "Name": "String",
                       "CSType": "string",
@@ -742,7 +771,7 @@
                     "Assoc": null
                   },
                   {
-                    "$id": "110",
+                    "$id": "113",
                     "Id": "0c62e255-5103-45b1-ad1f-af7444eaf911",
                     "Name": "Timestamp",
                     "IsPrimaryKey": false,
@@ -754,15 +783,15 @@
                     "IsIndexClustered": false,
                     "DisplayOrder": 0,
                     "Attributes": {
-                      "$id": "111",
+                      "$id": "114",
                       "$values": []
                     },
                     "AddlUsings": {
-                      "$id": "112",
+                      "$id": "115",
                       "$values": []
                     },
                     "PrimitiveType": {
-                      "$id": "113",
+                      "$id": "116",
                       "Id": 5,
                       "Name": "DateTime",
                       "CSType": "DateTime",
@@ -772,7 +801,7 @@
                     "Assoc": null
                   },
                   {
-                    "$id": "114",
+                    "$id": "117",
                     "Id": "c46eed35-8856-42b9-b8ff-6c61b1985c7f",
                     "Name": "Exception",
                     "IsPrimaryKey": false,
@@ -780,32 +809,6 @@
                     "Nullable": false,
                     "MaxLength": 0,
                     "IsIndexed": false,
-                    "IsIndexUnique": false,
-                    "IsIndexClustered": false,
-                    "DisplayOrder": 0,
-                    "Attributes": {
-                      "$id": "115",
-                      "$values": []
-                    },
-                    "AddlUsings": {
-                      "$id": "116",
-                      "$values": []
-                    },
-                    "PrimitiveType": {
-                      "$ref": "109"
-                    },
-                    "EnumType": null,
-                    "Assoc": null
-                  },
-                  {
-                    "$id": "117",
-                    "Id": "7e5e38a9-9d9a-4d69-86d8-846c22fd7faf",
-                    "Name": "Application",
-                    "IsPrimaryKey": false,
-                    "IsIdentity": false,
-                    "Nullable": false,
-                    "MaxLength": 100,
-                    "IsIndexed": true,
                     "IsIndexUnique": false,
                     "IsIndexClustered": false,
                     "DisplayOrder": 0,
@@ -818,15 +821,15 @@
                       "$values": []
                     },
                     "PrimitiveType": {
-                      "$ref": "109"
+                      "$ref": "112"
                     },
                     "EnumType": null,
                     "Assoc": null
                   },
                   {
                     "$id": "120",
-                    "Id": "b7b214aa-1bdb-4623-a259-bc06d11dc1f9",
-                    "Name": "Source",
+                    "Id": "7e5e38a9-9d9a-4d69-86d8-846c22fd7faf",
+                    "Name": "Application",
                     "IsPrimaryKey": false,
                     "IsIdentity": false,
                     "Nullable": false,
@@ -844,19 +847,19 @@
                       "$values": []
                     },
                     "PrimitiveType": {
-                      "$ref": "109"
+                      "$ref": "112"
                     },
                     "EnumType": null,
                     "Assoc": null
                   },
                   {
                     "$id": "123",
-                    "Id": "4b28f8a6-b72a-4b66-9de2-adaa06c3c514",
-                    "Name": "CorrelationId",
+                    "Id": "b7b214aa-1bdb-4623-a259-bc06d11dc1f9",
+                    "Name": "Source",
                     "IsPrimaryKey": false,
                     "IsIdentity": false,
                     "Nullable": false,
-                    "MaxLength": 50,
+                    "MaxLength": 100,
                     "IsIndexed": true,
                     "IsIndexUnique": false,
                     "IsIndexClustered": false,
@@ -870,7 +873,33 @@
                       "$values": []
                     },
                     "PrimitiveType": {
-                      "$ref": "109"
+                      "$ref": "112"
+                    },
+                    "EnumType": null,
+                    "Assoc": null
+                  },
+                  {
+                    "$id": "126",
+                    "Id": "4b28f8a6-b72a-4b66-9de2-adaa06c3c514",
+                    "Name": "CorrelationId",
+                    "IsPrimaryKey": false,
+                    "IsIdentity": false,
+                    "Nullable": false,
+                    "MaxLength": 50,
+                    "IsIndexed": true,
+                    "IsIndexUnique": false,
+                    "IsIndexClustered": false,
+                    "DisplayOrder": 0,
+                    "Attributes": {
+                      "$id": "127",
+                      "$values": []
+                    },
+                    "AddlUsings": {
+                      "$id": "128",
+                      "$values": []
+                    },
+                    "PrimitiveType": {
+                      "$ref": "112"
                     },
                     "EnumType": null,
                     "Assoc": null
@@ -878,19 +907,19 @@
                 ]
               },
               "NavProperties": {
-                "$id": "126",
+                "$id": "129",
                 "$values": []
               },
               "Attributes": {
-                "$id": "127",
+                "$id": "130",
                 "$values": []
               },
               "AddlUsings": {
-                "$id": "128",
+                "$id": "131",
                 "$values": []
               },
               "Service": {
-                "$id": "129",
+                "$id": "132",
                 "Id": "b8f51a31-bb1b-49f0-91bb-71fb0bfb37fb",
                 "Enabled": true,
                 "InclCreate": true,
@@ -899,27 +928,27 @@
                 "InclController": false,
                 "ControllerVersion": "1.0",
                 "AddlServiceUsings": {
-                  "$id": "130",
-                  "$values": []
-                },
-                "ServiceClassAttributes": {
-                  "$id": "131",
-                  "$values": []
-                },
-                "AddlControllerUsings": {
-                  "$id": "132",
-                  "$values": []
-                },
-                "ControllerClassAttributes": {
                   "$id": "133",
                   "$values": []
                 },
-                "ReadMethods": {
+                "ServiceClassAttributes": {
                   "$id": "134",
                   "$values": []
                 },
-                "UpdateMethods": {
+                "AddlControllerUsings": {
                   "$id": "135",
+                  "$values": []
+                },
+                "ControllerClassAttributes": {
+                  "$id": "136",
+                  "$values": []
+                },
+                "ReadMethods": {
+                  "$id": "137",
+                  "$values": []
+                },
+                "UpdateMethods": {
+                  "$id": "138",
                   "$values": []
                 }
               }
@@ -927,7 +956,7 @@
           ]
         },
         "Enums": {
-          "$id": "136",
+          "$id": "139",
           "$values": [
             {
               "$ref": "40"
@@ -935,29 +964,32 @@
           ]
         },
         "Assocs": {
-          "$id": "137",
+          "$id": "140",
           "$values": [
             {
-              "$ref": "45"
+              "$ref": "95"
             },
             {
-              "$id": "138",
+              "$id": "141",
               "Id": "1e179e15-b8b0-41e6-a3ff-c2d767fa5b92",
-              "PrimaryEntityId": "82878ce9-8d99-434b-8472-b3afa0dc9dcc",
-              "NavPropertyId": "b21b693e-e436-4fc7-ab1a-a8515d7caf13",
-              "FKEntityId": "42ee0b14-af23-4911-9ca6-1ef88e3906b7",
-              "FKPropertyId": "b6c60534-c518-448e-8c98-3b4f47da079e",
-              "Cardinality": 1
+              "Cardinality": 1,
+              "PrimaryEntity": null,
+              "NavProperty": null,
+              "FKEntity": null,
+              "FKProperty": null
+            },
+            {
+              "$ref": "45"
             }
           ]
         },
         "Generators": {
-          "$id": "139",
+          "$id": "142",
           "Id": "5be80a04-cc3c-469f-834c-a3bc679035e3",
           "Enabled": true,
           "TemplatesFolder": "Templates",
           "DbContextGen": {
-            "$id": "140",
+            "$id": "143",
             "OutputFolder": "..\\..\\src\\App1.Data\\Contexts",
             "ContextNamespace": "Dyvenix.App1.Data",
             "Id": "d69022db-e848-4bee-b45b-337c142e1389",
@@ -966,7 +998,7 @@
             "InclHeader": true
           },
           "EntityGen": {
-            "$id": "141",
+            "$id": "144",
             "OutputFolder": "..\\..\\src\\App1.Common\\Entities",
             "EntitiesNamespace": "Dyvenix.App1.Common.Entities",
             "Id": "1026971e-56e8-4df3-8d56-61c6a7f2bd1d",
@@ -975,7 +1007,7 @@
             "InclHeader": true
           },
           "EnumGen": {
-            "$id": "142",
+            "$id": "145",
             "OutputFolder": "..\\..\\src\\App1.Common\\Entities",
             "EnumsNamespace": "Dyvenix.App1.Common.Entities",
             "Id": "f8010385-fee4-4dbf-aa95-5fb53454b790",
@@ -984,7 +1016,7 @@
             "InclHeader": true
           },
           "ServiceGen": {
-            "$id": "143",
+            "$id": "146",
             "OutputFolder": "..\\..\\src\\App1.Server\\Services",
             "QueryOutputFolder": "..\\..\\src\\App1.Common\\Queries",
             "ControllerOutputFolder": "..\\..\\src\\App1.Server\\Controllers",
@@ -1001,7 +1033,7 @@
             "InclHeader": true
           },
           "IntTestsGen": {
-            "$id": "144",
+            "$id": "147",
             "OutputFolder": "..\\..\\tests\\App1.Common.IntTests\\Tests",
             "Namespace": "Dyvenix.App1.Common.IntTests.Tests",
             "Id": "13259eeb-fd18-4606-a17c-5c5f07d556fa",

@@ -35,7 +35,7 @@ public class AccessClaimController : ApiControllerBase<AccessClaimController>
 	{
 		var apiResponse = CreateApiResponse<Guid>();
 		try {
-			await _accessClaimService.CreateAccessClaim(accessClaim);
+			apiResponse.Data = await _accessClaimService.CreateAccessClaim(accessClaim);
 
 			return Ok(apiResponse);
 

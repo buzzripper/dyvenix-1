@@ -116,6 +116,7 @@ public class AppUserUpdateTests : TestBase, IClassFixture<AppUserUpdateTestsFixt
 	private AppUser CreateAppUser()
 	{
 		return new AppUser {
+			Id = Guid.NewGuid(),
 			FirstName = RndStr(100),
 			LastName = RndStr(100),
 			Email = RndStr(200),

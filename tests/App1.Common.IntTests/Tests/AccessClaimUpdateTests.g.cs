@@ -116,15 +116,16 @@ public class AccessClaimUpdateTests : TestBase, IClassFixture<AccessClaimUpdateT
 	private AccessClaim CreateAccessClaim()
 	{
 		return new AccessClaim {
+			Id = Guid.NewGuid(),
 			ClaimName = RndStr(100),
-			AppUserId = GetRndAccessClaimPk()
+			AppUserId = GetRndAppUserPk()
 		};
 	}
 
-	private Guid GetRndAccessClaimPk()
+	private Guid GetRndAppUserPk()
 	{
-		var accessClaimList = _db.AccessClaim.ToList();
-		return accessClaimList.Skip(RndInt(1, accessClaimList.Count)).First().Id;
+		var appUserList = _db.AppUser.ToList();
+		return appUserList.Skip(RndInt(1, appUserList.Count)).First().Id;
 	}
 
 	#endregion

@@ -35,7 +35,7 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	{
 		var apiResponse = CreateApiResponse<Guid>();
 		try {
-			await _appUserService.CreateAppUser(appUser);
+			apiResponse.Data = await _appUserService.CreateAppUser(appUser);
 
 			return Ok(apiResponse);
 

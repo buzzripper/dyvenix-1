@@ -11,5 +11,6 @@ public static partial class ServiceCollExt
 	static partial void AddGeneratedServices(this IServiceCollection services)
 	{
 		services.AddTransient<IAppUserService, AppUserService>();
+		services.AddTransient<IAccessClaimService, AccessClaimService>();
 	}
 }

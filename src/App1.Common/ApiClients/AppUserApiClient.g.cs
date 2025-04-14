@@ -9,7 +9,6 @@ using Dyvenix.Core.ApiClients;
 using Dyvenix.Core.Entities;
 using Dyvenix.App1.Common.Queries;
 using Dyvenix.App1.Common.Entities;
-using Dyvenix.Core.DTOs;
 
 namespace Dyvenix.App1.Common.ApiClients;
 
@@ -49,8 +48,7 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 	{
 		if (id == Guid.Empty)
 			throw new ArgumentNullException(nameof(id));
-
-		await PostAsync($"api/v1/AppUser/DeleteAppUser/{id}", null);
+		await PostAsync<string>($"api/v1/AppUser/DeleteAppUser/{id}", null);
 	}
 
 	#endregion

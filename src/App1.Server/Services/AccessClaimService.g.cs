@@ -18,7 +18,7 @@ namespace Dyvenix.App1.Server.Services;
 
 public interface IAccessClaimService
 {
-	Task CreateAccessClaim(AccessClaim accessClaim);
+	Task<Guid> CreateAccessClaim(AccessClaim accessClaim);
 	Task<byte[]> UpdateAccessClaim(AccessClaim accessClaim);
 	Task DeleteAccessClaim(Guid id);
 }
@@ -36,15 +36,20 @@ public class AccessClaimService : IAccessClaimService
 
 	#region Create / Update / Delete
 
-	public async Task CreateAccessClaim(AccessClaim accessClaim)
+	public async Task<Guid> CreateAccessClaim(AccessClaim accessClaim)
 	{
 		ArgumentNullException.ThrowIfNull(accessClaim);
 
-		using var db = _dbContextFactory.CreateDbContext();
+		try {
+			using var db = _dbContextFactory.CreateDbContext();
+			db.Add(accessClaim);
+			await db.SaveChangesAsync();
 
-		db.Add(accessClaim);
+			return accessClaim.Id;
 
-		await db.SaveChangesAsync();
+		} catch (DbUpdateConcurrencyException) {
+			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
+		}
 	}
 
 	public async Task<byte[]> UpdateAccessClaim(AccessClaim accessClaim)

@@ -465,7 +465,7 @@
                         "InclCreate": true,
                         "InclUpdate": true,
                         "InclDelete": true,
-                        "InclController": false,
+                        "InclController": true,
                         "ControllerVersion": "1.0",
                         "AddlServiceUsings": {
                           "$id": "65",
@@ -939,16 +939,25 @@
           "$values": [
             {
               "$ref": "45"
+            },
+            {
+              "$id": "138",
+              "Id": "1e179e15-b8b0-41e6-a3ff-c2d767fa5b92",
+              "PrimaryEntityId": "82878ce9-8d99-434b-8472-b3afa0dc9dcc",
+              "NavPropertyId": "b21b693e-e436-4fc7-ab1a-a8515d7caf13",
+              "FKEntityId": "42ee0b14-af23-4911-9ca6-1ef88e3906b7",
+              "FKPropertyId": "b6c60534-c518-448e-8c98-3b4f47da079e",
+              "Cardinality": 1
             }
           ]
         },
         "Generators": {
-          "$id": "138",
+          "$id": "139",
           "Id": "5be80a04-cc3c-469f-834c-a3bc679035e3",
           "Enabled": true,
           "TemplatesFolder": "Templates",
           "DbContextGen": {
-            "$id": "139",
+            "$id": "140",
             "OutputFolder": "..\\..\\src\\App1.Data\\Contexts",
             "ContextNamespace": "Dyvenix.App1.Data",
             "Id": "d69022db-e848-4bee-b45b-337c142e1389",
@@ -957,7 +966,7 @@
             "InclHeader": true
           },
           "EntityGen": {
-            "$id": "140",
+            "$id": "141",
             "OutputFolder": "..\\..\\src\\App1.Common\\Entities",
             "EntitiesNamespace": "Dyvenix.App1.Common.Entities",
             "Id": "1026971e-56e8-4df3-8d56-61c6a7f2bd1d",
@@ -966,7 +975,7 @@
             "InclHeader": true
           },
           "EnumGen": {
-            "$id": "141",
+            "$id": "142",
             "OutputFolder": "..\\..\\src\\App1.Common\\Entities",
             "EnumsNamespace": "Dyvenix.App1.Common.Entities",
             "Id": "f8010385-fee4-4dbf-aa95-5fb53454b790",
@@ -975,7 +984,7 @@
             "InclHeader": true
           },
           "ServiceGen": {
-            "$id": "142",
+            "$id": "143",
             "OutputFolder": "..\\..\\src\\App1.Server\\Services",
             "QueryOutputFolder": "..\\..\\src\\App1.Common\\Queries",
             "ControllerOutputFolder": "..\\..\\src\\App1.Server\\Controllers",
@@ -992,7 +1001,7 @@
             "InclHeader": true
           },
           "IntTestsGen": {
-            "$id": "143",
+            "$id": "144",
             "OutputFolder": "..\\..\\tests\\App1.Common.IntTests\\Tests",
             "Namespace": "Dyvenix.App1.Common.IntTests.Tests",
             "Id": "13259eeb-fd18-4606-a17c-5c5f07d556fa",

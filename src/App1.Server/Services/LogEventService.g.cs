@@ -16,19 +16,19 @@ using Dyvenix.App1.Common.Queries;
 
 namespace Dyvenix.App1.Server.Services;
 
-public interface ILogEventService2
+public interface ILogEventService
 {
-	Task CreateLogEvent(LogEvent logEvent);
+	Task<Guid> CreateLogEvent(LogEvent logEvent);
 	Task UpdateLogEvent(LogEvent logEvent);
 	Task DeleteLogEvent(Guid id);
 }
 
-public class LogEventService2 : ILogEventService2
+public class LogEventService : ILogEventService
 {
 	private readonly IDbContextFactory _dbContextFactory;
-	private readonly IDyvenixLogger<LogEventService2> _logger;
+	private readonly IDyvenixLogger<LogEventService> _logger;
 
-	public LogEventService2(IDbContextFactory dbContextFactory, IDyvenixLogger<LogEventService2> logger)
+	public LogEventService(IDbContextFactory dbContextFactory, IDyvenixLogger<LogEventService> logger)
 	{
 		_dbContextFactory = dbContextFactory;
 		_logger = logger;
@@ -36,15 +36,20 @@ public class LogEventService2 : ILogEventService2
 
 	#region Create / Update / Delete
 
-	public async Task CreateLogEvent(LogEvent logEvent)
+	public async Task<Guid> CreateLogEvent(LogEvent logEvent)
 	{
 		ArgumentNullException.ThrowIfNull(logEvent);
 
-		using var db = _dbContextFactory.CreateDbContext();
+		try {
+			using var db = _dbContextFactory.CreateDbContext();
+			db.Add(logEvent);
+			await db.SaveChangesAsync();
 
-		db.Add(logEvent);
+			return logEvent.Id;
 
-		await db.SaveChangesAsync();
+		} catch (DbUpdateConcurrencyException) {
+			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
+		}
 	}
 
 	public async Task UpdateLogEvent(LogEvent logEvent)

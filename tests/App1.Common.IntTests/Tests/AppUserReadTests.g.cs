@@ -6,7 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit.Abstractions;
+using Dyvenix.Core.Tests;
 using Dyvenix.App1.Common.ApiClients;
+using Dyvenix.App1.Tests.Common;
 using Dyvenix.App1.Tests.Common.Data;
 
 namespace Dyvenix.App1.Common.IntTests.Tests;
@@ -43,8 +45,10 @@ public class AppUserReadTestsFixture : IDisposable
 #endregion
 
 [Collection("Global Collection")]
-public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposable
+public class AppUserReadTests : TestBase, IClassFixture<AppUserReadTestsFixture>, IDisposable
 {
+	private static readonly Random _random = new Random();
+
 	#region Fields
 
 	private readonly IAppUserApiClient _apiClient;
@@ -112,5 +116,6 @@ public class AppUserReadTests : IClassFixture<AppUserReadTestsFixture>, IDisposa
 	}
 
 	#endregion
+
 }
 

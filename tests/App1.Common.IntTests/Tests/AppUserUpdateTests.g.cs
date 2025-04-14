@@ -2,9 +2,11 @@
 // This file was auto-generated. Any changes made to it will be lost.
 //------------------------------------------------------------------------------------------------------------
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit.Abstractions;
+using Dyvenix.Core.Tests;
 using Dyvenix.App1.Common.ApiClients;
 using Dyvenix.App1.Tests.Common.Data;
 using Dyvenix.App1.Common.Entities;
@@ -39,10 +41,8 @@ public class AppUserUpdateTestsFixture : IDisposable
 #endregion
 
 [Collection("Global Collection")]
-public class AppUserUpdateTests : IClassFixture<AppUserUpdateTestsFixture>, IDisposable
+public class AppUserUpdateTests : TestBase, IClassFixture<AppUserUpdateTestsFixture>, IDisposable
 {
-	private static readonly Random _random = new Random();
-
 	#region Fields
 
 	private readonly IAppUserApiClient _apiClient;
@@ -71,17 +71,15 @@ public class AppUserUpdateTests : IClassFixture<AppUserUpdateTestsFixture>, IDis
 
 	#endregion
 
-	#region Create Tests
+	#region Single Methods
 
 	[Fact]
-	public async Task Create_IdProvided_Success()
+	public async Task Create_ValidId()
 	{
 		// Arrange
 		var appUser = CreateAppUser();
-
 		// Act
 		var newId = await _apiClient.CreateAppUser(appUser);
-
 		// Assert
 		Assert.Equal(appUser.Id, newId);
 		var retAppUser = await _db.AppUser.FindAsync(newId);
@@ -90,7 +88,7 @@ public class AppUserUpdateTests : IClassFixture<AppUserUpdateTestsFixture>, IDis
 	}
 
 	[Fact]
-	public async Task Create_IdNotProvided_Success()
+	public async Task Create_InvalidId()
 	{
 		// Arrange
 		var appUser = CreateAppUser();
@@ -100,37 +98,33 @@ public class AppUserUpdateTests : IClassFixture<AppUserUpdateTestsFixture>, IDis
 		var newId = await _apiClient.CreateAppUser(appUser);
 
 		// Assert
+		Assert.NotEqual(Guid.Empty, newId);
 		var retAppUser = await _db.AppUser.FindAsync(newId);
 		Assert.NotNull(retAppUser);
 		Assert.Equal(newId, retAppUser.Id);
 	}
 
 	[Fact]
-	public async Task Create_Validation_Null()
+	public async Task Create_NullAppUser()
 	{
 		// Act / Assert
 		await Assert.ThrowsAsync<ArgumentNullException>(async () => await _apiClient.CreateAppUser(null));
 	}
 
-	#endregion
-
-	#region Helper Methods
+	// Helper Methods
 
 	private AppUser CreateAppUser()
 	{
 		return new AppUser {
-			Id = Guid.NewGuid(),
-			IsEnabled = true,
-			FirstName = Guid.NewGuid().ToString(),
-			LastName = Guid.NewGuid().ToString(),
-			Email = Guid.NewGuid().ToString(),
-			CompanyId = Guid.NewGuid().ToString().Substring(0, 10),
-			ExtId = Guid.NewGuid().ToString(),
-			GroupCode = TestUtils.PctChance(80) ? TestUtils.Rnd(0, int.MaxValue) : null,
-			UserType = (UserType)TestUtils.Rnd(0, Enum.GetNames<UserType>().Length)
+			FirstName = RndStr(100),
+			LastName = RndStr(100),
+			Email = RndStr(200),
+			ExtId = RndStr(68),
+			UserType = RndEnum<UserType>()
 		};
 	}
 
 	#endregion
+
 }
 

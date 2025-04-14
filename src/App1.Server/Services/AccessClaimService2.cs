@@ -16,19 +16,19 @@ using Dyvenix.App1.Common.Queries;
 
 namespace Dyvenix.App1.Server.Services;
 
-public interface ILogEventService2
+public interface IAccessClaimService2
 {
-	Task CreateLogEvent(LogEvent logEvent);
-	Task UpdateLogEvent(LogEvent logEvent);
-	Task DeleteLogEvent(Guid id);
+	Task CreateAccessClaim(AccessClaim accessClaim);
+	Task<byte[]> UpdateAccessClaim(AccessClaim accessClaim);
+	Task DeleteAccessClaim(Guid id);
 }
 
-public class LogEventService2 : ILogEventService2
+public class AccessClaimService2 : IAccessClaimService2
 {
 	private readonly IDbContextFactory _dbContextFactory;
-	private readonly IDyvenixLogger<LogEventService2> _logger;
+	private readonly IDyvenixLogger<AccessClaimService> _logger;
 
-	public LogEventService2(IDbContextFactory dbContextFactory, IDyvenixLogger<LogEventService2> logger)
+	public AccessClaimService2(IDbContextFactory dbContextFactory, IDyvenixLogger<AccessClaimService> logger)
 	{
 		_dbContextFactory = dbContextFactory;
 		_logger = logger;
@@ -36,38 +36,40 @@ public class LogEventService2 : ILogEventService2
 
 	#region Create / Update / Delete
 
-	public async Task CreateLogEvent(LogEvent logEvent)
+	public async Task CreateAccessClaim(AccessClaim accessClaim)
 	{
-		ArgumentNullException.ThrowIfNull(logEvent);
+		ArgumentNullException.ThrowIfNull(accessClaim);
 
 		using var db = _dbContextFactory.CreateDbContext();
 
-		db.Add(logEvent);
+		db.Add(accessClaim);
 
 		await db.SaveChangesAsync();
 	}
 
-	public async Task UpdateLogEvent(LogEvent logEvent)
+	public async Task<byte[]> UpdateAccessClaim(AccessClaim accessClaim)
 	{
-		ArgumentNullException.ThrowIfNull(logEvent);
+		ArgumentNullException.ThrowIfNull(accessClaim);
 
 		using var db = _dbContextFactory.CreateDbContext();
 
 		try {
-			db.Attach(logEvent);
-			db.Entry(logEvent).State = EntityState.Modified;
+			db.Attach(accessClaim);
+			db.Entry(accessClaim).State = EntityState.Modified;
 			await db.SaveChangesAsync();
+
+			return accessClaim.RowVersion;
 
 		} catch (DbUpdateConcurrencyException) {
 			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
 		}
 	}
 
-	public async Task DeleteLogEvent(Guid id)
+	public async Task DeleteAccessClaim(Guid id)
 	{
 		using var db = _dbContextFactory.CreateDbContext();
 
-		await db.LogEvent.Where(a => a.Id == id).ExecuteDeleteAsync();
+		await db.AccessClaim.Where(a => a.Id == id).ExecuteDeleteAsync();
 	}
 
 	#endregion

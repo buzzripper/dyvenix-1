@@ -8,33 +8,29 @@ using Microsoft.Extensions.DependencyInjection;
 using Xunit.Abstractions;
 using Dyvenix.Core.Tests;
 using Dyvenix.App1.Common.ApiClients;
-using Dyvenix.App1.Tests.Common;
 using Dyvenix.App1.Tests.Common.Data;
+using Dyvenix.App1.Common.Entities;
+using Dyvenix.App1.Tests.Common;
+using Dyvenix.App1.Data;
+using Dyvenix.App1.Data.Contexts;
 
 namespace ${{INT_TESTS_NS}};
 
 #region Fixture
 
-public class ${{ENTITY_NAME}}ReadTestsFixture : IDisposable
+public class ${{ENTITY_NAME}}UpdateTestsFixture : IDisposable
 {
-	public ${{ENTITY_NAME}}ReadTestsFixture()
+	public ${{ENTITY_NAME}}UpdateTestsFixture()
 	{
 		ServerApiFactory = new ServerApiFactory();
 		ServiceProvider = ServerApiFactory.Services;
-
-		var dataManager = ServiceProvider.GetRequiredService<IDataManager>();
-
-		// Reset db here once for this class and cache the test data, because all tests are reading data only, no inserts/updates/deletes
-		this.DataSet = dataManager.ResetDataSet(DataSetType.Default).GetAwaiter().GetResult();
-
-		this.${{ENTITY_NAME}}ApiClient = ServiceProvider.GetRequiredService<I${{ENTITY_NAME}}ApiClient>();
 	}
 
 	public ServerApiFactory ServerApiFactory { get; private set; }
 	public IServiceProvider ServiceProvider { get; }
 
 	public I${{ENTITY_NAME}}ApiClient ${{ENTITY_NAME}}ApiClient { get; }
-	public DataSet DataSet { get; }
+	public IDataManager DataManager { get; }
 
 	public void Dispose()
 	{
@@ -45,25 +41,28 @@ public class ${{ENTITY_NAME}}ReadTestsFixture : IDisposable
 #endregion
 
 [Collection("Global Collection")]
-public class ${{ENTITY_NAME}}ReadTests : TestBase, IClassFixture<${{ENTITY_NAME}}ReadTestsFixture>, IDisposable
+public class ${{ENTITY_NAME}}UpdateTests : TestBase, IClassFixture<${{ENTITY_NAME}}UpdateTestsFixture>, IDisposable
 {
-	private static readonly Random _random = new Random();
-
 	#region Fields
 
 	private readonly I${{ENTITY_NAME}}ApiClient _apiClient;
-	private readonly DataSet _ds;
 	private readonly ITestOutputHelper _output;
+	private readonly Db _db;
+	private readonly DataSet _ds;
 
 	#endregion
 
 	#region Ctors / Init
 
-	public ${{ENTITY_NAME}}ReadTests(${{ENTITY_NAME}}ReadTestsFixture classFixture, ITestOutputHelper output)
+	public ${{ENTITY_NAME}}UpdateTests(${{ENTITY_NAME}}UpdateTestsFixture classFixture, ITestOutputHelper output)
 	{
-		_apiClient = classFixture.${{ENTITY_NAME}}ApiClient;
-		_ds = classFixture.DataSet;
+		_apiClient = classFixture.ServiceProvider.GetRequiredService<I${{ENTITY_NAME}}ApiClient>();
+		_db = classFixture.ServiceProvider.GetRequiredService<IDbContextFactory>().CreateDbContext();
 		_output = output;
+
+		// Reset data each test run because we are adding/updating/deleting rows
+		var dataManager = classFixture.ServiceProvider.GetRequiredService<IDataManager>();
+		_ds = dataManager.ResetDataSet(DataSetType.Default).GetAwaiter().GetResult();
 	}
 
 	public void Dispose()

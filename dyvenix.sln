@@ -50,6 +50,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		design\Model\Templates\Entities.tmpl = design\Model\Templates\Entities.tmpl
 		design\Model\Templates\Enums.tmpl = design\Model\Templates\Enums.tmpl
 		design\Model\Templates\IntTests_ApiClients_Read.tmpl = design\Model\Templates\IntTests_ApiClients_Read.tmpl
+		design\Model\Templates\IntTests_ApiClients_Update.tmpl = design\Model\Templates\IntTests_ApiClients_Update.tmpl
 		design\Model\Templates\Query.tmpl = design\Model\Templates\Query.tmpl
 		design\Model\Templates\ServiceCollExt.tmpl = design\Model\Templates\ServiceCollExt.tmpl
 		design\Model\Templates\Services.tmpl = design\Model\Templates\Services.tmpl

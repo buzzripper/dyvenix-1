@@ -59,7 +59,7 @@ public class AppUserController : ApiControllerBase<AppUserController>
 		}
 	}
 
-	[HttpPost, Route("[action]")]
+	[HttpPost, Route("[action]/{id}")]
 	public async Task<ActionResult> DeleteAppUser(Guid id)
 	{
 		var apiResponse = CreateApiResponse();

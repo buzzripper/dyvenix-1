@@ -75,7 +75,9 @@ public class AccessClaimService : IAccessClaimService
 	{
 		using var db = _dbContextFactory.CreateDbContext();
 
-		await db.AccessClaim.Where(a => a.Id == id).ExecuteDeleteAsync();
+		var ac = await db.AccessClaim.Where(a => a.Id == id).FirstOrDefaultAsync();
+
+		var x =  await db.AccessClaim.Where(a => a.Id == id).ExecuteDeleteAsync();
 	}
 
 	#endregion

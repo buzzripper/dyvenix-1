@@ -71,7 +71,7 @@ public class AccessClaimUpdateTests : TestBase, IClassFixture<AccessClaimUpdateT
 
 	#endregion
 
-	#region Single Methods
+	#region Create Tests
 
 	[Fact]
 	public async Task Create_ValidId()
@@ -109,6 +109,21 @@ public class AccessClaimUpdateTests : TestBase, IClassFixture<AccessClaimUpdateT
 	{
 		// Act / Assert
 		await Assert.ThrowsAsync<ArgumentNullException>(async () => await _apiClient.CreateAccessClaim(null));
+	}
+	
+	[Fact]
+	public async Task Delete_Success()
+	{
+		// Arrange
+		var accessClaim = _db.AccessClaim.Skip(RndInt(0, _db.AccessClaim.ToList().Count)).First();
+		var id = accessClaim.Id;
+
+		// Act
+		await _apiClient.DeleteAccessClaim(id);
+
+		// Assert
+		var findAccessClaim = await _db.AccessClaim.FindAsync(id);
+		Assert.Null(findAccessClaim);
 	}
 
 	// Helper Methods

@@ -59,7 +59,7 @@ public class AccessClaimController : ApiControllerBase<AccessClaimController>
 		}
 	}
 
-	[HttpPost, Route("[action]")]
+	[HttpPost, Route("[action]/{id}")]
 	public async Task<ActionResult> DeleteAccessClaim(Guid id)
 	{
 		var apiResponse = CreateApiResponse();

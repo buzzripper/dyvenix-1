@@ -71,7 +71,7 @@ public class AppUserUpdateTests : TestBase, IClassFixture<AppUserUpdateTestsFixt
 
 	#endregion
 
-	#region Single Methods
+	#region Create Tests
 
 	[Fact]
 	public async Task Create_ValidId()

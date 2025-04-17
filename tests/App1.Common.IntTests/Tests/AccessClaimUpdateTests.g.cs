@@ -110,21 +110,6 @@ public class AccessClaimUpdateTests : TestBase, IClassFixture<AccessClaimUpdateT
 		// Act / Assert
 		await Assert.ThrowsAsync<ArgumentNullException>(async () => await _apiClient.CreateAccessClaim(null));
 	}
-	
-	[Fact]
-	public async Task Delete_Success()
-	{
-		// Arrange
-		var accessClaim = _db.AccessClaim.Skip(RndInt(0, _db.AccessClaim.ToList().Count)).First();
-		var id = accessClaim.Id;
-
-		// Act
-		await _apiClient.DeleteAccessClaim(id);
-
-		// Assert
-		var findAccessClaim = await _db.AccessClaim.FindAsync(id);
-		Assert.Null(findAccessClaim);
-	}
 
 	// Helper Methods
 

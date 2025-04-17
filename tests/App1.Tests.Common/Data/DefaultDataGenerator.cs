@@ -37,33 +37,32 @@ public class DefaultDataGenerator
 				attempt++;
 			} while (!emailSet.Add(email)); // Ensure unique emails
 
-			var appUser = new AppUser {
-				Id = Guid.NewGuid(),
-				ExtId = Guid.NewGuid().ToString(),
-				FirstName = firstName,
-				LastName = lastName,
-				Email = email,
-				IsEnabled = random.NextDouble() >= 0.15, // 15% chance of IsEnabled being false
-				CompanyId = companyIds[random.Next(companyIds.Length)],
-				GroupCode = random.NextDouble() >= 0.15 ? random.Next(1, 5) : null,
-				UserType = (UserType)random.Next(0, 3) // Randomly assign UserType between 0 and 2
-			};
+			var appUser = dataSet.CreateAppUser();
+			appUser.Id = Guid.NewGuid();
+			appUser.ExtId = Guid.NewGuid().ToString();
+			appUser.FirstName = firstName;
+			appUser.LastName = lastName;
+			appUser.Email = email;
+			appUser.IsEnabled = random.NextDouble() >= 0.15; // 15% chance of IsEnabled being false
+			appUser.CompanyId = companyIds[random.Next(companyIds.Length)];
+			appUser.GroupCode = random.NextDouble() >= 0.15 ? random.Next(1, 5) : null;
+			appUser.UserType = (UserType)random.Next(0, 3); // Randomly assign UserType between 0 and 2
 
 			// Add 0-8 AccessClaims to each AppUser
 			int numberOfClaims = random.Next(0, 9);
 			for (int j = 0; j < numberOfClaims; j++) {
-				appUser.Claims.Add(new AccessClaim {
-					Id = Guid.NewGuid(),
-					ClaimName = $"ClaimName_{j}",
-					ClaimValue = $"ClaimValue_{j}",
-					AppUserId = appUser.Id
-				});
+				var accessClaim = dataSet.CreateAccessClaim();
+				accessClaim.Id = Guid.NewGuid();
+				accessClaim.ClaimName = $"ClaimName_{j}";
+				accessClaim.ClaimValue = $"ClaimValue_{j}";
+				accessClaim.AppUserId = appUser.Id;
+				appUser.Claims.Add(accessClaim);
 			}
 
 			appUsers.Add(appUser);
 		}
 
-		dataSet.AppUsers = appUsers;
+		dataSet.AppUser = appUsers;
 
 		return dataSet;
 	}

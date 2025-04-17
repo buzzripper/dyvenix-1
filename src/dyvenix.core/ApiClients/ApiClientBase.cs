@@ -146,7 +146,6 @@ public abstract class ApiClientBase<T> where T : class
 		var json = JsonSerializer.Serialize(payload, _jsonSerializerOptionsPost);
 		using var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-
 		HttpResponseMessage httpResponse = null;
 
 		switch (methodType) {

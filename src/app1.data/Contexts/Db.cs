@@ -18,7 +18,6 @@ public partial class Db : DbContext
 
 	public DbSet<AppUser> AppUser { get; set; }
 	public DbSet<AccessClaim> AccessClaim { get; set; }
-	public DbSet<LogEvent> LogEvent { get; set; }
 
     # endregion
 
@@ -68,30 +67,6 @@ public partial class Db : DbContext
 			// Indexes
 			entity.HasIndex(e => e.Id, "IX_AccessClaim_Id").IsUnique();
 			entity.HasIndex(e => e.AppUserId, "IX_AccessClaim_AppUserId");
-		});
-
-		modelBuilder.Entity<LogEvent>(entity =>
-		{
-			entity.ToTable("LogEvents", "Logs");
-
-			// PK
-			entity.HasKey(e => e.Id);
-
-			// Properties
-			entity.Property(e => e.Message).IsRequired(true);
-			entity.Property(e => e.Timestamp).IsRequired(true).HasColumnType("datetime");
-			entity.Property(e => e.Exception).IsRequired(true);
-			entity.Property(e => e.Application).IsRequired(true).HasMaxLength(100);
-			entity.Property(e => e.Source).IsRequired(true).HasMaxLength(100);
-			entity.Property(e => e.CorrelationId).IsRequired(true).HasMaxLength(50);
-
-			// Indexes
-			entity.HasIndex(e => e.Id, "IX_LogEvent_Id").IsUnique();
-			entity.HasIndex(e => e.Message, "IX_LogEvent_Message");
-			entity.HasIndex(e => e.Timestamp, "IX_LogEvent_Timestamp");
-			entity.HasIndex(e => e.Application, "IX_LogEvent_Application");
-			entity.HasIndex(e => e.Source, "IX_LogEvent_Source");
-			entity.HasIndex(e => e.CorrelationId, "IX_LogEvent_CorrelationId");
 		});
 
 

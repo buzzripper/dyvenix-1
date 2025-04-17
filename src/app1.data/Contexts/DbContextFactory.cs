@@ -1,5 +1,6 @@
 ﻿using Dyvenix.App1.Data.Config;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Dyvenix.App1.Data.Contexts;
 
@@ -28,16 +29,15 @@ public class DbContextFactory : IDbContextFactory
 
 //public class DbContextFactory : IDbContextFactory
 //{
-//	protected readonly DbContextOptions<Db> _options;
+//	protected readonly DbContextOptions<Db> _dbContextOptions;
 
-//	public DbContextFactory(DbContextOptions<Db> options)
+//	public DbContextFactory(DbContextOptions<Db> dbContextOptions)
 //	{
-//		_options = options;
+//		_dbContextOptions = dbContextOptions;
 //	}
 
 //	public Db CreateDbContext()
 //	{
-//		return new Db(_options);
+//		return new Db(_dbContextOptions);
 //	}
 //}
-

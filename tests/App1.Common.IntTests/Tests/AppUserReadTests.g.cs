@@ -77,7 +77,7 @@ public class AppUserReadTests : TestBase, IClassFixture<AppUserReadTestsFixture>
 	[Fact]
 	public async Task GetById_Success()
 	{
-		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUser = _ds.AppUser.First();
 		var appUser = await _apiClient.GetById(dsAppUser.Id);
 		Assert.Equal(dsAppUser.Id, appUser.Id);
 	}
@@ -92,7 +92,7 @@ public class AppUserReadTests : TestBase, IClassFixture<AppUserReadTestsFixture>
 	[Fact]
 	public async Task GetByIdwClaims_Success()
 	{
-		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUser = _ds.AppUser.First();
 		var appUser = await _apiClient.GetByIdwClaims(dsAppUser.Id);
 		Assert.Equal(dsAppUser.Id, appUser.Id);
 	}
@@ -112,7 +112,7 @@ public class AppUserReadTests : TestBase, IClassFixture<AppUserReadTestsFixture>
 	public async Task GetAll()
 	{
 		var appUser = await _apiClient.GetAll();
-		Assert.Equal(_ds.AppUsers.Count, appUser.Count);
+		Assert.Equal(_ds.AppUser.Count, appUser.Count);
 	}
 
 	// ReadMethod1() - UserType:Good
@@ -120,8 +120,8 @@ public class AppUserReadTests : TestBase, IClassFixture<AppUserReadTestsFixture>
 	public async Task ReadMethod1_01()
 	{
 		// Arrange
-		var dsAppUser = _ds.AppUsers.First();
-		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == dsAppUser.UserType).ToList();
+		var dsAppUser = _ds.AppUser.First();
+		var dsAppUsers = _ds.AppUser.Where(x => x.UserType == dsAppUser.UserType).ToList();
 
 		// Act
 		var appUsers = await _apiClient.ReadMethod1(userType: dsAppUser.UserType);

@@ -48,7 +48,7 @@ public class DataManager : IDataManager
 		// Clear out existing data and add test data
 		await DeleteAllData();
 
-		await _db.AppUser.AddRangeAsync(dataSet.AppUsers);
+		await _db.AppUser.AddRangeAsync(dataSet.AppUser);
 		await _db.SaveChangesAsync();
 
 		return dataSet;

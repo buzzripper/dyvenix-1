@@ -8,6 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Dyvenix.App1.Common.Config;
 using Dyvenix.App1.Tests.Common.Data;
 using System.Text.Json.Serialization;
+using Dyvenix.App1.Data.Config;
+using Dyvenix.App1.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dyvenix.App1.Common.IntTests;
 
@@ -29,6 +32,15 @@ public class ServerApiFactory : WebApplicationFactory<Program>
 			services.AddApiClientServices(apiClientConfig);
 
 			services.AddSingleton<IDataManager, DataManager>();
+
+			var dataConfig = configuration.GetSection("DataConfig").Get<DataConfig>();
+			services.AddSingleton(dataConfig);
+
+			//services.AddSingleton<DbContextOptions<Db>>(sp => {
+			//	var b = new DbContextOptionsBuilder<Db>();
+			//	b.UseInMemoryDatabase("Db");
+			//	return b.Options;
+			//});
 
 			// Override the default registration with an HttpClient that uses the test server
 			services.AddTransient<HttpClient>(sp => {

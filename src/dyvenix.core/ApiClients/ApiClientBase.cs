@@ -60,9 +60,68 @@ public abstract class ApiClientBase<T> where T : class
 		return apiResponse.Data;
 	}
 
+	#region Post
+
 	protected async Task PostAsync(string uri, object payload)
 	{
-		var responseString = await PostAsyncStr(uri, payload);
+		await CallAsync(MethodType.Post, uri, payload);
+	}
+
+	protected async Task<TResult> PostAsync<TResult>(string uri, object payload)
+	{
+		return await CallAsync<TResult>(MethodType.Post, uri, payload);
+	}
+
+	protected async Task<string> PostAsyncStr(string uri, object payload)
+	{
+		return await CallAsyncStr(MethodType.Post, uri, payload);
+	}
+
+	#endregion
+
+	#region Put
+
+	protected async Task PutAsync(string uri, object payload)
+	{
+		await CallAsync(MethodType.Put, uri, payload);
+	}
+
+	protected async Task<TResult> PutAsync<TResult>(string uri, object payload)
+	{
+		return await CallAsync<TResult>(MethodType.Put, uri, payload);
+	}
+
+	protected async Task<string> PutAsyncStr(string uri, object payload)
+	{
+		return await CallAsyncStr(MethodType.Put, uri, payload);
+	}
+
+	#endregion
+
+		#region Patch
+
+	protected async Task PatchAsync(string uri, object payload)
+	{
+		await CallAsync(MethodType.Patch, uri, payload);
+	}
+
+	protected async Task<TResult> PatchAsync<TResult>(string uri, object payload)
+	{
+		return await CallAsync<TResult>(MethodType.Patch, uri, payload);
+	}
+
+	protected async Task<string> PatchAsyncStr(string uri, object payload)
+	{
+		return await CallAsyncStr(MethodType.Patch, uri, payload);
+	}
+
+	#endregion
+
+	#region Call
+
+	protected async Task CallAsync(MethodType methodType, string uri, object payload)
+	{
+		var responseString = await CallAsyncStr(methodType, uri, payload);
 
 		var apiResponse = JsonSerializer.Deserialize<ApiResponse>(responseString, _jsonSerializerOptionsPost);
 
@@ -70,9 +129,9 @@ public abstract class ApiClientBase<T> where T : class
 			throw new ApiException(apiResponse.StatusCode, apiResponse.Message, apiResponse.CorrelationId);
 	}
 
-	protected async Task<TResult> PostAsync<TResult>(string uri, object payload)
+	protected async Task<TResult> CallAsync<TResult>(MethodType methodType, string uri, object payload)
 	{
-		var responseString = await PostAsyncStr(uri, payload);
+		var responseString = await CallAsyncStr(methodType, uri, payload);
 
 		var apiResponse = JsonSerializer.Deserialize<ApiResponse<TResult>>(responseString, _jsonSerializerOptionsPost);
 
@@ -82,12 +141,25 @@ public abstract class ApiClientBase<T> where T : class
 		return apiResponse.Data;
 	}
 
-	protected async Task<string> PostAsyncStr(string uri, object payload)
+	protected async Task<string> CallAsyncStr(MethodType methodType, string uri, object payload)
 	{
 		var json = JsonSerializer.Serialize(payload, _jsonSerializerOptionsPost);
 		using var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-		var httpResponse = await _httpClient.PostAsync(uri, stringContent);
+
+		HttpResponseMessage httpResponse = null;
+
+		switch (methodType) {
+			case MethodType.Post:
+				httpResponse = await _httpClient.PostAsync(uri, stringContent);
+				break;
+			case MethodType.Put:
+				httpResponse = await _httpClient.PutAsync(uri, stringContent);
+				break;
+			default:
+				httpResponse = await _httpClient.PatchAsync(uri, stringContent);
+				break;
+		}
 
 		if (!httpResponse.IsSuccessStatusCode)
 			throw new HttpException((int)httpResponse.StatusCode, httpResponse.ReasonPhrase);
@@ -96,4 +168,13 @@ public abstract class ApiClientBase<T> where T : class
 	}
 
 	#endregion
+
+	#endregion
+
+	public enum MethodType
+	{
+		Post,
+		Put,
+		Patch
+	}
 }

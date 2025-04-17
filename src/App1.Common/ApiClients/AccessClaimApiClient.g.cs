@@ -9,6 +9,7 @@ using Dyvenix.Core.ApiClients;
 using Dyvenix.Core.Entities;
 using Dyvenix.App1.Common.Queries;
 using Dyvenix.App1.Common.Entities;
+using Dyvenix.App1.Server.DTOs;
 
 namespace Dyvenix.App1.Common.ApiClients;
 
@@ -17,6 +18,7 @@ public interface IAccessClaimApiClient
 	Task<Guid> CreateAccessClaim(AccessClaim accessClaim);
 	Task UpdateAccessClaim(AccessClaim accessClaim);
 	Task DeleteAccessClaim(Guid id);
+	Task Update(UpdateReq request);
 }
 public class AccessClaimApiClient : ApiClientBase<AccessClaim>, IAccessClaimApiClient
 {
@@ -46,6 +48,15 @@ public class AccessClaimApiClient : ApiClientBase<AccessClaim>, IAccessClaimApiC
 		if (id == Guid.Empty)
 			throw new ArgumentNullException(nameof(id));
 		await PostAsync<string>($"api/v1/AccessClaim/DeleteAccessClaim/{id}", null);
+	}
+
+	#endregion
+
+	#region Update Methods
+
+	public async Task Update(UpdateReq request)
+	{
+		await PatchAsync<Task>($"api/v1/AccessClaim/Update", request);
 	}
 
 	#endregion

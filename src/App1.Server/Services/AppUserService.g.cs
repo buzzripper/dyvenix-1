@@ -21,9 +21,14 @@ public interface IAppUserService
 	Task<Guid> CreateAppUser(AppUser appUser);
 	Task<byte[]> UpdateAppUser(AppUser appUser);
 	Task DeleteAppUser(Guid id);
+	Task UpdateEmail(Guid id, byte[] rowVersion, string email);
+	Task UpdateUserType(Guid id, byte[] rowVersion, UserType userType);
+	Task UpdateGroupCode(Guid id, byte[] rowVersion, int groupCode);
+	Task UpdateName(Guid id, byte[] rowVersion, string firstName, string lastName);
 	Task<AppUser> GetById(Guid id);
 	Task<AppUser> GetByIdwClaims(Guid id);
 	Task<List<AppUser>> GetAll();
+	Task<List<AppUser>> ReadMethod1(UserType userType);
 }
 
 public class AppUserService : IAppUserService
@@ -82,6 +87,101 @@ public class AppUserService : IAppUserService
 
 	#endregion
 
+	#region Update Methods
+
+	public async Task UpdateEmail(Guid id, byte[] rowVersion, string email)
+	{
+		ArgumentNullException.ThrowIfNull(rowVersion);
+
+		try {
+			var appUser = new AppUser {
+				Id = id,
+				RowVersion = rowVersion,
+				Email = email,
+			};
+
+			using var db = _dbContextFactory.CreateDbContext();
+			db.Attach(appUser);
+			db.Entry(appUser).Property(u => u.Email).IsModified = true;
+
+			await db.SaveChangesAsync();
+
+		} catch (DbUpdateConcurrencyException) {
+			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
+		}
+	}
+
+	public async Task UpdateUserType(Guid id, byte[] rowVersion, UserType userType)
+	{
+		ArgumentNullException.ThrowIfNull(rowVersion);
+		ArgumentNullException.ThrowIfNull(userType);
+
+		try {
+			var appUser = new AppUser {
+				Id = id,
+				RowVersion = rowVersion,
+				UserType = userType,
+			};
+
+			using var db = _dbContextFactory.CreateDbContext();
+			db.Attach(appUser);
+			db.Entry(appUser).Property(u => u.UserType).IsModified = true;
+
+			await db.SaveChangesAsync();
+
+		} catch (DbUpdateConcurrencyException) {
+			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
+		}
+	}
+
+	public async Task UpdateGroupCode(Guid id, byte[] rowVersion, int groupCode)
+	{
+		ArgumentNullException.ThrowIfNull(rowVersion);
+		ArgumentNullException.ThrowIfNull(groupCode);
+
+		try {
+			var appUser = new AppUser {
+				Id = id,
+				RowVersion = rowVersion,
+				GroupCode = groupCode,
+			};
+
+			using var db = _dbContextFactory.CreateDbContext();
+			db.Attach(appUser);
+			db.Entry(appUser).Property(u => u.GroupCode).IsModified = true;
+
+			await db.SaveChangesAsync();
+
+		} catch (DbUpdateConcurrencyException) {
+			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
+		}
+	}
+
+	public async Task UpdateName(Guid id, byte[] rowVersion, string firstName, string lastName)
+	{
+		ArgumentNullException.ThrowIfNull(rowVersion);
+
+		try {
+			var appUser = new AppUser {
+				Id = id,
+				RowVersion = rowVersion,
+				FirstName = firstName,
+				LastName = lastName,
+			};
+
+			using var db = _dbContextFactory.CreateDbContext();
+			db.Attach(appUser);
+			db.Entry(appUser).Property(u => u.FirstName).IsModified = true;
+			db.Entry(appUser).Property(u => u.LastName).IsModified = true;
+
+			await db.SaveChangesAsync();
+
+		} catch (DbUpdateConcurrencyException) {
+			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
+		}
+	}
+	#endregion
+
 	#region Single Methods
 
 	public async Task<AppUser> GetById(Guid id)
@@ -98,6 +198,7 @@ public class AppUserService : IAppUserService
 		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
 
 		dbQuery = dbQuery.Include(x => x.Claims);
+		dbQuery = dbQuery.Include(x => x.Claims);
 		dbQuery = dbQuery.Where(x => x.Id == id);
 
 		return await dbQuery.AsNoTracking().FirstOrDefaultAsync();
@@ -110,6 +211,15 @@ public class AppUserService : IAppUserService
 	{
 		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
 
+
+		return await dbQuery.AsNoTracking().ToListAsync();
+	}
+
+	public async Task<List<AppUser>> ReadMethod1(UserType userType)
+	{
+		var dbQuery = _dbContextFactory.CreateDbContext().AppUser.AsQueryable();
+
+		dbQuery = dbQuery.Where(x => x.UserType == userType);
 
 		return await dbQuery.AsNoTracking().ToListAsync();
 	}

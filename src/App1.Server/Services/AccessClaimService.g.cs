@@ -21,6 +21,7 @@ public interface IAccessClaimService
 	Task<Guid> CreateAccessClaim(AccessClaim accessClaim);
 	Task<byte[]> UpdateAccessClaim(AccessClaim accessClaim);
 	Task DeleteAccessClaim(Guid id);
+	Task Update(Guid id, byte[] rowVersion, string claimName);
 }
 
 public class AccessClaimService : IAccessClaimService
@@ -77,6 +78,31 @@ public class AccessClaimService : IAccessClaimService
 		await db.AccessClaim.Where(a => a.Id == id).ExecuteDeleteAsync();
 	}
 
+	#endregion
+
+	#region Update Methods
+
+	public async Task Update(Guid id, byte[] rowVersion, string claimName)
+	{
+		ArgumentNullException.ThrowIfNull(rowVersion);
+
+		try {
+			var accessClaim = new AccessClaim {
+				Id = id,
+				RowVersion = rowVersion,
+				ClaimName = claimName,
+			};
+
+			using var db = _dbContextFactory.CreateDbContext();
+			db.Attach(accessClaim);
+			db.Entry(accessClaim).Property(u => u.ClaimName).IsModified = true;
+
+			await db.SaveChangesAsync();
+
+		} catch (DbUpdateConcurrencyException) {
+			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
+		}
+	}
 	#endregion
 
 

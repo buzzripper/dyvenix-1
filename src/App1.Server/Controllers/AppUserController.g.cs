@@ -13,6 +13,7 @@ using Dyvenix.Logging;
 using Dyvenix.App1.Server.Services;
 using Dyvenix.App1.Common.Queries;
 using Dyvenix.App1.Common.Entities;
+using Dyvenix.App1.Server.DTOs;
 
 namespace Dyvenix.App1.Server.Controllers;
 
@@ -44,7 +45,7 @@ public class AppUserController : ApiControllerBase<AppUserController>
 		}
 	}
 
-	[HttpPatch, Route("[action]")]
+	[HttpPut, Route("[action]")]
 	public async Task<ActionResult> UpdateAppUser(AppUser appUser)
 	{
 		var apiResponse = CreateApiResponse<byte[]>();
@@ -64,6 +65,62 @@ public class AppUserController : ApiControllerBase<AppUserController>
 		var apiResponse = CreateApiResponse();
 		try {
 			await _appUserService.DeleteAppUser(id);
+
+			return Ok(apiResponse);
+
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(apiResponse, ex);
+		}
+	}
+
+	[HttpPatch, Route("[action]")]
+	public async Task<ActionResult> UpdateEmail(UpdateEmailReq request)
+	{
+		var apiResponse = CreateApiResponse();
+		try {
+			await _appUserService.UpdateEmail(request.Id, request.RowVersion, request.Email);
+
+			return Ok(apiResponse);
+
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(apiResponse, ex);
+		}
+	}
+
+	[HttpPatch, Route("[action]")]
+	public async Task<ActionResult> UpdateUserType(UpdateUserTypeReq request)
+	{
+		var apiResponse = CreateApiResponse();
+		try {
+			await _appUserService.UpdateUserType(request.Id, request.RowVersion, request.UserType);
+
+			return Ok(apiResponse);
+
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(apiResponse, ex);
+		}
+	}
+
+	[HttpPatch, Route("[action]")]
+	public async Task<ActionResult> UpdateGroupCode(UpdateGroupCodeReq request)
+	{
+		var apiResponse = CreateApiResponse();
+		try {
+			await _appUserService.UpdateGroupCode(request.Id, request.RowVersion, request.GroupCode);
+
+			return Ok(apiResponse);
+
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(apiResponse, ex);
+		}
+	}
+
+	[HttpPatch, Route("[action]")]
+	public async Task<ActionResult> UpdateName(UpdateNameReq request)
+	{
+		var apiResponse = CreateApiResponse();
+		try {
+			await _appUserService.UpdateName(request.Id, request.RowVersion, request.FirstName, request.LastName);
 
 			return Ok(apiResponse);
 
@@ -99,12 +156,25 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	}
 
 
+
 	[HttpGet, Route("[action]")]
 	public async Task<ActionResult<List<AppUser>>> GetAll()
 	{
 		var apiResponse = CreateApiResponse<List<AppUser>>();
 		try {
 			apiResponse.Data =  await _appUserService.GetAll();
+			return Ok(apiResponse);
+
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(apiResponse, ex);
+		}
+	}
+	[HttpGet, Route("[action]/{userType}")]
+	public async Task<ActionResult<List<AppUser>>> ReadMethod1([FromRoute] UserType userType)
+	{
+		var apiResponse = CreateApiResponse<List<AppUser>>();
+		try {
+			apiResponse.Data =  await _appUserService.ReadMethod1(userType);
 			return Ok(apiResponse);
 
 		} catch (Exception ex) {

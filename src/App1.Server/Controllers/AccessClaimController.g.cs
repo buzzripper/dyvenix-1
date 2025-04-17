@@ -13,6 +13,7 @@ using Dyvenix.Logging;
 using Dyvenix.App1.Server.Services;
 using Dyvenix.App1.Common.Queries;
 using Dyvenix.App1.Common.Entities;
+using Dyvenix.App1.Server.DTOs;
 
 namespace Dyvenix.App1.Server.Controllers;
 
@@ -44,7 +45,7 @@ public class AccessClaimController : ApiControllerBase<AccessClaimController>
 		}
 	}
 
-	[HttpPatch, Route("[action]")]
+	[HttpPut, Route("[action]")]
 	public async Task<ActionResult> UpdateAccessClaim(AccessClaim accessClaim)
 	{
 		var apiResponse = CreateApiResponse<byte[]>();
@@ -64,6 +65,20 @@ public class AccessClaimController : ApiControllerBase<AccessClaimController>
 		var apiResponse = CreateApiResponse();
 		try {
 			await _accessClaimService.DeleteAccessClaim(id);
+
+			return Ok(apiResponse);
+
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(apiResponse, ex);
+		}
+	}
+
+	[HttpPatch, Route("[action]")]
+	public async Task<ActionResult> Update(UpdateReq request)
+	{
+		var apiResponse = CreateApiResponse();
+		try {
+			await _accessClaimService.Update(request.Id, request.RowVersion, request.ClaimName);
 
 			return Ok(apiResponse);
 

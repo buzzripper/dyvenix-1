@@ -115,6 +115,21 @@ public class AppUserReadTests : TestBase, IClassFixture<AppUserReadTestsFixture>
 		Assert.Equal(_ds.AppUsers.Count, appUser.Count);
 	}
 
+	// ReadMethod1() - UserType:Good
+	[Fact]
+	public async Task ReadMethod1_01()
+	{
+		// Arrange
+		var dsAppUser = _ds.AppUsers.First();
+		var dsAppUsers = _ds.AppUsers.Where(x => x.UserType == dsAppUser.UserType).ToList();
+
+		// Act
+		var appUsers = await _apiClient.ReadMethod1(userType: dsAppUser.UserType);
+
+		// Assert
+		Assert.Equal(dsAppUsers.Count, appUsers.Count);
+	}
+
 	#endregion
 
 }

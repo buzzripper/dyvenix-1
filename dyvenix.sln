@@ -47,6 +47,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		design\Model\Templates\ApiClients.tmpl = design\Model\Templates\ApiClients.tmpl
 		design\Model\Templates\Controllers.tmpl = design\Model\Templates\Controllers.tmpl
 		design\Model\Templates\DbContext.tmpl = design\Model\Templates\DbContext.tmpl
+		design\Model\Templates\DTO.tmpl = design\Model\Templates\DTO.tmpl
 		design\Model\Templates\Entities.tmpl = design\Model\Templates\Entities.tmpl
 		design\Model\Templates\Enums.tmpl = design\Model\Templates\Enums.tmpl
 		design\Model\Templates\IntTests_ApiClients_Read.tmpl = design\Model\Templates\IntTests_ApiClients_Read.tmpl

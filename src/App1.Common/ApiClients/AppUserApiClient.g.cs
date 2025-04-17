@@ -9,6 +9,7 @@ using Dyvenix.Core.ApiClients;
 using Dyvenix.Core.Entities;
 using Dyvenix.App1.Common.Queries;
 using Dyvenix.App1.Common.Entities;
+using Dyvenix.App1.Server.DTOs;
 
 namespace Dyvenix.App1.Common.ApiClients;
 
@@ -17,9 +18,14 @@ public interface IAppUserApiClient
 	Task<Guid> CreateAppUser(AppUser appUser);
 	Task UpdateAppUser(AppUser appUser);
 	Task DeleteAppUser(Guid id);
+	Task UpdateEmail(UpdateEmailReq request);
+	Task UpdateUserType(UpdateUserTypeReq request);
+	Task UpdateGroupCode(UpdateGroupCodeReq request);
+	Task UpdateName(UpdateNameReq request);
 	Task<AppUser> GetById(Guid id);
 	Task<AppUser> GetByIdwClaims(Guid id);
 	Task<List<AppUser>> GetAll();
+	Task<List<AppUser>> ReadMethod1(UserType userType);
 }
 public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 {
@@ -53,6 +59,30 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 
 	#endregion
 
+	#region Update Methods
+
+	public async Task UpdateEmail(UpdateEmailReq request)
+	{
+		await PatchAsync<Task>($"api/v1/AppUser/UpdateEmail", request);
+	}
+
+	public async Task UpdateUserType(UpdateUserTypeReq request)
+	{
+		await PatchAsync<Task>($"api/v1/AppUser/UpdateUserType", request);
+	}
+
+	public async Task UpdateGroupCode(UpdateGroupCodeReq request)
+	{
+		await PatchAsync<Task>($"api/v1/AppUser/UpdateGroupCode", request);
+	}
+
+	public async Task UpdateName(UpdateNameReq request)
+	{
+		await PatchAsync<Task>($"api/v1/AppUser/UpdateName", request);
+	}
+
+	#endregion
+
 	#region Single Methods
 
 	public async Task<AppUser> GetById(Guid id)
@@ -72,6 +102,11 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 	public async Task<List<AppUser>> GetAll()
 	{
 		return await GetAsync<List<AppUser>>($"api/v1/AppUser/GetAll");
+	}
+
+	public async Task<List<AppUser>> ReadMethod1(UserType userType)
+	{
+		return await GetAsync<List<AppUser>>($"api/v1/AppUser/ReadMethod1/{userType}");
 	}
 
 	#endregion

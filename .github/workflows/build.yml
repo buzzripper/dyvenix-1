@@ -58,7 +58,7 @@ jobs:
 
       - name: Build
         # run: dotnet build "${{ env.API_ROOT_DIR }}" --configuration ${{ env.CONFIGURATION }} --no-restore -p:Version=${{ env.VERSION }}
-        run: dotnet build "./dyvenix.sln" --configuration ${{ env.CONFIGURATION }} --no-restore -p:Version=${{ env.VERSION }}
+        run: dotnet build dyvenix.sln --configuration ${{ env.CONFIGURATION }} --no-restore -p:Version=${{ env.VERSION }}
 
       # - name: Test
       #   run: dotnet test "${{ env.API_ROOT_DIR }}" --no-build

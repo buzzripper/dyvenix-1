@@ -13,4 +13,4 @@ DELETE FROM AppUser;
 SELECT * FROM AppUser;
 SELECT * FROM AccessClaim;
 
--- SELECT * FROM AppUser WHERE Id = '9136dbb9-bc3f-4d9c-bb04-8ff4eb51c4b9'
+-- SELECT * FROM AccessClaim WHERE Id = '168aedff-69cf-4aac-8d3b-91209a362389'

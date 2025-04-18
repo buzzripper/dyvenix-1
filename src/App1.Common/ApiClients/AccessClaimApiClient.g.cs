@@ -18,7 +18,7 @@ public interface IAccessClaimApiClient
 	Task<Guid> CreateAccessClaim(AccessClaim accessClaim);
 	Task<bool> DeleteAccessClaim(Guid id);
 	Task<byte[]> UpdateAccessClaim(AccessClaim accessClaim);
-	Task UpdateClaimName(UpdateClaimNameReq request);
+	Task<byte[]> UpdateClaimName(UpdateClaimNameReq request);
 }
 public class AccessClaimApiClient : ApiClientBase<AccessClaim>, IAccessClaimApiClient
 {
@@ -57,9 +57,9 @@ public class AccessClaimApiClient : ApiClientBase<AccessClaim>, IAccessClaimApiC
 		return await PutAsync<byte[]>("api/v1/AccessClaim/UpdateAccessClaim", accessClaim);
 	}
 
-	public async Task UpdateClaimName(UpdateClaimNameReq request)
+	public async Task<byte[]> UpdateClaimName(UpdateClaimNameReq request)
 	{
-		await PatchAsync<Task>($"api/v1/AccessClaim/UpdateClaimName", request);
+		return await PatchAsync<byte[]>($"api/v1/AccessClaim/UpdateClaimName", request);
 	}
 
 	#endregion

@@ -13,6 +13,7 @@ using Dyvenix.App1.Common.Entities;
 using Dyvenix.App1.Tests.Common;
 using Dyvenix.App1.Data;
 using Dyvenix.App1.Data.Contexts;
+using Dyvenix.App1.Server.DTOs;
 
 namespace Dyvenix.App1.Common.IntTests.Tests;
 
@@ -176,6 +177,84 @@ public class AppUserUpdateTests : TestBase, IClassFixture<AppUserUpdateTestsFixt
 		Assert.Equal(retAppUser.ExtId, appUser.ExtId);
 		Assert.Equal(retAppUser.GroupCode, appUser.GroupCode);
 		Assert.Equal(retAppUser.UserType, appUser.UserType);
+	}
+
+	[Fact]
+	public async Task UpdateEmail_Success()
+	{
+		// Arrange
+		var appUser = _db.AppUser.Skip(RndInt(0, _db.AppUser.ToList().Count)).First();
+		var request = new UpdateEmailReq {
+			Id = appUser.Id,
+			RowVersion = appUser.RowVersion,
+			Email = RndStr(200)
+		};
+
+		// Act
+		var newRowVersion = await _apiClient.UpdateEmail(request);
+
+		// Assert
+		var retAppUser = _db.AppUser.Find(appUser.Id);
+		Assert.Equal(retAppUser.Email, appUser.Email);
+	}
+
+	[Fact]
+	public async Task UpdateUserType_Success()
+	{
+		// Arrange
+		var appUser = _db.AppUser.Skip(RndInt(0, _db.AppUser.ToList().Count)).First();
+		var request = new UpdateUserTypeReq {
+			Id = appUser.Id,
+			RowVersion = appUser.RowVersion,
+			UserType = RndEnum<UserType>()
+		};
+
+		// Act
+		var newRowVersion = await _apiClient.UpdateUserType(request);
+
+		// Assert
+		var retAppUser = _db.AppUser.Find(appUser.Id);
+		Assert.Equal(retAppUser.UserType, appUser.UserType);
+	}
+
+	[Fact]
+	public async Task UpdateGroupCode_Success()
+	{
+		// Arrange
+		var appUser = _db.AppUser.Skip(RndInt(0, _db.AppUser.ToList().Count)).First();
+		var request = new UpdateGroupCodeReq {
+			Id = appUser.Id,
+			RowVersion = appUser.RowVersion,
+			GroupCode = RndInt()
+		};
+
+		// Act
+		var newRowVersion = await _apiClient.UpdateGroupCode(request);
+
+		// Assert
+		var retAppUser = _db.AppUser.Find(appUser.Id);
+		Assert.Equal(retAppUser.GroupCode, appUser.GroupCode);
+	}
+
+	[Fact]
+	public async Task UpdateName_Success()
+	{
+		// Arrange
+		var appUser = _db.AppUser.Skip(RndInt(0, _db.AppUser.ToList().Count)).First();
+		var request = new UpdateNameReq {
+			Id = appUser.Id,
+			RowVersion = appUser.RowVersion,
+			FirstName = RndStr(100),
+			LastName = RndStr(100)
+		};
+
+		// Act
+		var newRowVersion = await _apiClient.UpdateName(request);
+
+		// Assert
+		var retAppUser = _db.AppUser.Find(appUser.Id);
+		Assert.Equal(retAppUser.FirstName, appUser.FirstName);
+		Assert.Equal(retAppUser.LastName, appUser.LastName);
 	}
 
 	#endregion

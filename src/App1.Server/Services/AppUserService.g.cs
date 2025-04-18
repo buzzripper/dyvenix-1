@@ -21,10 +21,10 @@ public interface IAppUserService
 	Task<Guid> CreateAppUser(AppUser appUser);
 	Task<bool> DeleteAppUser(Guid id);
 	Task<byte[]> UpdateAppUser(AppUser appUser);
-	Task UpdateEmail(Guid id, byte[] rowVersion, string email);
-	Task UpdateUserType(Guid id, byte[] rowVersion, UserType userType);
-	Task UpdateGroupCode(Guid id, byte[] rowVersion, int groupCode);
-	Task UpdateName(Guid id, byte[] rowVersion, string firstName, string lastName);
+	Task<byte[]> UpdateEmail(Guid id, byte[] rowVersion, string email);
+	Task<byte[]> UpdateUserType(Guid id, byte[] rowVersion, UserType userType);
+	Task<byte[]> UpdateGroupCode(Guid id, byte[] rowVersion, int groupCode);
+	Task<byte[]> UpdateName(Guid id, byte[] rowVersion, string firstName, string lastName);
 	Task<AppUser> GetById(Guid id);
 	Task<AppUser> GetByIdwClaims(Guid id);
 	Task<List<AppUser>> GetAll();
@@ -94,7 +94,7 @@ public class AppUserService : IAppUserService
 		}
 	}
 
-	public async Task UpdateEmail(Guid id, byte[] rowVersion, string email)
+	public async Task<byte[]> UpdateEmail(Guid id, byte[] rowVersion, string email)
 	{
 		ArgumentNullException.ThrowIfNull(rowVersion);
 
@@ -111,12 +111,14 @@ public class AppUserService : IAppUserService
 
 			await db.SaveChangesAsync();
 
+			return appUser.RowVersion;
+
 		} catch (DbUpdateConcurrencyException) {
 			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
 		}
 	}
 
-	public async Task UpdateUserType(Guid id, byte[] rowVersion, UserType userType)
+	public async Task<byte[]> UpdateUserType(Guid id, byte[] rowVersion, UserType userType)
 	{
 		ArgumentNullException.ThrowIfNull(rowVersion);
 		ArgumentNullException.ThrowIfNull(userType);
@@ -134,12 +136,14 @@ public class AppUserService : IAppUserService
 
 			await db.SaveChangesAsync();
 
+			return appUser.RowVersion;
+
 		} catch (DbUpdateConcurrencyException) {
 			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
 		}
 	}
 
-	public async Task UpdateGroupCode(Guid id, byte[] rowVersion, int groupCode)
+	public async Task<byte[]> UpdateGroupCode(Guid id, byte[] rowVersion, int groupCode)
 	{
 		ArgumentNullException.ThrowIfNull(rowVersion);
 		ArgumentNullException.ThrowIfNull(groupCode);
@@ -157,12 +161,14 @@ public class AppUserService : IAppUserService
 
 			await db.SaveChangesAsync();
 
+			return appUser.RowVersion;
+
 		} catch (DbUpdateConcurrencyException) {
 			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
 		}
 	}
 
-	public async Task UpdateName(Guid id, byte[] rowVersion, string firstName, string lastName)
+	public async Task<byte[]> UpdateName(Guid id, byte[] rowVersion, string firstName, string lastName)
 	{
 		ArgumentNullException.ThrowIfNull(rowVersion);
 
@@ -180,6 +186,8 @@ public class AppUserService : IAppUserService
 			db.Entry(appUser).Property(u => u.LastName).IsModified = true;
 
 			await db.SaveChangesAsync();
+
+			return appUser.RowVersion;
 
 		} catch (DbUpdateConcurrencyException) {
 			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);

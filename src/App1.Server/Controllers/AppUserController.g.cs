@@ -84,9 +84,9 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	[HttpPatch, Route("[action]")]
 	public async Task<ActionResult> UpdateEmail(UpdateEmailReq request)
 	{
-		var apiResponse = CreateApiResponse();
+		var apiResponse = CreateApiResponse<byte[]>();
 		try {
-			await _appUserService.UpdateEmail(request.Id, request.RowVersion, request.Email);
+			apiResponse.Data = await _appUserService.UpdateEmail(request.Id, request.RowVersion, request.Email);
 
 			return Ok(apiResponse);
 
@@ -98,9 +98,9 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	[HttpPatch, Route("[action]")]
 	public async Task<ActionResult> UpdateUserType(UpdateUserTypeReq request)
 	{
-		var apiResponse = CreateApiResponse();
+		var apiResponse = CreateApiResponse<byte[]>();
 		try {
-			await _appUserService.UpdateUserType(request.Id, request.RowVersion, request.UserType);
+			apiResponse.Data = await _appUserService.UpdateUserType(request.Id, request.RowVersion, request.UserType);
 
 			return Ok(apiResponse);
 
@@ -112,9 +112,9 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	[HttpPatch, Route("[action]")]
 	public async Task<ActionResult> UpdateGroupCode(UpdateGroupCodeReq request)
 	{
-		var apiResponse = CreateApiResponse();
+		var apiResponse = CreateApiResponse<byte[]>();
 		try {
-			await _appUserService.UpdateGroupCode(request.Id, request.RowVersion, request.GroupCode);
+			apiResponse.Data = await _appUserService.UpdateGroupCode(request.Id, request.RowVersion, request.GroupCode);
 
 			return Ok(apiResponse);
 
@@ -126,9 +126,9 @@ public class AppUserController : ApiControllerBase<AppUserController>
 	[HttpPatch, Route("[action]")]
 	public async Task<ActionResult> UpdateName(UpdateNameReq request)
 	{
-		var apiResponse = CreateApiResponse();
+		var apiResponse = CreateApiResponse<byte[]>();
 		try {
-			await _appUserService.UpdateName(request.Id, request.RowVersion, request.FirstName, request.LastName);
+			apiResponse.Data = await _appUserService.UpdateName(request.Id, request.RowVersion, request.FirstName, request.LastName);
 
 			return Ok(apiResponse);
 

@@ -13,6 +13,7 @@ using Dyvenix.App1.Common.Entities;
 using Dyvenix.App1.Tests.Common;
 using Dyvenix.App1.Data;
 using Dyvenix.App1.Data.Contexts;
+using Dyvenix.App1.Server.DTOs;
 
 namespace Dyvenix.App1.Common.IntTests.Tests;
 
@@ -164,6 +165,25 @@ public class AccessClaimUpdateTests : TestBase, IClassFixture<AccessClaimUpdateT
 		Assert.Equal(retAccessClaim.Id, accessClaim.Id);
 		Assert.Equal(retAccessClaim.ClaimName, accessClaim.ClaimName);
 		Assert.Equal(retAccessClaim.ClaimValue, accessClaim.ClaimValue);
+	}
+
+	[Fact]
+	public async Task UpdateClaimName_Success()
+	{
+		// Arrange
+		var accessClaim = _db.AccessClaim.Skip(RndInt(0, _db.AccessClaim.ToList().Count)).First();
+		var request = new UpdateClaimNameReq {
+			Id = accessClaim.Id,
+			RowVersion = accessClaim.RowVersion,
+			ClaimName = RndStr(100)
+		};
+
+		// Act
+		var newRowVersion = await _apiClient.UpdateClaimName(request);
+
+		// Assert
+		var retAccessClaim = _db.AccessClaim.Find(accessClaim.Id);
+		Assert.Equal(retAccessClaim.ClaimName, accessClaim.ClaimName);
 	}
 
 	#endregion

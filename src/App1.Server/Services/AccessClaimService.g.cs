@@ -21,7 +21,7 @@ public interface IAccessClaimService
 	Task<Guid> CreateAccessClaim(AccessClaim accessClaim);
 	Task<bool> DeleteAccessClaim(Guid id);
 	Task<byte[]> UpdateAccessClaim(AccessClaim accessClaim);
-	Task UpdateClaimName(Guid id, byte[] rowVersion, string claimName);
+	Task<byte[]> UpdateClaimName(Guid id, byte[] rowVersion, string claimName);
 }
 
 public class AccessClaimService : IAccessClaimService
@@ -87,7 +87,7 @@ public class AccessClaimService : IAccessClaimService
 		}
 	}
 
-	public async Task UpdateClaimName(Guid id, byte[] rowVersion, string claimName)
+	public async Task<byte[]> UpdateClaimName(Guid id, byte[] rowVersion, string claimName)
 	{
 		ArgumentNullException.ThrowIfNull(rowVersion);
 
@@ -103,6 +103,8 @@ public class AccessClaimService : IAccessClaimService
 			db.Entry(accessClaim).Property(u => u.ClaimName).IsModified = true;
 
 			await db.SaveChangesAsync();
+
+			return accessClaim.RowVersion;
 
 		} catch (DbUpdateConcurrencyException) {
 			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);

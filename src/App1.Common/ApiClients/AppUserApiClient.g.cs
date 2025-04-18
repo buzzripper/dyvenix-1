@@ -18,10 +18,10 @@ public interface IAppUserApiClient
 	Task<Guid> CreateAppUser(AppUser appUser);
 	Task<bool> DeleteAppUser(Guid id);
 	Task<byte[]> UpdateAppUser(AppUser appUser);
-	Task UpdateEmail(UpdateEmailReq request);
-	Task UpdateUserType(UpdateUserTypeReq request);
-	Task UpdateGroupCode(UpdateGroupCodeReq request);
-	Task UpdateName(UpdateNameReq request);
+	Task<byte[]> UpdateEmail(UpdateEmailReq request);
+	Task<byte[]> UpdateUserType(UpdateUserTypeReq request);
+	Task<byte[]> UpdateGroupCode(UpdateGroupCodeReq request);
+	Task<byte[]> UpdateName(UpdateNameReq request);
 	Task<AppUser> GetById(Guid id);
 	Task<AppUser> GetByIdwClaims(Guid id);
 	Task<List<AppUser>> GetAll();
@@ -64,24 +64,24 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 		return await PutAsync<byte[]>("api/v1/AppUser/UpdateAppUser", appUser);
 	}
 
-	public async Task UpdateEmail(UpdateEmailReq request)
+	public async Task<byte[]> UpdateEmail(UpdateEmailReq request)
 	{
-		await PatchAsync<Task>($"api/v1/AppUser/UpdateEmail", request);
+		return await PatchAsync<byte[]>($"api/v1/AppUser/UpdateEmail", request);
 	}
 
-	public async Task UpdateUserType(UpdateUserTypeReq request)
+	public async Task<byte[]> UpdateUserType(UpdateUserTypeReq request)
 	{
-		await PatchAsync<Task>($"api/v1/AppUser/UpdateUserType", request);
+		return await PatchAsync<byte[]>($"api/v1/AppUser/UpdateUserType", request);
 	}
 
-	public async Task UpdateGroupCode(UpdateGroupCodeReq request)
+	public async Task<byte[]> UpdateGroupCode(UpdateGroupCodeReq request)
 	{
-		await PatchAsync<Task>($"api/v1/AppUser/UpdateGroupCode", request);
+		return await PatchAsync<byte[]>($"api/v1/AppUser/UpdateGroupCode", request);
 	}
 
-	public async Task UpdateName(UpdateNameReq request)
+	public async Task<byte[]> UpdateName(UpdateNameReq request)
 	{
-		await PatchAsync<Task>($"api/v1/AppUser/UpdateName", request);
+		return await PatchAsync<byte[]>($"api/v1/AppUser/UpdateName", request);
 	}
 
 	#endregion

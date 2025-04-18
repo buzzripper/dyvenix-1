@@ -84,9 +84,9 @@ public class AccessClaimController : ApiControllerBase<AccessClaimController>
 	[HttpPatch, Route("[action]")]
 	public async Task<ActionResult> UpdateClaimName(UpdateClaimNameReq request)
 	{
-		var apiResponse = CreateApiResponse();
+		var apiResponse = CreateApiResponse<byte[]>();
 		try {
-			await _accessClaimService.UpdateClaimName(request.Id, request.RowVersion, request.ClaimName);
+			apiResponse.Data = await _accessClaimService.UpdateClaimName(request.Id, request.RowVersion, request.ClaimName);
 
 			return Ok(apiResponse);
 

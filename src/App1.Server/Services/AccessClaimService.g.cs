@@ -19,9 +19,9 @@ namespace Dyvenix.App1.Server.Services;
 public interface IAccessClaimService
 {
 	Task<Guid> CreateAccessClaim(AccessClaim accessClaim);
+	Task<bool> DeleteAccessClaim(Guid id);
 	Task<byte[]> UpdateAccessClaim(AccessClaim accessClaim);
-	Task DeleteAccessClaim(Guid id);
-	Task Update(Guid id, byte[] rowVersion, string claimName);
+	Task UpdateClaimName(Guid id, byte[] rowVersion, string claimName);
 }
 
 public class AccessClaimService : IAccessClaimService
@@ -35,7 +35,7 @@ public class AccessClaimService : IAccessClaimService
 		_logger = logger;
 	}
 
-	#region Create / Update / Delete
+	#region Create
 
 	public async Task<Guid> CreateAccessClaim(AccessClaim accessClaim)
 	{
@@ -52,6 +52,22 @@ public class AccessClaimService : IAccessClaimService
 			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
 		}
 	}
+
+	#endregion
+
+	#region Delete
+
+	public async Task<bool> DeleteAccessClaim(Guid id)
+	{
+		using var db = _dbContextFactory.CreateDbContext();
+
+		var result = await db.AccessClaim.Where(a => a.Id == id).ExecuteDeleteAsync();
+		return result == 1;
+	}
+
+	#endregion
+
+	#region Update
 
 	public async Task<byte[]> UpdateAccessClaim(AccessClaim accessClaim)
 	{
@@ -71,17 +87,7 @@ public class AccessClaimService : IAccessClaimService
 		}
 	}
 
-	public async Task DeleteAccessClaim(Guid id)
-	{
-		using var db = _dbContextFactory.CreateDbContext();
-		var count = await db.AccessClaim.Where(a => a.Id == id).ExecuteDeleteAsync();
-	}
-
-	#endregion
-
-	#region Update Methods
-
-	public async Task Update(Guid id, byte[] rowVersion, string claimName)
+	public async Task UpdateClaimName(Guid id, byte[] rowVersion, string claimName)
 	{
 		ArgumentNullException.ThrowIfNull(rowVersion);
 
@@ -102,6 +108,7 @@ public class AccessClaimService : IAccessClaimService
 			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
 		}
 	}
+
 	#endregion
 
 

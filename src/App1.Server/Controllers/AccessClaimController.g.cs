@@ -29,7 +29,7 @@ public class AccessClaimController : ApiControllerBase<AccessClaimController>
 		_accessClaimService = accessClaimService;
 	}
 
-	// Update methods
+	#region Create
 
 	[HttpPost, Route("[action]")]
 	public async Task<ActionResult> CreateAccessClaim(AccessClaim accessClaim)
@@ -45,6 +45,28 @@ public class AccessClaimController : ApiControllerBase<AccessClaimController>
 		}
 	}
 
+	#endregion
+
+	#region Delete
+
+	[HttpPost, Route("[action]/{id}")]
+	public async Task<ActionResult> DeleteAccessClaim(Guid id)
+	{
+		var apiResponse = CreateApiResponse<bool>();
+		try {
+			apiResponse.Data = await _accessClaimService.DeleteAccessClaim(id);
+
+			return Ok(apiResponse);
+
+		} catch (Exception ex) {
+			return LogErrorAndReturnErrorResponse(apiResponse, ex);
+		}
+	}
+
+	#endregion
+
+	#region Update
+
 	[HttpPut, Route("[action]")]
 	public async Task<ActionResult> UpdateAccessClaim(AccessClaim accessClaim)
 	{
@@ -59,26 +81,12 @@ public class AccessClaimController : ApiControllerBase<AccessClaimController>
 		}
 	}
 
-	[HttpPost, Route("[action]/{id}")]
-	public async Task<ActionResult> DeleteAccessClaim(Guid id)
-	{
-		var apiResponse = CreateApiResponse();
-		try {
-			await _accessClaimService.DeleteAccessClaim(id);
-
-			return Ok(apiResponse);
-
-		} catch (Exception ex) {
-			return LogErrorAndReturnErrorResponse(apiResponse, ex);
-		}
-	}
-
 	[HttpPatch, Route("[action]")]
-	public async Task<ActionResult> Update(UpdateReq request)
+	public async Task<ActionResult> UpdateClaimName(UpdateClaimNameReq request)
 	{
 		var apiResponse = CreateApiResponse();
 		try {
-			await _accessClaimService.Update(request.Id, request.RowVersion, request.ClaimName);
+			await _accessClaimService.UpdateClaimName(request.Id, request.RowVersion, request.ClaimName);
 
 			return Ok(apiResponse);
 
@@ -86,6 +94,8 @@ public class AccessClaimController : ApiControllerBase<AccessClaimController>
 			return LogErrorAndReturnErrorResponse(apiResponse, ex);
 		}
 	}
+
+	#endregion
 
 
 

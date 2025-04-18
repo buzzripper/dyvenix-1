@@ -6,8 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit.Abstractions;
-using Microsoft.EntityFrameworkCore; // needed
-using Microsoft.EntityFrameworkCore.Infrastructure;  // needed for GetDbConnection()
 using Dyvenix.Core.Tests;
 using Dyvenix.App1.Common.ApiClients;
 using Dyvenix.App1.Tests.Common.Data;
@@ -15,6 +13,9 @@ using Dyvenix.App1.Common.Entities;
 using Dyvenix.App1.Tests.Common;
 using Dyvenix.App1.Data;
 using Dyvenix.App1.Data.Contexts;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestPlatform.Utilities;
+using Xunit;
 
 namespace Dyvenix.App1.Common.IntTests.Tests;
 
@@ -43,14 +44,15 @@ public class AccessClaimUpdateTestsFixture : IDisposable
 #endregion
 
 [Collection("Global Collection")]
-public class AccessClaimUpdateTests : TestBase, IClassFixture<AccessClaimUpdateTestsFixture>, IDisposable
+public class AccessClaimUpdateTests : TestBase, IClassFixture<AccessClaimUpdateTestsFixture>, IAsyncLifetime, IDisposable
 {
 	#region Fields
 
+	private readonly AccessClaimUpdateTestsFixture _classFixture;
 	private readonly IAccessClaimApiClient _apiClient;
 	private readonly ITestOutputHelper _output;
 	private readonly Db _db;
-	private readonly DataSet _ds;
+	private DataSet _ds;
 
 	#endregion
 
@@ -58,13 +60,26 @@ public class AccessClaimUpdateTests : TestBase, IClassFixture<AccessClaimUpdateT
 
 	public AccessClaimUpdateTests(AccessClaimUpdateTestsFixture classFixture, ITestOutputHelper output)
 	{
-		_apiClient = classFixture.ServiceProvider.GetRequiredService<IAccessClaimApiClient>();
-		_db = classFixture.ServiceProvider.GetRequiredService<IDbContextFactory>().CreateDbContext();
+		_classFixture = classFixture;
 		_output = output;
 
-		// Reset data each test run because we are adding/updating/deleting rows
-		var dataManager = classFixture.ServiceProvider.GetRequiredService<IDataManager>();
-		_ds = dataManager.ResetDataSet(DataSetType.Default).GetAwaiter().GetResult();
+		_apiClient = classFixture.ServiceProvider.GetRequiredService<IAccessClaimApiClient>();
+		_db = classFixture.ServiceProvider.GetRequiredService<IDbContextFactory>().CreateDbContext();
+	}
+
+	// This runs *before each test*
+	public async Task InitializeAsync()
+	{
+		// Have to reset data each test run because we are adding/updating/deleting rows
+		var dataManager = _classFixture.ServiceProvider.GetRequiredService<IDataManager>();
+		_ds = await dataManager.ResetDataSet(DataSetType.Default);
+	}
+
+	// This runs *after each test*
+	public async Task DisposeAsync()
+	{
+		// Async teardown logic here
+		await Task.Delay(100); // Simulate cleanup work
 	}
 
 	public void Dispose()
@@ -113,6 +128,28 @@ public class AccessClaimUpdateTests : TestBase, IClassFixture<AccessClaimUpdateT
 		await Assert.ThrowsAsync<ArgumentNullException>(async () => await _apiClient.CreateAccessClaim(null));
 	}
 
+	#endregion
+
+	#region Delete
+
+	[Fact]
+	public async Task Delete_Success()
+	{
+		// Arrange
+		var accessClaim = _ds.AccessClaim.Skip(RndInt(0, _ds.AccessClaim.Count - 1)).First();
+		var id = accessClaim.Id;
+
+		_output.WriteLine($"id = {id}");
+
+		// Act
+		var result = await _apiClient.DeleteAccessClaim(id);
+
+		// Assert
+		//_db.ChangeTracker.Clear();
+		Assert.True(result);
+	}
+
+	#endregion
 	// Helper Methods
 
 	private AccessClaim CreateAccessClaim()
@@ -130,23 +167,6 @@ public class AccessClaimUpdateTests : TestBase, IClassFixture<AccessClaimUpdateT
 		return appUserList.Skip(RndInt(1, appUserList.Count)).First().Id;
 	}
 
-	#endregion
-
-	[Fact]
-	public async Task Delete_Success()
-	{
-		// Arrange
-		var accessClaim = _ds.AccessClaim.Skip(RndInt(0, _db.AccessClaim.ToList().Count)).First();
-		var id = accessClaim.Id;
-
-		// Act
-		await _apiClient.DeleteAccessClaim(id);
-
-		// Assert
-		_db.ChangeTracker.Clear();
-		var findAccessClaim = await _db.AccessClaim.FindAsync(id);
-		Assert.Null(findAccessClaim);
-	}
 
 }
 

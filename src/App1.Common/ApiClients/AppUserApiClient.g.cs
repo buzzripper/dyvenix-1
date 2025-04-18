@@ -16,8 +16,8 @@ namespace Dyvenix.App1.Common.ApiClients;
 public interface IAppUserApiClient
 {
 	Task<Guid> CreateAppUser(AppUser appUser);
+	Task<bool> DeleteAppUser(Guid id);
 	Task UpdateAppUser(AppUser appUser);
-	Task DeleteAppUser(Guid id);
 	Task UpdateEmail(UpdateEmailReq request);
 	Task UpdateUserType(UpdateUserTypeReq request);
 	Task UpdateGroupCode(UpdateGroupCodeReq request);
@@ -34,7 +34,7 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
     {
     }
 
-	#region Create / Update / Delete
+	#region Create
 
 	public async Task<Guid> CreateAppUser(AppUser appUser)
 	{
@@ -43,23 +43,27 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 		return await PostAsync<Guid>("api/v1/AppUser/CreateAppUser", appUser);
 	}
 
+	#endregion
+
+	#region Delete
+
+	public async Task<bool> DeleteAppUser(Guid id)
+	{
+		if (id == Guid.Empty)
+			throw new ArgumentNullException(nameof(id));
+		return await PostAsync<bool>($"api/v1/AppUser/DeleteAppUser/{id}", null);
+	}
+
+	#endregion
+
+	#region Update
+
 	public async Task UpdateAppUser(AppUser appUser)
 	{
 		ArgumentNullException.ThrowIfNull(appUser);
 
 		await PostAsync<AppUser>("api/v1/AppUser/UpdateAppUser", appUser);
 	}
-
-	public async Task DeleteAppUser(Guid id)
-	{
-		if (id == Guid.Empty)
-			throw new ArgumentNullException(nameof(id));
-		await PostAsync<string>($"api/v1/AppUser/DeleteAppUser/{id}", null);
-	}
-
-	#endregion
-
-	#region Update Methods
 
 	public async Task UpdateEmail(UpdateEmailReq request)
 	{

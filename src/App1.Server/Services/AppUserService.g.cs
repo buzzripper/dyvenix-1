@@ -19,8 +19,8 @@ namespace Dyvenix.App1.Server.Services;
 public interface IAppUserService
 {
 	Task<Guid> CreateAppUser(AppUser appUser);
+	Task<bool> DeleteAppUser(Guid id);
 	Task<byte[]> UpdateAppUser(AppUser appUser);
-	Task DeleteAppUser(Guid id);
 	Task UpdateEmail(Guid id, byte[] rowVersion, string email);
 	Task UpdateUserType(Guid id, byte[] rowVersion, UserType userType);
 	Task UpdateGroupCode(Guid id, byte[] rowVersion, int groupCode);
@@ -42,7 +42,7 @@ public class AppUserService : IAppUserService
 		_logger = logger;
 	}
 
-	#region Create / Update / Delete
+	#region Create
 
 	public async Task<Guid> CreateAppUser(AppUser appUser)
 	{
@@ -59,6 +59,22 @@ public class AppUserService : IAppUserService
 			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
 		}
 	}
+
+	#endregion
+
+	#region Delete
+
+	public async Task<bool> DeleteAppUser(Guid id)
+	{
+		using var db = _dbContextFactory.CreateDbContext();
+
+		var result = await db.AppUser.Where(a => a.Id == id).ExecuteDeleteAsync();
+		return result == 1;
+	}
+
+	#endregion
+
+	#region Update
 
 	public async Task<byte[]> UpdateAppUser(AppUser appUser)
 	{
@@ -77,17 +93,6 @@ public class AppUserService : IAppUserService
 			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
 		}
 	}
-
-	public async Task DeleteAppUser(Guid id)
-	{
-		using var db = _dbContextFactory.CreateDbContext();
-
-		await db.AppUser.Where(a => a.Id == id).ExecuteDeleteAsync();
-	}
-
-	#endregion
-
-	#region Update Methods
 
 	public async Task UpdateEmail(Guid id, byte[] rowVersion, string email)
 	{
@@ -180,6 +185,7 @@ public class AppUserService : IAppUserService
 			throw new ConcurrencyApiException("The item was modified or deleted by another user.", _logger.CorrelationId);
 		}
 	}
+
 	#endregion
 
 	#region Single Methods

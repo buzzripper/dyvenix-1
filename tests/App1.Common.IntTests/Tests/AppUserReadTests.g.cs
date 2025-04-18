@@ -72,7 +72,7 @@ public class AppUserReadTests : TestBase, IClassFixture<AppUserReadTestsFixture>
 
 	#endregion
 
-	#region Single Methods
+	#region Read - Single
 
 	[Fact]
 	public async Task GetById_Success()
@@ -106,7 +106,7 @@ public class AppUserReadTests : TestBase, IClassFixture<AppUserReadTestsFixture>
 
 	#endregion
 
-	#region List Methods
+	#region Read - List
 
 	[Fact]
 	public async Task GetAll()

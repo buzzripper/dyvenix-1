@@ -71,7 +71,7 @@ public class AppUserUpdateTests : TestBase, IClassFixture<AppUserUpdateTestsFixt
 
 	#endregion
 
-	#region Create Tests
+	#region Create
 
 	[Fact]
 	public async Task Create_ValidId()
@@ -111,6 +111,26 @@ public class AppUserUpdateTests : TestBase, IClassFixture<AppUserUpdateTestsFixt
 		await Assert.ThrowsAsync<ArgumentNullException>(async () => await _apiClient.CreateAppUser(null));
 	}
 
+	#endregion
+
+	#region Delete
+
+	[Fact]
+	public async Task Delete_Success()
+	{
+		// Arrange
+		var appUser = _db.AppUser.Skip(RndInt(0, _db.AppUser.ToList().Count)).First();
+		var id = appUser.Id;
+
+		// Act
+		var result = await _apiClient.DeleteAppUser(id);
+
+		// Assert
+		_db.ChangeTracker.Clear();
+		Assert.True(result);
+	}
+
+	#endregion
 	// Helper Methods
 
 	private AppUser CreateAppUser()
@@ -125,7 +145,6 @@ public class AppUserUpdateTests : TestBase, IClassFixture<AppUserUpdateTestsFixt
 		};
 	}
 
-	#endregion
 
 }
 

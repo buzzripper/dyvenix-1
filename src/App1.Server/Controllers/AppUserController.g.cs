@@ -29,7 +29,7 @@ public class AppUserController : ApiControllerBase<AppUserController>
 		_appUserService = appUserService;
 	}
 
-	// Update methods
+	#region Create
 
 	[HttpPost, Route("[action]")]
 	public async Task<ActionResult> CreateAppUser(AppUser appUser)
@@ -45,12 +45,16 @@ public class AppUserController : ApiControllerBase<AppUserController>
 		}
 	}
 
-	[HttpPut, Route("[action]")]
-	public async Task<ActionResult> UpdateAppUser(AppUser appUser)
+	#endregion
+
+	#region Delete
+
+	[HttpPost, Route("[action]/{id}")]
+	public async Task<ActionResult> DeleteAppUser(Guid id)
 	{
-		var apiResponse = CreateApiResponse<byte[]>();
+		var apiResponse = CreateApiResponse<bool>();
 		try {
-			apiResponse.Data = await _appUserService.UpdateAppUser(appUser);
+			apiResponse.Data = await _appUserService.DeleteAppUser(id);
 
 			return Ok(apiResponse);
 
@@ -59,12 +63,16 @@ public class AppUserController : ApiControllerBase<AppUserController>
 		}
 	}
 
-	[HttpPost, Route("[action]/{id}")]
-	public async Task<ActionResult> DeleteAppUser(Guid id)
+	#endregion
+
+	#region Update
+
+	[HttpPut, Route("[action]")]
+	public async Task<ActionResult> UpdateAppUser(AppUser appUser)
 	{
-		var apiResponse = CreateApiResponse();
+		var apiResponse = CreateApiResponse<byte[]>();
 		try {
-			await _appUserService.DeleteAppUser(id);
+			apiResponse.Data = await _appUserService.UpdateAppUser(appUser);
 
 			return Ok(apiResponse);
 
@@ -128,6 +136,8 @@ public class AppUserController : ApiControllerBase<AppUserController>
 			return LogErrorAndReturnErrorResponse(apiResponse, ex);
 		}
 	}
+
+	#endregion
 
 	[HttpGet, Route("[action]/{id}")]
 	public async Task<ActionResult<AppUser>> GetById(Guid id)

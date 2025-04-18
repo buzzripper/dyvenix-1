@@ -16,9 +16,9 @@ namespace Dyvenix.App1.Common.ApiClients;
 public interface IAccessClaimApiClient
 {
 	Task<Guid> CreateAccessClaim(AccessClaim accessClaim);
+	Task<bool> DeleteAccessClaim(Guid id);
 	Task UpdateAccessClaim(AccessClaim accessClaim);
-	Task DeleteAccessClaim(Guid id);
-	Task Update(UpdateReq request);
+	Task UpdateClaimName(UpdateClaimNameReq request);
 }
 public class AccessClaimApiClient : ApiClientBase<AccessClaim>, IAccessClaimApiClient
 {
@@ -27,7 +27,7 @@ public class AccessClaimApiClient : ApiClientBase<AccessClaim>, IAccessClaimApiC
     {
     }
 
-	#region Create / Update / Delete
+	#region Create
 
 	public async Task<Guid> CreateAccessClaim(AccessClaim accessClaim)
 	{
@@ -36,6 +36,21 @@ public class AccessClaimApiClient : ApiClientBase<AccessClaim>, IAccessClaimApiC
 		return await PostAsync<Guid>("api/v1/AccessClaim/CreateAccessClaim", accessClaim);
 	}
 
+	#endregion
+
+	#region Delete
+
+	public async Task<bool> DeleteAccessClaim(Guid id)
+	{
+		if (id == Guid.Empty)
+			throw new ArgumentNullException(nameof(id));
+		return await PostAsync<bool>($"api/v1/AccessClaim/DeleteAccessClaim/{id}", null);
+	}
+
+	#endregion
+
+	#region Update
+
 	public async Task UpdateAccessClaim(AccessClaim accessClaim)
 	{
 		ArgumentNullException.ThrowIfNull(accessClaim);
@@ -43,20 +58,9 @@ public class AccessClaimApiClient : ApiClientBase<AccessClaim>, IAccessClaimApiC
 		await PostAsync<AccessClaim>("api/v1/AccessClaim/UpdateAccessClaim", accessClaim);
 	}
 
-	public async Task DeleteAccessClaim(Guid id)
+	public async Task UpdateClaimName(UpdateClaimNameReq request)
 	{
-		if (id == Guid.Empty)
-			throw new ArgumentNullException(nameof(id));
-		await PostAsync<string>($"api/v1/AccessClaim/DeleteAccessClaim/{id}", null);
-	}
-
-	#endregion
-
-	#region Update Methods
-
-	public async Task Update(UpdateReq request)
-	{
-		await PatchAsync<Task>($"api/v1/AccessClaim/Update", request);
+		await PatchAsync<Task>($"api/v1/AccessClaim/UpdateClaimName", request);
 	}
 
 	#endregion

@@ -494,7 +494,7 @@
                               {
                                 "$id": "71",
                                 "Id": "caca9566-0adb-4070-a2e6-7dd32a00409a",
-                                "Name": "Update",
+                                "Name": "UpdateClaimName",
                                 "UseDto": false,
                                 "UpdateProperties": {
                                   "$id": "72",

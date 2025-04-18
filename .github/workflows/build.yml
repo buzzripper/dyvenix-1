@@ -54,6 +54,9 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
 
+      - name: Show contents of repository root
+        run: ls -al
+
       - name: Restore
         run: dotnet restore ${{ env.SLN_FILENAME }}
 

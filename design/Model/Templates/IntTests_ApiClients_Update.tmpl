@@ -45,10 +45,11 @@ public class ${{ENTITY_NAME}}UpdateTests : TestBase, IClassFixture<${{ENTITY_NAM
 {
 	#region Fields
 
+	private readonly ${{ENTITY_NAME}}UpdateTestsFixture _classFixture;
 	private readonly I${{ENTITY_NAME}}ApiClient _apiClient;
 	private readonly ITestOutputHelper _output;
 	private readonly Db _db;
-	private readonly DataSet _ds;
+	private readonly IDataManager _dataManager;
 
 	#endregion
 
@@ -56,13 +57,13 @@ public class ${{ENTITY_NAME}}UpdateTests : TestBase, IClassFixture<${{ENTITY_NAM
 
 	public ${{ENTITY_NAME}}UpdateTests(${{ENTITY_NAME}}UpdateTestsFixture classFixture, ITestOutputHelper output)
 	{
+		_classFixture = classFixture;
+		_output = output;
+
 		_apiClient = classFixture.ServiceProvider.GetRequiredService<I${{ENTITY_NAME}}ApiClient>();
 		_db = classFixture.ServiceProvider.GetRequiredService<IDbContextFactory>().CreateDbContext();
 		_output = output;
-
-		// Reset data each test run because we are adding/updating/deleting rows
-		var dataManager = classFixture.ServiceProvider.GetRequiredService<IDataManager>();
-		_ds = dataManager.ResetDataSet(DataSetType.Default).GetAwaiter().GetResult();
+		_dataManager = classFixture.ServiceProvider.GetRequiredService<IDataManager>();
 	}
 
 	public void Dispose()

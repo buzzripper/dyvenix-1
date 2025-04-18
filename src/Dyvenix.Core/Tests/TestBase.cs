@@ -36,6 +36,11 @@ public class TestBase
 		return _random.Next(min, max + 1);
 	}
 
+	public bool RndBool()
+	{
+		return _random.Next(2) == 0;
+	}
+
 	public long RndLong()
 	{
 		return _random.Next();

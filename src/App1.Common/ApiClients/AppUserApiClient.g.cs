@@ -17,7 +17,7 @@ public interface IAppUserApiClient
 {
 	Task<Guid> CreateAppUser(AppUser appUser);
 	Task<bool> DeleteAppUser(Guid id);
-	Task UpdateAppUser(AppUser appUser);
+	Task<byte[]> UpdateAppUser(AppUser appUser);
 	Task UpdateEmail(UpdateEmailReq request);
 	Task UpdateUserType(UpdateUserTypeReq request);
 	Task UpdateGroupCode(UpdateGroupCodeReq request);
@@ -58,11 +58,10 @@ public class AppUserApiClient : ApiClientBase<AppUser>, IAppUserApiClient
 
 	#region Update
 
-	public async Task UpdateAppUser(AppUser appUser)
+	public async Task<byte[]> UpdateAppUser(AppUser appUser)
 	{
 		ArgumentNullException.ThrowIfNull(appUser);
-
-		await PostAsync<AppUser>("api/v1/AppUser/UpdateAppUser", appUser);
+		return await PutAsync<byte[]>("api/v1/AppUser/UpdateAppUser", appUser);
 	}
 
 	public async Task UpdateEmail(UpdateEmailReq request)

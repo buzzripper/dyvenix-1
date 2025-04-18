@@ -17,7 +17,7 @@ public interface IAccessClaimApiClient
 {
 	Task<Guid> CreateAccessClaim(AccessClaim accessClaim);
 	Task<bool> DeleteAccessClaim(Guid id);
-	Task UpdateAccessClaim(AccessClaim accessClaim);
+	Task<byte[]> UpdateAccessClaim(AccessClaim accessClaim);
 	Task UpdateClaimName(UpdateClaimNameReq request);
 }
 public class AccessClaimApiClient : ApiClientBase<AccessClaim>, IAccessClaimApiClient
@@ -51,11 +51,10 @@ public class AccessClaimApiClient : ApiClientBase<AccessClaim>, IAccessClaimApiC
 
 	#region Update
 
-	public async Task UpdateAccessClaim(AccessClaim accessClaim)
+	public async Task<byte[]> UpdateAccessClaim(AccessClaim accessClaim)
 	{
 		ArgumentNullException.ThrowIfNull(accessClaim);
-
-		await PostAsync<AccessClaim>("api/v1/AccessClaim/UpdateAccessClaim", accessClaim);
+		return await PutAsync<byte[]>("api/v1/AccessClaim/UpdateAccessClaim", accessClaim);
 	}
 
 	public async Task UpdateClaimName(UpdateClaimNameReq request)

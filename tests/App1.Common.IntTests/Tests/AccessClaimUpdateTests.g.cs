@@ -13,9 +13,6 @@ using Dyvenix.App1.Common.Entities;
 using Dyvenix.App1.Tests.Common;
 using Dyvenix.App1.Data;
 using Dyvenix.App1.Data.Contexts;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestPlatform.Utilities;
-using Xunit;
 
 namespace Dyvenix.App1.Common.IntTests.Tests;
 
@@ -44,7 +41,7 @@ public class AccessClaimUpdateTestsFixture : IDisposable
 #endregion
 
 [Collection("Global Collection")]
-public class AccessClaimUpdateTests : TestBase, IClassFixture<AccessClaimUpdateTestsFixture>, IAsyncLifetime, IDisposable
+public class AccessClaimUpdateTests : TestBase, IClassFixture<AccessClaimUpdateTestsFixture>, IDisposable
 {
 	#region Fields
 
@@ -52,7 +49,7 @@ public class AccessClaimUpdateTests : TestBase, IClassFixture<AccessClaimUpdateT
 	private readonly IAccessClaimApiClient _apiClient;
 	private readonly ITestOutputHelper _output;
 	private readonly Db _db;
-	private DataSet _ds;
+	private readonly IDataManager _dataManager;
 
 	#endregion
 
@@ -65,21 +62,8 @@ public class AccessClaimUpdateTests : TestBase, IClassFixture<AccessClaimUpdateT
 
 		_apiClient = classFixture.ServiceProvider.GetRequiredService<IAccessClaimApiClient>();
 		_db = classFixture.ServiceProvider.GetRequiredService<IDbContextFactory>().CreateDbContext();
-	}
-
-	// This runs *before each test*
-	public async Task InitializeAsync()
-	{
-		// Have to reset data each test run because we are adding/updating/deleting rows
-		var dataManager = _classFixture.ServiceProvider.GetRequiredService<IDataManager>();
-		_ds = await dataManager.ResetDataSet(DataSetType.Default);
-	}
-
-	// This runs *after each test*
-	public async Task DisposeAsync()
-	{
-		// Async teardown logic here
-		await Task.Delay(100); // Simulate cleanup work
+		_output = output;
+		_dataManager = classFixture.ServiceProvider.GetRequiredService<IDataManager>();
 	}
 
 	public void Dispose()
@@ -136,20 +120,54 @@ public class AccessClaimUpdateTests : TestBase, IClassFixture<AccessClaimUpdateT
 	public async Task Delete_Success()
 	{
 		// Arrange
-		var accessClaim = _ds.AccessClaim.Skip(RndInt(0, _ds.AccessClaim.Count - 1)).First();
+		var ds = await _dataManager.ResetDataSet(DataSetType.Default);
+		var accessClaim = ds.AccessClaim.Skip(RndInt(0, ds.AccessClaim.ToList().Count)).First();
 		var id = accessClaim.Id;
-
-		_output.WriteLine($"id = {id}");
 
 		// Act
 		var result = await _apiClient.DeleteAccessClaim(id);
 
 		// Assert
-		//_db.ChangeTracker.Clear();
 		Assert.True(result);
 	}
 
+	[Fact]
+	public async Task Delete_NotFound()
+	{
+		// Arrange
+		var id = Guid.NewGuid();
+
+		// Act
+		var result = await _apiClient.DeleteAccessClaim(id);
+
+		// Assert
+		Assert.False(result);
+	}
+
 	#endregion
+
+	#region Update
+
+	[Fact]
+	public async Task FullUpdate_Success()
+	{
+		// Arrange
+		var accessClaim = _db.AccessClaim.Skip(RndInt(0, _db.AccessClaim.ToList().Count)).First();
+		accessClaim.ClaimName = RndStr(100);
+		accessClaim.ClaimValue = RndStr(200);
+
+		// Act
+		await _apiClient.UpdateAccessClaim(accessClaim);
+
+		// Assert
+		var retAccessClaim = _db.AccessClaim.Find(accessClaim.Id);
+		Assert.Equal(retAccessClaim.Id, accessClaim.Id);
+		Assert.Equal(retAccessClaim.ClaimName, accessClaim.ClaimName);
+		Assert.Equal(retAccessClaim.ClaimValue, accessClaim.ClaimValue);
+	}
+
+	#endregion
+
 	// Helper Methods
 
 	private AccessClaim CreateAccessClaim()

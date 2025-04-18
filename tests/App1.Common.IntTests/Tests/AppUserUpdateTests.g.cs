@@ -45,10 +45,11 @@ public class AppUserUpdateTests : TestBase, IClassFixture<AppUserUpdateTestsFixt
 {
 	#region Fields
 
+	private readonly AppUserUpdateTestsFixture _classFixture;
 	private readonly IAppUserApiClient _apiClient;
 	private readonly ITestOutputHelper _output;
 	private readonly Db _db;
-	private readonly DataSet _ds;
+	private readonly IDataManager _dataManager;
 
 	#endregion
 
@@ -56,13 +57,13 @@ public class AppUserUpdateTests : TestBase, IClassFixture<AppUserUpdateTestsFixt
 
 	public AppUserUpdateTests(AppUserUpdateTestsFixture classFixture, ITestOutputHelper output)
 	{
+		_classFixture = classFixture;
+		_output = output;
+
 		_apiClient = classFixture.ServiceProvider.GetRequiredService<IAppUserApiClient>();
 		_db = classFixture.ServiceProvider.GetRequiredService<IDbContextFactory>().CreateDbContext();
 		_output = output;
-
-		// Reset data each test run because we are adding/updating/deleting rows
-		var dataManager = classFixture.ServiceProvider.GetRequiredService<IDataManager>();
-		_ds = dataManager.ResetDataSet(DataSetType.Default).GetAwaiter().GetResult();
+		_dataManager = classFixture.ServiceProvider.GetRequiredService<IDataManager>();
 	}
 
 	public void Dispose()
@@ -119,24 +120,73 @@ public class AppUserUpdateTests : TestBase, IClassFixture<AppUserUpdateTestsFixt
 	public async Task Delete_Success()
 	{
 		// Arrange
-		var appUser = _db.AppUser.Skip(RndInt(0, _db.AppUser.ToList().Count)).First();
+		var ds = await _dataManager.ResetDataSet(DataSetType.Default);
+		var appUser = ds.AppUser.Skip(RndInt(0, ds.AppUser.ToList().Count)).First();
 		var id = appUser.Id;
 
 		// Act
 		var result = await _apiClient.DeleteAppUser(id);
 
 		// Assert
-		_db.ChangeTracker.Clear();
 		Assert.True(result);
 	}
 
+	[Fact]
+	public async Task Delete_NotFound()
+	{
+		// Arrange
+		var id = Guid.NewGuid();
+
+		// Act
+		var result = await _apiClient.DeleteAppUser(id);
+
+		// Assert
+		Assert.False(result);
+	}
+
 	#endregion
+
+	#region Update
+
+	[Fact]
+	public async Task FullUpdate_Success()
+	{
+		// Arrange
+		var appUser = _db.AppUser.Skip(RndInt(0, _db.AppUser.ToList().Count)).First();
+		appUser.IsEnabled = RndBool();
+		appUser.FirstName = RndStr(100);
+		appUser.LastName = RndStr(100);
+		appUser.Email = RndStr(200);
+		appUser.CompanyId = RndStr(10);
+		appUser.ExtId = RndStr(68);
+		appUser.GroupCode = RndInt();
+		appUser.UserType = RndEnum<UserType>();
+
+		// Act
+		await _apiClient.UpdateAppUser(appUser);
+
+		// Assert
+		var retAppUser = _db.AppUser.Find(appUser.Id);
+		Assert.Equal(retAppUser.Id, appUser.Id);
+		Assert.Equal(retAppUser.IsEnabled, appUser.IsEnabled);
+		Assert.Equal(retAppUser.FirstName, appUser.FirstName);
+		Assert.Equal(retAppUser.LastName, appUser.LastName);
+		Assert.Equal(retAppUser.Email, appUser.Email);
+		Assert.Equal(retAppUser.CompanyId, appUser.CompanyId);
+		Assert.Equal(retAppUser.ExtId, appUser.ExtId);
+		Assert.Equal(retAppUser.GroupCode, appUser.GroupCode);
+		Assert.Equal(retAppUser.UserType, appUser.UserType);
+	}
+
+	#endregion
+
 	// Helper Methods
 
 	private AppUser CreateAppUser()
 	{
 		return new AppUser {
 			Id = Guid.NewGuid(),
+			IsEnabled = RndBool(),
 			FirstName = RndStr(100),
 			LastName = RndStr(100),
 			Email = RndStr(200),

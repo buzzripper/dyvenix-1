@@ -426,3 +426,5 @@ baseline.json
 .angular/
 
 publish/
+
+src/App1.Server/Logs/

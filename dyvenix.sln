@@ -5,8 +5,6 @@ VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Server", "src\app1.server\App1.Server.csproj", "{822FE7CC-EE1A-4D57-B237-E2577E940946}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "App1.Client", "src\app1.client\App1.Client.esproj", "{8038CD7E-89FA-4F43-9704-ED7EAD042C77}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{069FCB1A-8D69-4C1F-A8ED-27F9C8BD5392}"
 	ProjectSection(SolutionItems) = preProject
 		scripts\Create_LogEvents_Table.sql = scripts\Create_LogEvents_Table.sql
@@ -18,8 +16,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Logging", "src\Dyvenix.Logging\Dyvenix.Logging.csproj", "{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ref", "ref", "{BB28E274-5BC9-4265-B8F0-886091D00A08}"
-EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "b2c-auth-sample", "src\b2c-auth-sample\b2c-auth-sample.esproj", "{3B42448E-5FE8-41CE-8F63-0B954CE871F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Auth.Core", "src\Dyvenix.Auth.Core\Dyvenix.Auth.Core.csproj", "{F2FCADA5-A069-493F-991B-5CBB6A58DB04}"
 EndProject

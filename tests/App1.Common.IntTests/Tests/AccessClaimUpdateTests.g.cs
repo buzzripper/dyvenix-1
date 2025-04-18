@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit.Abstractions;
+using Microsoft.EntityFrameworkCore; // needed
+using Microsoft.EntityFrameworkCore.Infrastructure;  // needed for GetDbConnection()
 using Dyvenix.Core.Tests;
 using Dyvenix.App1.Common.ApiClients;
 using Dyvenix.App1.Tests.Common.Data;
@@ -71,7 +73,7 @@ public class AccessClaimUpdateTests : TestBase, IClassFixture<AccessClaimUpdateT
 
 	#endregion
 
-	#region Create Tests
+	#region Create
 
 	[Fact]
 	public async Task Create_ValidId()
@@ -129,6 +131,22 @@ public class AccessClaimUpdateTests : TestBase, IClassFixture<AccessClaimUpdateT
 	}
 
 	#endregion
+
+	[Fact]
+	public async Task Delete_Success()
+	{
+		// Arrange
+		var accessClaim = _ds.AccessClaim.Skip(RndInt(0, _db.AccessClaim.ToList().Count)).First();
+		var id = accessClaim.Id;
+
+		// Act
+		await _apiClient.DeleteAccessClaim(id);
+
+		// Assert
+		_db.ChangeTracker.Clear();
+		var findAccessClaim = await _db.AccessClaim.FindAsync(id);
+		Assert.Null(findAccessClaim);
+	}
 
 }
 

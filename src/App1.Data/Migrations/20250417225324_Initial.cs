@@ -11,9 +11,6 @@ namespace Dyvenix.App1.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.EnsureSchema(
-                name: "Logs");
-
             migrationBuilder.CreateTable(
                 name: "AppUser",
                 columns: table => new
@@ -32,24 +29,6 @@ namespace Dyvenix.App1.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AppUser", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "LogEvents",
-                schema: "Logs",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Timestamp = table.Column<DateTime>(type: "datetime", nullable: false),
-                    Exception = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Application = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Source = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CorrelationId = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LogEvents", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -109,43 +88,6 @@ namespace Dyvenix.App1.Data.Migrations
                 name: "IX_AppUser_LastName",
                 table: "AppUser",
                 column: "LastName");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_LogEvent_Application",
-                schema: "Logs",
-                table: "LogEvents",
-                column: "Application");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_LogEvent_CorrelationId",
-                schema: "Logs",
-                table: "LogEvents",
-                column: "CorrelationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_LogEvent_Id",
-                schema: "Logs",
-                table: "LogEvents",
-                column: "Id",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_LogEvent_Message",
-                schema: "Logs",
-                table: "LogEvents",
-                column: "Message");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_LogEvent_Source",
-                schema: "Logs",
-                table: "LogEvents",
-                column: "Source");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_LogEvent_Timestamp",
-                schema: "Logs",
-                table: "LogEvents",
-                column: "Timestamp");
         }
 
         /// <inheritdoc />
@@ -153,10 +95,6 @@ namespace Dyvenix.App1.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AccessClaim");
-
-            migrationBuilder.DropTable(
-                name: "LogEvents",
-                schema: "Logs");
 
             migrationBuilder.DropTable(
                 name: "AppUser");

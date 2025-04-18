@@ -56,8 +56,8 @@ public class DataManager : IDataManager
 
 	private async Task DeleteAllData()
 	{
-		_db.AccessClaim.RemoveRange(await _db.AccessClaim.ToListAsync());
-		_db.AppUser.RemoveRange(await _db.AppUser.ToListAsync());
+		await _db.AccessClaim.ExecuteDeleteAsync();
+		await _db.AppUser.ExecuteDeleteAsync();
 
 		await _db.SaveChangesAsync();
 	}

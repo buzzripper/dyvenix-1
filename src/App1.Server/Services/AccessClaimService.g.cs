@@ -74,8 +74,7 @@ public class AccessClaimService : IAccessClaimService
 	public async Task DeleteAccessClaim(Guid id)
 	{
 		using var db = _dbContextFactory.CreateDbContext();
-
-		await db.AccessClaim.Where(a => a.Id == id).ExecuteDeleteAsync();
+		var count = await db.AccessClaim.Where(a => a.Id == id).ExecuteDeleteAsync();
 	}
 
 	#endregion

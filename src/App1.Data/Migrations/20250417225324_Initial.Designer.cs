@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dyvenix.App1.Data.Migrations
 {
     [DbContext(typeof(Db))]
-    [Migration("20250412153247_Initial")]
+    [Migration("20250417225324_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace Dyvenix.App1.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.2")
+                .HasAnnotation("ProductVersion", "9.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -116,56 +116,6 @@ namespace Dyvenix.App1.Data.Migrations
                     b.HasIndex(new[] { "LastName" }, "IX_AppUser_LastName");
 
                     b.ToTable("AppUser", (string)null);
-                });
-
-            modelBuilder.Entity("Dyvenix.App1.Common.Entities.LogEvent", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Application")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("CorrelationId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Exception")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Source")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("datetime");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Application" }, "IX_LogEvent_Application");
-
-                    b.HasIndex(new[] { "CorrelationId" }, "IX_LogEvent_CorrelationId");
-
-                    b.HasIndex(new[] { "Id" }, "IX_LogEvent_Id")
-                        .IsUnique();
-
-                    b.HasIndex(new[] { "Message" }, "IX_LogEvent_Message");
-
-                    b.HasIndex(new[] { "Source" }, "IX_LogEvent_Source");
-
-                    b.HasIndex(new[] { "Timestamp" }, "IX_LogEvent_Timestamp");
-
-                    b.ToTable("LogEvents", "Logs");
                 });
 
             modelBuilder.Entity("Dyvenix.App1.Common.Entities.AccessClaim", b =>

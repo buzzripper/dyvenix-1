@@ -10,9 +10,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{069FCB1A-8D69-4C1F-A8ED-27F9C8BD5392}"
 	ProjectSection(SolutionItems) = preProject
 		scripts\Create_LogEvents_Table.sql = scripts\Create_LogEvents_Table.sql
-		scripts\DbCreate_Init.sql = scripts\DbCreate_Init.sql
 		scripts\EF Commands.txt = scripts\EF Commands.txt
 		scripts\RunNodeSvr.bat = scripts\RunNodeSvr.bat
+		scripts\Working.sql = scripts\Working.sql
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Logging", "src\Dyvenix.Logging\Dyvenix.Logging.csproj", "{DC1B04BE-CC73-48E8-BBDC-BEF9B605AF22}"

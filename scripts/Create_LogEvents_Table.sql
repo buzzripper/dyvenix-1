@@ -37,8 +37,7 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = 'dyvenix_admin')
 BEGIN
     CREATE USER [dyvenix_admin] FOR LOGIN [dyvenix_admin] WITH DEFAULT_SCHEMA=[dbo]
-	ALTER ROLE db_datareader ADD MEMBER [dyvenix_admin];
-	ALTER ROLE db_datawriter ADD MEMBER [dyvenix_admin];
+	ALTER ROLE db_owner ADD MEMBER [dyvenix_admin];
 END
 
 IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = 'dyvenix_app')

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Server", "src\app1.server\App1.Server.csproj", "{822FE7CC-EE1A-4D57-B237-E2577E940946}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Server", "src\App1.Server\App1.Server.csproj", "{822FE7CC-EE1A-4D57-B237-E2577E940946}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{069FCB1A-8D69-4C1F-A8ED-27F9C8BD5392}"
 	ProjectSection(SolutionItems) = preProject
@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Auth.Core", "src\Dy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyvenix.Core", "src\Dyvenix.Core\Dyvenix.Core.csproj", "{531C104A-5592-43BB-9054-286E4A7C28BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Data", "src\app1.data\App1.Data.csproj", "{C6FE68A7-475D-40D1-9081-87A1AC2D3BC0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Data", "src\App1.Data\App1.Data.csproj", "{C6FE68A7-475D-40D1-9081-87A1AC2D3BC0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
@@ -53,7 +53,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		design\Model\Templates\Services.tmpl = design\Model\Templates\Services.tmpl
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Common", "src\app1.common\App1.Common.csproj", "{18042743-DB56-4917-8396-75906AC7A0AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Common", "src\App1.Common\App1.Common.csproj", "{18042743-DB56-4917-8396-75906AC7A0AB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Server.UnitTests", "tests\App1.Server.UnitTests\App1.Server.UnitTests.csproj", "{8B177353-D4ED-6B09-2A5F-2394209487D9}"
 EndProject
@@ -118,3 +118,4 @@ Global
 		SolutionGuid = {82B4D68F-4052-475A-B3AA-D6AECD147F3F}
 	EndGlobalSection
 EndGlobal
+
